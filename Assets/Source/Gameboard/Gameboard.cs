@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,14 +5,16 @@ public class Gameboard : MonoBehaviour
 {
     [SerializeField] private Transform _ground;
     [SerializeField] private Cell _cellTemplate;
+    [SerializeField] private Vector2Int _size;
+    [SerializeField] private CellContentSpawner _cellContentSpawner;
+    [SerializeField] private Transform _cellContentParent;
 
-    private Vector2Int _size;
     private Cell[] _cells;
     private Queue<Cell> _searchFrontier = new Queue<Cell>();
 
-    public void Initialize(Vector2Int size)
+    [ContextMenu("Generate map")]
+    public void Initialize()
     {
-        _size = size;
         _ground.localScale = new Vector3(_size.x, _size.y, 1f);
 
         Vector2 offSet = new Vector2((_size.x - 1f) * 0.5f, (_size.y - 1f) * 0.5f);
@@ -43,22 +44,38 @@ public class Gameboard : MonoBehaviour
                 {
                     cell.IsAlternative = !cell.IsAlternative;
                 }
+
+                cell.Content = _cellContentSpawner.Get(CellContentType.Empty, cell.transform);
             }
         }
 
-        FindPath();
+        _cells[_cells.Length / 2].BecomeDestination();
+
+        //FindPath();
     }
 
-    public void FindPath()
+    [ContextMenu("Find path")]
+    public bool FindPath()
     {
+        Debug.Log("Find path");
+
         foreach (var cell in _cells)
         {
-            cell.ClearPath();
+            if(cell.Content.Type == CellContentType.Destination)
+            {
+                cell.BecomeDestination();
+                _searchFrontier.Enqueue(cell);
+            }
+            else
+            {
+                cell.ClearPath();
+            }
         }
 
-        int destinationIndex = _cells.Length / 2;
-        _cells[destinationIndex].BecomeDestination();
-        _searchFrontier.Enqueue(_cells[destinationIndex]);
+        if (_searchFrontier.Count == 0)
+        {
+            return false; // Если карта без пунктов назначения.
+        }
 
         while(_searchFrontier.Count > 0)
         {
@@ -85,7 +102,35 @@ public class Gameboard : MonoBehaviour
 
         foreach (var cell in _cells)
         {
+            if(cell.HasPath == false)
+            {
+                return false;
+            }
+        }
+
+        foreach (var cell in _cells)
+        {
             cell.ShowPath();
         }
+
+        return true;
+    }
+
+    public Cell GetCell(Ray ray)
+    {
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit)) 
+        {
+            int x = (int)(hit.point.x + _size.x * 0.5f);
+            int y = (int)(hit.point.z + _size.y * 0.5f);
+
+            if(x >= 0 && x < _size.x && y >= 0 && y < _size.y)
+            {
+                return _cells[x + y * _size.x];
+            }
+        }
+
+        return null;
     }
 }

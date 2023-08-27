@@ -17,9 +17,29 @@ public class Cell : MonoBehaviour
     private Quaternion _eastRotation = Quaternion.Euler(90f, 90f, 0f);
     private Quaternion _southRotation = Quaternion.Euler(90f, 180f, 0f);
     private Quaternion _westRotation = Quaternion.Euler(90f, 270f, 0f);
+    private CellContent _content;
 
+    public Cell North => _north;
+    public Cell South => _south;
+    public Cell East => _east;
+    public Cell West => _west;
     public bool HasPath => _distance != int.MaxValue;
     public bool IsAlternative { get; set; }
+    public CellContent Content
+    {
+        get => _content;
+
+        set
+        {
+            if (_content != null) 
+            {
+                _content.Recycle();
+            }
+
+            _content = value;
+            _content.transform.localPosition = Vector3.zero;
+        }
+    }
 
     public static void MakeEastWestNeighbors(Cell east, Cell west)
     {
@@ -54,7 +74,7 @@ public class Cell : MonoBehaviour
 
         neighbor._distance = _distance + 1;
         neighbor._nextOnPath = this;
-        return neighbor;
+        return neighbor.Content.Type != CellContentType.Wall ? neighbor : null;
     }
 
     public Cell GrowPathNorth() => GrowPathTo(_north);
