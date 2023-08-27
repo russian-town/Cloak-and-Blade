@@ -5,24 +5,24 @@ using UnityEngine;
 public class Cell : MonoBehaviour
 {
     [SerializeField] private Transform _model;
+    [SerializeField] private Cell _north;
+    [SerializeField] private Cell _south;
+    [SerializeField] private Cell _east;
+    [SerializeField] private Cell _west;
+    [SerializeField] private Cell _nextOnPath;
+    [SerializeField] private CellContent _content;
 
-    private Cell _north;
-    private Cell _south;
-    private Cell _east;
-    private Cell _west;
-    private Cell _nextOnPath;
-    private List<Cell> _neighboringCells;
     private int _distance;
     private Quaternion _northRotation = Quaternion.Euler(90f, 0f, 0f);
     private Quaternion _eastRotation = Quaternion.Euler(90f, 90f, 0f);
     private Quaternion _southRotation = Quaternion.Euler(90f, 180f, 0f);
     private Quaternion _westRotation = Quaternion.Euler(90f, 270f, 0f);
-    private CellContent _content;
 
     public Cell North => _north;
     public Cell South => _south;
     public Cell East => _east;
     public Cell West => _west;
+    public Cell NextOnPath => _nextOnPath;
     public bool HasPath => _distance != int.MaxValue;
     public bool IsAlternative { get; set; }
     public CellContent Content

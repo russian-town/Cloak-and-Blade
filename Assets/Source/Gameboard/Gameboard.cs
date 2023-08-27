@@ -1,19 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteAlways]
 public class Gameboard : MonoBehaviour
 {
     [SerializeField] private Transform _ground;
     [SerializeField] private Cell _cellTemplate;
     [SerializeField] private Vector2Int _size;
     [SerializeField] private CellContentSpawner _cellContentSpawner;
-    [SerializeField] private Transform _cellContentParent;
-
-    private Cell[] _cells;
-    private Queue<Cell> _searchFrontier = new Queue<Cell>();
+    [SerializeField] private Cell[] _cells;
+    [SerializeField] private Queue<Cell> _searchFrontier = new Queue<Cell>();
 
     [ContextMenu("Generate map")]
-    public void Initialize()
+    private void GenerateMap()
     {
         _ground.localScale = new Vector3(_size.x, _size.y, 1f);
 
@@ -48,17 +47,11 @@ public class Gameboard : MonoBehaviour
                 cell.Content = _cellContentSpawner.Get(CellContentType.Empty, cell.transform);
             }
         }
-
-        _cells[_cells.Length / 2].BecomeDestination();
-
-        //FindPath();
     }
 
     [ContextMenu("Find path")]
     public bool FindPath()
     {
-        Debug.Log("Find path");
-
         foreach (var cell in _cells)
         {
             if(cell.Content.Type == CellContentType.Destination)
@@ -70,11 +63,6 @@ public class Gameboard : MonoBehaviour
             {
                 cell.ClearPath();
             }
-        }
-
-        if (_searchFrontier.Count == 0)
-        {
-            return false; // Если карта без пунктов назначения.
         }
 
         while(_searchFrontier.Count > 0)
@@ -97,14 +85,6 @@ public class Gameboard : MonoBehaviour
                     _searchFrontier.Enqueue(cell.GrowPahtSouth());
                     _searchFrontier.Enqueue(cell.GrowPathNorth());
                 }  
-            }
-        }
-
-        foreach (var cell in _cells)
-        {
-            if(cell.HasPath == false)
-            {
-                return false;
             }
         }
 
