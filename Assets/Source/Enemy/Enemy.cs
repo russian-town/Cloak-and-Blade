@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     private Cell _startCell;
     private Cell _wayPoint;
     private Player _player;
+    private Coroutine _movingCoroutine;
 
     private void OnDisable()
     {
@@ -28,7 +29,8 @@ public class Enemy : MonoBehaviour
         if (_startCell.NextOnPath == null)
             _startCell = _wayPoint;
 
-        StartCoroutine(StartMove());
+        if (_movingCoroutine == null)
+            _movingCoroutine = StartCoroutine(StartMove());
     }
 
     private IEnumerator StartMove()
@@ -39,6 +41,7 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
 
+        _movingCoroutine = null;
         _startCell = _startCell.NextOnPath;
     }
 }
