@@ -3,6 +3,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[ExecuteAlways]
 public class Gameboard : MonoBehaviour
 {
     [SerializeField] private Transform _ground;
@@ -13,7 +14,7 @@ public class Gameboard : MonoBehaviour
     [SerializeField] private Queue<Cell> _searchFrontier = new Queue<Cell>();
 
     [ContextMenu("Generate map")]
-    public void Initialize()
+    private void GenerateMap()
     {
         _ground.localScale = new Vector3(_size.x, _size.y, 1f);
 
@@ -53,8 +54,6 @@ public class Gameboard : MonoBehaviour
     [ContextMenu("Find path")]
     public bool FindPath()
     {
-        Debug.Log("Find path");
-
         foreach (var cell in _cells)
         {
             if(cell.Content.Type == CellContentType.Destination)
@@ -66,11 +65,6 @@ public class Gameboard : MonoBehaviour
             {
                 cell.ClearPath();
             }
-        }
-
-        if (_searchFrontier.Count == 0)
-        {
-            return false;
         }
 
         while(_searchFrontier.Count > 0)
