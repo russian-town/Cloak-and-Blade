@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [ExecuteAlways]
@@ -8,7 +10,7 @@ public class Gameboard : MonoBehaviour
     [SerializeField] private Cell _cellTemplate;
     [SerializeField] private Vector2Int _size;
     [SerializeField] private CellContentSpawner _cellContentSpawner;
-    [SerializeField] private Cell[] _cells;
+    [SerializeField] private List<Cell> _cells;
     [SerializeField] private Queue<Cell> _searchFrontier = new Queue<Cell>();
 
     [ContextMenu("Generate map")]
@@ -17,7 +19,7 @@ public class Gameboard : MonoBehaviour
         _ground.localScale = new Vector3(_size.x, _size.y, 1f);
 
         Vector2 offSet = new Vector2((_size.x - 1f) * 0.5f, (_size.y - 1f) * 0.5f);
-        _cells = new Cell[_size.x * _size.y];
+        _cells = new Cell[_size.x * _size.y].ToList();
 
         for (int i = 0, y = 0; y < _size.y; y++)
         {
