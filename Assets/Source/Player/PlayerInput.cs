@@ -1,22 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
     private Camera _camera;
     private Gameboard _gameboard;
-    private Cell _startCell;
+    private PlayerMover _mover;
 
     private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
 
-    private void HandleTouch()
+    private void Update()
     {
-        Cell targetCell = _gameboard.GetCell(TouchRay);
-
-        if (targetCell == _startCell.North || targetCell == _startCell.South || targetCell == _startCell.East || targetCell == _startCell.West)
+        if (Input.GetMouseButtonDown(0))
         {
+            Cell targetCell = _gameboard.GetCell(TouchRay);
 
+            if(targetCell == null) 
+            {
+                return;
+            }
+
+            _mover.Move(targetCell);
         }
+    }
+
+    public void Initialize(Gameboard gameboard, PlayerMover playerMover)
+    {
+        _camera = Camera.main;
+        _gameboard = gameboard;
+        _mover = playerMover;
     }
 }

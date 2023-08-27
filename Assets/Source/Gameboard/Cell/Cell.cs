@@ -5,7 +5,6 @@ using UnityEngine;
 public class Cell : MonoBehaviour
 {
     [SerializeField] private Transform _model;
-
     [SerializeField] private Cell _north;
     [SerializeField] private Cell _south;
     [SerializeField] private Cell _east;
@@ -23,6 +22,7 @@ public class Cell : MonoBehaviour
     public Cell South => _south;
     public Cell East => _east;
     public Cell West => _west;
+    public Cell NextOnPath => _nextOnPath;
     public bool HasPath => _distance != int.MaxValue;
     public bool IsAlternative { get; set; }
     public CellContent Content
