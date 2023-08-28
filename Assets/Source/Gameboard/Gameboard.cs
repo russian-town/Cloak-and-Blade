@@ -11,7 +11,8 @@ public class Gameboard : MonoBehaviour
     [SerializeField] private Vector2Int _size;
     [SerializeField] private CellContentSpawner _cellContentSpawner;
     [SerializeField] private Cell[] _cells;
-    [SerializeField] private Queue<Cell> _searchFrontier = new Queue<Cell>();
+
+    public Cell[] Cells => _cells;
 
     [ContextMenu("Generate map")]
     private void GenerateMap()
@@ -49,53 +50,6 @@ public class Gameboard : MonoBehaviour
                 cell.Content = _cellContentSpawner.Get(CellContentType.Empty, cell.transform);
             }
         }
-    }
-
-    [ContextMenu("Find path")]
-    public bool FindPath()
-    {
-        foreach (var cell in _cells)
-        {
-            if(cell.Content.Type == CellContentType.Destination)
-            {
-                cell.BecomeDestination();
-                _searchFrontier.Enqueue(cell);
-            }
-            else
-            {
-                cell.ClearPath();
-            }
-        }
-
-        while(_searchFrontier.Count > 0)
-        {
-            Cell cell = _searchFrontier.Dequeue();
-
-            if(cell != null)
-            {
-                if(cell.IsAlternative)
-                {
-                    _searchFrontier.Enqueue(cell.GrowPathNorth());
-                    _searchFrontier.Enqueue(cell.GrowPahtSouth());
-                    _searchFrontier.Enqueue(cell.GrowPathEast());
-                    _searchFrontier.Enqueue(cell.GrowPathWest());
-                }
-                else
-                {
-                    _searchFrontier.Enqueue(cell.GrowPathWest());
-                    _searchFrontier.Enqueue(cell.GrowPathEast());
-                    _searchFrontier.Enqueue(cell.GrowPahtSouth());
-                    _searchFrontier.Enqueue(cell.GrowPathNorth());
-                }  
-            }
-        }
-
-        foreach (var cell in _cells)
-        {
-            cell.ShowPath();
-        }
-
-        return true;
     }
 
     public Cell GetCell(Ray ray)
