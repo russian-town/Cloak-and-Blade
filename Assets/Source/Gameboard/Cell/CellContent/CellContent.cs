@@ -11,6 +11,12 @@ public class CellContent : MonoBehaviour
     {
         Spawner.Reclaim(this);
     }
+
+    public void BecomeWall() => _type = CellContentType.Wall;
+
+    public void BecomeEmpty() => _type = CellContentType.Empty;
+
+    public void BecomeDestination() => _type = CellContentType.Destination;
 }
 
 public enum CellContentType

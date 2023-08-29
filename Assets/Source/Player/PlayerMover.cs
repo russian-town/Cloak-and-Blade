@@ -7,6 +7,7 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _speed;
 
     private Cell _startCell;
+    private Coroutine _startMoveCoroutine;
 
     public event UnityAction MoveEnded;
 
@@ -19,7 +20,11 @@ public class PlayerMover : MonoBehaviour
     {
         if (targetCell == _startCell.East || targetCell == _startCell.West || targetCell == _startCell.North || targetCell == _startCell.South)
         {
-            StartCoroutine(StartMoveTo(targetCell));
+            if (_startMoveCoroutine == null && targetCell.Content.Type != CellContentType.Wall && targetCell.Content != null)
+            {
+                _startMoveCoroutine = StartCoroutine(StartMoveTo(targetCell));
+                print($"Trying to move to {targetCell}");
+            }
         }
     }
 
@@ -32,6 +37,7 @@ public class PlayerMover : MonoBehaviour
         }
 
         _startCell = targetCell;
+        _startMoveCoroutine = null;
         MoveEnded?.Invoke();
     }
 }
