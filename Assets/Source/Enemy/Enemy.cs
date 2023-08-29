@@ -7,109 +7,69 @@ using UnityEngine.UIElements;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private List<Cell> _cellOnPath;
     [SerializeField] private Cell _destination;
-    [SerializeField] private Queue<Cell> _searchFrontier = new Queue<Cell>();
-
-    private Gameboard _board;
     private Cell _startCell;
-    private Cell _wayPoint;
     private Player _player;
-    private Coroutine _movingCoroutine;
-    private Cell _currentDestination;
+    private Gameboard _gameboar;
+    private Cell _lastDestination;
+    private int _currentIndex;
 
     private void OnDisable()
     {
         _player.StepEnded -= OnStepEnded;
     }
 
-    public void Initialize(Cell startCell, Player player, Gameboard board)
+    public void Initialize(Cell startCell, Player player, Gameboard gameboard)
     {
-        _board = board; 
-        _wayPoint = startCell;
+        //_destination = startCell;
         _startCell = startCell;
         _player = player;
         _player.StepEnded += OnStepEnded;
-    }
-
-    public bool FindPath()
-    {
-        if(_currentDestination == null && _destination != null)
-        {
-            _destination.Content.BecomeDestination();
-            _currentDestination = _destination;
-        }
-        else if(_destination != null && _currentDestination != _destination)
-        {
-            _currentDestination.Content.BecomeEmpty();
-            _destination.Content.BecomeDestination();
-            _currentDestination = _destination;
-        }
-
-        foreach (var cell in _board.Cells)
-        {
-            if (cell.Content.Type == CellContentType.Destination)
-            {
-                cell.BecomeDestination();
-                _searchFrontier.Enqueue(cell);
-            }
-            else
-            {
-                cell.ClearPath();
-            }
-        }
-
-        while (_searchFrontier.Count > 0)
-        {
-            Cell cell = _searchFrontier.Dequeue();
-
-            if (cell != null)
-            {
-                if (cell.IsAlternative)
-                {
-                    _searchFrontier.Enqueue(cell.GrowPathNorth());
-                    _searchFrontier.Enqueue(cell.GrowPahtSouth());
-                    _searchFrontier.Enqueue(cell.GrowPathEast());
-                    _searchFrontier.Enqueue(cell.GrowPathWest());
-                }
-                else
-                {
-                    _searchFrontier.Enqueue(cell.GrowPathWest());
-                    _searchFrontier.Enqueue(cell.GrowPathEast());
-                    _searchFrontier.Enqueue(cell.GrowPahtSouth());
-                    _searchFrontier.Enqueue(cell.GrowPathNorth());
-                }
-            }
-        }
-
-        foreach (var cell in _board.Cells)
-        {
-            cell.ShowPath();
-        }
-
-        return true;
+        _gameboar = gameboard;
     }
 
     private void OnStepEnded()
     {
-        if (!FindPath())
-            FindPath();
+        if (_destination == null)
+            return;
+        
+        if (_destination != _lastDestination && _lastDestination != null)
+        {
+            _startCell = _cellOnPath[_currentIndex];
+            _currentIndex = 0;
+        }
 
-        if (_startCell.NextOnPath == null)
-            _startCell = _wayPoint;
+        if (_cellOnPath != null)
+            _cellOnPath.Clear();
 
-        if (_movingCoroutine == null && _destination != null)
-            _movingCoroutine = StartCoroutine(StartMove());
+        _gameboar.GeneratePath(out _cellOnPath, _destination, _startCell);
+
+        if (_currentIndex == _cellOnPath.Count)
+        {
+            _destination = _startCell;
+            _startCell = _cellOnPath[_currentIndex - 1];
+            _currentIndex = 0;
+            _gameboar.GeneratePath(out _cellOnPath, _destination, _startCell);
+        }
+
+        if (_cellOnPath.Count > 0)
+            StartCoroutine(StartMove());
+
+        _lastDestination = _destination;
     }
 
     private IEnumerator StartMove()
     {
-        while(transform.localPosition != _startCell.NextOnPath.transform.localPosition)
+        if (_cellOnPath[_currentIndex] == null)
+            yield break;
+
+        while (transform.localPosition != _cellOnPath[_currentIndex].transform.localPosition)
         {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, _startCell.NextOnPath.transform.localPosition, Time.deltaTime * _speed);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, _cellOnPath[_currentIndex].transform.localPosition, Time.deltaTime * _speed);
             yield return null;
         }
 
-        _movingCoroutine = null;
-        _startCell = _startCell.NextOnPath;
+        _currentIndex++;
     }
 }

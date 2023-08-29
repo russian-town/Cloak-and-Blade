@@ -12,17 +12,14 @@ public class PlayerInput : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            print("POop");
             Cell targetCell = _gameboard.GetCell(TouchRay);
 
             if(targetCell == null) 
             {
-                print("No target cell");
                 return;
             }
 
             _mover.Move(targetCell);
-            print("Moving");
         }
     }
 
