@@ -23,25 +23,25 @@ public class Gameboard : MonoBehaviour
 
         for (int i = 0, y = 0; y < _size.y; y++)
         {
-            for(int x = 0; x < _size.x; x++, i++)
+            for (int x = 0; x < _size.x; x++, i++)
             {
                 Cell cell = _cells[i] = Instantiate(_cellTemplate);
                 cell.transform.SetParent(transform, false);
                 cell.transform.localPosition = new Vector3(x - offSet.x, 0f, y - offSet.y);
 
-                if(x > 0)
+                if (x > 0)
                 {
                     Cell.MakeEastWestNeighbors(cell, _cells[i - 1]);
                 }
 
-                if(y > 0) 
+                if (y > 0)
                 {
                     Cell.MakeNorthSouthNeighbors(cell, _cells[i - _size.x]);
                 }
 
                 cell.IsAlternative = (x & 1) == 0;
 
-                if((y & 1) == 0)
+                if ((y & 1) == 0)
                 {
                     cell.IsAlternative = !cell.IsAlternative;
                 }
@@ -51,15 +51,30 @@ public class Gameboard : MonoBehaviour
         }
     }
 
-    [ContextMenu("Find path")]
-    public bool FindPath()
+    public void GeneratePath(out List<Cell> path, Cell destination, Cell startCell) => FindPath(destination, out path, startCell);
+
+    public bool FindPath(Cell destination, out List<Cell> path, Cell startCell)
     {
-        foreach (var cell in _cells)
+
+        //foreach (var cell in _cells)
+        //{
+        //    if (cell.Content.Type == CellContentType.Destination)
+        //    {
+        //        cell.BecomeDestination();
+        //        _searchFrontier.Enqueue(cell);
+        //    }
+        //    else
+        //    {
+        //        cell.ClearPath();
+        //    }
+        //}
+
+        foreach (Cell cell in _cells)
         {
-            if(cell.Content.Type == CellContentType.Destination)
+            if (cell == destination)
             {
-                cell.BecomeDestination();
-                _searchFrontier.Enqueue(cell);
+                destination.BecomeDestination();
+                _searchFrontier.Enqueue(destination);
             }
             else
             {
@@ -67,13 +82,15 @@ public class Gameboard : MonoBehaviour
             }
         }
 
-        while(_searchFrontier.Count > 0)
+        path = new List<Cell>();
+
+        while (_searchFrontier.Count > 0)
         {
             Cell cell = _searchFrontier.Dequeue();
 
-            if(cell != null)
+            if (cell != null)
             {
-                if(cell.IsAlternative)
+                if (cell.IsAlternative)
                 {
                     _searchFrontier.Enqueue(cell.GrowPathNorth());
                     _searchFrontier.Enqueue(cell.GrowPahtSouth());
@@ -86,13 +103,28 @@ public class Gameboard : MonoBehaviour
                     _searchFrontier.Enqueue(cell.GrowPathEast());
                     _searchFrontier.Enqueue(cell.GrowPahtSouth());
                     _searchFrontier.Enqueue(cell.GrowPathNorth());
-                }  
+                }
             }
         }
 
         foreach (var cell in _cells)
         {
             cell.ShowPath();
+        }
+
+        foreach (var cell in _cells)
+        {
+            Cell nextCell = startCell.NextOnPath;
+            startCell = nextCell;
+
+            if (nextCell != null)
+            {
+                path.Add(nextCell);
+            }
+            else
+            {
+                break;
+            }
         }
 
         return true;
@@ -102,12 +134,12 @@ public class Gameboard : MonoBehaviour
     {
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit)) 
+        if (Physics.Raycast(ray, out hit))
         {
             int x = (int)(hit.point.x + _size.x * 0.5f);
             int y = (int)(hit.point.z + _size.y * 0.5f);
 
-            if(x >= 0 && x < _size.x && y >= 0 && y < _size.y)
+            if (x >= 0 && x < _size.x && y >= 0 && y < _size.y)
             {
                 return _cells[x + y * _size.x];
             }
