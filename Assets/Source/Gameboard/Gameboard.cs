@@ -51,24 +51,10 @@ public class Gameboard : MonoBehaviour
         }
     }
 
-    public void GeneratePath(out List<Cell> path, Cell destination, Cell startCell) => FindPath(destination, out path, startCell);
+    public void GeneratePath(out List<Cell> path, out List<Quaternion> rotations, Cell destination, Cell startCell) => FindPath(destination, out path,out rotations, startCell);
 
-    public bool FindPath(Cell destination, out List<Cell> path, Cell startCell)
+    public bool FindPath(Cell destination, out List<Cell> path, out List<Quaternion> rotations, Cell startCell)
     {
-
-        //foreach (var cell in _cells)
-        //{
-        //    if (cell.Content.Type == CellContentType.Destination)
-        //    {
-        //        cell.BecomeDestination();
-        //        _searchFrontier.Enqueue(cell);
-        //    }
-        //    else
-        //    {
-        //        cell.ClearPath();
-        //    }
-        //}
-
         foreach (Cell cell in _cells)
         {
             if (cell == destination)
@@ -83,6 +69,7 @@ public class Gameboard : MonoBehaviour
         }
 
         path = new List<Cell>();
+        rotations = new List<Quaternion>();
 
         while (_searchFrontier.Count > 0)
         {
@@ -119,6 +106,7 @@ public class Gameboard : MonoBehaviour
 
             if (nextCell != null)
             {
+                rotations.Add(nextCell.Rotation);
                 path.Add(nextCell);
             }
             else
