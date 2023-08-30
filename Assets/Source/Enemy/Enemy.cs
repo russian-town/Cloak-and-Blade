@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
         if (_destination == null)
             return;
 
-        if (_destination != _lastDestination && _lastDestination != null)
+        if (_destination != _lastDestination && _lastDestination != null && _cellsOnPath.Count > 0)
         {
             print("Destination changed");
             _startCell = _cellsOnPath[_currentIndex - 1];
