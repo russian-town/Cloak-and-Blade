@@ -51,9 +51,9 @@ public class Gameboard : MonoBehaviour
         }
     }
 
-    public void GeneratePath(out List<Cell> path, out List<Quaternion> rotations, Cell destination, Cell startCell) => FindPath(destination, out path,out rotations, startCell);
+    public void GeneratePath(out List<Cell> path, Cell destination, Cell startCell) => FindPath(destination, out path, startCell);
 
-    public bool FindPath(Cell destination, out List<Cell> path, out List<Quaternion> rotations, Cell startCell)
+    public bool FindPath(Cell destination, out List<Cell> path,  Cell startCell)
     {
         foreach (Cell cell in _cells)
         {
@@ -69,7 +69,6 @@ public class Gameboard : MonoBehaviour
         }
 
         path = new List<Cell>();
-        rotations = new List<Quaternion>();
 
         while (_searchFrontier.Count > 0)
         {
@@ -105,14 +104,9 @@ public class Gameboard : MonoBehaviour
             startCell = nextCell;
 
             if (nextCell != null)
-            {
-                rotations.Add(nextCell.Rotation);
                 path.Add(nextCell);
-            }
             else
-            {
                 break;
-            }
         }
 
         return true;
@@ -128,9 +122,7 @@ public class Gameboard : MonoBehaviour
             int y = (int)(hit.point.z + _size.y * 0.5f);
 
             if (x >= 0 && x < _size.x && y >= 0 && y < _size.y)
-            {
                 return _cells[x + y * _size.x];
-            }
         }
 
         return null;

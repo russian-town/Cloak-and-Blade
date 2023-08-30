@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private List<Cell> _cellsOnPath;
-    [SerializeField] private List<Quaternion> _targetRotations;
     [SerializeField] private Cell _destination;
 
     private Cell _startCell;
@@ -17,7 +14,6 @@ public class Enemy : MonoBehaviour
     private Gameboard _gameboar;
     private Cell _lastDestination;
     private int _currentIndex;
-    private float _rotationProgress;
 
     private void OnDisable()
     {
@@ -42,7 +38,6 @@ public class Enemy : MonoBehaviour
             print("Destination changed");
             _startCell = _cellsOnPath[_currentIndex - 1];
             _currentIndex = 0;
-            _gameboar.GeneratePath(out _cellsOnPath, out _targetRotations, _destination, _startCell);
         }
         else if (_cellsOnPath.Count > 0 && _currentIndex == _cellsOnPath.Count)
         {
@@ -50,19 +45,17 @@ public class Enemy : MonoBehaviour
             _destination = _startCell;
             _startCell = _cellsOnPath[_currentIndex - 1];
             _currentIndex = 0;
-            _gameboar.GeneratePath(out _cellsOnPath, out _targetRotations, _destination, _startCell);
         }
-        else
-        {
-            print("Common move towards destination");
-            _gameboar.GeneratePath(out _cellsOnPath, out _targetRotations, _destination, _startCell);
-        }
+
+        _gameboar.GeneratePath(out _cellsOnPath,  _destination, _startCell);
 
         if (_cellsOnPath.Count > 0)
         {
             print("Startingmove");
             StartCoroutine(StartMove());
         }
+
+        _lastDestination = _destination;
     }
 
     private IEnumerator StartMove()
