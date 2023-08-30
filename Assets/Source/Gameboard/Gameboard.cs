@@ -53,22 +53,8 @@ public class Gameboard : MonoBehaviour
 
     public void GeneratePath(out List<Cell> path, Cell destination, Cell startCell) => FindPath(destination, out path, startCell);
 
-    public bool FindPath(Cell destination, out List<Cell> path, Cell startCell)
+    public bool FindPath(Cell destination, out List<Cell> path,  Cell startCell)
     {
-
-        //foreach (var cell in _cells)
-        //{
-        //    if (cell.Content.Type == CellContentType.Destination)
-        //    {
-        //        cell.BecomeDestination();
-        //        _searchFrontier.Enqueue(cell);
-        //    }
-        //    else
-        //    {
-        //        cell.ClearPath();
-        //    }
-        //}
-
         foreach (Cell cell in _cells)
         {
             if (cell == destination)
@@ -118,13 +104,9 @@ public class Gameboard : MonoBehaviour
             startCell = nextCell;
 
             if (nextCell != null)
-            {
                 path.Add(nextCell);
-            }
             else
-            {
                 break;
-            }
         }
 
         return true;
@@ -140,9 +122,7 @@ public class Gameboard : MonoBehaviour
             int y = (int)(hit.point.z + _size.y * 0.5f);
 
             if (x >= 0 && x < _size.x && y >= 0 && y < _size.y)
-            {
                 return _cells[x + y * _size.x];
-            }
         }
 
         return null;

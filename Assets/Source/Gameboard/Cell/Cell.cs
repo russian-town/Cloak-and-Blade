@@ -25,6 +25,7 @@ public class Cell : MonoBehaviour
     public Cell NextOnPath => _nextOnPath;
     public bool HasPath => _distance != int.MaxValue;
     public bool IsAlternative { get; set; }
+    public Quaternion Rotation => _model.transform.localRotation;
     public CellContent Content
     {
         get => _content;
