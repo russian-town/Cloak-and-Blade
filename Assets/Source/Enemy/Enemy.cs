@@ -36,26 +36,25 @@ public class Enemy : MonoBehaviour
     {
         if (_destination == null)
             return;
-        
+
         if (_destination != _lastDestination && _lastDestination != null)
         {
-            _startCell = _cellsOnPath[_currentIndex];
+            print("Destination changed");
+            _startCell = _cellsOnPath[_currentIndex - 1];
             _currentIndex = 0;
+            _gameboar.GeneratePath(out _cellsOnPath, out _targetRotations, _destination, _startCell);
         }
-
-        if (_cellsOnPath != null)
+        else if (_cellsOnPath.Count > 0 && _currentIndex == _cellsOnPath.Count)
         {
-            _cellsOnPath.Clear();
-            _targetRotations.Clear();
-        }
-
-        _gameboar.GeneratePath(out _cellsOnPath, out _targetRotations, _destination, _startCell);
-
-        if (_currentIndex == _cellsOnPath.Count)
-        {
+            print("Reached destination");
             _destination = _startCell;
             _startCell = _cellsOnPath[_currentIndex - 1];
             _currentIndex = 0;
+            _gameboar.GeneratePath(out _cellsOnPath, out _targetRotations, _destination, _startCell);
+        }
+        else
+        {
+            print("Common move towards destination");
             _gameboar.GeneratePath(out _cellsOnPath, out _targetRotations, _destination, _startCell);
         }
 
@@ -64,8 +63,6 @@ public class Enemy : MonoBehaviour
             print("Startingmove");
             StartCoroutine(StartMove());
         }
-
-        _lastDestination = _destination;
     }
 
     private IEnumerator StartMove()
@@ -73,7 +70,7 @@ public class Enemy : MonoBehaviour
         if (_cellsOnPath[_currentIndex] == null)
             yield break;
 
-        /*Vector3 rotationTarget = _cellsOnPath[_currentIndex].transform.position - transform.position;
+        Vector3 rotationTarget = _cellsOnPath[_currentIndex].transform.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(rotationTarget, Vector3.up);
 
         while (transform.rotation != targetRotation)
@@ -81,7 +78,7 @@ public class Enemy : MonoBehaviour
             print("Rotating");
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
             yield return null;
-        }*/
+        }
 
         while (transform.localPosition != _cellsOnPath[_currentIndex].transform.localPosition)
         {
