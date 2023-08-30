@@ -33,23 +33,25 @@ public class Enemy : MonoBehaviour
     {
         if (_destination == null)
             return;
-        
+
         if (_destination != _lastDestination && _lastDestination != null)
         {
-            _startCell = _cellOnPath[_currentIndex];
+            print("Destination changed");
+            _startCell = _cellOnPath[_currentIndex - 1];
             _currentIndex = 0;
+            _gameboar.GeneratePath(out _cellOnPath, _destination, _startCell);
         }
-
-        if (_cellOnPath != null)
-            _cellOnPath.Clear();
-
-        _gameboar.GeneratePath(out _cellOnPath, _destination, _startCell);
-
-        if (_currentIndex == _cellOnPath.Count)
+        else if (_cellOnPath.Count > 0 && _currentIndex == _cellOnPath.Count)
         {
+            print("Reached destination");
             _destination = _startCell;
             _startCell = _cellOnPath[_currentIndex - 1];
             _currentIndex = 0;
+            _gameboar.GeneratePath(out _cellOnPath, _destination, _startCell);
+        }
+        else
+        {
+            print("Common move towards destination");
             _gameboar.GeneratePath(out _cellOnPath, _destination, _startCell);
         }
 
