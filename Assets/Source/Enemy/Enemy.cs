@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _rotateSpeed;
-    [SerializeField] private List<Cell> _cellOnPath;
+    [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _rotationSpeed;
+    [SerializeField] private List<Cell> _cellsOnPath;
     [SerializeField] private List<Quaternion> _targetRotations;
     [SerializeField] private Cell _destination;
 
@@ -15,6 +17,7 @@ public class Enemy : MonoBehaviour
     private Gameboard _gameboar;
     private Cell _lastDestination;
     private int _currentIndex;
+    private float _rotationProgress;
 
     private void OnDisable()
     {
@@ -23,7 +26,6 @@ public class Enemy : MonoBehaviour
 
     public void Initialize(Cell startCell, Player player, Gameboard gameboard)
     {
-        //_destination = startCell;
         _startCell = startCell;
         _player = player;
         _player.StepEnded += OnStepEnded;
@@ -37,43 +39,53 @@ public class Enemy : MonoBehaviour
         
         if (_destination != _lastDestination && _lastDestination != null)
         {
-            _startCell = _cellOnPath[_currentIndex];
-            transform.localRotation = _targetRotations[_currentIndex];
+            _startCell = _cellsOnPath[_currentIndex];
             _currentIndex = 0;
         }
 
-        if (_cellOnPath != null)
+        if (_cellsOnPath != null)
         {
-            _cellOnPath.Clear();
+            _cellsOnPath.Clear();
             _targetRotations.Clear();
         }
 
-        _gameboar.GeneratePath(out _cellOnPath, out _targetRotations, _destination, _startCell);
+        _gameboar.GeneratePath(out _cellsOnPath, out _targetRotations, _destination, _startCell);
 
-        if (_currentIndex == _cellOnPath.Count)
+        if (_currentIndex == _cellsOnPath.Count)
         {
             _destination = _startCell;
-            _startCell = _cellOnPath[_currentIndex - 1];
-            transform.localRotation = _targetRotations[_currentIndex - 1];
+            _startCell = _cellsOnPath[_currentIndex - 1];
             _currentIndex = 0;
-            _gameboar.GeneratePath(out _cellOnPath, out _targetRotations, _destination, _startCell);
+            _gameboar.GeneratePath(out _cellsOnPath, out _targetRotations, _destination, _startCell);
         }
 
-        if (_cellOnPath.Count > 0)
+        if (_cellsOnPath.Count > 0)
+        {
+            print("Startingmove");
             StartCoroutine(StartMove());
+        }
 
         _lastDestination = _destination;
     }
 
     private IEnumerator StartMove()
     {
-        if (_cellOnPath[_currentIndex] == null)
+        if (_cellsOnPath[_currentIndex] == null)
             yield break;
 
-        while (transform.localPosition != _cellOnPath[_currentIndex].transform.localPosition)
+        /*Vector3 rotationTarget = _cellsOnPath[_currentIndex].transform.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(rotationTarget, Vector3.up);
+
+        while (transform.rotation != targetRotation)
         {
-            transform.localRotation = _targetRotations[_currentIndex];
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, _cellOnPath[_currentIndex].transform.localPosition, Time.deltaTime * _moveSpeed);
+            print("Rotating");
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            yield return null;
+        }*/
+
+        while (transform.localPosition != _cellsOnPath[_currentIndex].transform.localPosition)
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, _cellsOnPath[_currentIndex].transform.localPosition, Time.deltaTime * _movementSpeed);
             yield return null;
         }
 
