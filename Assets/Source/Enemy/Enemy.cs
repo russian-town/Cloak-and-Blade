@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
         _gameboar = gameboard;
     }
 
+    public void ClearDestination() => _destination = null;
+
     private void OnStepEnded()
     {
         if (_destination == null)
