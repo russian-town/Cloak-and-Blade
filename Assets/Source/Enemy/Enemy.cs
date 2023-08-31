@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -8,12 +11,21 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private List<Cell> _cellsOnPath;
     [SerializeField] private Cell _destination;
-
+    [SerializeField] private EnemySightHandler _sightHandler;
+    [SerializeField] private Transform _transform;
+ 
     private Cell _startCell;
     private Player _player;
-    private Gameboard _gameboar;
+    private Gameboard _gameBoard;
     private Cell _lastDestination;
     private int _currentIndex;
+    private int _north = 0;
+    private int _fakeNorth = 360;
+    private int _east = 90;
+    private int _south = 180;
+    private int _west = 270;
+
+    public Gameboard Gameboard => _gameBoard;
 
     private void OnDisable()
     {
@@ -25,7 +37,31 @@ public class Enemy : MonoBehaviour
         _startCell = startCell;
         _player = player;
         _player.StepEnded += OnStepEnded;
-        _gameboar = gameboard;
+        _gameBoard = gameboard;
+    }
+
+    private void GenerateSight(Cell currentCell)
+    {
+        if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _north || (int)Mathf.Round(transform.rotation.eulerAngles.y) == _fakeNorth)
+        {
+            print("Generating north");
+            _sightHandler.GenerateSight(currentCell, currentCell.North);
+        }
+        else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _east)
+        {
+            print("Generating east");
+            _sightHandler.GenerateSight(currentCell, currentCell.East);
+        }
+        else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _south)
+        {
+            print("Generating south");
+            _sightHandler.GenerateSight(currentCell, currentCell.South);
+        }
+        else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _west)
+        {
+            print("Generating straight");
+            _sightHandler.GenerateSight(currentCell, currentCell.West);
+        }
     }
 
     private void OnStepEnded()
@@ -33,7 +69,7 @@ public class Enemy : MonoBehaviour
         if (_destination == null)
             return;
 
-        if (_destination != _lastDestination && _lastDestination != null)
+        if (_destination != _lastDestination && _lastDestination != null && _cellsOnPath.Count > 0)
         {
             print("Destination changed");
             _startCell = _cellsOnPath[_currentIndex - 1];
@@ -47,7 +83,7 @@ public class Enemy : MonoBehaviour
             _currentIndex = 0;
         }
 
-        _gameboar.GeneratePath(out _cellsOnPath,  _destination, _startCell);
+        _gameBoard.GeneratePath(out _cellsOnPath,  _destination, _startCell);
 
         if (_cellsOnPath.Count > 0)
         {
@@ -63,8 +99,11 @@ public class Enemy : MonoBehaviour
         if (_cellsOnPath[_currentIndex] == null)
             yield break;
 
-        Vector3 rotationTarget = _cellsOnPath[_currentIndex].transform.position - transform.position;
+        Vector3 rotationTarget = _cellsOnPath[_currentIndex ].transform.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(rotationTarget, Vector3.up);
+
+        if(transform.rotation != targetRotation)
+            _sightHandler.ClearSight();
 
         while (transform.rotation != targetRotation)
         {
@@ -72,6 +111,9 @@ public class Enemy : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
             yield return null;
         }
+
+        if (_cellsOnPath.Count > 0)
+            GenerateSight(_cellsOnPath[_currentIndex]);
 
         while (transform.localPosition != _cellsOnPath[_currentIndex].transform.localPosition)
         {
