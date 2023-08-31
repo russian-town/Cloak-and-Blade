@@ -25,6 +25,7 @@ public class Root : MonoBehaviour
 
     private void Initialize()
     {
+        _gameboard.SetDefaultCellColor();
         _player = _playerSpawner.Get(_playerSpawnCell, _playerTemplate);
         _player.Initialize(_gameboard, _playerSpawnCell);
         _angledCamera.Follow = _player.transform;
