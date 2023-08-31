@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
-[ExecuteAlways]
 public class Gameboard : MonoBehaviour
 {
     [SerializeField] private Transform _ground;
@@ -12,6 +10,8 @@ public class Gameboard : MonoBehaviour
     [SerializeField] private CellContentSpawner _cellContentSpawner;
     [SerializeField] private List<Cell> _cells;
     [SerializeField] private Queue<Cell> _searchFrontier = new Queue<Cell>();
+    [SerializeField] private Color _wallColor = Color.red;
+    [SerializeField] private Color _emptyColor;
 
     [ContextMenu("Generate map")]
     private void GenerateMap()
@@ -49,6 +49,22 @@ public class Gameboard : MonoBehaviour
                 cell.Content = _cellContentSpawner.Get(CellContentType.Empty, cell.transform);
             }
         }
+    }
+
+    public void SetDefaultCellColor()
+    {
+        foreach (var cell in _cells)
+        {
+           SetDefaultCellColor(cell);
+        }
+    }
+
+    public void SetDefaultCellColor(Cell cell)
+    {
+        if (cell.Content.Type == CellContentType.Wall)
+            cell.Initialize(_wallColor);
+        else
+            cell.Initialize(_emptyColor);
     }
 
     public void GeneratePath(out List<Cell> path, Cell destination, Cell startCell) => FindPath(destination, out path, startCell);

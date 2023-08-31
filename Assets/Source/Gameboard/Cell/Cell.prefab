@@ -45,7 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35e68de8b12356344a4eb9566937f93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _model: {fileID: 3211850343045136805}
+  _model: {fileID: 1770995548238844636}
+  _north: {fileID: 0}
+  _south: {fileID: 0}
+  _east: {fileID: 0}
+  _west: {fileID: 0}
+  _nextOnPath: {fileID: 0}
+  _content: {fileID: 0}
+  _startColor: {r: 0.5372549, g: 1, b: 0, a: 1}
 --- !u!1 &4127317879142770679
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,6 +65,7 @@ GameObject:
   - component: {fileID: 2379326843882062632}
   - component: {fileID: 9001682965799038673}
   - component: {fileID: 4050849736788509733}
+  - component: {fileID: 1770995548238844636}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -152,3 +160,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1770995548238844636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4127317879142770679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e22aad147f63ba4f8241d0e38abd787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

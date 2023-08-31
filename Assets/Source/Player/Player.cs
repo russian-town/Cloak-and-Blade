@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
         _input = GetComponent<PlayerInput>();
-        _mover.Initialize(_startCell);
+        _mover.Initialize(_startCell, _gameboard);
         _input.Initialize(_gameboard, _mover);
         _mover.MoveEnded += OnMoveEnded;
     }
