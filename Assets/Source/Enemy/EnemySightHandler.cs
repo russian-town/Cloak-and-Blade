@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -25,8 +26,11 @@ public class EnemySightHandler : MonoBehaviour
         {
             for (int i = 0; i < _sightRange; i++)
             {
-                _cellsInStraightSight.Add(currentCell.North);
-                currentCell = currentCell.North;
+                if (currentCell.North != null && currentCell.North.Content.Type != CellContentType.Wall)
+                {
+                    _cellsInStraightSight.Add(currentCell.North);
+                    currentCell = currentCell.North;
+                }
             }
 
             if(_cellsInStraightSight.Count > 0)
@@ -41,18 +45,21 @@ public class EnemySightHandler : MonoBehaviour
                     Cell westCell = _cellsInStraightSight[i];
                     Cell eastCell = _cellsInStraightSight[i];
 
+                    /*BuildeSides(temp, ref westCell, westCell.West, i);
+                    BuildeSides(temp, ref eastCell, eastCell.East, i);*/
+
                     for (int j = 0; j < i; j++)
                     {
-                        if (westCell.West != null)
+                        if (westCell.West != null && westCell.West.Content.Type != CellContentType.Wall)
                         {
                             temp.Add(westCell.West);
-                            westCell = _cellsInStraightSight[i].West;
+                            westCell = westCell.West;
                         }
 
-                        if (westCell.East != null)
+                        if (eastCell.East != null && eastCell.East.Content.Type != CellContentType.Wall)
                         {
                             temp.Add(eastCell.East);
-                            eastCell = _cellsInStraightSight[i].East;
+                            eastCell = eastCell.East;
                         }
                     }
                 }
@@ -150,6 +157,18 @@ public class EnemySightHandler : MonoBehaviour
                 _enemy.Gameboard.SetDefaultCellColor(cell);
 
             _cellsInStraightSight.Clear();
+        }
+    }
+
+    private void BuildeSides(List<Cell> tempList, ref Cell cell, Cell sideCell, int i)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            if (sideCell != null)
+            {
+                tempList.Add(sideCell);
+                cell = sideCell;
+            }
         }
     }
 
