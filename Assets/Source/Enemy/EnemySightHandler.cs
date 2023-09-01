@@ -33,7 +33,7 @@ public class EnemySightHandler : MonoBehaviour
                 }
             }
 
-            if(_cellsInStraightSight.Count > 0)
+            if (_cellsInStraightSight.Count > 0)
             {
                 List<Cell> temp = new List<Cell>();
 
@@ -45,104 +45,116 @@ public class EnemySightHandler : MonoBehaviour
                     Cell westCell = _cellsInStraightSight[i];
                     Cell eastCell = _cellsInStraightSight[i];
 
-                    /*BuildeSides(temp, ref westCell, westCell.West, i);
-                    BuildeSides(temp, ref eastCell, eastCell.East, i);*/
-
                     for (int j = 0; j < i; j++)
                     {
-                        if (westCell.West != null && westCell.West.Content.Type != CellContentType.Wall)
-                        {
-                            temp.Add(westCell.West);
-                            westCell = westCell.West;
-                        }
-
-                        if (eastCell.East != null && eastCell.East.Content.Type != CellContentType.Wall)
-                        {
-                            temp.Add(eastCell.East);
-                            eastCell = eastCell.East;
-                        }
+                        BuildeSide(temp, ref westCell, westCell.West);
+                        BuildeSide(temp, ref eastCell, eastCell.East);
                     }
                 }
 
                 _cellsInStraightSight.AddRange(temp);
             }
-
-            //for (int i = 0; i < _cellsInStraightSight.Count; i++)
-            //{
-            //    if (i == 0)
-            //        continue;
-
-            //    Cell westCell = _cellsInStraightSight[i].West;
-            //    Cell eastCell = _cellsInStraightSight[i].East;
-
-            //    if (westCell != null)
-            //        _cellsInStraightSight.Add(westCell);
-
-            //    if (eastCell != null)
-            //        _cellsInStraightSight.Add(eastCell);
-            //}
         }
 
         if (currentCell.South == facingCell)
         {
-            _cellsInStraightSight.Add(currentCell);
-
             for (int i = 0; i < _sightRange; i++)
             {
-                if (_cellsInStraightSight[i].South == null || _cellsInStraightSight[i].South.Content.Type == CellContentType.Wall)
-                    break;
+                if (currentCell.South != null && currentCell.South.Content.Type != CellContentType.Wall)
+                {
+                    _cellsInStraightSight.Add(currentCell.South);
+                    currentCell = currentCell.South;
+                }
+            }
 
-                _cellsInStraightSight.Add(_cellsInStraightSight[i].South);
+            if (_cellsInStraightSight.Count > 0)
+            {
+                List<Cell> temp = new List<Cell>();
 
-                for (int j = 0; j < i; j++)
-                    if(_cellsInStraightSight[i].South.East.Content.Type != CellContentType.Wall)
-                    _cellsInStraightSight.Add(_cellsInStraightSight[i].South.East);
+                for (int i = 0; i < _cellsInStraightSight.Count; i++)
+                {
+                    if (i == 0)
+                        continue;
 
-                for (int k = 0; k < i; k++)
-                    if (_cellsInStraightSight[i].South.West.Content.Type != CellContentType.Wall)
-                        _cellsInStraightSight.Add(_cellsInStraightSight[i].South.West);
+                    Cell westCell = _cellsInStraightSight[i];
+                    Cell eastCell = _cellsInStraightSight[i];
+
+                    for (int j = 0; j < i; j++)
+                    {
+                        BuildeSide(temp, ref westCell, westCell.West);
+                        BuildeSide(temp, ref eastCell, eastCell.East);
+                    }
+                }
+
+                _cellsInStraightSight.AddRange(temp);
             }
         }
 
         if (currentCell.West == facingCell)
         {
-            _cellsInStraightSight.Add(currentCell);
-
             for (int i = 0; i < _sightRange; i++)
             {
-                if (_cellsInStraightSight[i].West == null || _cellsInStraightSight[i].West.Content.Type == CellContentType.Wall)
-                    break;
+                if (currentCell.West != null && currentCell.West.Content.Type != CellContentType.Wall)
+                {
+                    _cellsInStraightSight.Add(currentCell.West);
+                    currentCell = currentCell.West;
+                }
+            }
 
-                _cellsInStraightSight.Add(_cellsInStraightSight[i].West);
+            if (_cellsInStraightSight.Count > 0)
+            {
+                List<Cell> temp = new List<Cell>();
 
-                for (int j = 0; j < i; j++)
-                    if (_cellsInStraightSight[i].West.North.Content.Type != CellContentType.Wall)
-                        _cellsInStraightSight.Add(_cellsInStraightSight[i].West.North);
+                for (int i = 0; i < _cellsInStraightSight.Count; i++)
+                {
+                    if (i == 0)
+                        continue;
 
-                for (int k = 0; k < i; k++)
-                    if (_cellsInStraightSight[i].West.North.Content.Type != CellContentType.Wall)
-                        _cellsInStraightSight.Add(_cellsInStraightSight[i].West.South);
+                    Cell northCell = _cellsInStraightSight[i];
+                    Cell southCell = _cellsInStraightSight[i];
+
+                    for (int j = 0; j < i; j++)
+                    {
+                        BuildeSide(temp, ref northCell, northCell.North);
+                        BuildeSide(temp, ref southCell, southCell.South);
+                    }
+                }
+
+                _cellsInStraightSight.AddRange(temp);
             }
         }
 
         if (currentCell.East == facingCell)
         {
-            _cellsInStraightSight.Add(currentCell);
-
             for (int i = 0; i < _sightRange; i++)
             {
-                if (_cellsInStraightSight[i].East == null || _cellsInStraightSight[i].East.Content.Type == CellContentType.Wall)
-                    break;
+                if (currentCell.East != null && currentCell.East.Content.Type != CellContentType.Wall)
+                {
+                    _cellsInStraightSight.Add(currentCell.East);
+                    currentCell = currentCell.East;
+                }
+            }
 
-                _cellsInStraightSight.Add(_cellsInStraightSight[i].East);
+            if (_cellsInStraightSight.Count > 0)
+            {
+                List<Cell> temp = new List<Cell>();
 
-                for (int j = 0; j < i; j++)
-                    if (_cellsInStraightSight[i].East.North.Content.Type != CellContentType.Wall)
-                        _cellsInStraightSight.Add(_cellsInStraightSight[i].East.North);
+                for (int i = 0; i < _cellsInStraightSight.Count; i++)
+                {
+                    if (i == 0)
+                        continue;
 
-                for (int k = 0; k < i; k++)
-                    if (_cellsInStraightSight[i].East.South.Content.Type != CellContentType.Wall)
-                        _cellsInStraightSight.Add(_cellsInStraightSight[i].East.South);
+                    Cell northCell = _cellsInStraightSight[i];
+                    Cell southCell = _cellsInStraightSight[i];
+
+                    for (int j = 0; j < i; j++)
+                    {
+                        BuildeSide(temp, ref northCell, northCell.North);
+                        BuildeSide(temp, ref southCell, southCell.South);
+                    }
+                }
+
+                _cellsInStraightSight.AddRange(temp);
             }
         }
 
@@ -160,15 +172,12 @@ public class EnemySightHandler : MonoBehaviour
         }
     }
 
-    private void BuildeSides(List<Cell> tempList, ref Cell cell, Cell sideCell, int i)
+    private void BuildeSide(List<Cell> tempList, ref Cell cell, Cell sideCell)
     {
-        for (int j = 0; j < i; j++)
+        if (sideCell != null && sideCell.Content.Type != CellContentType.Wall)
         {
-            if (sideCell != null)
-            {
-                tempList.Add(sideCell);
-                cell = sideCell;
-            }
+            tempList.Add(sideCell);
+            cell = sideCell;
         }
     }
 
