@@ -9,12 +9,11 @@ public class EnemySightHandler : MonoBehaviour
     [SerializeField] private int _sightRange;
 
     private Enemy _enemy;
-    private List<Cell> _cellsInStraightSight = new List<Cell>();
-    private List<Cell> _generatedSight = new List<Cell>();
+    private List<Cell> _cellsInSight = new List<Cell>();
 
     private void Start()
     {
-        _cellsInStraightSight = new List<Cell>();
+        _cellsInSight = new List<Cell>();
         _enemy = GetComponent<Enemy>();
     }
 
@@ -24,26 +23,28 @@ public class EnemySightHandler : MonoBehaviour
 
         if (currentCell.North == facingCell)
         {
+            print("Facing north");
             for (int i = 0; i < _sightRange; i++)
             {
-                if (currentCell.North != null && currentCell.North.Content.Type != CellContentType.Wall)
+                if (currentCell.North == null || currentCell.North.Content.Type == CellContentType.Wall)
                 {
-                    _cellsInStraightSight.Add(currentCell.North);
+                    break;
+                }
+                else
+                {
+                    _cellsInSight.Add(currentCell.North);
                     currentCell = currentCell.North;
                 }
             }
 
-            if (_cellsInStraightSight.Count > 0)
+            if (_cellsInSight.Count > 0)
             {
                 List<Cell> temp = new List<Cell>();
 
-                for (int i = 0; i < _cellsInStraightSight.Count; i++)
+                for (int i = 0; i < _cellsInSight.Count; i++)
                 {
-                    if (i == 0)
-                        continue;
-
-                    Cell westCell = _cellsInStraightSight[i];
-                    Cell eastCell = _cellsInStraightSight[i];
+                    Cell westCell = _cellsInSight[i];
+                    Cell eastCell = _cellsInSight[i];
 
                     for (int j = 0; j < i; j++)
                     {
@@ -52,32 +53,34 @@ public class EnemySightHandler : MonoBehaviour
                     }
                 }
 
-                _cellsInStraightSight.AddRange(temp);
+                _cellsInSight.AddRange(temp);
             }
         }
 
-        if (currentCell.South == facingCell)
+        else if (currentCell.South == facingCell)
         {
+            print("Facing south");
             for (int i = 0; i < _sightRange; i++)
             {
-                if (currentCell.South != null && currentCell.South.Content.Type != CellContentType.Wall)
+                if (currentCell.South == null || currentCell.South.Content.Type == CellContentType.Wall)
                 {
-                    _cellsInStraightSight.Add(currentCell.South);
+                    break;
+                }
+                else
+                {
+                    _cellsInSight.Add(currentCell.South);
                     currentCell = currentCell.South;
                 }
             }
 
-            if (_cellsInStraightSight.Count > 0)
+            if (_cellsInSight.Count > 0)
             {
                 List<Cell> temp = new List<Cell>();
 
-                for (int i = 0; i < _cellsInStraightSight.Count; i++)
+                for (int i = 0; i < _cellsInSight.Count; i++)
                 {
-                    if (i == 0)
-                        continue;
-
-                    Cell westCell = _cellsInStraightSight[i];
-                    Cell eastCell = _cellsInStraightSight[i];
+                    Cell westCell = _cellsInSight[i];
+                    Cell eastCell = _cellsInSight[i];
 
                     for (int j = 0; j < i; j++)
                     {
@@ -86,32 +89,34 @@ public class EnemySightHandler : MonoBehaviour
                     }
                 }
 
-                _cellsInStraightSight.AddRange(temp);
+                _cellsInSight.AddRange(temp);
             }
         }
 
-        if (currentCell.West == facingCell)
+        else if (currentCell.West == facingCell)
         {
+            print("Facing west");
             for (int i = 0; i < _sightRange; i++)
             {
-                if (currentCell.West != null && currentCell.West.Content.Type != CellContentType.Wall)
+                if (currentCell.West == null || currentCell.West.Content.Type == CellContentType.Wall)
                 {
-                    _cellsInStraightSight.Add(currentCell.West);
+                    break;
+                }
+                else
+                {
+                    _cellsInSight.Add(currentCell.West);
                     currentCell = currentCell.West;
                 }
             }
 
-            if (_cellsInStraightSight.Count > 0)
+            if (_cellsInSight.Count > 0)
             {
                 List<Cell> temp = new List<Cell>();
 
-                for (int i = 0; i < _cellsInStraightSight.Count; i++)
+                for (int i = 0; i < _cellsInSight.Count; i++)
                 {
-                    if (i == 0)
-                        continue;
-
-                    Cell northCell = _cellsInStraightSight[i];
-                    Cell southCell = _cellsInStraightSight[i];
+                    Cell northCell = _cellsInSight[i];
+                    Cell southCell = _cellsInSight[i];
 
                     for (int j = 0; j < i; j++)
                     {
@@ -120,32 +125,34 @@ public class EnemySightHandler : MonoBehaviour
                     }
                 }
 
-                _cellsInStraightSight.AddRange(temp);
+                _cellsInSight.AddRange(temp);
             }
         }
 
-        if (currentCell.East == facingCell)
+        else if (currentCell.East == facingCell)
         {
+            print("Facing east");
             for (int i = 0; i < _sightRange; i++)
             {
-                if (currentCell.East != null && currentCell.East.Content.Type != CellContentType.Wall)
+                if (currentCell.East == null || currentCell.East.Content.Type == CellContentType.Wall)
                 {
-                    _cellsInStraightSight.Add(currentCell.East);
+                    break;
+                }
+                else
+                {
+                    _cellsInSight.Add(currentCell.East);
                     currentCell = currentCell.East;
                 }
             }
 
-            if (_cellsInStraightSight.Count > 0)
+            if (_cellsInSight.Count > 0)
             {
                 List<Cell> temp = new List<Cell>();
 
-                for (int i = 0; i < _cellsInStraightSight.Count; i++)
+                for (int i = 0; i < _cellsInSight.Count; i++)
                 {
-                    if (i == 0)
-                        continue;
-
-                    Cell northCell = _cellsInStraightSight[i];
-                    Cell southCell = _cellsInStraightSight[i];
+                    Cell northCell = _cellsInSight[i];
+                    Cell southCell = _cellsInSight[i];
 
                     for (int j = 0; j < i; j++)
                     {
@@ -154,21 +161,21 @@ public class EnemySightHandler : MonoBehaviour
                     }
                 }
 
-                _cellsInStraightSight.AddRange(temp);
+                _cellsInSight.AddRange(temp);
             }
         }
 
-        ShowSight(_cellsInStraightSight);
+        ShowSight(_cellsInSight);
     }
 
     public void ClearSight()
     {
-        if (_cellsInStraightSight.Count > 0)
+        if (_cellsInSight.Count > 0)
         {
-            foreach (Cell cell in _cellsInStraightSight)
+            foreach (Cell cell in _cellsInSight)
                 _enemy.Gameboard.SetDefaultCellColor(cell);
 
-            _cellsInStraightSight.Clear();
+            _cellsInSight.Clear();
         }
     }
 

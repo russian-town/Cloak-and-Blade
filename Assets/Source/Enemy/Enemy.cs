@@ -44,22 +44,18 @@ public class Enemy : MonoBehaviour
     {
         if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _north || (int)Mathf.Round(transform.rotation.eulerAngles.y) == _fakeNorth)
         {
-            print("Generating north");
             _sightHandler.GenerateSight(currentCell, currentCell.North);
         }
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _east)
         {
-            print("Generating east");
             _sightHandler.GenerateSight(currentCell, currentCell.East);
         }
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _south)
         {
-            print("Generating south");
             _sightHandler.GenerateSight(currentCell, currentCell.South);
         }
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _west)
         {
-            print("Generating straight");
             _sightHandler.GenerateSight(currentCell, currentCell.West);
         }
     }
@@ -71,13 +67,11 @@ public class Enemy : MonoBehaviour
 
         if (_destination != _lastDestination && _lastDestination != null && _cellsOnPath.Count > 0)
         {
-            print("Destination changed");
             _startCell = _cellsOnPath[_currentIndex - 1];
             _currentIndex = 0;
         }
         else if (_cellsOnPath.Count > 0 && _currentIndex == _cellsOnPath.Count)
         {
-            print("Reached destination");
             _destination = _startCell;
             _startCell = _cellsOnPath[_currentIndex - 1];
             _currentIndex = 0;
@@ -87,7 +81,6 @@ public class Enemy : MonoBehaviour
 
         if (_cellsOnPath.Count > 0)
         {
-            print("Startingmove");
             StartCoroutine(StartMove());
         }
 
@@ -107,7 +100,6 @@ public class Enemy : MonoBehaviour
 
         while (transform.rotation != targetRotation)
         {
-            print("Rotating");
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
             yield return null;
         }
