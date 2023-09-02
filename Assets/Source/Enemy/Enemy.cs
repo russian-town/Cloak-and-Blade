@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
 
     public void Initialize(Cell startCell, Player player, Gameboard gameboard)
     {
+        _cellsOnPath = new List<Cell>();
         _startCell = startCell;
         _player = player;
         _player.StepEnded += OnStepEnded;
