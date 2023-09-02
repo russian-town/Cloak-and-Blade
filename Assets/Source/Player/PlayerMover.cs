@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,23 +8,49 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _speed;
 
     private Cell _startCell;
+    private List<Cell> _availableCells = new List<Cell>();
     private Coroutine _startMoveCoroutine;
+    private Gameboard _gameboard;
 
     public event UnityAction MoveEnded;
 
-    public void Initialize(Cell startCell)
+    public void Initialize(Cell startCell, Gameboard gameboard)
     {
         _startCell = startCell;
+        _gameboard = gameboard;
+        AddAvailableCells();
+    }
+
+    private void AddAvailableCells()
+    {
+        if (_availableCells.Count > 0)
+        {
+            foreach (var availableCell in _availableCells)
+            {
+                _gameboard.SetDefaultCellColor(availableCell);
+            }
+
+            _gameboard.SetDefaultCellColor(_startCell);
+            _availableCells.Clear();
+        }
+
+        _availableCells.AddRange(new[] { _startCell.South, _startCell.North, _startCell.West, _startCell.East });
+        _startCell.SwithColor(Color.yellow);
+
+        foreach (var availableCell in _availableCells)
+        {
+            if (availableCell.Content.Type != CellContentType.Wall)
+                availableCell.SwithColor(Color.yellow);
+        }
     }
 
     public void Move(Cell targetCell)
     {
-        if (targetCell == _startCell.East || targetCell == _startCell.West || targetCell == _startCell.North || targetCell == _startCell.South)
+        if (_availableCells.Contains(targetCell))
         {
             if (_startMoveCoroutine == null && targetCell.Content.Type != CellContentType.Wall && targetCell.Content != null)
             {
                 _startMoveCoroutine = StartCoroutine(StartMoveTo(targetCell));
-                print($"Trying to move to {targetCell}");
             }
         }
     }
@@ -37,6 +64,7 @@ public class PlayerMover : MonoBehaviour
         }
 
         _startCell = targetCell;
+        AddAvailableCells();
         _startMoveCoroutine = null;
         MoveEnded?.Invoke();
     }

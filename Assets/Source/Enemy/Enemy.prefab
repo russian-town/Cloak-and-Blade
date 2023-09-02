@@ -116,6 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2947814527195524518}
   - component: {fileID: 6125369961952874884}
+  - component: {fileID: 5740147665255432580}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -151,11 +152,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9539b94a40c5d2d46a50d52cd93c8542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 0
-  _rotationSpeed: 0
+  _movementSpeed: 9
+  _rotationSpeed: 150
   _cellsOnPath: []
-  _targetRotations: []
   _destination: {fileID: 0}
+  _sightHandler: {fileID: 5740147665255432580}
+  _transform: {fileID: 2947814527195524518}
+--- !u!114 &5740147665255432580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4746196120632796288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a010c83b3c5bc34e93231a2dc006d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sightRange: 5
 --- !u!1 &8291151134713406162
 GameObject:
   m_ObjectHideFlags: 0
