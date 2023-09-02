@@ -1,19 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _rotationSpeed;
-    [SerializeField] private List<Cell> _cellsOnPath;
     [SerializeField] private Cell _destination;
     [SerializeField] private EnemySightHandler _sightHandler;
     [SerializeField] private Transform _transform;
  
+    private List<Cell> _cellsOnPath;
     private Cell _startCell;
     private Player _player;
     private Gameboard _gameBoard;
@@ -44,19 +41,19 @@ public class Enemy : MonoBehaviour
     {
         if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _north || (int)Mathf.Round(transform.rotation.eulerAngles.y) == _fakeNorth)
         {
-            _sightHandler.GenerateSight(currentCell, currentCell.North);
+            _sightHandler.GenerateSight(currentCell, Constants.North);
         }
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _east)
         {
-            _sightHandler.GenerateSight(currentCell, currentCell.East);
+            _sightHandler.GenerateSight(currentCell, Constants.East);
         }
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _south)
         {
-            _sightHandler.GenerateSight(currentCell, currentCell.South);
+            _sightHandler.GenerateSight(currentCell, Constants.South);
         }
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _west)
         {
-            _sightHandler.GenerateSight(currentCell, currentCell.West);
+            _sightHandler.GenerateSight(currentCell, Constants.West);
         }
     }
 
@@ -103,6 +100,8 @@ public class Enemy : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
             yield return null;
         }
+
+        print(_cellsOnPath[_currentIndex]);
 
         if (_cellsOnPath.Count > 0)
             GenerateSight(_cellsOnPath[_currentIndex]);

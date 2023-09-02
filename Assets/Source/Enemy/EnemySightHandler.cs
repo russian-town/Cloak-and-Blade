@@ -17,152 +17,200 @@ public class EnemySightHandler : MonoBehaviour
         _enemy = GetComponent<Enemy>();
     }
 
-    public void GenerateSight(Cell currentCell, Cell facingCell)
+    public void GenerateSight(Cell currentCell, string direction)
     {
         ClearSight();
 
-        if (currentCell.North == facingCell)
+        switch (direction)
         {
-            print("Facing north");
-            for (int i = 0; i < _sightRange; i++)
-            {
-                if (currentCell.North == null || currentCell.North.Content.Type == CellContentType.Wall)
-                {
-                    break;
-                }
-                else
-                {
-                    _cellsInSight.Add(currentCell.North);
-                    currentCell = currentCell.North;
-                }
-            }
+            case Constants.North:
 
-            if (_cellsInSight.Count > 0)
-            {
-                List<Cell> temp = new List<Cell>();
-
-                for (int i = 0; i < _cellsInSight.Count; i++)
+                for (int i = 0; i < _sightRange; i++)
                 {
-                    Cell westCell = _cellsInSight[i];
-                    Cell eastCell = _cellsInSight[i];
-
-                    for (int j = 0; j < i; j++)
+                    if (currentCell.North == null || currentCell.North.Content.Type == CellContentType.Wall)
                     {
-                        BuildeSide(temp, ref westCell, westCell.West);
-                        BuildeSide(temp, ref eastCell, eastCell.East);
+                        break;
+                    }
+                    else
+                    {
+                        _cellsInSight.Add(currentCell.North);
+                        currentCell = currentCell.North;
                     }
                 }
 
-                _cellsInSight.AddRange(temp);
-            }
-        }
-
-        else if (currentCell.South == facingCell)
-        {
-            print("Facing south");
-            for (int i = 0; i < _sightRange; i++)
-            {
-                if (currentCell.South == null || currentCell.South.Content.Type == CellContentType.Wall)
+                if (_cellsInSight.Count > 0)
                 {
-                    break;
-                }
-                else
-                {
-                    _cellsInSight.Add(currentCell.South);
-                    currentCell = currentCell.South;
-                }
-            }
+                    List<Cell> temp = new List<Cell>();
+                    int maxWest = 0;
+                    int maxEast = 0;
+                    
+                    bool isWestWallHit = false;
+                    bool isEastWallHit = false;
 
-            if (_cellsInSight.Count > 0)
-            {
-                List<Cell> temp = new List<Cell>();
-
-                for (int i = 0; i < _cellsInSight.Count; i++)
-                {
-                    Cell westCell = _cellsInSight[i];
-                    Cell eastCell = _cellsInSight[i];
-
-                    for (int j = 0; j < i; j++)
+                    for (int i = 0; i < _cellsInSight.Count; i++)
                     {
-                        BuildeSide(temp, ref westCell, westCell.West);
-                        BuildeSide(temp, ref eastCell, eastCell.East);
+                        Cell westCell = _cellsInSight[i];
+                        Cell eastCell = _cellsInSight[i];
+                        int lastMaxWest = 0;
+                        int lastMaxEast = 0;
+
+                        if (!isWestWallHit)
+                            maxWest = i;
+
+                        if (!isEastWallHit)
+                            maxEast = i;
+
+                        for (int j = 0; j < maxWest; j++)
+                            BuildeSide(temp, ref westCell, westCell.West, ref maxWest, ref lastMaxWest, ref isWestWallHit);
+
+                        for (int j = 0; j < maxEast; j++)
+                            BuildeSide(temp, ref eastCell, eastCell.East, ref maxEast, ref lastMaxEast, ref isEastWallHit);
+                    }
+
+                    _cellsInSight.AddRange(temp);
+                }
+                break;
+
+            case Constants.South:
+
+                for (int i = 0; i < _sightRange; i++)
+                {
+                    if (currentCell.South == null || currentCell.South.Content.Type == CellContentType.Wall)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        _cellsInSight.Add(currentCell.South);
+                        currentCell = currentCell.South;
                     }
                 }
 
-                _cellsInSight.AddRange(temp);
-            }
-        }
-
-        else if (currentCell.West == facingCell)
-        {
-            print("Facing west");
-            for (int i = 0; i < _sightRange; i++)
-            {
-                if (currentCell.West == null || currentCell.West.Content.Type == CellContentType.Wall)
+                if (_cellsInSight.Count > 0)
                 {
-                    break;
-                }
-                else
-                {
-                    _cellsInSight.Add(currentCell.West);
-                    currentCell = currentCell.West;
-                }
-            }
+                    List<Cell> temp = new List<Cell>();
+                    int maxWest = 0;
+                    int maxEast = 0;
+                    bool isWestWallHit = false;
+                    bool isEastWallHit = false;
 
-            if (_cellsInSight.Count > 0)
-            {
-                List<Cell> temp = new List<Cell>();
-
-                for (int i = 0; i < _cellsInSight.Count; i++)
-                {
-                    Cell northCell = _cellsInSight[i];
-                    Cell southCell = _cellsInSight[i];
-
-                    for (int j = 0; j < i; j++)
+                    for (int i = 0; i < _cellsInSight.Count; i++)
                     {
-                        BuildeSide(temp, ref northCell, northCell.North);
-                        BuildeSide(temp, ref southCell, southCell.South);
+                        Cell westCell = _cellsInSight[i];
+                        Cell eastCell = _cellsInSight[i];
+                        int lastMaxWest = 0;
+                        int lastMaxEast = 0;
+
+                        if (!isWestWallHit)
+                            maxWest = i;
+
+                        if (!isEastWallHit)
+                            maxEast = i;
+
+                        for (int j = 0; j < maxWest; j++)
+                            BuildeSide(temp, ref westCell, westCell.West, ref maxWest, ref lastMaxWest, ref isWestWallHit);
+
+                        for (int j = 0; j < maxEast; j++)
+                            BuildeSide(temp, ref eastCell, eastCell.East, ref maxEast, ref lastMaxEast, ref isEastWallHit);
+                    }
+
+                    _cellsInSight.AddRange(temp);
+                }
+                break;
+
+            case Constants.West:
+
+                for (int i = 0; i < _sightRange; i++)
+                {
+                    if (currentCell.West == null || currentCell.West.Content.Type == CellContentType.Wall)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        _cellsInSight.Add(currentCell.West);
+                        currentCell = currentCell.West;
                     }
                 }
 
-                _cellsInSight.AddRange(temp);
-            }
-        }
-
-        else if (currentCell.East == facingCell)
-        {
-            print("Facing east");
-            for (int i = 0; i < _sightRange; i++)
-            {
-                if (currentCell.East == null || currentCell.East.Content.Type == CellContentType.Wall)
+                if (_cellsInSight.Count > 0)
                 {
-                    break;
-                }
-                else
-                {
-                    _cellsInSight.Add(currentCell.East);
-                    currentCell = currentCell.East;
-                }
-            }
+                    List<Cell> temp = new List<Cell>();
+                    int maxNorth = 0;
+                    int maxSouth = 0;
+                    bool isNorthWallHit = false;
+                    bool isSouthWallHit = false;
 
-            if (_cellsInSight.Count > 0)
-            {
-                List<Cell> temp = new List<Cell>();
-
-                for (int i = 0; i < _cellsInSight.Count; i++)
-                {
-                    Cell northCell = _cellsInSight[i];
-                    Cell southCell = _cellsInSight[i];
-
-                    for (int j = 0; j < i; j++)
+                    for (int i = 0; i < _cellsInSight.Count; i++)
                     {
-                        BuildeSide(temp, ref northCell, northCell.North);
-                        BuildeSide(temp, ref southCell, southCell.South);
+                        Cell northCell = _cellsInSight[i];
+                        Cell southCell = _cellsInSight[i];
+                        int lastMaxNorth = 0;
+                        int lastMaxSouth = 0;
+
+                        if (!isNorthWallHit)
+                            maxNorth = i;
+
+                        if (!isSouthWallHit)
+                            maxSouth = i;
+
+                        for (int j = 0; j < maxNorth; j++)
+                            BuildeSide(temp, ref northCell, northCell.North, ref maxNorth, ref lastMaxNorth, ref isNorthWallHit);
+
+                        for (int j = 0; j < maxSouth; j++)
+                            BuildeSide(temp, ref southCell, southCell.South, ref maxSouth, ref lastMaxSouth, ref isSouthWallHit);
+                    }
+
+                    _cellsInSight.AddRange(temp);
+                }
+                break;
+
+            case Constants.East:
+
+                for (int i = 0; i < _sightRange; i++)
+                {
+                    if (currentCell.East == null || currentCell.East.Content.Type == CellContentType.Wall)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        _cellsInSight.Add(currentCell.East);
+                        currentCell = currentCell.East;
                     }
                 }
 
-                _cellsInSight.AddRange(temp);
-            }
+                if (_cellsInSight.Count > 0)
+                {
+                    List<Cell> temp = new List<Cell>();
+                    int maxNorth = 0;
+                    int maxSouth = 0;
+                    bool isNorthWallHit = false;
+                    bool isSouthWallHit = false;
+
+                    for (int i = 0; i < _cellsInSight.Count; i++)
+                    {
+                        Cell northCell = _cellsInSight[i];
+                        Cell southCell = _cellsInSight[i];
+                        int lastMaxNorth = 0;
+                        int lastMaxSouth = 0;
+
+                        if (!isNorthWallHit)
+                            maxNorth = i;
+
+                        if (!isSouthWallHit)
+                            maxSouth = i;
+
+                        for (int j = 0; j < maxNorth; j++)
+                            BuildeSide(temp, ref northCell, northCell.North, ref maxNorth, ref lastMaxNorth, ref isNorthWallHit);
+
+                        for (int j = 0; j < maxSouth; j++)
+                            BuildeSide(temp, ref southCell, southCell.South, ref maxSouth, ref lastMaxSouth, ref isSouthWallHit);
+                    }
+
+                    _cellsInSight.AddRange(temp);
+                }
+                break;
         }
 
         ShowSight(_cellsInSight);
@@ -179,10 +227,20 @@ public class EnemySightHandler : MonoBehaviour
         }
     }
 
-    private void BuildeSide(List<Cell> tempList, ref Cell cell, Cell sideCell)
+    private void BuildeSide(List<Cell> tempList, ref Cell cell, Cell sideCell, ref int maxSide, ref int lastMaxSide, ref bool isWallhit)
     {
-        if (sideCell != null && sideCell.Content.Type != CellContentType.Wall)
+        if (sideCell.Content.Type == CellContentType.Wall && isWallhit == false)
         {
+            isWallhit = true;
+            maxSide = lastMaxSide;
+        }
+        else if (lastMaxSide < maxSide && sideCell.Content.Type == CellContentType.Wall && isWallhit == true)
+        {
+            maxSide = lastMaxSide;
+        }
+        else if (sideCell.Content.Type != CellContentType.Wall && sideCell != null)
+        {
+            lastMaxSide++;
             tempList.Add(sideCell);
             cell = sideCell;
         }
