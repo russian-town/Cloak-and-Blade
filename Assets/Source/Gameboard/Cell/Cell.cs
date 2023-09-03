@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    [SerializeField] private Model _model;
+    [SerializeField] private CellView _cellView;
     [SerializeField] private Cell _north;
     [SerializeField] private Cell _south;
     [SerializeField] private Cell _east;
     [SerializeField] private Cell _west;
     [SerializeField] private Cell _nextOnPath;
     [SerializeField] private CellContent _content;
-    [SerializeField] private Color _startColor;
 
     private int _distance;
     private Quaternion _northRotation = Quaternion.Euler(90f, 0f, 0f);
@@ -24,10 +23,11 @@ public class Cell : MonoBehaviour
     public Cell East => _east;
     public Cell West => _west;
     public Cell NextOnPath => _nextOnPath;
+    public CellView CellView => _cellView;
     public bool HasPath => _distance != int.MaxValue;
     public bool IsAlternative { get; set; }
-    public Quaternion Rotation => _model.transform.localRotation;
-    public Color StartColor => _startColor;
+    public Quaternion Rotation => _cellView.transform.localRotation;
+
     public CellContent Content
     {
         get => _content;
@@ -54,16 +54,6 @@ public class Cell : MonoBehaviour
     {
         north._south = south;
         south._north = north;
-    }
-
-    public void Initialize(Color color)
-    {
-        _model.SetColor(color);
-    }
-
-    public void SwithColor(Color color)
-    {
-        _model.SetColor(color);
     }
 
     public void ClearPath()
@@ -102,6 +92,6 @@ public class Cell : MonoBehaviour
             return;
         }
 
-        _model.transform.localRotation = _nextOnPath == _north ? _northRotation : _nextOnPath == _east ? _eastRotation : _nextOnPath == _south ? _southRotation : _westRotation;
+        _cellView.transform.localRotation = _nextOnPath == _north ? _northRotation : _nextOnPath == _east ? _eastRotation : _nextOnPath == _south ? _southRotation : _westRotation;
     }
 }

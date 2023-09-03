@@ -1,6 +1,4 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Root : MonoBehaviour
@@ -14,6 +12,8 @@ public class Root : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _angledCamera;
     [SerializeField] private CinemachineVirtualCamera _straightCamera;
     [SerializeField] private Cell[] _enemySpawnCells;
+    [SerializeField] private ParticleSystem _mouseOverCell;
+    [SerializeField] private ParticleSystem _enemySightEffectTemplate;
 
     private Enemy _enemy;
     private Player _player;
@@ -25,13 +25,15 @@ public class Root : MonoBehaviour
 
     private void Initialize()
     {
-        _gameboard.SetDefaultCellColor();
         _player = _playerSpawner.Get(_playerSpawnCell, _playerTemplate);
-        _player.Initialize(_gameboard, _playerSpawnCell);
+        _player.Initialize(_gameboard, _playerSpawnCell, _mouseOverCell);
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;
         _straightCamera.Follow = _player.transform;
         _straightCamera.LookAt = _player.transform;
+
+        foreach (Cell cell in _gameboard.Cells)
+            cell.CellView.Initialize(_enemySightEffectTemplate);
 
         foreach(var cell in _enemySpawnCells)
         {

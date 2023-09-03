@@ -154,9 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 9
   _rotationSpeed: 150
-  _cellsOnPath: []
   _destination: {fileID: 0}
-  _sightHandler: {fileID: 5740147665255432580}
   _transform: {fileID: 2947814527195524518}
 --- !u!114 &5740147665255432580
 MonoBehaviour:
@@ -170,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a010c83b3c5bc34e93231a2dc006d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sightRange: 5
+  _sightRange: 10
 --- !u!1 &8291151134713406162
 GameObject:
   m_ObjectHideFlags: 0

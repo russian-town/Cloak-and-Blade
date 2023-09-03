@@ -6,24 +6,25 @@ public class PlayerInput : MonoBehaviour
     private Gameboard _gameboard;
     private PlayerMover _mover;
     private Cell _lastCell;
-    private Color _lastColor;
+    private ParticleSystem _mouseOverCell;
 
     private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
 
     private void Update()
     {
-        //Cell cell = _gameboard.GetCell(TouchRay);
+        Cell cell = _gameboard.GetCell(TouchRay);
 
-        //if(_lastCell != null && cell != _lastCell)
-        //{
-        //   _lastCell.SetDefaultColor();
-        //}
+        if (_lastCell != null && cell != _lastCell)
+        {
+            _mouseOverCell.Stop();
+        }
 
-        //if (cell != null)
-        //{
-        //    cell.SwithColor(Color.cyan);
-        //    _lastCell = cell;
-        //}
+        if (cell != null && cell.Content.Type != CellContentType.Wall)
+        {
+            _mouseOverCell.transform.position = cell.transform.position;
+            _mouseOverCell.Play();
+            _lastCell = cell;
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -38,9 +39,10 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    public void Initialize(Gameboard gameboard, PlayerMover playerMover)
+    public void Initialize(Gameboard gameboard, PlayerMover playerMover, ParticleSystem mouseOverCell)
     {
         _camera = Camera.main;
+        _mouseOverCell = mouseOverCell;
         _gameboard = gameboard;
         _mover = playerMover;
     }

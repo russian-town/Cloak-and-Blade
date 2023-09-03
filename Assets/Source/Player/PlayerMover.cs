@@ -24,24 +24,9 @@ public class PlayerMover : MonoBehaviour
     private void AddAvailableCells()
     {
         if (_availableCells.Count > 0)
-        {
-            foreach (var availableCell in _availableCells)
-            {
-                _gameboard.SetDefaultCellColor(availableCell);
-            }
-
-            _gameboard.SetDefaultCellColor(_startCell);
             _availableCells.Clear();
-        }
 
         _availableCells.AddRange(new[] { _startCell.South, _startCell.North, _startCell.West, _startCell.East });
-        _startCell.SwithColor(Color.yellow);
-
-        foreach (var availableCell in _availableCells)
-        {
-            if (availableCell.Content.Type != CellContentType.Wall)
-                availableCell.SwithColor(Color.yellow);
-        }
     }
 
     public void Move(Cell targetCell)

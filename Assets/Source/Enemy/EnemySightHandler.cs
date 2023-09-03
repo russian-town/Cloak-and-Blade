@@ -1,20 +1,15 @@
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(Enemy))]
 public class EnemySightHandler : MonoBehaviour
 {
     [SerializeField] private int _sightRange;
 
-    private Enemy _enemy;
     private List<Cell> _cellsInSight = new List<Cell>();
 
-    private void Start()
+    public void Initialize()
     {
         _cellsInSight = new List<Cell>();
-        _enemy = GetComponent<Enemy>();
     }
 
     public void GenerateSight(Cell currentCell, string direction)
@@ -221,7 +216,7 @@ public class EnemySightHandler : MonoBehaviour
         if (_cellsInSight.Count > 0)
         {
             foreach (Cell cell in _cellsInSight)
-                _enemy.Gameboard.SetDefaultCellColor(cell);
+                cell.CellView.StopEnemySightEffect();
 
             _cellsInSight.Clear();
         }
@@ -250,6 +245,6 @@ public class EnemySightHandler : MonoBehaviour
     {
         if (cellsInSight.Count > 0)
             foreach (Cell cell in cellsInSight)
-                cell.SwithColor(Color.red);
+                cell.CellView.PlayEnemySightEffect();
     }
 }

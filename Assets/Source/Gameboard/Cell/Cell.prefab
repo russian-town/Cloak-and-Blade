@@ -45,14 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35e68de8b12356344a4eb9566937f93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _model: {fileID: 1770995548238844636}
+  _cellView: {fileID: 1770995548238844636}
   _north: {fileID: 0}
   _south: {fileID: 0}
   _east: {fileID: 0}
   _west: {fileID: 0}
   _nextOnPath: {fileID: 0}
   _content: {fileID: 0}
-  _startColor: {r: 0.5372549, g: 1, b: 0, a: 1}
 --- !u!1 &4127317879142770679
 GameObject:
   m_ObjectHideFlags: 0

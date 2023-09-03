@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemySightHandler))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private Cell _destination;
-    [SerializeField] private EnemySightHandler _sightHandler;
     [SerializeField] private Transform _transform;
- 
+
+    private EnemySightHandler _sightHandler;
     private List<Cell> _cellsOnPath;
     private Cell _startCell;
     private Player _player;
@@ -31,11 +32,13 @@ public class Enemy : MonoBehaviour
 
     public void Initialize(Cell startCell, Player player, Gameboard gameboard)
     {
+        _sightHandler = GetComponent<EnemySightHandler>();
         _cellsOnPath = new List<Cell>();
         _startCell = startCell;
         _player = player;
         _player.StepEnded += OnStepEnded;
         _gameBoard = gameboard;
+        _sightHandler.Initialize();
     }
 
     private void GenerateSight(Cell currentCell)
