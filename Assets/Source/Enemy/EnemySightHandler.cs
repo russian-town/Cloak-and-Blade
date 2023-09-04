@@ -211,7 +211,7 @@ public class EnemySightHandler : MonoBehaviour
         ShowSight(_cellsInSight);
     }
 
-    public bool PlayerDetected(Player player)
+    public bool TryFindPlayer(Player player)
     {
         if (player.CurrentCell == null || _cellsInSight.Count == 0)
             return false;

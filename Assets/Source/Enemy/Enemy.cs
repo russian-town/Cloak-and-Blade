@@ -12,14 +12,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Cell _destination;
     [SerializeField] private Transform _transform;
 
+    private Coroutine _moveCoroutine;
     private EnemySightHandler _sightHandler;
     private List<Cell> _cellsOnPath;
     private Cell _startCell;
     private Cell _currentCell;
+    private Cell _firstStartCell;
     private Player _player;
     private Gameboard _gameBoard;
     private Cell _lastDestination;
-    private Cell _startDestination;
     private int _currentIndex;
     private int _north = 0;
     private int _fakeNorth = 360;
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour
         _sightHandler = GetComponent<EnemySightHandler>();
         _cellsOnPath = new List<Cell>();
         _startCell = startCell;
+        _firstStartCell = _startCell;
         _player = player;
         _player.StepEnded += OnStepEnded;
         _gameBoard = gameboard;
@@ -52,42 +54,21 @@ public class Enemy : MonoBehaviour
             return;
 
         _destination = destination;
-        _startDestination = destination;
     }
 
-    private void TryDetectPlayer()
-    {
-        if (_isPlayerDetected == false && _sightHandler.PlayerDetected(_player))
-        {
-            SetDestination(_player.CurrentCell);
-            _isPlayerDetected = true;
-            Debug.Log("Player detected!");
-        }
-        else
-        {
-            _isPlayerDetected = false;
-            SetDestination(_startDestination);
-        }
-    }
-
-    private void GenerateSight(Cell currentCell)
+s    private void GenerateSight(Cell currentCell)
     {
         if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _north || (int)Mathf.Round(transform.rotation.eulerAngles.y) == _fakeNorth)
-        {
             _sightHandler.GenerateSight(currentCell, Constants.North);
-        }
+
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _east)
-        {
             _sightHandler.GenerateSight(currentCell, Constants.East);
-        }
+
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _south)
-        {
             _sightHandler.GenerateSight(currentCell, Constants.South);
-        }
+
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _west)
-        {
             _sightHandler.GenerateSight(currentCell, Constants.West);
-        }
     }
 
     public void ClearDestination() => _destination = null;
@@ -97,6 +78,12 @@ public class Enemy : MonoBehaviour
         if (_destination == null)
             return;
 
+        if (_moveCoroutine == null)
+            _moveCoroutine = StartCoroutine(PerformMove());
+    }
+
+    private void CalculatePath()
+    {
         if (_destination != _lastDestination && _lastDestination != null && _cellsOnPath.Count > 0)
         {
             _startCell = _cellsOnPath[_currentIndex - 1];
@@ -109,21 +96,64 @@ public class Enemy : MonoBehaviour
             _currentIndex = 0;
         }
 
-        _gameBoard.GeneratePath(out _cellsOnPath,  _destination, _startCell);
-
-        if (_cellsOnPath.Count > 0)
-        {
-            StartCoroutine(StartMove());
-        }
+        _gameBoard.GeneratePath(out _cellsOnPath, _destination, _startCell);
 
         _lastDestination = _destination;
     }
 
-    private IEnumerator StartMove()
+    private void DefineChaseState()
     {
-        if (_cellsOnPath[_currentIndex] == null || _currentIndex == _cellsOnPath.Count)
+        if (_sightHandler.TryFindPlayer(_player) && !_isPlayerDetected)
+        {
+            print("What was that?");
+            SetDestination(_player.CurrentCell);
+            _isPlayerDetected = true;
+            CalculatePath();
+            return;
+        }
+        else if (!_sightHandler.TryFindPlayer(_player) && _isPlayerDetected)
+        {
+            print("Must've been the wind");
+            SetDestination(_firstStartCell);
+            _isPlayerDetected = false;
+            CalculatePath();
+            return;
+        }
+        else if (_sightHandler.TryFindPlayer(_player) && _isPlayerDetected)
+        {
+            print("Stop right there!");
+            SetDestination(_player.CurrentCell);
+            CalculatePath();
+            return;
+        }
+    }
+
+    private IEnumerator PerformMove()
+    {
+        CalculatePath();
+
+        if (_cellsOnPath.Count == 0)
             yield break;
 
+        #region RotateAndMove
+        yield return RotateTowardsNextCell();
+
+        yield return MoveToNextCell();
+        #endregion
+
+        #region Sideye
+        if (_cellsOnPath.Count > 0)
+            GenerateSight(_cellsOnPath[_currentIndex]);
+
+        DefineChaseState();
+        #endregion
+
+        _moveCoroutine = null;
+        _currentIndex++;
+    }
+
+    private IEnumerator RotateTowardsNextCell()
+    {
         Vector3 rotationTarget = _cellsOnPath[_currentIndex].transform.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(rotationTarget, Vector3.up);
 
@@ -135,13 +165,13 @@ public class Enemy : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
             yield return null;
         }
+    }
 
-        if (_cellsOnPath.Count > 0)
-        {
-            GenerateSight(_cellsOnPath[_currentIndex]);
-            TryDetectPlayer();
-        }
-
+    private IEnumerator MoveToNextCell()
+    {
+        if (_cellsOnPath[_currentIndex] == null || _currentIndex == _cellsOnPath.Count)
+            yield break;
+     
         while (transform.localPosition != _cellsOnPath[_currentIndex].transform.localPosition)
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, _cellsOnPath[_currentIndex].transform.localPosition, Time.deltaTime * _movementSpeed);
@@ -152,7 +182,5 @@ public class Enemy : MonoBehaviour
 
         if (_player.AvailableCells.Count > 0 && _player.AvailableCells.Contains(_currentCell))
             Debug.Log("Game over!");
-
-        _currentIndex++;
     }
 }

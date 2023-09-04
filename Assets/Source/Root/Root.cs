@@ -49,5 +49,7 @@ public class Root : MonoBehaviour
                 i++;
             }
         }
+
+        _gameboard.HideGrid();
     }
 }
