@@ -10,14 +10,14 @@ public class PlayerMover : MonoBehaviour
     private Cell _startCell;
     private List<Cell> _availableCells = new List<Cell>();
     private Coroutine _startMoveCoroutine;
-    private Gameboard _gameboard;
+
+    public Cell CurrentCell { get; private set; }
 
     public event UnityAction MoveEnded;
 
-    public void Initialize(Cell startCell, Gameboard gameboard)
+    public void Initialize(Cell startCell)
     {
         _startCell = startCell;
-        _gameboard = gameboard;
         AddAvailableCells();
     }
 
@@ -49,6 +49,7 @@ public class PlayerMover : MonoBehaviour
         }
 
         _startCell = targetCell;
+        CurrentCell = targetCell;
         AddAvailableCells();
         _startMoveCoroutine = null;
         MoveEnded?.Invoke();

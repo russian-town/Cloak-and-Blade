@@ -10,18 +10,26 @@ public class CellView : MonoBehaviour
         _enemySightEffectTemplate = enemySightEffectTemplate;
     }
 
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
     public void PlayEnemySightEffect()
     {
         if (_enemySightEffect == null)
         {
-            print("Initializing effect");
             _enemySightEffect = Instantiate(_enemySightEffectTemplate);
             _enemySightEffect.transform.position = transform.position;
             _enemySightEffect.Play();
         }
         else
         {
-            print("Effect already initialized");
             _enemySightEffect.Play();
         }
     }

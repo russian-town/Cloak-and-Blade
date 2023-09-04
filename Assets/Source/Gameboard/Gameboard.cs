@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -50,6 +49,22 @@ public class Gameboard : MonoBehaviour
 
                 cell.Content = _cellContentSpawner.Get(CellContentType.Empty, cell.transform);
             }
+        }
+    }
+
+    public void HideGrid()
+    {
+        foreach (var cell in _cells)
+        {
+            cell.View.Hide();
+        }
+    }
+
+    public void ShowGrid()
+    {
+        foreach (var cell in _cells)
+        {
+            cell.View.Show();
         }
     }
 

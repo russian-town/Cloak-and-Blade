@@ -12,6 +12,7 @@ public class Root : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _angledCamera;
     [SerializeField] private CinemachineVirtualCamera _straightCamera;
     [SerializeField] private Cell[] _enemySpawnCells;
+    [SerializeField] private Cell[] _enemyDestinations;
     [SerializeField] private ParticleSystem _mouseOverCell;
     [SerializeField] private ParticleSystem _enemySightEffectTemplate;
 
@@ -33,12 +34,20 @@ public class Root : MonoBehaviour
         _straightCamera.LookAt = _player.transform;
 
         foreach (Cell cell in _gameboard.Cells)
-            cell.CellView.Initialize(_enemySightEffectTemplate);
+            cell.View.Initialize(_enemySightEffectTemplate);
 
-        foreach(var cell in _enemySpawnCells)
+        int i = 0;
+
+        foreach (var cell in _enemySpawnCells)
         {
             _enemy = _enemySpawner.Get(cell, _enemyTemplate);
             _enemy.Initialize(cell, _player, _gameboard);
+
+            if(i < _enemyDestinations.Length)
+            {
+                _enemy.SetDestination(_enemyDestinations[i]);
+                i++;
+            }
         }
     }
 }

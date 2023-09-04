@@ -41,6 +41,17 @@ public class Enemy : MonoBehaviour
         _sightHandler.Initialize();
     }
 
+    public void SetDestination(Cell destination) 
+    {
+        _destination = destination;
+    }
+
+    private void TryDetectPlayer()
+    {
+        if (_sightHandler.PlayerDetected(_player))
+            SetDestination(_player.CurrentCell);
+    }
+
     private void GenerateSight(Cell currentCell)
     {
         if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _north || (int)Mathf.Round(transform.rotation.eulerAngles.y) == _fakeNorth)
@@ -65,6 +76,8 @@ public class Enemy : MonoBehaviour
 
     private void OnStepEnded()
     {
+        TryDetectPlayer();
+
         if (_destination == null)
             return;
 
@@ -95,7 +108,7 @@ public class Enemy : MonoBehaviour
         if (_cellsOnPath[_currentIndex] == null)
             yield break;
 
-        Vector3 rotationTarget = _cellsOnPath[_currentIndex ].transform.position - transform.position;
+        Vector3 rotationTarget = _cellsOnPath[_currentIndex].transform.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(rotationTarget, Vector3.up);
 
         if(transform.rotation != targetRotation)
@@ -106,8 +119,6 @@ public class Enemy : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
             yield return null;
         }
-
-        print(_cellsOnPath[_currentIndex]);
 
         if (_cellsOnPath.Count > 0)
             GenerateSight(_cellsOnPath[_currentIndex]);

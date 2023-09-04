@@ -211,12 +211,23 @@ public class EnemySightHandler : MonoBehaviour
         ShowSight(_cellsInSight);
     }
 
+    public bool PlayerDetected(Player player)
+    {
+        if (player.CurrentCell == null || _cellsInSight.Count == 0)
+            return false;
+
+        if (_cellsInSight.Contains(player.CurrentCell))
+            return true;
+
+        return false;
+    }
+
     public void ClearSight()
     {
         if (_cellsInSight.Count > 0)
         {
             foreach (Cell cell in _cellsInSight)
-                cell.CellView.StopEnemySightEffect();
+                cell.View.StopEnemySightEffect();
 
             _cellsInSight.Clear();
         }
@@ -245,6 +256,6 @@ public class EnemySightHandler : MonoBehaviour
     {
         if (cellsInSight.Count > 0)
             foreach (Cell cell in cellsInSight)
-                cell.CellView.PlayEnemySightEffect();
+                cell.View.PlayEnemySightEffect();
     }
 }

@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 public class Cell : MonoBehaviour
 {
-    [SerializeField] private CellView _cellView;
+    [SerializeField] private CellView _view;
     [SerializeField] private Cell _north;
     [SerializeField] private Cell _south;
     [SerializeField] private Cell _east;
@@ -23,10 +22,10 @@ public class Cell : MonoBehaviour
     public Cell East => _east;
     public Cell West => _west;
     public Cell NextOnPath => _nextOnPath;
-    public CellView CellView => _cellView;
+    public CellView View => _view;
     public bool HasPath => _distance != int.MaxValue;
     public bool IsAlternative { get; set; }
-    public Quaternion Rotation => _cellView.transform.localRotation;
+    public Quaternion Rotation => _view.transform.localRotation;
 
     public CellContent Content
     {
@@ -42,6 +41,11 @@ public class Cell : MonoBehaviour
             _content = value;
             _content.transform.localPosition = Vector3.zero;
         }
+    }
+
+    public void AddView()
+    {
+        _view = GetComponentInChildren<CellView>();
     }
 
     public static void MakeEastWestNeighbors(Cell east, Cell west)
@@ -92,6 +96,6 @@ public class Cell : MonoBehaviour
             return;
         }
 
-        _cellView.transform.localRotation = _nextOnPath == _north ? _northRotation : _nextOnPath == _east ? _eastRotation : _nextOnPath == _south ? _southRotation : _westRotation;
+        _view.transform.localRotation = _nextOnPath == _north ? _northRotation : _nextOnPath == _east ? _eastRotation : _nextOnPath == _south ? _southRotation : _westRotation;
     }
 }
