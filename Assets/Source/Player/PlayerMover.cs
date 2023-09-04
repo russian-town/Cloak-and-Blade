@@ -12,6 +12,7 @@ public class PlayerMover : MonoBehaviour
     private Coroutine _startMoveCoroutine;
 
     public Cell CurrentCell { get; private set; }
+    public IReadOnlyList<Cell> AvailableCells => _availableCells;
 
     public event UnityAction MoveEnded;
 
@@ -42,9 +43,13 @@ public class PlayerMover : MonoBehaviour
 
     private IEnumerator StartMoveTo(Cell targetCell)
     {
-        while(transform.localPosition != targetCell.transform.localPosition)
+        float progress = 0f;
+
+        while(progress < 1)
         {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetCell.transform.localPosition, Time.deltaTime * _speed);
+            //transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetCell.transform.localPosition, Time.deltaTime * _speed);
+            transform.localPosition = Vector3.LerpUnclamped(transform.localPosition, targetCell.transform.localPosition, progress);
+            progress += Time.deltaTime;
             yield return null;
         }
 

@@ -25,7 +25,6 @@ public class Cell : MonoBehaviour
     public CellView View => _view;
     public bool HasPath => _distance != int.MaxValue;
     public bool IsAlternative { get; set; }
-    public Quaternion Rotation => _view.transform.localRotation;
 
     public CellContent Content
     {
