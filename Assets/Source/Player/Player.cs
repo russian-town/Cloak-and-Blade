@@ -35,8 +35,15 @@ public class Player : MonoBehaviour
         _mover.MoveEnded += OnMoveEnded;
     }
 
+    public void ResetTurnsOutsideOfEnemySight(int enemyTurnsToLoseSight) => _turnsOutsideOfEnemySight = enemyTurnsToLoseSight;
+
     private void OnMoveEnded()
     {
+        if (_turnsOutsideOfEnemySight > 0)
+            _turnsOutsideOfEnemySight--;
+
+        print(_turnsOutsideOfEnemySight);
+
         StepEnded?.Invoke();
     }
 }

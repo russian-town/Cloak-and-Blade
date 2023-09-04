@@ -27,7 +27,8 @@ public class Enemy : MonoBehaviour
     private int _east = 90;
     private int _south = 180;
     private int _west = 270;
-    private bool _isPlayerDetected;
+    private bool _chasingPlayer;
+    private int _turnsToLoseSight = 6;
 
     public Gameboard Gameboard => _gameBoard;
 
@@ -56,7 +57,7 @@ public class Enemy : MonoBehaviour
         _destination = destination;
     }
 
-s    private void GenerateSight(Cell currentCell)
+    private void GenerateSight(Cell currentCell)
     {
         if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _north || (int)Mathf.Round(transform.rotation.eulerAngles.y) == _fakeNorth)
             _sightHandler.GenerateSight(currentCell, Constants.North);
@@ -84,48 +85,51 @@ s    private void GenerateSight(Cell currentCell)
 
     private void CalculatePath()
     {
-        if (_destination != _lastDestination && _lastDestination != null && _cellsOnPath.Count > 0)
+        if (!_chasingPlayer && !_sightHandler.TryFindPlayer(_player))
         {
+            if (_destination != _lastDestination && _lastDestination != null && _cellsOnPath.Count > 0)
+            {
+                print("Destination changed");
+                _startCell = _cellsOnPath[_currentIndex - 1];
+                _currentIndex = 0;
+            }
+            else if (_cellsOnPath.Count > 0 && _currentIndex == _cellsOnPath.Count)
+            {
+                print("Reached destination");
+                _destination = _startCell;
+                _startCell = _cellsOnPath[_currentIndex - 1];
+                _currentIndex = 0;
+            }
+        }
+        else if (_sightHandler.TryFindPlayer(_player))
+        {
+            print("I see you!");
+            _chasingPlayer = true;
+            _destination = _player.CurrentCell;
+            _player.ResetTurnsOutsideOfEnemySight(_turnsToLoseSight);
             _startCell = _cellsOnPath[_currentIndex - 1];
             _currentIndex = 0;
         }
-        else if (_cellsOnPath.Count > 0 && _currentIndex == _cellsOnPath.Count)
+        else if (!_sightHandler.TryFindPlayer(_player) && _chasingPlayer && _player.TurnsOutsideOfenemySight > 0)
         {
-            _destination = _startCell;
+            print("You can't hide from me!");
+            _destination = _player.CurrentCell;
             _startCell = _cellsOnPath[_currentIndex - 1];
             _currentIndex = 0;
         }
-
+        else if (!_sightHandler.TryFindPlayer(_player) && _chasingPlayer && _player.TurnsOutsideOfenemySight <= 0)
+        {
+            print("I lost him!");
+            _chasingPlayer = false;
+            _player.ResetTurnsOutsideOfEnemySight(0);
+            _destination = _firstStartCell;
+            _startCell = _cellsOnPath[_currentIndex - 1];
+            _currentIndex = 0;
+        }
+        
         _gameBoard.GeneratePath(out _cellsOnPath, _destination, _startCell);
 
         _lastDestination = _destination;
-    }
-
-    private void DefineChaseState()
-    {
-        if (_sightHandler.TryFindPlayer(_player) && !_isPlayerDetected)
-        {
-            print("What was that?");
-            SetDestination(_player.CurrentCell);
-            _isPlayerDetected = true;
-            CalculatePath();
-            return;
-        }
-        else if (!_sightHandler.TryFindPlayer(_player) && _isPlayerDetected)
-        {
-            print("Must've been the wind");
-            SetDestination(_firstStartCell);
-            _isPlayerDetected = false;
-            CalculatePath();
-            return;
-        }
-        else if (_sightHandler.TryFindPlayer(_player) && _isPlayerDetected)
-        {
-            print("Stop right there!");
-            SetDestination(_player.CurrentCell);
-            CalculatePath();
-            return;
-        }
     }
 
     private IEnumerator PerformMove()
@@ -138,14 +142,10 @@ s    private void GenerateSight(Cell currentCell)
         #region RotateAndMove
         yield return RotateTowardsNextCell();
 
-        yield return MoveToNextCell();
-        #endregion
-
-        #region Sideye
         if (_cellsOnPath.Count > 0)
             GenerateSight(_cellsOnPath[_currentIndex]);
 
-        DefineChaseState();
+        yield return MoveToNextCell();
         #endregion
 
         _moveCoroutine = null;
