@@ -10,11 +10,8 @@ public class Player : MonoBehaviour
     private Gameboard _gameboard;
     private Cell _startCell;
     private ParticleSystem _mouseOverCell;
-    private int _turnsOutsideOfEnemySight = 0;
 
     public Cell CurrentCell => _mover.CurrentCell;
-    public int TurnsOutsideOfenemySight => _turnsOutsideOfEnemySight;
-    public IReadOnlyList<Cell> AvailableCells => _mover.AvailableCells;
 
     public event UnityAction StepEnded;
 
@@ -35,15 +32,9 @@ public class Player : MonoBehaviour
         _mover.MoveEnded += OnMoveEnded;
     }
 
-    public void ResetTurnsOutsideOfEnemySight(int enemyTurnsToLoseSight) => _turnsOutsideOfEnemySight = enemyTurnsToLoseSight;
 
     private void OnMoveEnded()
     {
-        if (_turnsOutsideOfEnemySight > 0)
-            _turnsOutsideOfEnemySight--;
-
-        print(_turnsOutsideOfEnemySight);
-
         StepEnded?.Invoke();
     }
 }

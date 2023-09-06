@@ -15,6 +15,7 @@ public class Root : MonoBehaviour
     [SerializeField] private Cell[] _enemyDestinations;
     [SerializeField] private ParticleSystem _mouseOverCell;
     [SerializeField] private ParticleSystem _enemySightEffectTemplate;
+    [SerializeField] private MusicPlayer _musicPlayer;
 
     private Enemy _enemy;
     private Player _player;
@@ -41,7 +42,7 @@ public class Root : MonoBehaviour
         foreach (var cell in _enemySpawnCells)
         {
             _enemy = _enemySpawner.Get(cell, _enemyTemplate);
-            _enemy.Initialize(cell, _player, _gameboard);
+            _enemy.Initialize(cell, _player, _gameboard, _musicPlayer);
 
             if(i < _enemyDestinations.Length)
             {

@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemySightHandler))]
@@ -11,24 +9,22 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private Cell _destination;
     [SerializeField] private Transform _transform;
+    [SerializeField] private EnemyPhrasePlayer _phrasePlayer;
 
     private Coroutine _moveCoroutine;
     private EnemySightHandler _sightHandler;
     private List<Cell> _cellsOnPath;
     private Cell _startCell;
-    private Cell _currentCell;
-    private Cell _firstStartCell;
     private Player _player;
     private Gameboard _gameBoard;
     private Cell _lastDestination;
+    private MusicPlayer _musicPlayer;
     private int _currentIndex;
     private int _north = 0;
     private int _fakeNorth = 360;
     private int _east = 90;
     private int _south = 180;
     private int _west = 270;
-    private bool _chasingPlayer;
-    private int _turnsToLoseSight = 6;
 
     public Gameboard Gameboard => _gameBoard;
 
@@ -37,16 +33,16 @@ public class Enemy : MonoBehaviour
         _player.StepEnded -= OnStepEnded;
     }
 
-    public void Initialize(Cell startCell, Player player, Gameboard gameboard)
+    public void Initialize(Cell startCell, Player player, Gameboard gameboard, MusicPlayer musicPlayer)
     {
         _sightHandler = GetComponent<EnemySightHandler>();
         _cellsOnPath = new List<Cell>();
         _startCell = startCell;
-        _firstStartCell = _startCell;
         _player = player;
         _player.StepEnded += OnStepEnded;
         _gameBoard = gameboard;
         _sightHandler.Initialize();
+        _musicPlayer = musicPlayer; 
     }
 
     public void SetDestination(Cell destination) 
@@ -83,50 +79,32 @@ public class Enemy : MonoBehaviour
             _moveCoroutine = StartCoroutine(PerformMove());
     }
 
+    private void ChangeDestination(Cell destination, Cell newStartCell)
+    {
+        _startCell = newStartCell;
+        _currentIndex = 0;
+
+        if (destination == null)
+            return;
+
+        _destination = destination;
+    }
+
     private void CalculatePath()
     {
-        if (!_chasingPlayer && !_sightHandler.TryFindPlayer(_player))
+
+        if (_destination != _lastDestination && _lastDestination != null && _cellsOnPath.Count > 0)
         {
-            if (_destination != _lastDestination && _lastDestination != null && _cellsOnPath.Count > 0)
-            {
-                print("Destination changed");
-                _startCell = _cellsOnPath[_currentIndex - 1];
-                _currentIndex = 0;
-            }
-            else if (_cellsOnPath.Count > 0 && _currentIndex == _cellsOnPath.Count)
-            {
-                print("Reached destination");
-                _destination = _startCell;
-                _startCell = _cellsOnPath[_currentIndex - 1];
-                _currentIndex = 0;
-            }
-        }
-        else if (_sightHandler.TryFindPlayer(_player))
-        {
-            print("I see you!");
-            _chasingPlayer = true;
-            _destination = _player.CurrentCell;
-            _player.ResetTurnsOutsideOfEnemySight(_turnsToLoseSight);
+            print("Destination changed");
             _startCell = _cellsOnPath[_currentIndex - 1];
             _currentIndex = 0;
         }
-        else if (!_sightHandler.TryFindPlayer(_player) && _chasingPlayer && _player.TurnsOutsideOfenemySight > 0)
+        else if (_cellsOnPath.Count > 0 && _currentIndex == _cellsOnPath.Count)
         {
-            print("You can't hide from me!");
-            _destination = _player.CurrentCell;
-            _startCell = _cellsOnPath[_currentIndex - 1];
-            _currentIndex = 0;
+            print("Reached destination");
+            ChangeDestination(_startCell, _cellsOnPath[_currentIndex - 1]);
         }
-        else if (!_sightHandler.TryFindPlayer(_player) && _chasingPlayer && _player.TurnsOutsideOfenemySight <= 0)
-        {
-            print("I lost him!");
-            _chasingPlayer = false;
-            _player.ResetTurnsOutsideOfEnemySight(0);
-            _destination = _firstStartCell;
-            _startCell = _cellsOnPath[_currentIndex - 1];
-            _currentIndex = 0;
-        }
-        
+
         _gameBoard.GeneratePath(out _cellsOnPath, _destination, _startCell);
 
         _lastDestination = _destination;
@@ -144,6 +122,13 @@ public class Enemy : MonoBehaviour
 
         if (_cellsOnPath.Count > 0)
             GenerateSight(_cellsOnPath[_currentIndex]);
+
+        if (_sightHandler.TryFindPlayer(_player))
+        {
+            Debug.Log("Game over!");
+            _phrasePlayer.StopRightThere();
+            _musicPlayer.SwitchMusic();
+        }
 
         yield return MoveToNextCell();
         #endregion
@@ -177,10 +162,5 @@ public class Enemy : MonoBehaviour
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, _cellsOnPath[_currentIndex].transform.localPosition, Time.deltaTime * _movementSpeed);
             yield return null;
         }
-
-        _currentCell = _cellsOnPath[_currentIndex];
-
-        if (_player.AvailableCells.Count > 0 && _player.AvailableCells.Contains(_currentCell))
-            Debug.Log("Game over!");
     }
 }
