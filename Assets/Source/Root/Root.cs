@@ -1,23 +1,21 @@
 using Cinemachine;
+using System;
 using UnityEngine;
 
 public class Root : MonoBehaviour
 {
-    [SerializeField] private Enemy _enemyTemplate;
     [SerializeField] private Player _playerTemplate;
-    [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private PlayerSpawner _playerSpawner;
     [SerializeField] private Cell _playerSpawnCell;
     [SerializeField] private Gameboard _gameboard;
     [SerializeField] private CinemachineVirtualCamera _angledCamera;
     [SerializeField] private CinemachineVirtualCamera _straightCamera;
-    [SerializeField] private Cell[] _enemySpawnCells;
-    [SerializeField] private Cell[] _enemyDestinations;
+    [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private ParticleSystem _mouseOverCell;
     [SerializeField] private ParticleSystem _enemySightEffectTemplate;
     [SerializeField] private MusicPlayer _musicPlayer;
+    [SerializeField] private EnemySetter[] _enemySetters;
 
-    private Enemy _enemy;
     private Player _player;
 
     private void Start()
@@ -37,20 +35,22 @@ public class Root : MonoBehaviour
         foreach (Cell cell in _gameboard.Cells)
             cell.View.Initialize(_enemySightEffectTemplate);
 
-        int i = 0;
-
-        foreach (var cell in _enemySpawnCells)
+        foreach(var setter in _enemySetters)
         {
-            _enemy = _enemySpawner.Get(cell, _enemyTemplate);
-            _enemy.Initialize(cell, _player, _gameboard, _musicPlayer);
-
-            if(i < _enemyDestinations.Length)
-            {
-                _enemy.SetDestination(_enemyDestinations[i]);
-                i++;
-            }
+            Enemy enemy = _enemySpawner.Get(setter.EnemyTemplate, setter.Destinations[0]);
+            enemy.Initialize(setter.Destinations, _player, _gameboard, _musicPlayer);
         }
 
         _gameboard.HideGrid();
     }
+}
+
+[Serializable]
+public class EnemySetter
+{
+    [SerializeField] private Enemy _enemyTemplate;
+    [SerializeField] private Cell[] _destinations;
+
+    public Enemy EnemyTemplate => _enemyTemplate;
+    public Cell[] Destinations => _destinations;
 }

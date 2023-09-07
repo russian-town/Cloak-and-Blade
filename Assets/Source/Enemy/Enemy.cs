@@ -7,19 +7,20 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _rotationSpeed;
-    [SerializeField] private Cell _destination;
     [SerializeField] private Transform _transform;
     [SerializeField] private EnemyPhrasePlayer _phrasePlayer;
-
+    
     private Coroutine _moveCoroutine;
     private EnemySightHandler _sightHandler;
     private List<Cell> _cellsOnPath;
     private Cell _startCell;
     private Player _player;
     private Gameboard _gameBoard;
-    private Cell _lastDestination;
     private MusicPlayer _musicPlayer;
+    private Cell _currentDestination;
+    private Cell[] _destinations;
     private int _currentIndex;
+    private int _currentDestinationIndex;
     private int _north = 0;
     private int _fakeNorth = 360;
     private int _east = 90;
@@ -33,11 +34,14 @@ public class Enemy : MonoBehaviour
         _player.StepEnded -= OnStepEnded;
     }
 
-    public void Initialize(Cell startCell, Player player, Gameboard gameboard, MusicPlayer musicPlayer)
+    public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, MusicPlayer musicPlayer)
     {
         _sightHandler = GetComponent<EnemySightHandler>();
         _cellsOnPath = new List<Cell>();
-        _startCell = startCell;
+        _destinations = destinations;
+        _currentDestination = _destinations[1];
+        _currentDestinationIndex = 1;
+        _startCell = _destinations[0];
         _player = player;
         _player.StepEnded += OnStepEnded;
         _gameBoard = gameboard;
@@ -50,8 +54,10 @@ public class Enemy : MonoBehaviour
         if (destination == null)
             return;
 
-        _destination = destination;
+        _currentDestination = destination;
     }
+
+    public void ClearDestination() => _currentDestination = null;
 
     private void GenerateSight(Cell currentCell)
     {
@@ -68,46 +74,47 @@ public class Enemy : MonoBehaviour
             _sightHandler.GenerateSight(currentCell, Constants.West);
     }
 
-    public void ClearDestination() => _destination = null;
-
     private void OnStepEnded()
     {
-        if (_destination == null)
+        if (_currentDestination == null)
             return;
 
         if (_moveCoroutine == null)
             _moveCoroutine = StartCoroutine(PerformMove());
     }
 
-    private void ChangeDestination(Cell destination, Cell newStartCell)
+    private void ChangeDestination(Cell destination)
     {
-        _startCell = newStartCell;
         _currentIndex = 0;
 
         if (destination == null)
             return;
 
-        _destination = destination;
-    }
+        _currentDestination = destination;
+        print(_currentDestinationIndex);
+    } 
 
     private void CalculatePath()
     {
-
-        if (_destination != _lastDestination && _lastDestination != null && _cellsOnPath.Count > 0)
+        if (_cellsOnPath.Count > 0 && _currentIndex == _cellsOnPath.Count)
         {
-            print("Destination changed");
-            _startCell = _cellsOnPath[_currentIndex - 1];
-            _currentIndex = 0;
-        }
-        else if (_cellsOnPath.Count > 0 && _currentIndex == _cellsOnPath.Count)
-        {
-            print("Reached destination");
-            ChangeDestination(_startCell, _cellsOnPath[_currentIndex - 1]);
+            if (_currentDestinationIndex < _destinations.Length - 1)
+            {
+                _currentDestinationIndex++;
+                _startCell = _cellsOnPath[_currentIndex - 1];
+                _currentIndex = 0;
+            }
+            else
+            {
+                _currentDestinationIndex = 0;
+                _startCell = _cellsOnPath[_currentIndex - 1];
+                _currentIndex = 0;
+            }
+
+            ChangeDestination(_destinations[_currentDestinationIndex]);
         }
 
-        _gameBoard.GeneratePath(out _cellsOnPath, _destination, _startCell);
-
-        _lastDestination = _destination;
+        _gameBoard.GeneratePath(out _cellsOnPath, _currentDestination, _startCell);
     }
 
     private IEnumerator PerformMove()
