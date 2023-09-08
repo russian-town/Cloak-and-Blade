@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
 
     public Cell CurrentCell => _mover.CurrentCell;
 
+    public PlayerInput Input => _input;
+
     public event UnityAction StepEnded;
 
     private void OnDisable()
@@ -29,18 +31,24 @@ public class Player : MonoBehaviour
         _input = GetComponent<PlayerInput>();
         _mover.Initialize(_startCell);
         _input.Initialize(_gameboard, _mover, _mouseOverCell);
+        _input.Disable();
         _mover.MoveEnded += OnMoveEnded;
     }
 
-    public void EnableInput()
+    public void EnableMove()
     {
-        _input.Enable();
+        if (_input.enabled)
+            _input.Disable();
+        else
+            _input.Enable();
     }
 
-    public void DisableInput()
+    public void PrepareAbility()
     {
-        _input.Disable();
+        print("Casting");
     }
+
+    public void SkipTurn() => OnMoveEnded();
 
     private void OnMoveEnded()
     {

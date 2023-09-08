@@ -5,6 +5,7 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     private Player _player;
+    private PlayerView _view;
     private List<Enemy> _enemies = new List<Enemy>();
 
     private void OnDisable()
@@ -12,9 +13,10 @@ public class Room : MonoBehaviour
         _player.StepEnded -= OnTurnEnded;
     }
 
-    public void Initialize(Player player)
+    public void Initialize(Player player, PlayerView view)
     {
         _player = player;
+        _view = view;
         _player.StepEnded += OnTurnEnded;
     }
 
@@ -22,7 +24,8 @@ public class Room : MonoBehaviour
 
     private void OnTurnEnded()
     {
-        _player.DisableInput();
+        _view.Hide();
+        _player.Input.Disable();
         StartCoroutine(WaitEnemiesTurn());
     }
 
@@ -31,6 +34,7 @@ public class Room : MonoBehaviour
         foreach (Enemy enemy in _enemies)
             yield return enemy.PerformMove();
 
-        _player.EnableInput();
+        _view.Show();
+        _player.Input.Enable();
     }
 }

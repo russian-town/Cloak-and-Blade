@@ -5,6 +5,7 @@ using UnityEngine;
 public class Root : MonoBehaviour
 {
     [SerializeField] private Player _playerTemplate;
+    [SerializeField] private PlayerView _playerView;
     [SerializeField] private PlayerSpawner _playerSpawner;
     [SerializeField] private Cell _playerSpawnCell;
     [SerializeField] private Gameboard _gameboard;
@@ -28,6 +29,7 @@ public class Root : MonoBehaviour
     {
         _player = _playerSpawner.Get(_playerSpawnCell, _playerTemplate);
         _player.Initialize(_gameboard, _playerSpawnCell, _mouseOverCell);
+        _playerView.Initialize(_player);
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;
         _straightCamera.Follow = _player.transform;
@@ -43,7 +45,7 @@ public class Root : MonoBehaviour
             _room.AddEnemy(enemy);
         }
 
-        _room.Initialize(_player);
+        _room.Initialize(_player, _playerView);
         _gameboard.HideGrid();
     }
 }
