@@ -32,6 +32,15 @@ public class Player : MonoBehaviour
         _mover.MoveEnded += OnMoveEnded;
     }
 
+    public void EnableInput()
+    {
+        _input.Enable();
+    }
+
+    public void DisableInput()
+    {
+        _input.Disable();
+    }
 
     private void OnMoveEnded()
     {

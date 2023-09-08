@@ -15,6 +15,7 @@ public class Root : MonoBehaviour
     [SerializeField] private ParticleSystem _enemySightEffectTemplate;
     [SerializeField] private MusicPlayer _musicPlayer;
     [SerializeField] private EnemySetter[] _enemySetters;
+    [SerializeField] private Room _room;
 
     private Player _player;
 
@@ -39,8 +40,10 @@ public class Root : MonoBehaviour
         {
             Enemy enemy = _enemySpawner.Get(setter.EnemyTemplate, setter.Destinations[0]);
             enemy.Initialize(setter.Destinations, _player, _gameboard, _musicPlayer);
+            _room.AddEnemy(enemy);
         }
 
+        _room.Initialize(_player);
         _gameboard.HideGrid();
     }
 }

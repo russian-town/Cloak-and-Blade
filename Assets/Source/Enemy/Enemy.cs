@@ -29,11 +29,6 @@ public class Enemy : MonoBehaviour
 
     public Gameboard Gameboard => _gameBoard;
 
-    private void OnDisable()
-    {
-        _player.StepEnded -= OnStepEnded;
-    }
-
     public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, MusicPlayer musicPlayer)
     {
         _sightHandler = GetComponent<EnemySightHandler>();
@@ -43,7 +38,6 @@ public class Enemy : MonoBehaviour
         _currentDestinationIndex = 1;
         _startCell = _destinations[0];
         _player = player;
-        _player.StepEnded += OnStepEnded;
         _gameBoard = gameboard;
         _sightHandler.Initialize();
         _musicPlayer = musicPlayer; 
@@ -74,7 +68,7 @@ public class Enemy : MonoBehaviour
             _sightHandler.GenerateSight(currentCell, Constants.West);
     }
 
-    private void OnStepEnded()
+    public void OnTurnEnded()
     {
         if (_currentDestination == null)
             return;
@@ -117,7 +111,7 @@ public class Enemy : MonoBehaviour
         _gameBoard.GeneratePath(out _cellsOnPath, _currentDestination, _startCell);
     }
 
-    private IEnumerator PerformMove()
+    public IEnumerator PerformMove()
     {
         CalculatePath();
 

@@ -22,14 +22,6 @@ public class PlayerMover : MonoBehaviour
         AddAvailableCells();
     }
 
-    private void AddAvailableCells()
-    {
-        if (_availableCells.Count > 0)
-            _availableCells.Clear();
-
-        _availableCells.AddRange(new[] { _startCell.South, _startCell.North, _startCell.West, _startCell.East });
-    }
-
     public void Move(Cell targetCell)
     {
         if (_availableCells.Contains(targetCell))
@@ -39,6 +31,14 @@ public class PlayerMover : MonoBehaviour
                 _startMoveCoroutine = StartCoroutine(StartMoveTo(targetCell));
             }
         }
+    }
+
+    private void AddAvailableCells()
+    {
+        if (_availableCells.Count > 0)
+            _availableCells.Clear();
+
+        _availableCells.AddRange(new[] { _startCell.South, _startCell.North, _startCell.West, _startCell.East });
     }
 
     private IEnumerator StartMoveTo(Cell targetCell)

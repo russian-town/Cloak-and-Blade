@@ -46,4 +46,16 @@ public class PlayerInput : MonoBehaviour
         _gameboard = gameboard;
         _mover = playerMover;
     }
+
+    public void Enable()
+    {
+        enabled = true;
+        Debug.Log("Enable");
+    }
+
+    public void Disable()
+    {
+        enabled = false;
+        Debug.Log("Disable");
+    }
 }
