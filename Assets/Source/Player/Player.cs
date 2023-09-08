@@ -5,6 +5,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Ability _ability; 
+
     private PlayerMover _mover;
     private PlayerInput _input;
     private Gameboard _gameboard;
@@ -31,7 +33,7 @@ public class Player : MonoBehaviour
         _input = GetComponent<PlayerInput>();
         _mover.Initialize(_startCell);
         _input.Initialize(_gameboard, _mover, _mouseOverCell);
-        _input.Disable();
+        _ability.Initialize(_mover, _input);
         _mover.MoveEnded += OnMoveEnded;
     }
 
@@ -45,7 +47,7 @@ public class Player : MonoBehaviour
 
     public void PrepareAbility()
     {
-        print("Casting");
+        _ability.Prepare();
     }
 
     public void SkipTurn() => OnMoveEnded();

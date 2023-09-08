@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerInput : MonoBehaviour
     private ParticleSystem _mouseOverCell;
 
     private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
+
+    public event UnityAction<Cell> CellClicked;
 
     private void Update()
     {
@@ -29,11 +32,10 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Cell targetCell = _gameboard.GetCell(TouchRay);
+            CellClicked?.Invoke(targetCell);
 
             if(targetCell == null) 
-            {
                 return;
-            }
 
             _mover.Move(targetCell);
         }

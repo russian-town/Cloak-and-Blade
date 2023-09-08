@@ -14,6 +14,7 @@ public class Root : MonoBehaviour
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private ParticleSystem _mouseOverCell;
     [SerializeField] private ParticleSystem _enemySightEffectTemplate;
+    [SerializeField] private ParticleSystem _abilityRangeTemplate;
     [SerializeField] private MusicPlayer _musicPlayer;
     [SerializeField] private EnemySetter[] _enemySetters;
     [SerializeField] private Room _room;
@@ -36,7 +37,7 @@ public class Root : MonoBehaviour
         _straightCamera.LookAt = _player.transform;
 
         foreach (Cell cell in _gameboard.Cells)
-            cell.View.Initialize(_enemySightEffectTemplate);
+            cell.View.Initialize(_enemySightEffectTemplate, _abilityRangeTemplate);
 
         foreach(var setter in _enemySetters)
         {

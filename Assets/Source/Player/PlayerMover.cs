@@ -20,6 +20,7 @@ public class PlayerMover : MonoBehaviour
     {
         _startCell = startCell;
         AddAvailableCells();
+        CurrentCell = _startCell;
     }
 
     public void Move(Cell targetCell)
@@ -41,7 +42,7 @@ public class PlayerMover : MonoBehaviour
         _availableCells.AddRange(new[] { _startCell.South, _startCell.North, _startCell.West, _startCell.East });
     }
 
-    private IEnumerator StartMoveTo(Cell targetCell)
+    public IEnumerator StartMoveTo(Cell targetCell)
     {
         float progress = 0f;
 
