@@ -6,6 +6,7 @@ public class Blink : Ability
     private PlayerInput _input;
     private List<Cell> _availableCells;
     private int _blinkRange = 4;
+    private bool _isPrepared;
 
     private void OnDisable()
     {
@@ -21,24 +22,41 @@ public class Blink : Ability
 
     public override void Prepare()
     {
-        Cell currentCell = _mover.CurrentCell;
-        _input.CellClicked += OnCellClicked;
-        BuildBlinkRange(currentCell);
-        ShowBlinkRange();
+        if (_isPrepared)
+        {
+            Cancel();
+        }
+        else
+        {
+            Cell currentCell = _mover.CurrentCell;
+            _input.CellClicked += OnCellClicked;
+            BuildBlinkRange(currentCell);
+            ShowBlinkRange();
+            _isPrepared = true;
+            print($"Blink prepared");
+        }
     }
 
     public override void Cancel()
     {
         _input.CellClicked -= OnCellClicked;
         HideBlinkRange();
+        _availableCells.Clear();
+        _isPrepared = false;
+        print($"Canceled blink");
     }
 
     private void OnCellClicked(Cell clickedCell)
     {
         if (_availableCells.Contains(clickedCell))
+        {
+            if(clickedCell.Content.Type != CellContentType.Wall)
             StartCoroutine(_mover.StartMoveTo(clickedCell));
+        }
 
         print($"Moving to {clickedCell}");
+        Cancel();
+        _isPrepared = false;
     }
 
     private void BuildBlinkRange(Cell currentCell)
@@ -51,25 +69,25 @@ public class Blink : Ability
 
         for (int i = 0; i < _blinkRange; i++)
         {
-            if (tempCellNorth != null && tempCellNorth.Content.Type != CellContentType.Wall)
+            if (tempCellNorth != null)
             {
                 _availableCells.Add(tempCellNorth);
                 tempCellNorth = tempCellNorth.North;
             }
 
-            if (tempCellSouth != null && tempCellSouth.Content.Type != CellContentType.Wall)
+            if (tempCellSouth != null)
             {
                 _availableCells.Add(tempCellSouth);
                 tempCellSouth = tempCellSouth.South;
             }
 
-            if (tempCellWest != null && tempCellWest.Content.Type != CellContentType.Wall)
+            if (tempCellWest != null)
             {
                 _availableCells.Add(tempCellWest);
                 tempCellWest = tempCellWest.West;
             }
 
-            if (tempCellEast != null && tempCellEast.Content.Type != CellContentType.Wall)
+            if (tempCellEast != null)
             {
                 _availableCells.Add(tempCellEast);
                 tempCellEast = tempCellEast.East;
@@ -80,7 +98,10 @@ public class Blink : Ability
     private void ShowBlinkRange()
     {
         foreach(var cell in _availableCells)
+        {
+            if(cell.Content.Type != CellContentType.Wall)
             cell.View.PlayAbilityRangeEffect();
+        }
 
         print(_availableCells.Count);
         print("Showing cells");

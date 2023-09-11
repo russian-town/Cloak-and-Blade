@@ -52,7 +52,11 @@ public class CellView : MonoBehaviour
         }
     }
 
-    public void StopAbilityRangeEffect() => _abilityRangeEffect.Stop();
+    public void StopAbilityRangeEffect()
+    {
+        if( _abilityRangeEffect != null )
+            _abilityRangeEffect.Stop();
+    }
 
     public void StopEnemySightEffect() => _enemySightEffect.Stop();
 }
