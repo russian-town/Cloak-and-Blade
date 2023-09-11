@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Command
 {
+    public abstract void Prepare();
+
     public abstract void Execute();
 
     public abstract void Cancel();

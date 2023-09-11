@@ -25,7 +25,6 @@ public class Room : MonoBehaviour
     private void OnTurnEnded()
     {
         _view.Hide();
-        _player.Input.Disable();
         StartCoroutine(WaitEnemiesTurn());
     }
 
@@ -35,6 +34,5 @@ public class Room : MonoBehaviour
             yield return enemy.PerformMove();
 
         _view.Show();
-        _player.Input.Enable();
     }
 }

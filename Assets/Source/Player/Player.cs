@@ -12,7 +12,10 @@ public class Player : MonoBehaviour
     private Gameboard _gameboard;
     private Cell _startCell;
     private ParticleSystem _mouseOverCell;
+    private MoveCommand _moveCommand;
+    private AbilityCommand _abilityCommand;
 
+    public Command CurrentCommand { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
 
     public PlayerInput Input => _input;
@@ -32,25 +35,31 @@ public class Player : MonoBehaviour
         _mover = GetComponent<PlayerMover>();
         _input = GetComponent<PlayerInput>();
         _mover.Initialize(_startCell);
-        _input.Initialize(_gameboard, _mover, _mouseOverCell);
+        _input.Initialize(_gameboard, _mover, _mouseOverCell, this);
         _ability.Initialize(_mover, _input);
         _mover.MoveEnded += OnMoveEnded;
+        _moveCommand = new MoveCommand();
+        _abilityCommand = new AbilityCommand();
+        _abilityCommand.Initialize(_ability);
     }
 
-    public void EnableMove()
-    {
-        if (_input.enabled)
-            _input.Disable();
-        else
-            _input.Enable();
-    }
+    public void PrepareAbility() => SwitchCurrentCommand(_abilityCommand);
 
-    public void PrepareAbility()
-    {
-        _ability.Prepare();
-    }
+    public void PrepareMove() => SwitchCurrentCommand(_moveCommand);
 
     public void SkipTurn() => OnMoveEnded();
+
+    private void SwitchCurrentCommand(Command command)
+    {
+        if (command == CurrentCommand)
+            return;
+
+        if (CurrentCommand != null)
+            CurrentCommand.Cancel();
+
+        CurrentCommand = command;
+        CurrentCommand.Prepare();
+    }
 
     private void OnMoveEnded()
     {

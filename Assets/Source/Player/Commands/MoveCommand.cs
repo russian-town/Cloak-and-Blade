@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class MoveCommand : Command
 {
-    public override void Cancel()
+    public override void Prepare()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void Execute()
     {
-        throw new System.NotImplementedException();
+    }
+
+    public override void Cancel()
+    {
     }
 }

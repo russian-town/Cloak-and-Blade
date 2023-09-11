@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,7 +36,7 @@ public class PlayerView : MonoBehaviour
 
     private void OnMoveClick()
     {
-        _player.EnableMove();
+        _player.PrepareMove();
     }
     
     private void OnAbilityClick()

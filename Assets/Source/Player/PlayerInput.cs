@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     private PlayerMover _mover;
     private Cell _lastCell;
     private ParticleSystem _mouseOverCell;
+    private Player _player;
 
     private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
 
@@ -34,30 +35,19 @@ public class PlayerInput : MonoBehaviour
             Cell targetCell = _gameboard.GetCell(TouchRay);
             CellClicked?.Invoke(targetCell);
 
-            if(targetCell == null) 
+            if(targetCell == null)
                 return;
 
-            _mover.Move(targetCell);
+            _player.CurrentCommand.Execute();
         }
     }
 
-    public void Initialize(Gameboard gameboard, PlayerMover playerMover, ParticleSystem mouseOverCell)
+    public void Initialize(Gameboard gameboard, PlayerMover playerMover, ParticleSystem mouseOverCell, Player player)
     {
         _camera = Camera.main;
         _mouseOverCell = mouseOverCell;
         _gameboard = gameboard;
         _mover = playerMover;
-    }
-
-    public void Enable()
-    {
-        enabled = true;
-        Debug.Log("Enable");
-    }
-
-    public void Disable()
-    {
-        enabled = false;
-        Debug.Log("Disable");
+        _player = player;
     }
 }
