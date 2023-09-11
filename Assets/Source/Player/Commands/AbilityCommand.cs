@@ -14,11 +14,13 @@ public class AbilityCommand : Command
 
     public override void Execute(Cell clickedCell)
     {
+        IsExecuting = true;
         _ability.Cast(clickedCell);
     }
 
     public override void Cancel()
     {
+        IsExecuting = false;
         _ability.Cancel();
     }
 }

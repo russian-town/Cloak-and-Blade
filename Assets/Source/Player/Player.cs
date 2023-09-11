@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private Cell _startCell;
     private MoveCommand _moveCommand;
     private AbilityCommand _abilityCommand;
+    private SkipCommand _skipCommand;
     private Navigator _navigator;
 
     public Command CurrentCommand { get; private set; }
@@ -31,8 +32,9 @@ public class Player : MonoBehaviour
         _mover.Initialize(_startCell);
         _ability.Initialize();
         _mover.MoveEnded += OnMoveEnded;
-        _moveCommand = new MoveCommand(this);
+        _moveCommand = new MoveCommand(this, _mover);
         _abilityCommand = new AbilityCommand(_ability);
+        _skipCommand = new SkipCommand(this);
         _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
     }
 
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
 
     public void PrepareMove() => SwitchCurrentCommand(_moveCommand);
 
-    public void SkipTurn() => OnMoveEnded();
+    public void PrepareSkip() => SwitchCurrentCommand(_skipCommand);
 
     public bool TryMoveToCell(Cell targetCell)
     {
@@ -54,9 +56,23 @@ public class Player : MonoBehaviour
         return false;
     }
 
+    public void OnMoveEnded()
+    {
+        if (CurrentCommand is not MoveCommand)
+            CurrentCommand = null;
+        else
+            SwitchCurrentCommand(_moveCommand);
+
+        _navigator.RefillAvailableCells(_mover.CurrentCell);
+        StepEnded?.Invoke();
+    }
+
     private void SwitchCurrentCommand(Command command)
     {
         if (command == CurrentCommand)
+            return;
+
+        if (CurrentCommand != null && CurrentCommand.IsExecuting)
             return;
 
         if (CurrentCommand != null)
@@ -66,14 +82,5 @@ public class Player : MonoBehaviour
         _navigator.RefillAvailableCells(_mover.CurrentCell);
         CurrentCommand.Prepare();
         Debug.Log(CurrentCommand);
-    }
-
-    private void OnMoveEnded()
-    {
-        if (CurrentCommand is not MoveCommand)
-            CurrentCommand = null;
-
-        _navigator.RefillAvailableCells(_mover.CurrentCell);
-        StepEnded?.Invoke();
     }
 }

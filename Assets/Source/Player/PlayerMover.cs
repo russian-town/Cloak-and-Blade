@@ -10,6 +10,8 @@ public class PlayerMover : MonoBehaviour
     private Cell _startCell;
     private Coroutine _startMoveCoroutine;
 
+    public Coroutine StartMoveCoroutine => _startMoveCoroutine;
+
     public Cell CurrentCell { get; private set; }
 
     public event UnityAction MoveEnded;

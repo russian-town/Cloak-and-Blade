@@ -11,26 +11,28 @@ public class PlayerView : MonoBehaviour
 
     private void OnDestroy()
     {
-        _move.onClick.RemoveListener(OnMoveClick);
-        _ability.onClick.RemoveListener(OnAbilityClick);
-        _skip.onClick.RemoveListener(OnSkipClick);
+        Hide();
     }
 
     public void Initialize(Player player)
     {
         _player = player;
-        _move.onClick.AddListener(OnMoveClick);
-        _ability.onClick.AddListener(OnAbilityClick);
-        _skip.onClick.AddListener(OnSkipClick);
+        Show();
     }
 
     public void Show()
     {
+        _move.onClick.AddListener(OnMoveClick);
+        _ability.onClick.AddListener(OnAbilityClick);
+        _skip.onClick.AddListener(OnSkipClick);
         gameObject.SetActive(true);
     }
     
     public void Hide()
     {
+        _move.onClick.RemoveListener(OnMoveClick);
+        _ability.onClick.RemoveListener(OnAbilityClick);
+        _skip.onClick.RemoveListener(OnSkipClick);
         gameObject.SetActive(false);
     }
 
@@ -44,5 +46,5 @@ public class PlayerView : MonoBehaviour
         _player.PrepareAbility();
     }
     
-    private void OnSkipClick() => _player.SkipTurn();
+    private void OnSkipClick() => _player.PrepareSkip();
 }
