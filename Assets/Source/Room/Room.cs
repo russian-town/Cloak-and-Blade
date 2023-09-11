@@ -31,7 +31,7 @@ public class Room : MonoBehaviour
     private IEnumerator WaitEnemiesTurn()
     {
         foreach (Enemy enemy in _enemies)
-            yield return enemy.PerformMove();
+            yield return StartCoroutine(enemy.PerformMove());
 
         _view.Show();
     }

@@ -44,5 +44,5 @@ public class PlayerView : MonoBehaviour
         _player.PrepareAbility();
     }
     
-    private void OnSkipClick() => _player.SkipTurn();
+    private void OnSkipClick() => _player.PrepareSkip();
 }

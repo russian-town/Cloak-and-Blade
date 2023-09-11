@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,8 +7,8 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _speed;
 
     private Cell _startCell;
-    private Coroutine _startMoveCoroutine;
 
+    public Coroutine StartMoveCoroutine { get; private set; }
     public Cell CurrentCell { get; private set; }
 
     public event UnityAction MoveEnded;
@@ -22,8 +21,8 @@ public class PlayerMover : MonoBehaviour
 
     public void Move(Cell targetCell)
     {
-        if (_startMoveCoroutine == null)
-            _startMoveCoroutine = StartCoroutine(StartMoveTo(targetCell));
+        if (StartMoveCoroutine == null)
+            StartMoveCoroutine = StartCoroutine(StartMoveTo(targetCell));
     }
 
     public IEnumerator StartMoveTo(Cell targetCell)
@@ -33,13 +32,14 @@ public class PlayerMover : MonoBehaviour
         while(progress < 1)
         {
             transform.localPosition = Vector3.LerpUnclamped(transform.localPosition, targetCell.transform.localPosition, progress);
-            progress += Time.deltaTime;
+            progress += Time.deltaTime / 2;
             yield return null;
         }
 
-        _startCell = targetCell;
         CurrentCell = targetCell;
-        _startMoveCoroutine = null;
+        _startCell = targetCell;
+        StartMoveCoroutine = null;
+        Debug.Log("Move ended!");
         MoveEnded?.Invoke();
     }
 }

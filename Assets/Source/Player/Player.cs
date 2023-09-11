@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private Cell _startCell;
     private MoveCommand _moveCommand;
     private AbilityCommand _abilityCommand;
+    private SkipCommand _skipCommand;
     private Navigator _navigator;
 
     public Command CurrentCommand { get; private set; }
@@ -31,14 +32,17 @@ public class Player : MonoBehaviour
         _mover.Initialize(_startCell);
         _ability.Initialize();
         _mover.MoveEnded += OnMoveEnded;
-        _moveCommand = new MoveCommand(this);
+        _moveCommand = new MoveCommand(this, _mover);
         _abilityCommand = new AbilityCommand(_ability);
+        _skipCommand = new SkipCommand(this);
         _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
     }
 
     public void PrepareAbility() => SwitchCurrentCommand(_abilityCommand);
 
     public void PrepareMove() => SwitchCurrentCommand(_moveCommand);
+
+    public void PrepareSkip() => SwitchCurrentCommand(_skipCommand);
 
     public void SkipTurn() => OnMoveEnded();
 
@@ -59,13 +63,15 @@ public class Player : MonoBehaviour
         if (command == CurrentCommand)
             return;
 
+        if (CurrentCommand != null && CurrentCommand.IsExecuting)
+            return;
+
         if (CurrentCommand != null)
             CurrentCommand.Cancel();
 
         CurrentCommand = command;
         _navigator.RefillAvailableCells(_mover.CurrentCell);
         CurrentCommand.Prepare();
-        Debug.Log(CurrentCommand);
     }
 
     private void OnMoveEnded()

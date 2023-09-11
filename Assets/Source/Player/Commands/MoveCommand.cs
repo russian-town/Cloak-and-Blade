@@ -5,10 +5,12 @@ using UnityEngine;
 public class MoveCommand : Command
 {
     private Player _player;
+    private PlayerMover _playerMover;
 
-    public MoveCommand(Player player)
+    public MoveCommand(Player player, PlayerMover playerMover)
     {
         _player = player;
+        _playerMover = playerMover;
     }
 
     public override void Prepare()
@@ -16,12 +18,13 @@ public class MoveCommand : Command
 
     }
 
-    public override void Execute(Cell cell)
-    {
-        _player.TryMoveToCell(cell);
-    }
-
     public override void Cancel()
     {
+    }
+
+    protected override IEnumerator Action(Cell clickedCell)
+    {
+        _player.TryMoveToCell(clickedCell);
+        yield return _playerMover.StartMoveCoroutine;
     }
 }

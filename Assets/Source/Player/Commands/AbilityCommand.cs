@@ -1,3 +1,6 @@
+using System.Collections;
+using UnityEngine;
+
 public class AbilityCommand : Command
 {
     private Ability _ability;
@@ -12,13 +15,13 @@ public class AbilityCommand : Command
         _ability.Prepare();
     }
 
-    public override void Execute(Cell clickedCell)
-    {
-        _ability.Cast(clickedCell);
-    }
-
     public override void Cancel()
     {
         _ability.Cancel();
+    }
+
+    protected override IEnumerator Action(Cell clickedCell)
+    {
+        yield return new WaitUntil(() => _ability.Cast(clickedCell));
     }
 }
