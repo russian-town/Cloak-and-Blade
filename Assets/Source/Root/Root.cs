@@ -18,6 +18,8 @@ public class Root : MonoBehaviour
     [SerializeField] private MusicPlayer _musicPlayer;
     [SerializeField] private EnemySetter[] _enemySetters;
     [SerializeField] private Room _room;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private PlayerInput _playerInput;
 
     private Player _player;
 
@@ -29,7 +31,8 @@ public class Root : MonoBehaviour
     private void Initialize()
     {
         _player = _playerSpawner.Get(_playerSpawnCell, _playerTemplate);
-        _player.Initialize(_gameboard, _playerSpawnCell, _mouseOverCell);
+        _player.Initialize(_playerSpawnCell);
+        _playerInput.Initialize(_camera, _gameboard, _mouseOverCell, _player);
         _playerView.Initialize(_player);
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;

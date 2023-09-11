@@ -2,7 +2,7 @@ public class AbilityCommand : Command
 {
     private Ability _ability;
 
-    public void Initialize(Ability ability)
+    public AbilityCommand(Ability ability)
     {
         _ability = ability;
     }
@@ -12,9 +12,9 @@ public class AbilityCommand : Command
         _ability.Prepare();
     }
 
-    public override void Execute()
+    public override void Execute(Cell clickedCell)
     {
-        _ability.Cast();
+        _ability.Cast(clickedCell);
     }
 
     public override void Cancel()

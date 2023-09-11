@@ -2,23 +2,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerMover), typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerMover))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private Ability _ability; 
 
     private PlayerMover _mover;
-    private PlayerInput _input;
-    private Gameboard _gameboard;
     private Cell _startCell;
-    private ParticleSystem _mouseOverCell;
     private MoveCommand _moveCommand;
     private AbilityCommand _abilityCommand;
+    private List<Cell> _availableCells = new List<Cell>();
 
     public Command CurrentCommand { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
-
-    public PlayerInput Input => _input;
 
     public event UnityAction StepEnded;
 
@@ -27,20 +23,16 @@ public class Player : MonoBehaviour
         _mover.MoveEnded -= OnMoveEnded;
     }
 
-    public void Initialize(Gameboard gameboard, Cell startCell, ParticleSystem mouseOverCell)
+    public void Initialize(Cell startCell)
     {
-        _mouseOverCell = mouseOverCell;
-        _gameboard = gameboard;
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
-        _input = GetComponent<PlayerInput>();
         _mover.Initialize(_startCell);
-        _input.Initialize(_gameboard, _mover, _mouseOverCell, this);
-        _ability.Initialize(_mover, _input);
+        _ability.Initialize(_mover);
         _mover.MoveEnded += OnMoveEnded;
-        _moveCommand = new MoveCommand();
-        _abilityCommand = new AbilityCommand();
-        _abilityCommand.Initialize(_ability);
+        _moveCommand = new MoveCommand(this);
+        _abilityCommand = new AbilityCommand(_ability);
+        AddAvailableCells();
     }
 
     public void PrepareAbility() => SwitchCurrentCommand(_abilityCommand);
@@ -48,6 +40,26 @@ public class Player : MonoBehaviour
     public void PrepareMove() => SwitchCurrentCommand(_moveCommand);
 
     public void SkipTurn() => OnMoveEnded();
+
+    public void TryMoveToCell(Cell targetCell)
+    {
+        if (_availableCells.Contains(targetCell))
+            _mover.Move(targetCell);
+
+        _startCell = targetCell;
+        AddAvailableCells();
+    }
+
+    private void AddAvailableCells()
+    {
+        if (_availableCells.Count > 0)
+            _availableCells.Clear();
+
+        _availableCells.Add(_startCell.East);
+        _availableCells.Add(_startCell.North);
+        _availableCells.Add(_startCell.South);
+        _availableCells.Add(_startCell.West);
+    }
 
     private void SwitchCurrentCommand(Command command)
     {
@@ -63,6 +75,7 @@ public class Player : MonoBehaviour
 
     private void OnMoveEnded()
     {
+        CurrentCommand = null;
         StepEnded?.Invoke();
     }
 }

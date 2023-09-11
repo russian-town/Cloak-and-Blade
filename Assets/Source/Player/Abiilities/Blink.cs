@@ -3,21 +3,14 @@ using System.Collections.Generic;
 public class Blink : Ability
 {
     private PlayerMover _mover;
-    private PlayerInput _input;
     private List<Cell> _availableCells;
     private int _blinkRange = 4;
     private bool _isPrepared;
 
-    private void OnDisable()
-    {
-        _input.CellClicked -= OnCellClicked; 
-    }
-
-    public override void Initialize(PlayerMover mover, PlayerInput input)
+    public override void Initialize(PlayerMover mover)
     {
         _availableCells = new List<Cell>();
         _mover = mover;
-        _input = input;
     }
 
     public override void Prepare()
@@ -29,7 +22,6 @@ public class Blink : Ability
         else
         {
             Cell currentCell = _mover.CurrentCell;
-            _input.CellClicked += OnCellClicked;
             BuildBlinkRange(currentCell);
             ShowBlinkRange();
             _isPrepared = true;
@@ -39,14 +31,13 @@ public class Blink : Ability
 
     public override void Cancel()
     {
-        _input.CellClicked -= OnCellClicked;
         HideBlinkRange();
         _availableCells.Clear();
         _isPrepared = false;
         print($"Canceled blink");
     }
 
-    private void OnCellClicked(Cell clickedCell)
+    public override void Cast(Cell clickedCell)
     {
         if (_availableCells.Contains(clickedCell))
         {

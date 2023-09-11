@@ -6,7 +6,7 @@ public abstract class Command
 {
     public abstract void Prepare();
 
-    public abstract void Execute();
+    public abstract void Execute(Cell clickedCell);
 
     public abstract void Cancel();
 }

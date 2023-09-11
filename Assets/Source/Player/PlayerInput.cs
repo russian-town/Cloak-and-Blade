@@ -1,21 +1,21 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
     private Camera _camera;
     private Gameboard _gameboard;
-    private PlayerMover _mover;
     private Cell _lastCell;
     private ParticleSystem _mouseOverCell;
     private Player _player;
+    private bool _isInitialized;
 
     private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
 
-    public event UnityAction<Cell> CellClicked;
-
     private void Update()
     {
+        if (_isInitialized == false)
+            return;
+
         Cell cell = _gameboard.GetCell(TouchRay);
 
         if (_lastCell != null && cell != _lastCell)
@@ -33,21 +33,20 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Cell targetCell = _gameboard.GetCell(TouchRay);
-            CellClicked?.Invoke(targetCell);
 
-            if(targetCell == null)
+            if (targetCell == null || _player.CurrentCommand == null)
                 return;
 
-            _player.CurrentCommand.Execute();
+            _player.CurrentCommand.Execute(targetCell);
         }
     }
 
-    public void Initialize(Gameboard gameboard, PlayerMover playerMover, ParticleSystem mouseOverCell, Player player)
+    public void Initialize(Camera camera, Gameboard gameboard, ParticleSystem mouseOverCell, Player player)
     {
-        _camera = Camera.main;
+        _camera = camera;
         _mouseOverCell = mouseOverCell;
         _gameboard = gameboard;
-        _mover = playerMover;
         _player = player;
+        _isInitialized = true;
     }
 }

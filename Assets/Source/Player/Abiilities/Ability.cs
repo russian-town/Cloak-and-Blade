@@ -4,12 +4,12 @@ using UnityEngine;
 
 public abstract class Ability : MonoBehaviour
 {
-    public virtual void Cast()
+    public virtual void Cast(Cell cell)
     {
 
     }
 
-    public abstract void Initialize(PlayerMover mover = null, PlayerInput input = null);
+    public abstract void Initialize(PlayerMover mover = null);
 
     public abstract void Prepare();
 
