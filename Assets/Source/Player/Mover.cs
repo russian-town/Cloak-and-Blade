@@ -6,6 +6,8 @@ public class Mover : MonoBehaviour
 {
     private Coroutine _startMove;
 
+    public Cell CurrentCell {  get; private set; }
+
     public void Move(Cell targetCell, float duration = 1)
     {
         if (_startMove == null)
@@ -23,6 +25,7 @@ public class Mover : MonoBehaviour
             yield return null;
         }
 
+        CurrentCell = targetCell;
         _startMove = null;
     }
 }

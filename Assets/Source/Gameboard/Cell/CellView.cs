@@ -44,7 +44,6 @@ public class CellView : MonoBehaviour
             _abilityRangeEffect = Instantiate(_abilityRangeEffectTemplate);
             _abilityRangeEffect.transform.position = transform.position;
             _abilityRangeEffect.Play();
-            print("Playing");
         }
         else
         {

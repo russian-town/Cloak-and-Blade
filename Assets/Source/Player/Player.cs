@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private Cell _startCell;
     private MoveCommand _moveCommand;
     private AbilityCommand _abilityCommand;
-    private List<Cell> _availableCells = new List<Cell>();
+    private Navigator _navigator;
 
     public Command CurrentCommand { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
@@ -27,12 +27,13 @@ public class Player : MonoBehaviour
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
+        _navigator = GetComponent<Navigator>();
         _mover.Initialize(_startCell);
-        _ability.Initialize(_mover);
+        _ability.Initialize();
         _mover.MoveEnded += OnMoveEnded;
         _moveCommand = new MoveCommand(this);
         _abilityCommand = new AbilityCommand(_ability);
-        AddAvailableCells();
+        _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
     }
 
     public void PrepareAbility() => SwitchCurrentCommand(_abilityCommand);
@@ -41,24 +42,16 @@ public class Player : MonoBehaviour
 
     public void SkipTurn() => OnMoveEnded();
 
-    public void TryMoveToCell(Cell targetCell)
+    public bool TryMoveToCell(Cell targetCell)
     {
-        if (_availableCells.Contains(targetCell))
+        if (_navigator.CanMoveToCell(targetCell))
+        {
             _mover.Move(targetCell);
+            _startCell = _mover.CurrentCell;
+            return true;
+        }
 
-        _startCell = targetCell;
-        AddAvailableCells();
-    }
-
-    private void AddAvailableCells()
-    {
-        if (_availableCells.Count > 0)
-            _availableCells.Clear();
-
-        _availableCells.Add(_startCell.East);
-        _availableCells.Add(_startCell.North);
-        _availableCells.Add(_startCell.South);
-        _availableCells.Add(_startCell.West);
+        return false;
     }
 
     private void SwitchCurrentCommand(Command command)
@@ -70,12 +63,17 @@ public class Player : MonoBehaviour
             CurrentCommand.Cancel();
 
         CurrentCommand = command;
+        _navigator.RefillAvailableCells(_mover.CurrentCell);
         CurrentCommand.Prepare();
+        Debug.Log(CurrentCommand);
     }
 
     private void OnMoveEnded()
     {
-        CurrentCommand = null;
+        if (CurrentCommand is not MoveCommand)
+            CurrentCommand = null;
+
+        _navigator.RefillAvailableCells(_mover.CurrentCell);
         StepEnded?.Invoke();
     }
 }

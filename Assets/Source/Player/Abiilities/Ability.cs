@@ -9,7 +9,7 @@ public abstract class Ability : MonoBehaviour
 
     }
 
-    public abstract void Initialize(PlayerMover mover = null);
+    public abstract void Initialize();
 
     public abstract void Prepare();
 

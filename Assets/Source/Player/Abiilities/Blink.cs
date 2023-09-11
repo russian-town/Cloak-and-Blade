@@ -1,53 +1,43 @@
 using System.Collections.Generic;
+using UnityEngine;
 
+[RequireComponent(typeof(Player), typeof(Navigator))]
 public class Blink : Ability
 {
-    private PlayerMover _mover;
-    private List<Cell> _availableCells;
-    private int _blinkRange = 4;
-    private bool _isPrepared;
+    [SerializeField] private int _blinkRange = 4;
 
-    public override void Initialize(PlayerMover mover)
+    private Player _player;
+    private List<Cell> _availableCells = new List<Cell>();
+    private Navigator _navigator;
+
+    public override void Initialize()
     {
-        _availableCells = new List<Cell>();
-        _mover = mover;
+        _player = GetComponent<Player>();
+        _navigator = GetComponent<Navigator>();
     }
 
     public override void Prepare()
     {
-        if (_isPrepared)
-        {
-            Cancel();
-        }
-        else
-        {
-            Cell currentCell = _mover.CurrentCell;
-            BuildBlinkRange(currentCell);
-            ShowBlinkRange();
-            _isPrepared = true;
-            print($"Blink prepared");
-        }
+        Cell currentCell = _player.CurrentCell;
+        BuildBlinkRange(currentCell);
+        ShowBlinkRange();
+        Debug.Log("Blink prepare!");
     }
 
     public override void Cancel()
     {
         HideBlinkRange();
         _availableCells.Clear();
-        _isPrepared = false;
-        print($"Canceled blink");
+        Debug.Log("Blink cancel!");
     }
 
     public override void Cast(Cell clickedCell)
     {
-        if (_availableCells.Contains(clickedCell))
+        if (_player.TryMoveToCell(clickedCell))
         {
-            if(clickedCell.Content.Type != CellContentType.Wall)
-            StartCoroutine(_mover.StartMoveTo(clickedCell));
+            Cancel();
+            Debug.Log("Blink cast!");
         }
-
-        print($"Moving to {clickedCell}");
-        Cancel();
-        _isPrepared = false;
     }
 
     private void BuildBlinkRange(Cell currentCell)
@@ -84,18 +74,15 @@ public class Blink : Ability
                 tempCellEast = tempCellEast.East;
             }
         }
+
+        _navigator.RefillAvailableCells(_availableCells);
     }
 
     private void ShowBlinkRange()
     {
-        foreach(var cell in _availableCells)
-        {
-            if(cell.Content.Type != CellContentType.Wall)
-            cell.View.PlayAbilityRangeEffect();
-        }
-
-        print(_availableCells.Count);
-        print("Showing cells");
+        foreach (var cell in _availableCells)
+            if (cell.Content.Type != CellContentType.Wall)
+                cell.View.PlayAbilityRangeEffect();
     }
 
     private void HideBlinkRange()
