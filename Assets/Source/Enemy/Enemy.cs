@@ -119,7 +119,7 @@ public class Enemy : MonoBehaviour
             yield break;
 
         #region RotateAndMove
-        yield return RotateTowardsNextCell();
+        yield return StartCoroutine(RotateTowardsNextCell());
 
         if (_cellsOnPath.Count > 0)
             GenerateSight(_cellsOnPath[_currentIndex]);
@@ -131,7 +131,7 @@ public class Enemy : MonoBehaviour
             _musicPlayer.SwitchMusic();
         }
 
-        yield return MoveToNextCell();
+        yield return StartCoroutine(MoveToNextCell());
         #endregion
 
         _moveCoroutine = null;

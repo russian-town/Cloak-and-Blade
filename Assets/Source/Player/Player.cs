@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
 
     public void PrepareSkip() => SwitchCurrentCommand(_skipCommand);
 
+    public void SkipTurn() => OnMoveEnded();
+
     public bool TryMoveToCell(Cell targetCell)
     {
         if (_navigator.CanMoveToCell(targetCell))
@@ -54,17 +56,6 @@ public class Player : MonoBehaviour
         }
 
         return false;
-    }
-
-    public void OnMoveEnded()
-    {
-        if (CurrentCommand is not MoveCommand)
-            CurrentCommand = null;
-        else
-            SwitchCurrentCommand(_moveCommand);
-
-        _navigator.RefillAvailableCells(_mover.CurrentCell);
-        StepEnded?.Invoke();
     }
 
     private void SwitchCurrentCommand(Command command)
@@ -81,6 +72,14 @@ public class Player : MonoBehaviour
         CurrentCommand = command;
         _navigator.RefillAvailableCells(_mover.CurrentCell);
         CurrentCommand.Prepare();
-        Debug.Log(CurrentCommand);
+    }
+
+    private void OnMoveEnded()
+    {
+        if (CurrentCommand is not MoveCommand)
+            CurrentCommand = null;
+
+        _navigator.RefillAvailableCells(_mover.CurrentCell);
+        StepEnded?.Invoke();
     }
 }

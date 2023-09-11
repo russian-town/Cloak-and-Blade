@@ -4,10 +4,13 @@ using UnityEngine;
 
 public abstract class Ability : MonoBehaviour
 {
-    public virtual void Cast(Cell cell)
+    public virtual bool Cast(Cell cell)
     {
-
+        Action(cell);
+        return true;
     }
+
+    protected abstract void Action(Cell cell);
 
     public abstract void Initialize();
 

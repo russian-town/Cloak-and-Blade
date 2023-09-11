@@ -21,23 +21,12 @@ public class Blink : Ability
         Cell currentCell = _player.CurrentCell;
         BuildBlinkRange(currentCell);
         ShowBlinkRange();
-        Debug.Log("Blink prepare!");
     }
 
     public override void Cancel()
     {
         HideBlinkRange();
         _availableCells.Clear();
-        Debug.Log("Blink cancel!");
-    }
-
-    public override void Cast(Cell clickedCell)
-    {
-        if (_player.TryMoveToCell(clickedCell))
-        {
-            Cancel();
-            Debug.Log("Blink cast!");
-        }
     }
 
     private void BuildBlinkRange(Cell currentCell)
@@ -89,5 +78,13 @@ public class Blink : Ability
     {
         foreach (var cell in _availableCells)
             cell.View.StopAbilityRangeEffect();
+    }
+
+    protected override void Action(Cell cell)
+    {
+        if (_player.TryMoveToCell(cell))
+        {
+            Cancel();
+        }
     }
 }

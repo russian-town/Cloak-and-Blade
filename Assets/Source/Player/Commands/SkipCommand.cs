@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class SkipCommand : Command
 {
@@ -15,12 +13,13 @@ public class SkipCommand : Command
     {
     }
 
-    public override void Execute(Cell clickedCell)
-    {
-    }
-
     public override void Prepare()
     {
-        _player.OnMoveEnded();
+        _player.SkipTurn();
+    }
+
+    protected override IEnumerator Action(Cell clickedCell)
+    {
+        yield return null;
     }
 }
