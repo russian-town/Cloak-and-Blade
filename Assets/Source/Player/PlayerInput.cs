@@ -37,7 +37,7 @@ public class PlayerInput : MonoBehaviour
             if (targetCell == null || _player.CurrentCommand == null)
                 return;
 
-            if (_player.CurrentCommand.IsExecuting == false)
+            if (_player.CurrentCommand.IsExecuting == false && _player.CurrentCommand.IsReady)
                 StartCoroutine(_player.CurrentCommand.Execute(targetCell, _player));
         }
     }

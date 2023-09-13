@@ -13,16 +13,16 @@ public class MoveCommand : Command
         _playerMover = playerMover;
     }
 
-    public override void Prepare()
+    protected override IEnumerator PrepareAction()
     {
-
+        yield return null;
     }
 
     public override void Cancel()
     {
     }
 
-    protected override IEnumerator Action(Cell clickedCell)
+    protected override IEnumerator ExecuteAction(Cell clickedCell)
     {
         _player.TryMoveToCell(clickedCell);
         yield return _playerMover.StartMoveCoroutine;

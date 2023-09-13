@@ -20,6 +20,9 @@ public class Root : MonoBehaviour
     [SerializeField] private Room _room;
     [SerializeField] private Camera _camera;
     [SerializeField] private PlayerInput _playerInput;
+    [SerializeField] private AnimationClip _hourglassAnimation;
+    [SerializeField] private Animator _hourglassAnimator;
+    [SerializeField] private CanvasGroup _hourglass;
 
     private Player _player;
 
@@ -31,7 +34,7 @@ public class Root : MonoBehaviour
     private void Initialize()
     {
         _player = _playerSpawner.Get(_playerSpawnCell, _playerTemplate);
-        _player.Initialize(_playerSpawnCell);
+        _player.Initialize(_playerSpawnCell, _hourglassAnimation, _hourglassAnimator, _hourglass);
         _playerInput.Initialize(_camera, _gameboard, _mouseOverCell, _player);
         _playerView.Initialize(_player);
         _angledCamera.Follow = _player.transform;
@@ -42,7 +45,7 @@ public class Root : MonoBehaviour
         foreach (Cell cell in _gameboard.Cells)
             cell.View.Initialize(_enemySightEffectTemplate, _abilityRangeTemplate);
 
-        foreach(var setter in _enemySetters)
+        foreach (var setter in _enemySetters)
         {
             Enemy enemy = _enemySpawner.Get(setter.EnemyTemplate, setter.Destinations[0]);
             enemy.Initialize(setter.Destinations, _player, _gameboard, _musicPlayer);

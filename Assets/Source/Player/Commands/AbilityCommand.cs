@@ -10,9 +10,10 @@ public class AbilityCommand : Command
         _ability = ability;
     }
 
-    public override void Prepare()
+    protected override IEnumerator PrepareAction()
     {
         _ability.Prepare();
+        yield return null;
     }
 
     public override void Cancel()
@@ -20,7 +21,7 @@ public class AbilityCommand : Command
         _ability.Cancel();
     }
 
-    protected override IEnumerator Action(Cell clickedCell)
+    protected override IEnumerator ExecuteAction(Cell clickedCell)
     {
         yield return new WaitUntil(() => _ability.Cast(clickedCell));
     }

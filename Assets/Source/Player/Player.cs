@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     private AbilityCommand _abilityCommand;
     private SkipCommand _skipCommand;
     private Navigator _navigator;
+    private AnimationClip _hourglassAnimation;
+    private Animator _hourglassAnimator;
+    private CanvasGroup _hourglass;
 
     public Command CurrentCommand { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
@@ -24,7 +27,7 @@ public class Player : MonoBehaviour
         _mover.MoveEnded -= OnMoveEnded;
     }
 
-    public void Initialize(Cell startCell)
+    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
@@ -32,9 +35,12 @@ public class Player : MonoBehaviour
         _mover.Initialize(_startCell);
         _ability.Initialize();
         _mover.MoveEnded += OnMoveEnded;
+        _hourglass = hourglass;
+        _hourglassAnimator = hourglassAnimator;
+        _hourglassAnimation = hourglassAnimation;
         _moveCommand = new MoveCommand(this, _mover);
         _abilityCommand = new AbilityCommand(_ability);
-        _skipCommand = new SkipCommand(this);
+        _skipCommand = new SkipCommand(this, _hourglassAnimation, _hourglassAnimator, this, _hourglass);
         _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
     }
 
@@ -71,7 +77,7 @@ public class Player : MonoBehaviour
 
         CurrentCommand = command;
         _navigator.RefillAvailableCells(_mover.CurrentCell);
-        CurrentCommand.Prepare();
+        StartCoroutine(CurrentCommand.Prepare(this));
     }
 
     private void OnMoveEnded()

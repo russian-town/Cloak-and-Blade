@@ -1,22 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Command
 {
     public bool IsExecuting { get; private set; }
+    public bool IsReady { get; private set; }
 
-    public abstract void Prepare();
+    public virtual IEnumerator Prepare(MonoBehaviour context)
+    {
+        yield return context.StartCoroutine(PrepareAction());
+        IsReady = true;
+    }
 
     public virtual IEnumerator Execute(Cell clickedCell, MonoBehaviour context)
     {
         IsExecuting = true;
-        yield return context.StartCoroutine(Action(clickedCell));
-        Debug.Log($"Executing {this}");
+        yield return context.StartCoroutine(ExecuteAction(clickedCell));
         IsExecuting = false;
     }
 
-    protected abstract IEnumerator Action(Cell clickedCell);
+    protected abstract IEnumerator PrepareAction();
 
-    public abstract void Cancel();
+    protected abstract IEnumerator ExecuteAction(Cell clickedCell);
+
+    public virtual void Cancel() => IsReady = false;
 }
