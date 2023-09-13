@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -32,6 +33,15 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if(Physics.Raycast(TouchRay, out RaycastHit hit))
+            {
+                if (hit.transform.TryGetComponent(out InteractiveObject interactiveObject))
+                {
+                    interactiveObject.Interact();
+                    return;
+                }
+            }
+
             Cell targetCell = _gameboard.GetCell(TouchRay);
 
             if (targetCell == null || _player.CurrentCommand == null)

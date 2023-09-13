@@ -5,7 +5,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerMover))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Ability _ability; 
+    [SerializeField] private Ability _ability;
+    [SerializeField] private ItemsInHold _itemsInHold;
 
     private PlayerMover _mover;
     private Cell _startCell;
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
 
     public Command CurrentCommand { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
+    public ItemsInHold ItemsInHold => _itemsInHold;
 
     public event UnityAction StepEnded;
 

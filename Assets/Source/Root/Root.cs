@@ -23,6 +23,7 @@ public class Root : MonoBehaviour
     [SerializeField] private AnimationClip _hourglassAnimation;
     [SerializeField] private Animator _hourglassAnimator;
     [SerializeField] private CanvasGroup _hourglass;
+    [SerializeField] private InteractiveObject[] _interactiveObjects;
 
     private Player _player;
 
@@ -44,6 +45,9 @@ public class Root : MonoBehaviour
 
         foreach (Cell cell in _gameboard.Cells)
             cell.View.Initialize(_enemySightEffectTemplate, _abilityRangeTemplate);
+
+        foreach (var interactiveObject in _interactiveObjects)
+            interactiveObject.Initialize(_player);
 
         foreach (var setter in _enemySetters)
         {
