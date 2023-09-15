@@ -26,10 +26,10 @@ public class SkipCommand : Command
     protected override IEnumerator PrepareAction()
     {
         yield return _context.StartCoroutine(FadeIn(1));
-        _hourglassAnimator.SetBool(Constants.IsSkippingParametr, true);
+        _hourglassAnimator.SetBool(Constants.IsSkippingParameter, true);
         yield return new WaitForSeconds(_hourglassAnimation.length);
         yield return _context.StartCoroutine(FadeIn(0));
-        _hourglassAnimator.SetBool(Constants.IsSkippingParametr, false);
+        _hourglassAnimator.SetBool(Constants.IsSkippingParameter, false);
         _player.SkipTurn();
         yield return null;
     }

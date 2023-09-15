@@ -4,37 +4,34 @@ using UnityEngine;
 public abstract class InteractiveObject : MonoBehaviour
 {
     [SerializeField] private List<Cell> _cellsInInteractibleRange;
-    [SerializeField] private InteractiveObjectView _view;
 
     protected Player Player { get; private set; }
 
     private void OnDisable()
     {
-        Player.StepEnded -= CheckInteractionPossibility;
+        Player.StepEnded -= OnStepEnded;
     }
 
-    public void Initialize(Player player)
+    public virtual void Initialize(Player player)
     {
         Player = player;
-        Player.StepEnded += CheckInteractionPossibility;
+        Player.StepEnded += OnStepEnded;
     }
+
+    public abstract void Prepare();
     
     public abstract void Interact();
 
-    protected void CheckInteractionPossibility()
+    protected bool CheckInteractionPossibility()
     {
         if (_cellsInInteractibleRange.Contains(Player.CurrentCell))
-        {
-            _view.Show();
-            _view.InteractButton.onClick.AddListener(Interact);
-        }
+            return true;
         else
-        {
-            if (_view.isActiveAndEnabled)
-            {
-                _view.InteractButton.onClick.RemoveListener(Interact);
-                _view.Hide();
-            }
-        }
+            return false;
+    }
+
+    private void OnStepEnded()
+    {
+        Prepare();
     }
 }

@@ -154,9 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9539b94a40c5d2d46a50d52cd93c8542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 9
-  _rotationSpeed: 150
-  _destination: {fileID: 0}
+  _movementSpeed: 100
+  _rotationSpeed: 300
   _transform: {fileID: 2947814527195524518}
   _phrasePlayer: {fileID: 4889016931956276511}
 --- !u!114 &5740147665255432580

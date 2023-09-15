@@ -7,30 +7,41 @@ public class Portcullis : InteractiveObject
 {
     [SerializeField] private Cell[] _wallCells;
     [SerializeField] private PortcullisKey _key;
+    [SerializeField] private InteractiveObjectView _view;
 
     public override void Interact()
     {
         TryOpen();
     }
 
+    public override void Prepare()
+    {
+        if (CheckInteractionPossibility())
+        {
+            _view.Show();
+            _view.InteractButton.onClick.AddListener(Interact);
+        }
+        else if (_view.isActiveAndEnabled)
+        {
+            _view.InteractButton.onClick.RemoveListener(Interact);
+            _view.Hide();
+        }
+    }
+
     public void TryOpen()
     {
-        foreach(var item in Player.ItemsInHold.ItemList)
+        if (Player.ItemsInHold.FindItemInList(_key))
         {
-            if (item == _key)
-            {
-                print("Opened succecfully");
+            print("Opened succecfully");
 
-                foreach (var cell in _wallCells)
-                    cell.Content.BecomeEmpty();
+            foreach (var cell in _wallCells)
+                cell.Content.BecomeEmpty();
 
-                gameObject.SetActive(false);
-                break;
-            }
-            else
-            {
-                print("Needs key");
-            }
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            print("Find key firts");
         }
     }
 }

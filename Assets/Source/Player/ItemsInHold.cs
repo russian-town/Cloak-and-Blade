@@ -6,7 +6,17 @@ public class ItemsInHold : MonoBehaviour
 {
     private List<InteractiveObject> _itemsInHold =  new List<InteractiveObject>();
 
-    public IReadOnlyList<InteractiveObject> ItemList => _itemsInHold;
-
     public void AddObjectToItemList(InteractiveObject interactiveObject) => _itemsInHold.Add(interactiveObject);
+    
+    public bool FindItemInList(InteractiveObject neededItem)
+    {
+        if (_itemsInHold.Count == 0)
+            return false;
+
+        foreach (var item in _itemsInHold)
+            if (item == neededItem)
+                return true;
+
+        return false;
+    }
 }
