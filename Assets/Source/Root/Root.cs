@@ -13,7 +13,6 @@ public class Root : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _straightCamera;
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private ParticleSystem _mouseOverCell;
-    [SerializeField] private ParticleSystem _enemySightEffectTemplate;
     [SerializeField] private ParticleSystem _abilityRangeTemplate;
     [SerializeField] private MusicPlayer _musicPlayer;
     [SerializeField] private EnemySetter[] _enemySetters;
@@ -24,6 +23,7 @@ public class Root : MonoBehaviour
     [SerializeField] private Animator _hourglassAnimator;
     [SerializeField] private CanvasGroup _hourglass;
     [SerializeField] private InteractiveObject[] _interactiveObjects;
+    [SerializeField] private EnemyZoneDrawer _enemyZoneDrawer;
 
     private Player _player;
 
@@ -44,7 +44,7 @@ public class Root : MonoBehaviour
         _straightCamera.LookAt = _player.transform;
 
         foreach (Cell cell in _gameboard.Cells)
-            cell.View.Initialize(_enemySightEffectTemplate, _abilityRangeTemplate);
+            cell.View.Initialize(_abilityRangeTemplate);
 
         foreach (var interactiveObject in _interactiveObjects)
             interactiveObject.Initialize(_player);
@@ -52,7 +52,7 @@ public class Root : MonoBehaviour
         foreach (var setter in _enemySetters)
         {
             Enemy enemy = _enemySpawner.Get(setter.EnemyTemplate, setter.Destinations[0]);
-            enemy.Initialize(setter.Destinations, _player, _gameboard, _musicPlayer);
+            enemy.Initialize(setter.Destinations, _player, _gameboard, _musicPlayer, _enemyZoneDrawer);
             _room.AddEnemy(enemy);
         }
 

@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     
     private Coroutine _moveCoroutine;
     private EnemySightHandler _sightHandler;
+    private EnemyZoneDrawer _zoneDrawer;
     private List<Cell> _cellsOnPath;
     private Cell _startCell;
     private Player _player;
@@ -29,7 +30,7 @@ public class Enemy : MonoBehaviour
 
     public Gameboard Gameboard => _gameBoard;
 
-    public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, MusicPlayer musicPlayer)
+    public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, MusicPlayer musicPlayer, EnemyZoneDrawer enemyZoneDrawer)
     {
         _sightHandler = GetComponent<EnemySightHandler>();
         _cellsOnPath = new List<Cell>();
@@ -39,7 +40,8 @@ public class Enemy : MonoBehaviour
         _startCell = _destinations[0];
         _player = player;
         _gameBoard = gameboard;
-        _sightHandler.Initialize();
+        _zoneDrawer = enemyZoneDrawer;
+        _sightHandler.Initialize(_zoneDrawer);
         _musicPlayer = musicPlayer; 
     }
 
