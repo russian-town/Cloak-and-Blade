@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform _transform;
     [SerializeField] private EnemyPhrasePlayer _phrasePlayer;
     
-    private Coroutine _moveCoroutine;
     private EnemySightHandler _sightHandler;
     private EnemyZoneDrawer _zoneDrawer;
     private List<Cell> _cellsOnPath;
@@ -70,15 +69,6 @@ public class Enemy : MonoBehaviour
             _sightHandler.GenerateSight(currentCell, Constants.West);
     }
 
-    public void OnTurnEnded()
-    {
-        if (_currentDestination == null)
-            return;
-
-        if (_moveCoroutine == null)
-            _moveCoroutine = StartCoroutine(PerformMove());
-    }
-
     private void ChangeDestination(Cell destination)
     {
         _currentIndex = 0;
@@ -87,7 +77,6 @@ public class Enemy : MonoBehaviour
             return;
 
         _currentDestination = destination;
-        print(_currentDestinationIndex);
     } 
 
     private void CalculatePath()
@@ -136,7 +125,6 @@ public class Enemy : MonoBehaviour
         yield return StartCoroutine(MoveToNextCell());
         #endregion
 
-        _moveCoroutine = null;
         _currentIndex++;
     }
 

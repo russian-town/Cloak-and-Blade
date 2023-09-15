@@ -27,19 +27,15 @@ public class PlayerMover : MonoBehaviour
 
     public IEnumerator StartMoveTo(Cell targetCell)
     {
-        float progress = 0f;
-
-        while(progress < 1)
+        while (transform.localPosition != targetCell.transform.localPosition)
         {
-            transform.localPosition = Vector3.LerpUnclamped(transform.localPosition, targetCell.transform.localPosition, progress);
-            progress += Time.deltaTime / 2;
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetCell.transform.localPosition, Time.deltaTime * _speed);
             yield return null;
         }
 
         CurrentCell = targetCell;
         _startCell = targetCell;
         StartMoveCoroutine = null;
-        Debug.Log("Move ended!");
         MoveEnded?.Invoke();
     }
 }
