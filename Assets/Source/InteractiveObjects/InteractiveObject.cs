@@ -8,20 +8,25 @@ public abstract class InteractiveObject : MonoBehaviour
 
     protected Player Player { get; private set; }
 
+    private void OnDisable()
+    {
+        Player.StepEnded -= CheckInteractionPossibility;
+    }
+
     public void Initialize(Player player)
     {
         Player = player;
+        Player.StepEnded += CheckInteractionPossibility;
     }
-
+    
     public abstract void Interact();
 
-    protected bool CheckInteractionPossibility()
+    protected void CheckInteractionPossibility()
     {
         if (_cellsInInteractibleRange.Contains(Player.CurrentCell))
         {
             _view.Show();
             _view.InteractButton.onClick.AddListener(Interact);
-            return true;
         }
         else
         {
@@ -30,8 +35,6 @@ public abstract class InteractiveObject : MonoBehaviour
                 _view.InteractButton.onClick.RemoveListener(Interact);
                 _view.Hide();
             }
-
-            return false;
         }
     }
 }

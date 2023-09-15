@@ -15,12 +15,6 @@ public class Portcullis : InteractiveObject
 
     public void TryOpen()
     {
-        if (!CheckInteractionPossibility())
-        {
-            print("Not in range");
-            return;
-        }
-
         foreach(var item in Player.ItemsInHold.ItemList)
         {
             if (item == _key)
