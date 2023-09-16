@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class MoveCommand : Command
 {
@@ -13,7 +11,7 @@ public class MoveCommand : Command
         _playerMover = playerMover;
     }
 
-    protected override IEnumerator PrepareAction()
+    protected override IEnumerator PrepareAction() 
     {
         yield return null;
     }

@@ -2,14 +2,11 @@ using UnityEngine;
 
 public class CellView : MonoBehaviour
 {
-    private ParticleSystem _enemySightEffectTemplate;
-    private ParticleSystem _enemySightEffect;
     private ParticleSystem _abilityRangeEffectTemplate;
     private ParticleSystem _abilityRangeEffect;
 
-    public void Initialize(ParticleSystem enemySightEffectTemplate, ParticleSystem abilityRangeEffectTemplate)
+    public void Initialize(ParticleSystem abilityRangeEffectTemplate)
     {
-        _enemySightEffectTemplate = enemySightEffectTemplate;
         _abilityRangeEffectTemplate = abilityRangeEffectTemplate;
     }
 
@@ -21,20 +18,6 @@ public class CellView : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
-    }
-
-    public void PlayEnemySightEffect()
-    {
-        if (_enemySightEffect == null)
-        {
-            _enemySightEffect = Instantiate(_enemySightEffectTemplate);
-            _enemySightEffect.transform.position = transform.position;
-            _enemySightEffect.Play();
-        }
-        else
-        {
-            _enemySightEffect.Play();
-        }
     }
 
     public void PlayAbilityRangeEffect()
@@ -53,9 +36,7 @@ public class CellView : MonoBehaviour
 
     public void StopAbilityRangeEffect()
     {
-        if( _abilityRangeEffect != null )
+        if (_abilityRangeEffect != null)
             _abilityRangeEffect.Stop();
     }
-
-    public void StopEnemySightEffect() => _enemySightEffect.Stop();
 }

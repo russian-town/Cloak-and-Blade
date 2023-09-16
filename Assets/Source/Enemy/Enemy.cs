@@ -10,8 +10,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform _transform;
     [SerializeField] private EnemyPhrasePlayer _phrasePlayer;
     
-    private Coroutine _moveCoroutine;
     private EnemySightHandler _sightHandler;
+    private EnemyZoneDrawer _zoneDrawer;
     private List<Cell> _cellsOnPath;
     private Cell _startCell;
     private Player _player;
@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
 
     public Gameboard Gameboard => _gameBoard;
 
-    public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, MusicPlayer musicPlayer)
+    public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, MusicPlayer musicPlayer, EnemyZoneDrawer enemyZoneDrawer)
     {
         _sightHandler = GetComponent<EnemySightHandler>();
         _cellsOnPath = new List<Cell>();
@@ -39,7 +39,8 @@ public class Enemy : MonoBehaviour
         _startCell = _destinations[0];
         _player = player;
         _gameBoard = gameboard;
-        _sightHandler.Initialize();
+        _zoneDrawer = enemyZoneDrawer;
+        _sightHandler.Initialize(_zoneDrawer);
         _musicPlayer = musicPlayer; 
     }
 
@@ -68,15 +69,6 @@ public class Enemy : MonoBehaviour
             _sightHandler.GenerateSight(currentCell, Constants.West);
     }
 
-    public void OnTurnEnded()
-    {
-        if (_currentDestination == null)
-            return;
-
-        if (_moveCoroutine == null)
-            _moveCoroutine = StartCoroutine(PerformMove());
-    }
-
     private void ChangeDestination(Cell destination)
     {
         _currentIndex = 0;
@@ -85,7 +77,6 @@ public class Enemy : MonoBehaviour
             return;
 
         _currentDestination = destination;
-        print(_currentDestinationIndex);
     } 
 
     private void CalculatePath()
@@ -134,7 +125,6 @@ public class Enemy : MonoBehaviour
         yield return StartCoroutine(MoveToNextCell());
         #endregion
 
-        _moveCoroutine = null;
         _currentIndex++;
     }
 

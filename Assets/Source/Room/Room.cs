@@ -9,6 +9,8 @@ public class Room : MonoBehaviour
     private List<Enemy> _enemies = new List<Enemy>();
     private Coroutine _waitEnemyTurn;
 
+    public bool CanMove { get; private set; }
+
     private void OnDisable()
     {
         _player.StepEnded -= OnTurnEnded;
@@ -19,6 +21,7 @@ public class Room : MonoBehaviour
         _player = player;
         _view = view;
         _player.StepEnded += OnTurnEnded;
+        CanMove = true;
     }
 
     public void AddEnemy(Enemy enemy) => _enemies.Add(enemy);
@@ -28,6 +31,7 @@ public class Room : MonoBehaviour
         if (_waitEnemyTurn != null)
             return;
 
+        CanMove = false;
         _view.Hide();
         _waitEnemyTurn = StartCoroutine(WaitEnemiesTurn());
     }
@@ -39,5 +43,6 @@ public class Room : MonoBehaviour
 
         _view.Show();
         _waitEnemyTurn = null;
+        CanMove = true;
     }
 }

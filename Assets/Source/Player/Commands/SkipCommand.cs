@@ -19,9 +19,7 @@ public class SkipCommand : Command
         _hourglass = hourglass;
     }
 
-    public override void Cancel()
-    {
-    }
+    public override void Cancel() {}
 
     protected override IEnumerator PrepareAction()
     {

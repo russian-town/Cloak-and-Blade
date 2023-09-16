@@ -6,10 +6,12 @@ public class EnemySightHandler : MonoBehaviour
     [SerializeField] private int _sightRange;
 
     private List<Cell> _cellsInSight = new List<Cell>();
+    private EnemyZoneDrawer _zoneDrawer;
 
-    public void Initialize()
+    public void Initialize(EnemyZoneDrawer enemyZoneDrawer)
     {
         _cellsInSight = new List<Cell>();
+        _zoneDrawer = enemyZoneDrawer;
     }
 
     public void GenerateSight(Cell currentCell, string direction)
@@ -38,7 +40,7 @@ public class EnemySightHandler : MonoBehaviour
                     List<Cell> temp = new List<Cell>();
                     int maxWest = 0;
                     int maxEast = 0;
-                    
+
                     bool isWestWallHit = false;
                     bool isEastWallHit = false;
 
@@ -208,7 +210,7 @@ public class EnemySightHandler : MonoBehaviour
                 break;
         }
 
-        ShowSight(_cellsInSight);
+        _zoneDrawer.GenerateMesh(_cellsInSight);
     }
 
     public bool TryFindPlayer(Player player)
@@ -226,10 +228,8 @@ public class EnemySightHandler : MonoBehaviour
     {
         if (_cellsInSight.Count > 0)
         {
-            foreach (Cell cell in _cellsInSight)
-                cell.View.StopEnemySightEffect();
-
             _cellsInSight.Clear();
+            _zoneDrawer.ClearMesh();
         }
     }
 
@@ -250,12 +250,5 @@ public class EnemySightHandler : MonoBehaviour
             tempList.Add(sideCell);
             cell = sideCell;
         }
-    }
-
-    private void ShowSight(List<Cell> cellsInSight)
-    {
-        if (cellsInSight.Count > 0)
-            foreach (Cell cell in cellsInSight)
-                cell.View.PlayEnemySightEffect();
     }
 }

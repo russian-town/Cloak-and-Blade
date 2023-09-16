@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ItemsInHold _itemsInHold;
 
     private PlayerMover _mover;
+    private Room _room;
     private Cell _startCell;
     private MoveCommand _moveCommand;
     private AbilityCommand _abilityCommand;
@@ -29,11 +30,12 @@ public class Player : MonoBehaviour
         _mover.MoveEnded -= OnMoveEnded;
     }
 
-    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass)
+    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, Room room)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
         _navigator = GetComponent<Navigator>();
+        _room = room;
         _mover.Initialize(_startCell);
         _ability.Initialize();
         _mover.MoveEnded += OnMoveEnded;
@@ -56,6 +58,9 @@ public class Player : MonoBehaviour
 
     public bool TryMoveToCell(Cell targetCell)
     {
+        if(_room.CanMove == false)
+            return false;
+
         if (_navigator.CanMoveToCell(targetCell))
         {
             _mover.Move(targetCell);
@@ -68,15 +73,16 @@ public class Player : MonoBehaviour
 
     private void SwitchCurrentCommand(Command command)
     {
-        if (command == CurrentCommand)
+        if (_room.CanMove == false)
+            return;
+
+        if (command == CurrentCommand || CurrentCommand is SkipCommand)
             return;
 
         if (CurrentCommand != null && CurrentCommand.IsExecuting)
             return;
 
-        if (CurrentCommand != null)
-            CurrentCommand.Cancel();
-
+        CurrentCommand?.Cancel();
         CurrentCommand = command;
         _navigator.RefillAvailableCells(_mover.CurrentCell);
         StartCoroutine(CurrentCommand.Prepare(this));
