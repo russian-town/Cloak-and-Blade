@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(PlayerMover))]
 public class Player : MonoBehaviour
@@ -58,9 +59,6 @@ public class Player : MonoBehaviour
 
     public bool TryMoveToCell(Cell targetCell)
     {
-        if(_room.CanMove == false)
-            return false;
-
         if (_navigator.CanMoveToCell(targetCell))
         {
             _mover.Move(targetCell);
@@ -71,9 +69,18 @@ public class Player : MonoBehaviour
         return false;
     }
 
+    public void ExecuteCurrentCommand(Cell cell)
+    {
+        if (_room.Turn == Turn.Enemy)
+            return;
+
+        if (CurrentCommand.IsExecuting == false && CurrentCommand.IsReady)
+            StartCoroutine(CurrentCommand.Execute(cell, this));
+    }
+
     private void SwitchCurrentCommand(Command command)
     {
-        if (_room.CanMove == false)
+        if (_room.Turn == Turn.Enemy)
             return;
 
         if (command == CurrentCommand || CurrentCommand is SkipCommand)
