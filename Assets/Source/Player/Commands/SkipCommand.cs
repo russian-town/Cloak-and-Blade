@@ -27,6 +27,11 @@ public class SkipCommand : Command
 
     protected override IEnumerator PrepareAction()
     {
+        yield return null;
+    }
+
+    protected override IEnumerator ExecuteAction(Cell clickedCell)
+    {
         yield return _context.StartCoroutine(FadeIn(1));
         _hourglassAnimator.SetBool(Constants.IsSkippingParameter, true);
         _playerAnimationHandler.PlaySkipAnimation();
@@ -36,11 +41,6 @@ public class SkipCommand : Command
         yield return _context.StartCoroutine(FadeIn(0));
         _hourglassAnimator.SetBool(Constants.IsSkippingParameter, false);
         _playerAnimationHandler.StopSkipAnimation();
-        yield return null;
-    }
-
-    protected override IEnumerator ExecuteAction(Cell clickedCell)
-    {
         yield return null;
     }
 

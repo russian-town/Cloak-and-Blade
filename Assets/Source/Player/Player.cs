@@ -55,7 +55,11 @@ public class Player : MonoBehaviour
 
     public void PrepareMove() => SwitchCurrentCommand(_moveCommand);
 
-    public void PrepareSkip() => SwitchCurrentCommand(_skipCommand);
+    public void PrepareSkip()
+    {
+        SwitchCurrentCommand(_skipCommand);
+        ExecuteCurrentCommand(CurrentCell);
+    }
 
     public void SkipTurn() => OnMoveEnded();
 
