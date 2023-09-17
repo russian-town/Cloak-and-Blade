@@ -45,16 +45,6 @@ public class Enemy : Ghost
         _musicPlayer = musicPlayer;
     }
 
-    public void SetDestination(Cell destination)
-    {
-        if (destination == null)
-            return;
-
-        _currentDestination = destination;
-    }
-
-    public void ClearDestination() => _currentDestination = null;
-
     private void GenerateSight(Cell currentCell)
     {
         if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _north || (int)Mathf.Round(transform.rotation.eulerAngles.y) == _fakeNorth)
