@@ -12,4 +12,6 @@ public class Constants
     public const string TriggeredParameter = "Triggered";
     public const string OpenParameter = "Open";
     public const string CloseParameter = "Close";
+    public const string IsMovingBool = "IsMoving";
+    public const string IsSkippingBool = "IsSkipping";
 }

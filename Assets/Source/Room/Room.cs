@@ -7,8 +7,9 @@ public class Room : MonoBehaviour
     private Player _player;
     private PlayerView _view;
     private List<Enemy> _enemies = new List<Enemy>();
-    private Coroutine _waitEnemyTurn;
     private Turn _turn;
+
+    public Coroutine WaitForEnemies { get; private set; }
 
     public Turn Turn => _turn;
 
@@ -29,12 +30,12 @@ public class Room : MonoBehaviour
 
     private void OnTurnEnded()
     {
-        if (_waitEnemyTurn != null)
+        if (WaitForEnemies != null)
             return;
 
         _turn = Turn.Enemy;
         _view.Hide();
-        _waitEnemyTurn = StartCoroutine(WaitEnemiesTurn());
+        WaitForEnemies = StartCoroutine(WaitEnemiesTurn());
     }
 
     private IEnumerator WaitEnemiesTurn()
@@ -43,7 +44,7 @@ public class Room : MonoBehaviour
             yield return StartCoroutine(enemy.PerformMove());
 
         _view.Show();
-        _waitEnemyTurn = null;
+        WaitForEnemies = null;
         _turn = Turn.Player;
     }
 }

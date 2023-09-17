@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private AnimationClip _hourglassAnimation;
     private Animator _hourglassAnimator;
     private CanvasGroup _hourglass;
+    private PlayerAnimationHandler _playerAnimationHandler;
 
     public Command CurrentCommand { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
@@ -36,8 +37,9 @@ public class Player : MonoBehaviour
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
         _navigator = GetComponent<Navigator>();
+        _playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
         _room = room;
-        _mover.Initialize(_startCell);
+        _mover.Initialize(_startCell, _playerAnimationHandler);
         _ability.Initialize();
         _mover.MoveEnded += OnMoveEnded;
         _hourglass = hourglass;
@@ -45,7 +47,7 @@ public class Player : MonoBehaviour
         _hourglassAnimation = hourglassAnimation;
         _moveCommand = new MoveCommand(this, _mover);
         _abilityCommand = new AbilityCommand(_ability);
-        _skipCommand = new SkipCommand(this, _hourglassAnimation, _hourglassAnimator, this, _hourglass);
+        _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _room.WaitForEnemies, _playerAnimationHandler, _hourglassAnimation);
         _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
     }
 

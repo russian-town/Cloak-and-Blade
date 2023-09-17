@@ -4,19 +4,23 @@ using UnityEngine;
 public class SkipCommand : Command
 {
     private Player _player;
-    private AnimationClip _hourglassAnimation;
     private Animator _hourglassAnimator;
     private CanvasGroup _hourglass;
     private MonoBehaviour _context;
     private readonly float _fadeInSpeed = 2f;
+    private Coroutine _waitForEnemies;
+    private PlayerAnimationHandler _playerAnimationHandler;
+    private AnimationClip _hourglassClip;
 
-    public SkipCommand(Player player, AnimationClip hourglassAnimation, Animator animator, MonoBehaviour context, CanvasGroup hourglass)
+    public SkipCommand(Player player, Animator animator, MonoBehaviour context, CanvasGroup hourglass, Coroutine waitForEnemies, PlayerAnimationHandler animationHandler, AnimationClip hourglassClip)
     {
         _player = player;
-        _hourglassAnimation = hourglassAnimation;
         _hourglassAnimator = animator;
         _context = context;
         _hourglass = hourglass;
+        _waitForEnemies = waitForEnemies;
+        _playerAnimationHandler = animationHandler;
+        _hourglassClip = hourglassClip;
     }
 
     public override void Cancel() {}
@@ -25,10 +29,13 @@ public class SkipCommand : Command
     {
         yield return _context.StartCoroutine(FadeIn(1));
         _hourglassAnimator.SetBool(Constants.IsSkippingParameter, true);
-        yield return new WaitForSeconds(_hourglassAnimation.length);
+        _playerAnimationHandler.PlaySkipAnimation();
+        _player.SkipTurn();
+        yield return _waitForEnemies;
+        yield return new WaitForSeconds(_hourglassClip.length);
         yield return _context.StartCoroutine(FadeIn(0));
         _hourglassAnimator.SetBool(Constants.IsSkippingParameter, false);
-        _player.SkipTurn();
+        _playerAnimationHandler.StopSkipAnimation();
         yield return null;
     }
 
