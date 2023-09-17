@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemySightHandler))]
+[RequireComponent(typeof(EnemyAnimationHandler))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed;
@@ -10,15 +11,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform _transform;
     [SerializeField] private EnemyPhrasePlayer _phrasePlayer;
     
+    
     private EnemySightHandler _sightHandler;
     private EnemyZoneDrawer _zoneDrawer;
     private List<Cell> _cellsOnPath;
     private Cell _startCell;
     private Player _player;
+    private EnemyAnimationHandler _animationHandler;
     private Gameboard _gameBoard;
     private MusicPlayer _musicPlayer;
     private Cell _currentDestination;
     private Cell[] _destinations;
+    
     private int _currentIndex;
     private int _currentDestinationIndex;
     private int _north = 0;
@@ -32,6 +36,7 @@ public class Enemy : MonoBehaviour
     public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, MusicPlayer musicPlayer, EnemyZoneDrawer enemyZoneDrawer)
     {
         _sightHandler = GetComponent<EnemySightHandler>();
+        _animationHandler = GetComponent<EnemyAnimationHandler>();
         _cellsOnPath = new List<Cell>();
         _destinations = destinations;
         _currentDestination = _destinations[1];
@@ -122,7 +127,9 @@ public class Enemy : MonoBehaviour
             _musicPlayer.SwitchMusic();
         }
 
+        _animationHandler.PlayFlyAnimation();
         yield return StartCoroutine(MoveToNextCell());
+        _animationHandler.StopFlyAnimation();
         #endregion
 
         _currentIndex++;
