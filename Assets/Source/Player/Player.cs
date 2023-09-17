@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(PlayerMover))]
 public class Player : MonoBehaviour
@@ -20,8 +19,8 @@ public class Player : MonoBehaviour
     private Animator _hourglassAnimator;
     private CanvasGroup _hourglass;
     private PlayerAnimationHandler _playerAnimationHandler;
+    private Command _currentCommand;
 
-    public Command CurrentCommand { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
 
@@ -55,7 +54,11 @@ public class Player : MonoBehaviour
 
     public void PrepareMove() => SwitchCurrentCommand(_moveCommand);
 
-    public void PrepareSkip() => SwitchCurrentCommand(_skipCommand);
+    public void PrepareSkip()
+    {
+        SwitchCurrentCommand(_skipCommand);
+        ExecuteCurrentCommand(CurrentCell);
+    }
 
     public void SkipTurn() => OnMoveEnded();
 
@@ -73,11 +76,11 @@ public class Player : MonoBehaviour
 
     public void ExecuteCurrentCommand(Cell cell)
     {
-        if (_room.Turn == Turn.Enemy)
+        if (_room.Turn == Turn.Enemy || _currentCommand == null)
             return;
 
-        if (CurrentCommand.IsExecuting == false && CurrentCommand.IsReady)
-            StartCoroutine(CurrentCommand.Execute(cell, this));
+        if (_currentCommand.IsExecuting == false)
+            StartCoroutine(_currentCommand.Execute(cell, this));
     }
 
     private void SwitchCurrentCommand(Command command)
@@ -85,22 +88,23 @@ public class Player : MonoBehaviour
         if (_room.Turn == Turn.Enemy)
             return;
 
-        if (command == CurrentCommand || CurrentCommand is SkipCommand)
+        if (command == _currentCommand || _currentCommand is SkipCommand)
             return;
 
-        if (CurrentCommand != null && CurrentCommand.IsExecuting)
+        if (_currentCommand != null && _currentCommand.IsExecuting)
             return;
 
-        CurrentCommand?.Cancel();
-        CurrentCommand = command;
+        _currentCommand?.Cancel();
+        _currentCommand = command;
+        Debug.Log(_currentCommand);
         _navigator.RefillAvailableCells(_mover.CurrentCell);
-        StartCoroutine(CurrentCommand.Prepare(this));
+        StartCoroutine(_currentCommand.Prepare(this));
     }
 
     private void OnMoveEnded()
     {
-        if (CurrentCommand is not MoveCommand)
-            CurrentCommand = null;
+        if (_currentCommand is not MoveCommand)
+            _currentCommand = null;
 
         _navigator.RefillAvailableCells(_mover.CurrentCell);
         StepEnded?.Invoke();
