@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemySightHandler))]
-[RequireComponent(typeof(EnemyAnimationHandler))]
+[RequireComponent(typeof(EnemySightHandler), typeof(EnemyMover), typeof(EnemyAnimationHandler))]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _movementSpeed;
-    [SerializeField] private float _rotationSpeed;
     [SerializeField] private Transform _transform;
     [SerializeField] private EnemyPhrasePlayer _phrasePlayer;
-    
-    
+
     private EnemySightHandler _sightHandler;
     private EnemyZoneDrawer _zoneDrawer;
+    private EnemyMover _mover;
     private List<Cell> _cellsOnPath;
     private Cell _startCell;
     private Player _player;
@@ -22,7 +19,6 @@ public class Enemy : MonoBehaviour
     private MusicPlayer _musicPlayer;
     private Cell _currentDestination;
     private Cell[] _destinations;
-    
     private int _currentIndex;
     private int _currentDestinationIndex;
     private int _north = 0;
@@ -31,12 +27,12 @@ public class Enemy : MonoBehaviour
     private int _south = 180;
     private int _west = 270;
 
-    public Gameboard Gameboard => _gameBoard;
-
     public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, MusicPlayer musicPlayer, EnemyZoneDrawer enemyZoneDrawer)
     {
         _sightHandler = GetComponent<EnemySightHandler>();
         _animationHandler = GetComponent<EnemyAnimationHandler>();
+        _mover = GetComponent<EnemyMover>();
+        _mover.Initialize(_startCell, _animationHandler);
         _cellsOnPath = new List<Cell>();
         _destinations = destinations;
         _currentDestination = _destinations[1];
@@ -46,10 +42,10 @@ public class Enemy : MonoBehaviour
         _gameBoard = gameboard;
         _zoneDrawer = enemyZoneDrawer;
         _sightHandler.Initialize(_zoneDrawer);
-        _musicPlayer = musicPlayer; 
+        _musicPlayer = musicPlayer;
     }
 
-    public void SetDestination(Cell destination) 
+    public void SetDestination(Cell destination)
     {
         if (destination == null)
             return;
@@ -82,7 +78,7 @@ public class Enemy : MonoBehaviour
             return;
 
         _currentDestination = destination;
-    } 
+    }
 
     private void CalculatePath()
     {
@@ -109,13 +105,17 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator PerformMove()
     {
+        _sightHandler.ClearSight();
         CalculatePath();
 
         if (_cellsOnPath.Count == 0)
             yield break;
 
-        #region RotateAndMove
-        yield return StartCoroutine(RotateTowardsNextCell());
+        if (_cellsOnPath[_currentIndex] == null || _currentIndex == _cellsOnPath.Count)
+            yield break;
+
+        _mover.Move(_cellsOnPath[_currentIndex]);
+        yield return _mover.StartMoveCoroutine;
 
         if (_cellsOnPath.Count > 0)
             GenerateSight(_cellsOnPath[_currentIndex]);
@@ -127,38 +127,6 @@ public class Enemy : MonoBehaviour
             _musicPlayer.SwitchMusic();
         }
 
-        _animationHandler.PlayFlyAnimation();
-        yield return StartCoroutine(MoveToNextCell());
-        _animationHandler.StopFlyAnimation();
-        #endregion
-
         _currentIndex++;
-    }
-
-    private IEnumerator RotateTowardsNextCell()
-    {
-        Vector3 rotationTarget = _cellsOnPath[_currentIndex].transform.position - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(rotationTarget, Vector3.up);
-
-        if (transform.rotation != targetRotation)
-            _sightHandler.ClearSight();
-
-        while (transform.rotation != targetRotation)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
-            yield return null;
-        }
-    }
-
-    private IEnumerator MoveToNextCell()
-    {
-        if (_cellsOnPath[_currentIndex] == null || _currentIndex == _cellsOnPath.Count)
-            yield break;
-     
-        while (transform.localPosition != _cellsOnPath[_currentIndex].transform.localPosition)
-        {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, _cellsOnPath[_currentIndex].transform.localPosition, Time.deltaTime * _movementSpeed);
-            yield return null;
-        }
     }
 }

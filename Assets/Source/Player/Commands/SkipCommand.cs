@@ -32,7 +32,6 @@ public class SkipCommand : Command
 
     protected override IEnumerator ExecuteAction(Cell clickedCell)
     {
-        Debug.Log($"{this} execute action.");
         yield return _context.StartCoroutine(FadeIn(1));
         _hourglassAnimator.SetBool(Constants.IsSkippingParameter, true);
         _playerAnimationHandler.PlaySkipAnimation();
