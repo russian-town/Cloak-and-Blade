@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMover))]
-public class Player : MonoBehaviour
+public class Player : Ghost
 {
     [SerializeField] private Ability _ability;
     [SerializeField] private ItemsInHold _itemsInHold;

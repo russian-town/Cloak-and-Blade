@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Root : MonoBehaviour
 {
+    [SerializeField] private GhostSpawner _ghostSpawner;
     [SerializeField] private Player _playerTemplate;
     [SerializeField] private PlayerView _playerView;
-    [SerializeField] private PlayerSpawner _playerSpawner;
     [SerializeField] private Cell _playerSpawnCell;
     [SerializeField] private Gameboard _gameboard;
     [SerializeField] private CinemachineVirtualCamera _angledCamera;
     [SerializeField] private CinemachineVirtualCamera _straightCamera;
-    [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private ParticleSystem _mouseOverCell;
     [SerializeField] private ParticleSystem _abilityRangeTemplate;
     [SerializeField] private MusicPlayer _musicPlayer;
@@ -34,7 +33,7 @@ public class Root : MonoBehaviour
 
     private void Initialize()
     {
-        _player = _playerSpawner.Get(_playerSpawnCell, _playerTemplate);
+        _player = (Player)_ghostSpawner.Get(_playerSpawnCell, _playerTemplate);
         _player.Initialize(_playerSpawnCell, _hourglassAnimation, _hourglassAnimator, _hourglass, _room);
         _playerInput.Initialize(_camera, _gameboard, _mouseOverCell, _player);
         _playerView.Initialize(_player);
@@ -51,7 +50,7 @@ public class Root : MonoBehaviour
 
         foreach (var setter in _enemySetters)
         {
-            Enemy enemy = _enemySpawner.Get(setter.EnemyTemplate, setter.Destinations[0]);
+            Enemy enemy = (Enemy)_ghostSpawner.Get(setter.Destinations[0], setter.EnemyTemplate);
             enemy.Initialize(setter.Destinations, _player, _gameboard, _musicPlayer, _enemyZoneDrawer);
             _room.AddEnemy(enemy);
         }
