@@ -30,7 +30,7 @@ public class SkipCommand : Command
         yield return null;
     }
 
-    protected override IEnumerator ExecuteAction(Cell clickedCell)
+    protected override IEnumerator ExecuteAction()
     {
         yield return _context.StartCoroutine(FadeIn(1));
         _hourglassAnimator.SetBool(Constants.IsSkippingParameter, true);

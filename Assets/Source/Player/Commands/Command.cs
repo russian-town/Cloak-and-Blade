@@ -13,17 +13,17 @@ public abstract class Command
         _isReady = true;
     }
 
-    public IEnumerator Execute(Cell clickedCell, MonoBehaviour context)
+    public IEnumerator Execute(MonoBehaviour context)
     {
         yield return new WaitUntil(() => _isReady);
         IsExecuting = true;
-        yield return context.StartCoroutine(ExecuteAction(clickedCell));
+        yield return context.StartCoroutine(ExecuteAction());
         IsExecuting = false;
     }
 
     protected abstract IEnumerator PrepareAction();
 
-    protected abstract IEnumerator ExecuteAction(Cell clickedCell);
+    protected abstract IEnumerator ExecuteAction();
 
     public virtual void Cancel() => _isReady = false;
 }

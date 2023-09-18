@@ -28,15 +28,15 @@ public class PlayerInput : MonoBehaviour
             _lastCell = cell;
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Cell targetCell = _gameboard.GetCell(TouchRay);
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Cell targetCell = _gameboard.GetCell(TouchRay);
 
-            if (targetCell == null)
-                return;
+        //    if (targetCell == null)
+        //        return;
 
-            _player.ExecuteCurrentCommand(targetCell);
-        }
+        //    _player.ExecuteCurrentCommand(targetCell);
+        //}
     }
 
     public void Initialize(Camera camera, Gameboard gameboard, ParticleSystem mouseOverCell, Player player)
