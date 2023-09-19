@@ -46,15 +46,21 @@ public class Player : Ghost
         _hourglass = hourglass;
         _hourglassAnimator = hourglassAnimator;
         _hourglassAnimation = hourglassAnimation;
+        _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
         _moveCommand = new MoveCommand(this, _mover, _gameboard);
         _abilityCommand = new AbilityCommand(_ability, _gameboard, this);
         _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _room.WaitForEnemies, _playerAnimationHandler, _hourglassAnimation);
-        _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
     }
 
-    public void PrepareAbility() => SwitchCurrentCommand(_abilityCommand);
+    public void PrepareAbility()
+    {
+        SwitchCurrentCommand(_abilityCommand);
+    }
 
-    public void PrepareMove() => SwitchCurrentCommand(_moveCommand);
+    public void PrepareMove()
+    {
+        SwitchCurrentCommand(_moveCommand);
+    }
 
     public void PrepareSkip()
     {
@@ -66,6 +72,9 @@ public class Player : Ghost
 
     public bool TryMoveToCell(Cell targetCell)
     {
+        if (_room.Turn == Turn.Enemy)
+            return false;
+
         if (_navigator.CanMoveToCell(targetCell))
         {
             _mover.Move(targetCell);
@@ -98,7 +107,6 @@ public class Player : Ghost
 
         _currentCommand?.Cancel();
         _currentCommand = command;
-        Debug.Log(_currentCommand);
         _navigator.RefillAvailableCells(_mover.CurrentCell);
         StartCoroutine(_currentCommand.Prepare(this));
     }
@@ -107,6 +115,9 @@ public class Player : Ghost
     {
         if (_currentCommand is not MoveCommand)
             _currentCommand = null;
+        else
+            StartCoroutine(_currentCommand.Prepare(this));
+
 
         _navigator.RefillAvailableCells(_mover.CurrentCell);
         StepEnded?.Invoke();

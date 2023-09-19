@@ -6,6 +6,7 @@ public class AbilityCommand : Command
     private readonly Ability _ability;
     private WaitPlayerClick _waitPlayerClick;
     private Gameboard _gameboard;
+    private bool _isSelected;
     private Player _player;
 
     public AbilityCommand(Ability ability, Gameboard gameboard, Player player)
@@ -19,14 +20,23 @@ public class AbilityCommand : Command
     protected override IEnumerator PrepareAction()
     {
         _ability.Prepare();
-        yield return _waitPlayerClick;
-        _player.ExecuteCurrentCommand();
-        yield return null;
+        _isSelected = true;
+
+        while (_isSelected)
+        {
+            yield return _waitPlayerClick;
+
+            if (_player.TryMoveToCell(_waitPlayerClick.Cell))
+                _isSelected = false;
+
+            _player.ExecuteCurrentCommand();
+        }
     }
 
     public override void Cancel()
     {
         _ability.Cancel();
+        _isSelected = false;
     }
 
     protected override IEnumerator ExecuteAction()

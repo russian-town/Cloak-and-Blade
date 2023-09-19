@@ -20,7 +20,7 @@ public class WaitPlayerClick : CustomYieldInstruction
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Cell targetCell = _gameboard.GetCell(Ray);;
+                Cell targetCell = _gameboard.GetCell(Ray);
 
                 if (targetCell != null)
                 {

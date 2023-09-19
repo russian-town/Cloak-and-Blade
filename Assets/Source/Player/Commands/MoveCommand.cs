@@ -6,6 +6,7 @@ public class MoveCommand : Command
     private PlayerMover _playerMover;
     private Gameboard _gameboard;
     private WaitPlayerClick _waitPlayerClick;
+    private bool _isSelected;
 
     public MoveCommand(Player player, PlayerMover playerMover, Gameboard gameboard)
     {
@@ -15,20 +16,28 @@ public class MoveCommand : Command
         _waitPlayerClick = new WaitPlayerClick(_gameboard);
     }
 
-    protected override IEnumerator PrepareAction() 
+    protected override IEnumerator PrepareAction()
     {
-        yield return _waitPlayerClick;
-        _player.ExecuteCurrentCommand();
-        yield break;
-    }
+        _isSelected = true;
 
-    public override void Cancel()
-    {
+        while (_isSelected)
+        {
+            yield return _waitPlayerClick;
+
+            if (_player.TryMoveToCell(_waitPlayerClick.Cell))
+                _isSelected = false;
+
+            _player.ExecuteCurrentCommand();
+        }
     }
 
     protected override IEnumerator ExecuteAction()
     {
-        if (_player.TryMoveToCell(_waitPlayerClick.Cell))
-            yield return _playerMover.StartMoveCoroutine;
+        yield return _playerMover.StartMoveCoroutine;
+    }
+
+    public override void Cancel()
+    {
+        _isSelected = false;
     }
 }
