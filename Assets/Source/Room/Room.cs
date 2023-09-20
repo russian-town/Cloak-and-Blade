@@ -10,7 +10,6 @@ public class Room : MonoBehaviour
     private Turn _turn;
 
     public Coroutine WaitForEnemies { get; private set; }
-
     public Turn Turn => _turn;
 
     private void OnDisable()

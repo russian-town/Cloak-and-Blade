@@ -41,7 +41,7 @@ public class SkipCommand : Command
         yield return _context.StartCoroutine(FadeIn(0));
         _hourglassAnimator.SetBool(Constants.IsSkippingParameter, false);
         _playerAnimationHandler.StopSkipAnimation();
-        yield return null;
+        yield break;
     }
 
     private IEnumerator FadeIn(float target)
