@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ItemsInHold _itemsInHold;
 
     private PlayerMover _mover;
+    private PlayerView _playerView;
     private Room _room;
     private Cell _startCell;
     private MoveCommand _moveCommand;
@@ -31,11 +32,12 @@ public class Player : MonoBehaviour
         _mover.MoveEnded -= OnMoveEnded;
     }
 
-    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, Room room)
+    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, Room room, PlayerView playerView)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
         _navigator = GetComponent<Navigator>();
+        _playerView = playerView;
         _playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
         _room = room;
         _mover.Initialize(_startCell, _playerAnimationHandler);
@@ -44,7 +46,7 @@ public class Player : MonoBehaviour
         _hourglass = hourglass;
         _hourglassAnimator = hourglassAnimator;
         _hourglassAnimation = hourglassAnimation;
-        _moveCommand = new MoveCommand(this, _mover);
+        _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator);
         _abilityCommand = new AbilityCommand(_ability);
         _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _room.WaitForEnemies, _playerAnimationHandler, _hourglassAnimation);
         _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
@@ -79,7 +81,7 @@ public class Player : MonoBehaviour
         if (_room.Turn == Turn.Enemy)
             return;
 
-        if (CurrentCommand.IsExecuting == false && CurrentCommand.IsReady)
+        if (CurrentCommand.IsExecuting == false)
             StartCoroutine(CurrentCommand.Execute(cell, this));
     }
 
@@ -102,10 +104,19 @@ public class Player : MonoBehaviour
 
     private void OnMoveEnded()
     {
-        if (CurrentCommand is not MoveCommand)
-            CurrentCommand = null;
-
         _navigator.RefillAvailableCells(_mover.CurrentCell);
+
+        if (CurrentCommand is not MoveCommand)
+        {
+            CurrentCommand = null;
+            Debug.Log(CurrentCommand);
+        }
+        else if (CurrentCommand is MoveCommand)
+        {
+            StartCoroutine(CurrentCommand.Prepare(this));
+            Debug.Log($"{CurrentCommand} prepare...");
+        }
+
         StepEnded?.Invoke();
     }
 }

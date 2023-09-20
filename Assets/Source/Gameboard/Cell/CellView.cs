@@ -13,11 +13,13 @@ public class CellView : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+        Debug.Log($"Hide {this}");
     }
 
     public void Show()
     {
         gameObject.SetActive(true);
+        Debug.Log($"Show {this}");
     }
 
     public void PlayAbilityRangeEffect()

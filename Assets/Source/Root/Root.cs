@@ -35,7 +35,7 @@ public class Root : MonoBehaviour
     private void Initialize()
     {
         _player = _playerSpawner.Get(_playerSpawnCell, _playerTemplate);
-        _player.Initialize(_playerSpawnCell, _hourglassAnimation, _hourglassAnimator, _hourglass, _room);
+        _player.Initialize(_playerSpawnCell, _hourglassAnimation, _hourglassAnimator, _hourglass, _room, _playerView);
         _playerInput.Initialize(_camera, _gameboard, _mouseOverCell, _player);
         _playerView.Initialize(_player);
         _angledCamera.Follow = _player.transform;

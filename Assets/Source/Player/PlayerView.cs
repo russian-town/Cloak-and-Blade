@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Button _skip;
     
     private Player _player;
+    private List<Cell> _tempCells = new List<Cell>();
 
     private void OnDestroy()
     {
@@ -34,6 +36,25 @@ public class PlayerView : MonoBehaviour
         _ability.onClick.RemoveListener(OnAbilityClick);
         _skip.onClick.RemoveListener(OnSkipClick);
         gameObject.SetActive(false);
+    }
+
+    public void ShowAvailableCells(List<Cell> cells)
+    {
+        HideAvailableCells();
+        _tempCells = cells;
+
+        foreach (var cell in _tempCells)
+            if (cell.Content.Type != CellContentType.Wall)
+                cell.View.Show();
+    }
+
+    public void HideAvailableCells()
+    {
+        if (_tempCells.Count > 0)
+            foreach (var cell in _tempCells)
+                cell.View.Hide();
+
+        _tempCells.Clear();
     }
 
     private void OnMoveClick()
