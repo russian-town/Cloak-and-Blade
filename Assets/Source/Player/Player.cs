@@ -20,6 +20,7 @@ public class Player : Ghost
     private CanvasGroup _hourglass;
     private PlayerAnimationHandler _playerAnimationHandler;
     private Command _currentCommand;
+    private PlayerView _playerView;
 
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
@@ -31,11 +32,12 @@ public class Player : Ghost
         _mover.MoveEnded -= OnMoveEnded;
     }
 
-    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, Room room)
+    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, Room room, PlayerView playerView)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
         _navigator = GetComponent<Navigator>();
+        _playerView = playerView;
         _playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
         _room = room;
         _mover.Initialize(_startCell, _playerAnimationHandler);
@@ -44,7 +46,7 @@ public class Player : Ghost
         _hourglass = hourglass;
         _hourglassAnimator = hourglassAnimator;
         _hourglassAnimation = hourglassAnimation;
-        _moveCommand = new MoveCommand(this, _mover);
+        _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator);
         _abilityCommand = new AbilityCommand(_ability);
         _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _room.WaitForEnemies, _playerAnimationHandler, _hourglassAnimation);
         _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
@@ -64,7 +66,7 @@ public class Player : Ghost
 
     public bool TryMoveToCell(Cell targetCell)
     {
-        if (_navigator.CanMoveToCell(targetCell))
+        if (_navigator.CanMoveToCell(targetCell) && targetCell.IsOccupied == false)
         {
             _mover.Move(targetCell);
             _startCell = _mover.CurrentCell;
@@ -103,10 +105,13 @@ public class Player : Ghost
 
     private void OnMoveEnded()
     {
+        _navigator.RefillAvailableCells(_mover.CurrentCell);
+
         if (_currentCommand is not MoveCommand)
             _currentCommand = null;
+        else
+            StartCoroutine(_currentCommand.Prepare(this));
 
-        _navigator.RefillAvailableCells(_mover.CurrentCell);
         StepEnded?.Invoke();
     }
 }

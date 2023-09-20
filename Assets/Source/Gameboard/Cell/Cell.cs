@@ -25,6 +25,7 @@ public class Cell : MonoBehaviour
     public CellView View => _view;
     public bool HasPath => _distance != int.MaxValue;
     public bool IsAlternative { get; set; }
+    public bool IsOccupied { get; private set; }
 
     public CellContent Content
     {
@@ -41,6 +42,10 @@ public class Cell : MonoBehaviour
             _content.transform.localPosition = Vector3.zero;
         }
     }
+
+    public void BecomeOccupied() => IsOccupied = true;
+
+    public void BecomeUnoccupied() => IsOccupied = false;
 
     public void AddView()
     {

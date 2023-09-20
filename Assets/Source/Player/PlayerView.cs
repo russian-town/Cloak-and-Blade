@@ -44,7 +44,7 @@ public class PlayerView : MonoBehaviour
         _tempCells = cells;
 
         foreach (var cell in _tempCells)
-            if (cell.Content.Type != CellContentType.Wall)
+            if (cell.Content.Type != CellContentType.Wall || cell.IsOccupied)
                 cell.View.Show();
     }
 
