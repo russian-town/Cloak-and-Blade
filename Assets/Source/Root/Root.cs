@@ -23,7 +23,7 @@ public class Root : MonoBehaviour
     [SerializeField] private Animator _hourglassAnimator;
     [SerializeField] private CanvasGroup _hourglass;
     [SerializeField] private InteractiveObject[] _interactiveObjects;
-    [SerializeField] private EnemyZoneDrawer _enemyZoneDrawer;
+    [SerializeField] private EnemyZoneDrawer _enemyZoneDrawerTemplate;
 
     private Player _player;
 
@@ -51,8 +51,9 @@ public class Root : MonoBehaviour
 
         foreach (var setter in _enemySetters)
         {
+            EnemyZoneDrawer zoneDrawer = Instantiate(_enemyZoneDrawerTemplate, new Vector3(0, 0.1f, 0), Quaternion.identity);
             Enemy enemy = _enemySpawner.Get(setter.EnemyTemplate, setter.Destinations[0]);
-            enemy.Initialize(setter.Destinations, _player, _gameboard, _musicPlayer, _enemyZoneDrawer);
+            enemy.Initialize(setter.Destinations, _player, _gameboard, _musicPlayer, zoneDrawer);
             _room.AddEnemy(enemy);
         }
 

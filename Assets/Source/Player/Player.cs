@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(PlayerMover))]
 public class Player : MonoBehaviour

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Treasure : InteractiveObject
 {
     [SerializeField] private InteractiveObjectView _view;
+    [SerializeField] private Key _key;
     private Animator _animator;
     private bool _treasureAccquired;
 
@@ -17,6 +18,12 @@ public class Treasure : InteractiveObject
 
     public override void Interact()
     {
+        if (!Player.ItemsInHold.FindItemInList(_key))
+        {
+            print("Requires key");
+            return;
+        }
+
         _view.InteractButton.onClick.RemoveListener(Interact);
         _view.Hide();
         Open();

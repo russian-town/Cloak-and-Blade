@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortcullisKey : InteractiveObject
+public class Key : InteractiveObject
 {
     [SerializeField] private InteractiveObjectView _view;
 
     public override void Interact()
     {
         print("Key acquired");
-        Player.ItemsInHold.AddObjectToItemList(gameObject.GetComponent<PortcullisKey>());
+        Player.ItemsInHold.AddObjectToItemList(gameObject.GetComponent<Key>());
         gameObject.SetActive(false);
     }
 

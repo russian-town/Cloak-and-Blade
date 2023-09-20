@@ -6,7 +6,7 @@ using UnityEngine;
 public class Portcullis : InteractiveObject
 {
     [SerializeField] private Cell[] _wallCells;
-    [SerializeField] private PortcullisKey _key;
+    [SerializeField] private Key _key;
     [SerializeField] private InteractiveObjectView _view;
 
     public override void Interact()
