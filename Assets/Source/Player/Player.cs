@@ -3,13 +3,12 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMover))]
-public class Player : MonoBehaviour
+public class Player : Ghost
 {
     [SerializeField] private Ability _ability;
     [SerializeField] private ItemsInHold _itemsInHold;
 
     private PlayerMover _mover;
-    private PlayerView _playerView;
     private Room _room;
     private Cell _startCell;
     private MoveCommand _moveCommand;
@@ -20,8 +19,8 @@ public class Player : MonoBehaviour
     private Animator _hourglassAnimator;
     private CanvasGroup _hourglass;
     private PlayerAnimationHandler _playerAnimationHandler;
+    private Command _currentCommand;
 
-    public Command CurrentCommand { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
 
@@ -32,12 +31,11 @@ public class Player : MonoBehaviour
         _mover.MoveEnded -= OnMoveEnded;
     }
 
-    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, Room room, PlayerView playerView)
+    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, Room room)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
         _navigator = GetComponent<Navigator>();
-        _playerView = playerView;
         _playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
         _room = room;
         _mover.Initialize(_startCell, _playerAnimationHandler);
@@ -46,7 +44,7 @@ public class Player : MonoBehaviour
         _hourglass = hourglass;
         _hourglassAnimator = hourglassAnimator;
         _hourglassAnimation = hourglassAnimation;
-        _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator);
+        _moveCommand = new MoveCommand(this, _mover);
         _abilityCommand = new AbilityCommand(_ability);
         _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _room.WaitForEnemies, _playerAnimationHandler, _hourglassAnimation);
         _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
@@ -78,11 +76,11 @@ public class Player : MonoBehaviour
 
     public void ExecuteCurrentCommand(Cell cell)
     {
-        if (_room.Turn == Turn.Enemy)
+        if (_room.Turn == Turn.Enemy || _currentCommand == null)
             return;
 
-        if (CurrentCommand.IsExecuting == false)
-            StartCoroutine(CurrentCommand.Execute(cell, this));
+        if (_currentCommand.IsExecuting == false)
+            StartCoroutine(_currentCommand.Execute(cell, this));
     }
 
     private void SwitchCurrentCommand(Command command)
@@ -90,33 +88,25 @@ public class Player : MonoBehaviour
         if (_room.Turn == Turn.Enemy)
             return;
 
-        if (command == CurrentCommand || CurrentCommand is SkipCommand)
+        if (command == _currentCommand || _currentCommand is SkipCommand)
             return;
 
-        if (CurrentCommand != null && CurrentCommand.IsExecuting)
+        if (_currentCommand != null && _currentCommand.IsExecuting)
             return;
 
-        CurrentCommand?.Cancel();
-        CurrentCommand = command;
+        _currentCommand?.Cancel();
+        _currentCommand = command;
+        Debug.Log(_currentCommand);
         _navigator.RefillAvailableCells(_mover.CurrentCell);
-        StartCoroutine(CurrentCommand.Prepare(this));
+        StartCoroutine(_currentCommand.Prepare(this));
     }
 
     private void OnMoveEnded()
     {
+        if (_currentCommand is not MoveCommand)
+            _currentCommand = null;
+
         _navigator.RefillAvailableCells(_mover.CurrentCell);
-
-        if (CurrentCommand is not MoveCommand)
-        {
-            CurrentCommand = null;
-            Debug.Log(CurrentCommand);
-        }
-        else if (CurrentCommand is MoveCommand)
-        {
-            StartCoroutine(CurrentCommand.Prepare(this));
-            Debug.Log($"{CurrentCommand} prepare...");
-        }
-
         StepEnded?.Invoke();
     }
 }

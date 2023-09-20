@@ -19,9 +19,7 @@ public class PlayerInput : MonoBehaviour
         Cell cell = _gameboard.GetCell(TouchRay);
 
         if (_lastCell != null && cell != _lastCell)
-        {
             _mouseOverCell.Stop();
-        }
 
         if (cell != null && cell.Content.Type != CellContentType.Wall)
         {
@@ -34,7 +32,7 @@ public class PlayerInput : MonoBehaviour
         {
             Cell targetCell = _gameboard.GetCell(TouchRay);
 
-            if (targetCell == null || _player.CurrentCommand == null)
+            if (targetCell == null)
                 return;
 
             _player.ExecuteCurrentCommand(targetCell);

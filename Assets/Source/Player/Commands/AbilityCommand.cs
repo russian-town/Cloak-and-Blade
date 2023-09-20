@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AbilityCommand : Command
 {
-    private Ability _ability;
+    private readonly Ability _ability;
 
     public AbilityCommand(Ability ability)
     {

@@ -3,17 +3,17 @@ using UnityEngine;
 
 public abstract class Command
 {
-    private bool _isReady;
+    private bool _isReady = false;
 
     public bool IsExecuting { get; private set; }
 
-    public virtual IEnumerator Prepare(MonoBehaviour context)
+    public IEnumerator Prepare(MonoBehaviour context)
     {
         yield return context.StartCoroutine(PrepareAction());
         _isReady = true;
     }
 
-    public virtual IEnumerator Execute(Cell clickedCell, MonoBehaviour context)
+    public IEnumerator Execute(Cell clickedCell, MonoBehaviour context)
     {
         yield return new WaitUntil(() => _isReady);
         IsExecuting = true;

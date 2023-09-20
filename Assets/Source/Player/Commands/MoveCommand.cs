@@ -31,7 +31,7 @@ public class MoveCommand : Command
 
     protected override IEnumerator ExecuteAction(Cell clickedCell)
     {
-        _player.TryMoveToCell(clickedCell);
-        yield return _playerMover.StartMoveCoroutine;
+        if (_player.TryMoveToCell(clickedCell))
+            yield return _playerMover.StartMoveCoroutine;
     }
 }
