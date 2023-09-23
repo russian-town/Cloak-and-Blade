@@ -9,7 +9,7 @@ public class Player : Ghost
     [SerializeField] private ItemsInHold _itemsInHold;
 
     private PlayerMover _mover;
-    private Room _room;
+    private IEnemyTurnHandler _enemyTurnHandler;
     private Cell _startCell;
     private MoveCommand _moveCommand;
     private AbilityCommand _abilityCommand;
@@ -32,14 +32,14 @@ public class Player : Ghost
         _mover.MoveEnded -= OnMoveEnded;
     }
 
-    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, Room room, PlayerView playerView)
+    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
         _navigator = GetComponent<Navigator>();
         _playerView = playerView;
         _playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
-        _room = room;
+        _enemyTurnHandler = enemyTurnHandler;
         _mover.Initialize(_startCell, _playerAnimationHandler);
         _ability.Initialize();
         _mover.MoveEnded += OnMoveEnded;
@@ -48,7 +48,7 @@ public class Player : Ghost
         _hourglassAnimation = hourglassAnimation;
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator);
         _abilityCommand = new AbilityCommand(_ability);
-        _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _room.WaitForEnemies, _playerAnimationHandler, _hourglassAnimation);
+        _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _enemyTurnHandler.WaitForEnemies(), _playerAnimationHandler, _hourglassAnimation);
         _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
     }
 
@@ -78,7 +78,7 @@ public class Player : Ghost
 
     public void ExecuteCurrentCommand(Cell cell)
     {
-        if (_room.Turn == Turn.Enemy || _currentCommand == null)
+        if (_currentCommand == null)
             return;
 
         if (_currentCommand.IsExecuting == false)
@@ -87,9 +87,6 @@ public class Player : Ghost
 
     private void SwitchCurrentCommand(Command command)
     {
-        if (_room.Turn == Turn.Enemy)
-            return;
-
         if (command == _currentCommand || _currentCommand is SkipCommand)
             return;
 
@@ -98,7 +95,6 @@ public class Player : Ghost
 
         _currentCommand?.Cancel();
         _currentCommand = command;
-        Debug.Log(_currentCommand);
         _navigator.RefillAvailableCells(_mover.CurrentCell);
         StartCoroutine(_currentCommand.Prepare(this));
     }

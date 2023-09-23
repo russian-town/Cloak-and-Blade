@@ -29,6 +29,6 @@ public class PlayerInput : MonoBehaviour
         _camera = camera;
         _gameboard = gameboard;
         _player = player;
-        _inputView.Initialize(_gameboard);
+        _inputView.Initialize();
     }
 }

@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour
+public class Room : MonoBehaviour, IEnemyTurnHandler
 {
     private Player _player;
     private PlayerView _view;
     private PlayerInput _playerInput;
     private List<Enemy> _enemies = new List<Enemy>();
     private Turn _turn;
-
-    public Coroutine WaitForEnemies { get; private set; }
-    public Turn Turn => _turn;
+    private Coroutine _startWaitForEnemies;
 
     private void OnDisable()
     {
@@ -35,30 +33,40 @@ public class Room : MonoBehaviour
         _turn = Turn.Player;
         _playerInput = playerInput;
         _view.Subscribe();
+        _view.Show();
     }
 
     public void AddEnemy(Enemy enemy) => _enemies.Add(enemy);
 
+    public Coroutine WaitForEnemies()
+    {
+        _startWaitForEnemies = StartCoroutine(WaitEnemiesTurn());
+        return _startWaitForEnemies;
+    }
+
     private void OnTurnEnded()
     {
-        if (WaitForEnemies != null)
+        if (_startWaitForEnemies != null)
             return;
 
-        _view.Unsubscribe();
         _turn = Turn.Enemy;
+        _view.Unsubscribe();
         _view.Hide();
-        WaitForEnemies = StartCoroutine(WaitEnemiesTurn());
+        WaitForEnemies();
     }
 
     private IEnumerator WaitEnemiesTurn()
     {
+        if (_enemies.Count == 0)
+            yield break;
+
         foreach (Enemy enemy in _enemies)
             yield return StartCoroutine(enemy.PerformMove());
 
-        _view.Show();
-        WaitForEnemies = null;
         _turn = Turn.Player;
         _view.Subscribe();
+        _view.Show();
+        _startWaitForEnemies = null;
     }
 }
 

@@ -3,10 +3,10 @@ using UnityEngine;
 public class InputView : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _mouseOverCell;
+    [SerializeField] private Gameboard _gameboard;
 
     private bool _isInitialized;
     private Camera _camera;
-    private Gameboard _gameboard;
     private Cell _lastCell;
 
     private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
@@ -29,10 +29,9 @@ public class InputView : MonoBehaviour
         }
     }
 
-    public void Initialize(Gameboard gameboard)
+    public void Initialize()
     {
         _camera = Camera.main;
-        _gameboard = gameboard;
         _isInitialized = true;
     }
 }

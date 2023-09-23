@@ -11,7 +11,6 @@ public class Root : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _angledCamera;
     [SerializeField] private CinemachineVirtualCamera _straightCamera;
     [SerializeField] private ParticleSystem _abilityRangeTemplate;
-    [SerializeField] private MusicPlayer _musicPlayer;
     [SerializeField] private EnemySetter[] _enemySetters;
     [SerializeField] private Room _room;
     [SerializeField] private Camera _camera;
@@ -51,7 +50,7 @@ public class Root : MonoBehaviour
         {
             EnemyZoneDrawer zoneDrawer = Instantiate(_enemyZoneDrawerTemplate, new Vector3(0, 0.1f, 0), Quaternion.identity);
             Enemy enemy = (Enemy)_spawner.Get(setter.Destinations[0], setter.EnemyTemplate);
-            enemy.Initialize(setter.Destinations, _player, _gameboard, _musicPlayer, zoneDrawer);
+            enemy.Initialize(setter.Destinations, _player, _gameboard, zoneDrawer);
             _room.AddEnemy(enemy);
         }
 

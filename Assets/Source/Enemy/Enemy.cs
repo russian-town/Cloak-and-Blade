@@ -16,7 +16,6 @@ public class Enemy : Ghost
     private Player _player;
     private EnemyAnimationHandler _animationHandler;
     private Gameboard _gameBoard;
-    private MusicPlayer _musicPlayer;
     private Cell _currentDestination;
     private Cell[] _destinations;
     private int _currentIndex;
@@ -27,7 +26,7 @@ public class Enemy : Ghost
     private int _south = 180;
     private int _west = 270;
 
-    public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, MusicPlayer musicPlayer, EnemyZoneDrawer enemyZoneDrawer)
+    public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, EnemyZoneDrawer enemyZoneDrawer)
     {
         _sightHandler = GetComponent<EnemySightHandler>();
         _animationHandler = GetComponent<EnemyAnimationHandler>();
@@ -42,7 +41,6 @@ public class Enemy : Ghost
         _gameBoard = gameboard;
         _zoneDrawer = enemyZoneDrawer;
         _sightHandler.Initialize(_zoneDrawer);
-        _musicPlayer = musicPlayer;
     }
 
     private void GenerateSight(Cell currentCell)
@@ -114,7 +112,6 @@ public class Enemy : Ghost
         {
             Debug.Log("Game over!");
             _phrasePlayer.StopRightThere();
-            _musicPlayer.SwitchMusic();
         }
 
         if (_currentIndex - 1 > 0)
