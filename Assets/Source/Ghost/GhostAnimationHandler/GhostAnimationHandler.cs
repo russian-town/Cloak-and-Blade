@@ -13,4 +13,8 @@ public class GhostAnimationHandler : MonoBehaviour
     public void PlaySkipAnimation() => _animator.SetBool(Constants.IsSkippingBool, true);
 
     public void StopSkipAnimation() => _animator.SetBool(Constants.IsSkippingBool, false);
+
+    public void StopAnimation() => _animator.speed = 0;
+
+    public void StartAnimation() => _animator.speed = 1;
 }

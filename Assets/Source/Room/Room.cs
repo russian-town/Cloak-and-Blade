@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour, IEnemyTurnHandler
+public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
 {
     private Player _player;
     private PlayerView _view;
@@ -10,6 +10,7 @@ public class Room : MonoBehaviour, IEnemyTurnHandler
     private List<Enemy> _enemies = new List<Enemy>();
     private Turn _turn;
     private Coroutine _startWaitForEnemies;
+    private bool _isPause;
 
     private void OnDisable()
     {
@@ -19,7 +20,7 @@ public class Room : MonoBehaviour, IEnemyTurnHandler
 
     private void Update()
     {
-        if (_turn == Turn.Enemy)
+        if (_turn == Turn.Enemy || _isPause)
             return;
 
         _playerInput.GameUpdate();
@@ -67,6 +68,11 @@ public class Room : MonoBehaviour, IEnemyTurnHandler
         _view.Subscribe();
         _view.Show();
         _startWaitForEnemies = null;
+    }
+
+    public void SetPause(bool isPause)
+    {
+        _isPause = isPause;
     }
 }
 

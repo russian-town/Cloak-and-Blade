@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InputView : MonoBehaviour
+public class InputView : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private ParticleSystem _mouseOverCell;
     [SerializeField] private Gameboard _gameboard;
@@ -8,12 +8,13 @@ public class InputView : MonoBehaviour
     private bool _isInitialized;
     private Camera _camera;
     private Cell _lastCell;
+    private bool _isPause;
 
     private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
 
     private void Update()
     {
-        if (_isInitialized == false)
+        if (_isInitialized == false || _isPause)
             return;
 
         Cell cell = _gameboard.GetCell(TouchRay);
@@ -33,5 +34,10 @@ public class InputView : MonoBehaviour
     {
         _camera = Camera.main;
         _isInitialized = true;
+    }
+
+    public void SetPause(bool isPause)
+    {
+        _isPause = isPause;
     }
 }

@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMover))]
-public class Player : Ghost
+public class Player : Ghost, IPauseHandler
 {
     [SerializeField] private Ability _ability;
     [SerializeField] private ItemsInHold _itemsInHold;
@@ -18,7 +17,7 @@ public class Player : Ghost
     private AnimationClip _hourglassAnimation;
     private Animator _hourglassAnimator;
     private CanvasGroup _hourglass;
-    private PlayerAnimationHandler _playerAnimationHandler;
+    private PlayerAnimationHandler _animationHandler;
     private Command _currentCommand;
     private PlayerView _playerView;
 
@@ -26,6 +25,7 @@ public class Player : Ghost
     public ItemsInHold ItemsInHold => _itemsInHold;
 
     public event UnityAction StepEnded;
+    public event UnityAction Died;
 
     private void OnDisable()
     {
@@ -38,9 +38,9 @@ public class Player : Ghost
         _mover = GetComponent<PlayerMover>();
         _navigator = GetComponent<Navigator>();
         _playerView = playerView;
-        _playerAnimationHandler = GetComponent<PlayerAnimationHandler>();
+        _animationHandler = GetComponent<PlayerAnimationHandler>();
         _enemyTurnHandler = enemyTurnHandler;
-        _mover.Initialize(_startCell, _playerAnimationHandler);
+        _mover.Initialize(_startCell, _animationHandler);
         _ability.Initialize();
         _mover.MoveEnded += OnMoveEnded;
         _hourglass = hourglass;
@@ -48,7 +48,7 @@ public class Player : Ghost
         _hourglassAnimation = hourglassAnimation;
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator);
         _abilityCommand = new AbilityCommand(_ability);
-        _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _enemyTurnHandler.WaitForEnemies(), _playerAnimationHandler, _hourglassAnimation);
+        _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglassAnimation);
     }
 
     public void PrepareAbility() => SwitchCurrentCommand(_abilityCommand);
@@ -82,6 +82,22 @@ public class Player : Ghost
 
         if (_currentCommand.IsExecuting == false)
             StartCoroutine(_currentCommand.Execute(cell, this));
+    }
+
+    public void Die() => Died?.Invoke();
+
+    public void SetPause(bool isPause)
+    {
+        _mover.SetPause(isPause);
+
+        if (isPause == true)
+        {
+            _animationHandler.StopAnimation();
+        }
+        else
+        {
+            _animationHandler.StartAnimation();
+        }
     }
 
     private void SwitchCurrentCommand(Command command)

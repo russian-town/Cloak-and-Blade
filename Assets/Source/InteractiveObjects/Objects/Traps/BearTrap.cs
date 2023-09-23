@@ -13,7 +13,7 @@ public class BearTrap : InteractiveObject
 
     public override void Interact()
     {
-        print("Game Over");
+        Player.Die();
     }
 
     public override void Prepare()
