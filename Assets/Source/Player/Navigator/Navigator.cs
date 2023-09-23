@@ -17,7 +17,14 @@ public class Navigator : MonoBehaviour
     public void RefillAvailableCells(Cell currentCell)
     {
         _availableCells.Clear();
-        _availableCells = new List<Cell> { currentCell.North, currentCell.North.North, currentCell.East, currentCell.East.East, currentCell.West, currentCell.West.West, currentCell.South, currentCell.South.South };
+        AddCell(currentCell.North);
+        AddCell(currentCell.South);
+        AddCell(currentCell.West);
+        AddCell(currentCell.East);
+        AddCell(currentCell.North.North);
+        AddCell(currentCell.South.South);
+        AddCell(currentCell.West.West);
+        AddCell(currentCell.East.East);
     }
 
     public void ClearAvailableCells() => _availableCells.Clear();
@@ -28,5 +35,13 @@ public class Navigator : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    private void AddCell(Cell cell)
+    {
+        if (cell == null)
+            return;
+
+        _availableCells.Add(cell);
     }
 }

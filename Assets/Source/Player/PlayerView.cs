@@ -11,9 +11,18 @@ public class PlayerView : MonoBehaviour
     private Player _player;
     private List<Cell> _tempCells = new List<Cell>();
 
-    private void OnDestroy()
+    public void Subscribe()
     {
-        Hide();
+        _move.onClick.AddListener(OnMoveClick);
+        _ability.onClick.AddListener(OnAbilityClick);
+        _skip.onClick.AddListener(OnSkipClick);
+    }
+
+    public void Unsubscribe()
+    {
+        _move.onClick.RemoveListener(OnMoveClick);
+        _ability.onClick.RemoveListener(OnAbilityClick);
+        _skip.onClick.RemoveListener(OnSkipClick);
     }
 
     public void Initialize(Player player)
@@ -24,17 +33,17 @@ public class PlayerView : MonoBehaviour
 
     public void Show()
     {
-        _move.onClick.AddListener(OnMoveClick);
-        _ability.onClick.AddListener(OnAbilityClick);
-        _skip.onClick.AddListener(OnSkipClick);
+        if (gameObject.activeSelf == true)
+            return;
+
         gameObject.SetActive(true);
     }
-    
+
     public void Hide()
     {
-        _move.onClick.RemoveListener(OnMoveClick);
-        _ability.onClick.RemoveListener(OnAbilityClick);
-        _skip.onClick.RemoveListener(OnSkipClick);
+        if (gameObject.activeSelf == false)
+            return;
+
         gameObject.SetActive(false);
     }
 
@@ -43,16 +52,25 @@ public class PlayerView : MonoBehaviour
         HideAvailableCells();
         _tempCells = cells;
 
+        if (_tempCells.Count == 0)
+            return;
+
         foreach (var cell in _tempCells)
-            if (cell.Content.Type != CellContentType.Wall || cell.IsOccupied)
+        {
+            if (cell.Content.Type != CellContentType.Wall)
                 cell.View.Show();
+        }
     }
 
     public void HideAvailableCells()
     {
-        if (_tempCells.Count > 0)
-            foreach (var cell in _tempCells)
-                cell.View.Hide();
+        if (_tempCells.Count == 0)
+            return;
+
+        foreach (var cell in _tempCells)
+        {
+            cell.View.Hide();
+        }
 
         _tempCells.Clear();
     }

@@ -6,6 +6,7 @@ public class Room : MonoBehaviour
 {
     private Player _player;
     private PlayerView _view;
+    private PlayerInput _playerInput;
     private List<Enemy> _enemies = new List<Enemy>();
     private Turn _turn;
 
@@ -15,14 +16,25 @@ public class Room : MonoBehaviour
     private void OnDisable()
     {
         _player.StepEnded -= OnTurnEnded;
+        _view.Unsubscribe();
     }
 
-    public void Initialize(Player player, PlayerView view)
+    private void Update()
+    {
+        if (_turn == Turn.Enemy)
+            return;
+
+        _playerInput.GameUpdate();
+    }
+
+    public void Initialize(Player player, PlayerView view, PlayerInput playerInput)
     {
         _player = player;
         _view = view;
         _player.StepEnded += OnTurnEnded;
         _turn = Turn.Player;
+        _playerInput = playerInput;
+        _view.Subscribe();
     }
 
     public void AddEnemy(Enemy enemy) => _enemies.Add(enemy);
@@ -32,6 +44,7 @@ public class Room : MonoBehaviour
         if (WaitForEnemies != null)
             return;
 
+        _view.Unsubscribe();
         _turn = Turn.Enemy;
         _view.Hide();
         WaitForEnemies = StartCoroutine(WaitEnemiesTurn());
@@ -45,6 +58,7 @@ public class Room : MonoBehaviour
         _view.Show();
         WaitForEnemies = null;
         _turn = Turn.Player;
+        _view.Subscribe();
     }
 }
 

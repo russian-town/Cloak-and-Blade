@@ -117,7 +117,9 @@ public class Enemy : Ghost
             _musicPlayer.SwitchMusic();
         }
 
-        _cellsOnPath[_currentIndex].BecomeUnoccupied();
+        if (_currentIndex - 1 > 0)
+            _cellsOnPath[_currentIndex - 1].BecomeUnoccupied();
+
         _mover.CurrentCell.BecomeOccupied();
         _currentIndex++;
     }

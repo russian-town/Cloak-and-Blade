@@ -10,7 +10,6 @@ public class Root : MonoBehaviour
     [SerializeField] private Gameboard _gameboard;
     [SerializeField] private CinemachineVirtualCamera _angledCamera;
     [SerializeField] private CinemachineVirtualCamera _straightCamera;
-    [SerializeField] private ParticleSystem _mouseOverCell;
     [SerializeField] private ParticleSystem _abilityRangeTemplate;
     [SerializeField] private MusicPlayer _musicPlayer;
     [SerializeField] private EnemySetter[] _enemySetters;
@@ -35,7 +34,7 @@ public class Root : MonoBehaviour
     {
         _player = (Player)_spawner.Get(_playerSpawnCell, _playerTemplate);
         _player.Initialize(_playerSpawnCell, _hourglassAnimation, _hourglassAnimator, _hourglass, _room, _playerView);
-        _playerInput.Initialize(_camera, _gameboard, _mouseOverCell, _player);
+        _playerInput.Initialize(_camera, _gameboard, _player);
         _playerView.Initialize(_player);
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;
@@ -56,7 +55,7 @@ public class Root : MonoBehaviour
             _room.AddEnemy(enemy);
         }
 
-        _room.Initialize(_player, _playerView);
+        _room.Initialize(_player, _playerView, _playerInput);
         _gameboard.HideGrid();
     }
 }
