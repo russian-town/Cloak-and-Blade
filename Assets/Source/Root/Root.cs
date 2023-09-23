@@ -1,11 +1,13 @@
 using Cinemachine;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Root : MonoBehaviour
 {
     [SerializeField] private Player _playerTemplate;
     [SerializeField] private PlayerView _playerView;
+    [SerializeField] private InputView _inputView;
     [SerializeField] private Cell _playerSpawnCell;
     [SerializeField] private Gameboard _gameboard;
     [SerializeField] private CinemachineVirtualCamera _angledCamera;
@@ -21,8 +23,10 @@ public class Root : MonoBehaviour
     [SerializeField] private InteractiveObject[] _interactiveObjects;
     [SerializeField] private EnemyZoneDrawer _enemyZoneDrawerTemplate;
     [SerializeField] private GhostSpawner _spawner;
+    [SerializeField] private Game _game;
 
     private Player _player;
+    private Pause _pause;
 
     private void Start()
     {
@@ -46,16 +50,20 @@ public class Root : MonoBehaviour
         foreach (var interactiveObject in _interactiveObjects)
             interactiveObject.Initialize(_player);
 
+        _pause = new Pause(new List<IPauseHandler> {_inputView, _room, _playerView, _player });
+
         foreach (var setter in _enemySetters)
         {
             EnemyZoneDrawer zoneDrawer = Instantiate(_enemyZoneDrawerTemplate, new Vector3(0, 0.1f, 0), Quaternion.identity);
             Enemy enemy = (Enemy)_spawner.Get(setter.Destinations[0], setter.EnemyTemplate);
             enemy.Initialize(setter.Destinations, _player, _gameboard, zoneDrawer);
             _room.AddEnemy(enemy);
+            _pause.AddHandler(enemy);
         }
 
         _room.Initialize(_player, _playerView, _playerInput);
         _gameboard.HideGrid();
+        _game.Initialize(_player, _pause);
     }
 }
 

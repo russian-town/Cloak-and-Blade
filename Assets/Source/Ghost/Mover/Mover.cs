@@ -1,13 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class Mover : MonoBehaviour
+public abstract class Mover : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
 
     private GhostAnimationHandler _animationHandler;
     private Cell _startCell;
+    private float _startMoveSpeed;
+    private float _startRotationSpeed;
 
     public Coroutine StartMoveCoroutine { get; private set; }
     public Cell CurrentCell { get; private set; }
@@ -17,12 +19,29 @@ public abstract class Mover : MonoBehaviour
         _startCell = startCell;
         CurrentCell = _startCell;
         _animationHandler = animationHandler;
+        _startMoveSpeed = _moveSpeed;
+        _startRotationSpeed = _rotationSpeed;
     }
 
     public void Move(Cell targetCell)
     {
         if (StartMoveCoroutine == null)
             StartMoveCoroutine = StartCoroutine(StartMoveTo(targetCell));
+    }
+
+    public void SetPause(bool isPause)
+    {
+        if (isPause == true)
+        {
+            _moveSpeed = 0;
+            _rotationSpeed = 0;
+        }
+        else
+        {
+            _moveSpeed = _startMoveSpeed;
+            _rotationSpeed = _startRotationSpeed;
+        }
+
     }
 
     protected virtual IEnumerator StartMoveTo(Cell targetCell)

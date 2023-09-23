@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerView : MonoBehaviour
+public class PlayerView : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private Button _move;
     [SerializeField] private Button _ability;
@@ -71,6 +71,14 @@ public class PlayerView : MonoBehaviour
         }
 
         _tempCells.Clear();
+    }
+
+    public void SetPause(bool isPause)
+    {
+        if (isPause == true)
+            Unsubscribe();
+        else
+            Subscribe();
     }
 
     private void OnMoveClick()

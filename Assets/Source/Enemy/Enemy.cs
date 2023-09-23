@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemySightHandler), typeof(EnemyMover), typeof(EnemyAnimationHandler))]
-public class Enemy : Ghost
+public class Enemy : Ghost, IPauseHandler
 {
     [SerializeField] private Transform _transform;
     [SerializeField] private EnemyPhrasePlayer _phrasePlayer;
@@ -41,6 +41,20 @@ public class Enemy : Ghost
         _gameBoard = gameboard;
         _zoneDrawer = enemyZoneDrawer;
         _sightHandler.Initialize(_zoneDrawer);
+    }
+
+    public void SetPause(bool isPause)
+    {
+        _mover.SetPause(isPause);
+
+        if (isPause == true)
+        {
+            _animationHandler.StopAnimation();
+        }
+        else
+        {
+            _animationHandler.StartAnimation();
+        }
     }
 
     private void GenerateSight(Cell currentCell)
@@ -110,7 +124,7 @@ public class Enemy : Ghost
 
         if (_sightHandler.TryFindPlayer(_player))
         {
-            Debug.Log("Game over!");
+            _player.Die();
             _phrasePlayer.StopRightThere();
         }
 
