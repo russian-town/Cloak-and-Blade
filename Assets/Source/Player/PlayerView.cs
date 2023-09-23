@@ -33,18 +33,16 @@ public class PlayerView : MonoBehaviour
 
     public void Show()
     {
-        if (gameObject.activeSelf == true)
-            return;
-
-        gameObject.SetActive(true);
+        _move.interactable = true;
+        _ability.interactable = true;
+        _skip.interactable = true;
     }
 
     public void Hide()
     {
-        if (gameObject.activeSelf == false)
-            return;
-
-        gameObject.SetActive(false);
+        _move.interactable = false;
+        _ability.interactable = false;
+        _skip.interactable = false;
     }
 
     public void ShowAvailableCells(List<Cell> cells)
