@@ -49,7 +49,6 @@ public class Player : Ghost
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator);
         _abilityCommand = new AbilityCommand(_ability);
         _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _enemyTurnHandler.WaitForEnemies(), _playerAnimationHandler, _hourglassAnimation);
-        _navigator.RefillAvailableCells(new List<Cell> { _mover.CurrentCell.North, _mover.CurrentCell.East, _mover.CurrentCell.West, _mover.CurrentCell.South });
     }
 
     public void PrepareAbility() => SwitchCurrentCommand(_abilityCommand);
@@ -91,18 +90,18 @@ public class Player : Ghost
             return;
 
         if (_currentCommand != null && _currentCommand.IsExecuting)
+        {
+            Debug.Log(_currentCommand);
             return;
+        }
 
         _currentCommand?.Cancel();
         _currentCommand = command;
-        _navigator.RefillAvailableCells(_mover.CurrentCell);
         StartCoroutine(_currentCommand.Prepare(this));
     }
 
     private void OnMoveEnded()
     {
-        _navigator.RefillAvailableCells(_mover.CurrentCell);
-
         if (_currentCommand is not MoveCommand)
             _currentCommand = null;
         else

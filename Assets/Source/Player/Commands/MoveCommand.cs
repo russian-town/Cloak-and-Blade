@@ -19,6 +19,7 @@ public class MoveCommand : Command
 
     protected override IEnumerator PrepareAction() 
     {
+        _navigator.RefillAvailableCells(_playerMover.CurrentCell);
         _playerView.ShowAvailableCells(_navigator.AvailableCells.ToList());
         yield return null;
     }
