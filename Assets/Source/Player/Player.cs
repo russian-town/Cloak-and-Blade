@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,6 +7,8 @@ public class Player : Ghost, IPauseHandler
 {
     [SerializeField] private Ability _ability;
     [SerializeField] private ItemsInHold _itemsInHold;
+    [SerializeField] private ParticleSystem _diedParticle;
+    [SerializeField] private PlayerModel _model;
 
     private PlayerMover _mover;
     private IEnemyTurnHandler _enemyTurnHandler;
@@ -84,20 +87,25 @@ public class Player : Ghost, IPauseHandler
             StartCoroutine(_currentCommand.Execute(cell, this));
     }
 
-    public void Die() => Died?.Invoke();
+    public void Die() => StartCoroutine(MakeDeath());
 
     public void SetPause(bool isPause)
     {
         _mover.SetPause(isPause);
 
         if (isPause == true)
-        {
             _animationHandler.StopAnimation();
-        }
         else
-        {
             _animationHandler.StartAnimation();
-        }
+    }
+
+    private IEnumerator MakeDeath()
+    {
+        _currentCommand = null;
+        _model.Hide();
+        _diedParticle.Play();
+        yield return new WaitUntil(() => !_diedParticle.isPlaying);
+        Died?.Invoke();
     }
 
     private void SwitchCurrentCommand(Command command)
