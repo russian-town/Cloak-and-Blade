@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEngine;
 using System.Linq;
 
 public class MoveCommand : Command
@@ -26,7 +25,6 @@ public class MoveCommand : Command
 
     public override void Cancel()
     {
-        Debug.Log("Canceling.");
         _playerView.HideAvailableCells();
     }
 
