@@ -17,6 +17,8 @@ public class Game : MonoBehaviour
         _pauseScreen.ContionueButtonClicked -= Continue;
         _pauseScreen.RestartButtonClicked -= Restart;
         _pauseScreen.ExitButtonClicked -= Exit;
+        _gameOverView.RestartButtonClicked -= Restart;
+        _gameOverView.ExitButtonClicked -= Exit;
     }
 
     public void Initialize(Player player, Pause pause)
@@ -28,6 +30,8 @@ public class Game : MonoBehaviour
         _pauseScreen.ContionueButtonClicked += Continue;
         _pauseScreen.RestartButtonClicked += Restart;
         _pauseScreen.ExitButtonClicked += Exit;
+        _gameOverView.RestartButtonClicked += Restart;
+        _gameOverView.ExitButtonClicked += Exit;
     }
 
     public void SetPause()
