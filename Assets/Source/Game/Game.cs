@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Game : MonoBehaviour
         _player.Died -= OnPlayerDead;
         _playerView.PauseButtonClicked -= SetPause;
         _pauseScreen.ContionueButtonClicked -= Continue;
+        _pauseScreen.RestartButtonClicked -= Restart;
+        _pauseScreen.ExitButtonClicked -= Exit;
     }
 
     public void Initialize(Player player, Pause pause)
@@ -23,21 +26,27 @@ public class Game : MonoBehaviour
         _pause = pause;
         _playerView.PauseButtonClicked += SetPause;
         _pauseScreen.ContionueButtonClicked += Continue;
+        _pauseScreen.RestartButtonClicked += Restart;
+        _pauseScreen.ExitButtonClicked += Exit;
     }
 
-    public void SetPause() 
+    public void SetPause()
     {
         _pause.Enable();
         _pauseScreen.Show();
         _playerView.Hide();
     }
 
-    public void Continue()
+    private void Continue()
     {
         _pause.Disable();
         _pauseScreen.Hide();
         _playerView.Show();
     }
+
+    private void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+    private void Exit() { }
 
     private void OnPlayerDead() => GameOver();
 

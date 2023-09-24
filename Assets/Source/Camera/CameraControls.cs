@@ -32,7 +32,6 @@ public class CameraControls : MonoBehaviour
         {
             _angledCamera.Priority = 0;
             _straightCamera.Priority = 1;
-            /*_angledCameraOrbitalTransposer.m_Heading.m_Bias = _maxRotation;*/
             _cameraIsStraight = true;
         }
         else
