@@ -7,6 +7,7 @@ public class Enemy : Ghost, IPauseHandler
 {
     [SerializeField] private Transform _transform;
     [SerializeField] private EnemyPhrasePlayer _phrasePlayer;
+    [SerializeField] private ParticleSystem _freezeEffect;
 
     private EnemySightHandler _sightHandler;
     private EnemyZoneDrawer _zoneDrawer;
@@ -119,6 +120,7 @@ public class Enemy : Ghost, IPauseHandler
         {
             _isFreeze = true;
             _theWorld = theWorld;
+            _freezeEffect.Play();
         }
 
         _player.StepEnded += UpdatePlayerStepCount;
