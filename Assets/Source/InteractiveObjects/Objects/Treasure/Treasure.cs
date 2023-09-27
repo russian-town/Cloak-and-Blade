@@ -43,6 +43,11 @@ public class Treasure : InteractiveObject
         {
             _animator.SetTrigger(Constants.CloseParameter);
         }
+        else if (_view.isActiveAndEnabled)
+        {
+            _view.InteractButton.onClick.RemoveListener(Interact);
+            _view.Hide();
+        }
     }
 
     private void Open()
