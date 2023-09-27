@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Portcullis : InteractiveObject
@@ -43,5 +40,10 @@ public class Portcullis : InteractiveObject
         {
             print("Find key firts");
         }
+    }
+
+    protected override void Disable()
+    {
+        _view.InteractButton.onClick.RemoveListener(Interact);
     }
 }

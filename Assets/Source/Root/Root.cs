@@ -28,6 +28,17 @@ public class Root : MonoBehaviour
     private Player _player;
     private Pause _pause;
 
+    private void OnDisable()
+    {
+        //foreach (var interactiveObject in _interactiveObjects)
+        //    interactiveObject.Unsubscribe();
+
+        _playerView.Unsubscribe();
+        _room.Unsubscribe();
+        _game.Unsubscribe();
+        _player.Unsubscribe();
+    }
+
     private void Start()
     {
         Initialize();
@@ -39,6 +50,7 @@ public class Root : MonoBehaviour
         _player.Initialize(_playerSpawnCell, _hourglassAnimation, _hourglassAnimator, _hourglass, _room, _playerView);
         _playerInput.Initialize(_camera, _gameboard, _player);
         _playerView.Initialize(_player);
+        _room.Initialize(_player, _playerView, _playerInput);
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;
         _straightCamera.Follow = _player.transform;
@@ -61,9 +73,8 @@ public class Root : MonoBehaviour
             _pause.AddHandler(enemy);
         }
 
-        _room.Initialize(_player, _playerView, _playerInput);
-        _gameboard.HideGrid();
         _game.Initialize(_player, _pause);
+        _gameboard.HideGrid();
     }
 }
 

@@ -5,23 +5,33 @@ public abstract class InteractiveObject : MonoBehaviour
 {
     [SerializeField] private List<Cell> _cellsInInteractibleRange;
 
-    protected IReadOnlyList<Cell> CellsInInteractibleRange => _cellsInInteractibleRange;
-    protected Player Player { get; private set; }
+    private Player _player;
 
-    private void OnDisable()
+    protected IReadOnlyList<Cell> CellsInInteractibleRange => _cellsInInteractibleRange;
+    protected Player Player => _player;
+
+    private void OnDestroy()
     {
-        Player.StepEnded -= OnStepEnded;
+        if (_player)
+            Debug.Log("Player " + gameObject.name);
+        else
+            Debug.Log("Not player " + gameObject.name);
+
+        _player.StepEnded -= OnStepEnded;
+        Disable();
     }
 
     public virtual void Initialize(Player player)
     {
-        Player = player;
-        Player.StepEnded += OnStepEnded;
+        _player = player;
+        _player.StepEnded += OnStepEnded;
     }
 
     public abstract void Prepare();
     
     public abstract void Interact();
+
+    protected abstract void Disable();
 
     protected bool CheckInteractionPossibility()
     {

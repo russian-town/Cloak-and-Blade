@@ -12,7 +12,7 @@ public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
     private Coroutine _startWaitForEnemies;
     private bool _isPause;
 
-    private void OnDisable()
+    public void Unsubscribe()
     {
         _player.StepEnded -= OnTurnEnded;
         _view.Unsubscribe();

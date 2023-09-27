@@ -30,7 +30,7 @@ public class Player : Ghost, IPauseHandler
     public event UnityAction StepEnded;
     public event UnityAction Died;
 
-    private void OnDisable()
+    public void Unsubscribe()
     {
         _mover.MoveEnded -= OnMoveEnded;
     }

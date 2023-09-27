@@ -31,4 +31,9 @@ public class LevelExit : InteractiveObject
         else
             print("level not passed");
     }
+
+    protected override void Disable()
+    {
+        _view.InteractButton.onClick.RemoveListener(Interact);
+    }
 }

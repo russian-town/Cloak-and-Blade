@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Key : InteractiveObject
@@ -25,5 +23,10 @@ public class Key : InteractiveObject
             _view.InteractButton.onClick.RemoveListener(Interact);
             _view.Hide();
         }
+    }
+
+    protected override void Disable()
+    {
+        _view.InteractButton.onClick.RemoveListener(Interact);
     }
 }

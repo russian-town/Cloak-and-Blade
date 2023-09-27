@@ -27,4 +27,6 @@ public class BearTrap : InteractiveObject
             Interact();
         }
     }
+
+    protected override void Disable() { }
 }

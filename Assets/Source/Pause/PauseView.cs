@@ -8,15 +8,15 @@ public class PauseView : ViewPanel
 
     public event Action ContionueButtonClicked;
 
-    protected override void Initialize()
+    public override void Initialize()
     {
         base.Initialize();
         _continueButton.onClick.AddListener(() => ContionueButtonClicked?.Invoke());
     }
 
-    protected override void Dismis()
+    protected override void Dismiss()
     {
-        base.Dismis();
+        base.Dismiss();
         _continueButton.onClick.RemoveListener(() => ContionueButtonClicked?.Invoke());
     }
 }

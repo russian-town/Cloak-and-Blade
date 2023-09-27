@@ -10,7 +10,7 @@ public class Game : MonoBehaviour
     private Player _player;
     private Pause _pause;
 
-    private void OnDisable()
+    public void Unsubscribe()
     {
         _player.Died -= OnPlayerDead;
         _playerView.PauseButtonClicked -= SetPause;
@@ -26,6 +26,8 @@ public class Game : MonoBehaviour
         _player = player;
         _player.Died += OnPlayerDead;
         _pause = pause;
+        _pauseScreen.Initialize();
+        _gameOverView.Initialize();
         _playerView.PauseButtonClicked += SetPause;
         _pauseScreen.ContionueButtonClicked += Continue;
         _pauseScreen.RestartButtonClicked += Restart;

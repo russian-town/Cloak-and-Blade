@@ -10,21 +10,19 @@ public abstract class ViewPanel : MonoBehaviour
     public event Action RestartButtonClicked;
     public event Action ExitButtonClicked;
 
-    private void OnEnable() => Initialize();
-
-    private void OnDisable() => Dismis();
+    private void OnDisable() => Dismiss();
 
     public virtual void Show() => gameObject.SetActive(true);
 
     public virtual void Hide() => gameObject.SetActive(false);
 
-    protected virtual void Initialize()
+    public virtual void Initialize()
     {
         _restartButton.onClick.AddListener(() => RestartButtonClicked?.Invoke());
         _exitButton.onClick.AddListener(() => ExitButtonClicked?.Invoke());
     }
 
-    protected virtual void Dismis()
+    protected virtual void Dismiss()
     {
         _restartButton.onClick.RemoveListener(() => RestartButtonClicked?.Invoke());
         _exitButton.onClick.RemoveListener(() => ExitButtonClicked?.Invoke());

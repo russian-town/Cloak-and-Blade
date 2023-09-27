@@ -7,11 +7,6 @@ public class Treasure : InteractiveObject
     private Animator _animator;
     private bool _treasureAccquired;
 
-    private void OnDisable()
-    {
-        _view.InteractButton.onClick.RemoveListener(Interact);
-    }
-
     public override void Initialize(Player player)
     {
         base.Initialize(player);
@@ -54,5 +49,10 @@ public class Treasure : InteractiveObject
     {
         _animator.SetTrigger(Constants.OpenParameter);
         Player.ItemsInHold.AddObjectToItemList(gameObject.GetComponent<Treasure>());
+    }
+
+    protected override void Disable()
+    {
+        _view.InteractButton.onClick.RemoveListener(Interact);
     }
 }
