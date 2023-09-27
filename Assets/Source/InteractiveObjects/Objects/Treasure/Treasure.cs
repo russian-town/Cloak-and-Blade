@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Treasure : InteractiveObject
 {
     [SerializeField] private InteractiveObjectView _view;
     [SerializeField] private Key _key;
+    [SerializeField] private Image _lockedImage;
+    [SerializeField] private Image _unLockedImage;
     private Animator _animator;
     private bool _treasureAccquired;
 
@@ -11,6 +14,8 @@ public class Treasure : InteractiveObject
     {
         base.Initialize(player);
         _animator = GetComponent<Animator>();
+        _lockedImage.gameObject.SetActive(false);
+        _unLockedImage.gameObject.SetActive(false);
     }
 
     public override void Interact()
@@ -32,6 +37,17 @@ public class Treasure : InteractiveObject
         if (CheckInteractionPossibility())
         {
             _view.Show();
+
+            if (Player.ItemsInHold.FindItemInList(_key))
+            {
+                _lockedImage.gameObject.SetActive(false);
+                _unLockedImage.gameObject.SetActive(true);
+            }
+            else
+            {
+                _lockedImage.gameObject.SetActive(true);
+            }
+
             _view.InteractButton.onClick.AddListener(Interact);
         }
         else if (_treasureAccquired)
