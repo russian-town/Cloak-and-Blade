@@ -18,7 +18,6 @@ public class Blink : Ability
 
     public override void Prepare()
     {
-        Debug.Log("Prepare");
         Cell currentCell = _player.CurrentCell;
         BuildBlinkRange(currentCell);
         ShowBlinkRange();
@@ -26,7 +25,6 @@ public class Blink : Ability
 
     public override void Cancel()
     {
-        Debug.Log("Cancel");
         HideBlinkRange();
         _availableCells.Clear();
     }
@@ -74,8 +72,6 @@ public class Blink : Ability
         foreach (var cell in _availableCells)
             if (cell.Content.Type != CellContentType.Wall)
                 cell.View.PlayAbilityRangeEffect();
-
-        Debug.Log("Show");
     }
 
     private void HideBlinkRange()

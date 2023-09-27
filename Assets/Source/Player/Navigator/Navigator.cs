@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,15 +9,12 @@ public class Navigator : MonoBehaviour
 
     public void RefillAvailableCells(List<Cell> availableCells)
     {
-        Debug.Log(availableCells.Count);
         _availableCells.Clear();
         _availableCells.AddRange(availableCells);
-        Debug.Log(_availableCells.Count);
     }
 
     public void RefillAvailableCells(Cell currentCell)
     {
-        Debug.Log("Refil2");
         _availableCells.Clear();
         AddCell(currentCell.North);
         AddCell(currentCell.South);

@@ -34,7 +34,7 @@ public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
         _turn = Turn.Player;
         _playerInput = playerInput;
         _view.Subscribe();
-        _view.Show();
+        _view.ShowInteravtiveButton();
     }
 
     public void AddEnemy(Enemy enemy) => _enemies.Add(enemy);
@@ -52,7 +52,7 @@ public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
 
         _turn = Turn.Enemy;
         _view.Unsubscribe();
-        _view.Hide();
+        _view.HideInteractiveButton();
         WaitForEnemies();
     }
 
@@ -66,7 +66,7 @@ public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
 
         _turn = Turn.Player;
         _view.Subscribe();
-        _view.Show();
+        _view.ShowInteravtiveButton();
         _startWaitForEnemies = null;
     }
 

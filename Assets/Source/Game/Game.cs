@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField] private GameObject _pauseScreen;
-    [SerializeField] private GameObject _playerUI;
+    [SerializeField] private PauseView _pauseScreen;
+    [SerializeField] private PlayerView _playerView;
+    [SerializeField] private GameOverView _gameOverView;
 
     private Player _player;
     private Pause _pause;
@@ -11,6 +13,12 @@ public class Game : MonoBehaviour
     private void OnDisable()
     {
         _player.Died -= OnPlayerDead;
+        _playerView.PauseButtonClicked -= SetPause;
+        _pauseScreen.ContionueButtonClicked -= Continue;
+        _pauseScreen.RestartButtonClicked -= Restart;
+        _pauseScreen.ExitButtonClicked -= Exit;
+        _gameOverView.RestartButtonClicked -= Restart;
+        _gameOverView.ExitButtonClicked -= Exit;
     }
 
     public void Initialize(Player player, Pause pause)
@@ -18,28 +26,37 @@ public class Game : MonoBehaviour
         _player = player;
         _player.Died += OnPlayerDead;
         _pause = pause;
+        _playerView.PauseButtonClicked += SetPause;
+        _pauseScreen.ContionueButtonClicked += Continue;
+        _pauseScreen.RestartButtonClicked += Restart;
+        _pauseScreen.ExitButtonClicked += Exit;
+        _gameOverView.RestartButtonClicked += Restart;
+        _gameOverView.ExitButtonClicked += Exit;
     }
 
-    public void StartGame() { }
-
-    public void PauseGame() 
+    public void SetPause()
     {
         _pause.Enable();
-        _pauseScreen.SetActive(true);
-        _playerUI.SetActive(false);
+        _pauseScreen.Show();
+        _playerView.Hide();
     }
 
-    public void Continue()
+    private void Continue()
     {
         _pause.Disable();
-        _pauseScreen.SetActive(false);
-        _playerUI.SetActive(true);
+        _pauseScreen.Hide();
+        _playerView.Show();
     }
 
-    public void GameOver() { }
+    private void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-    private void OnPlayerDead()
+    private void Exit() { }
+
+    private void OnPlayerDead() => GameOver();
+
+    private void GameOver() 
     {
-        GameOver();
+        _playerView.Hide();
+        _gameOverView.Show();
     }
 }

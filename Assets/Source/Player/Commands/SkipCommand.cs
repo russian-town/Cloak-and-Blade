@@ -23,8 +23,6 @@ public class SkipCommand : Command
         _hourglassClip = hourglassClip;
     }
 
-    public override void Cancel() {}
-
     protected override IEnumerator PrepareAction()
     {
         yield return null;
