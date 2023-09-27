@@ -25,6 +25,7 @@ public class Enemy : Ghost, IPauseHandler
     private int _east = 90;
     private int _south = 180;
     private int _west = 270;
+    private bool _isFreeze;
 
     public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, EnemyZoneDrawer enemyZoneDrawer)
     {
@@ -106,8 +107,23 @@ public class Enemy : Ghost, IPauseHandler
         _gameBoard.GeneratePath(out _cellsOnPath, _currentDestination, _startCell);
     }
 
+    public void TakeAbility(Ability ability)
+    {
+        if (ability == null)
+        {
+            _isFreeze = false;
+            return;
+        }
+
+        if (ability is TheWorld)
+            _isFreeze = true;
+    }
+
     public IEnumerator PerformMove()
     {
+        if (_isFreeze)
+            yield break;
+
         _sightHandler.ClearSight();
         CalculatePath();
 

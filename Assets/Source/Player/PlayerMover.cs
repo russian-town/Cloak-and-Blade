@@ -3,8 +3,6 @@ using UnityEngine.Events;
 
 public class PlayerMover : Mover
 {
-    private bool _timeFrize;
-
     public event UnityAction MoveEnded;
 
     protected override IEnumerator StartMoveTo(Cell targetCell)

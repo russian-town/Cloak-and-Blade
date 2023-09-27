@@ -1,8 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerMover))]
+[RequireComponent(typeof(PlayerMover), typeof(PlayerAttacker))]
 public class Player : Ghost, IPauseHandler
 {
     [SerializeField] private Ability _ability;
@@ -11,6 +12,7 @@ public class Player : Ghost, IPauseHandler
     [SerializeField] private PlayerModel _model;
 
     private PlayerMover _mover;
+    private PlayerAttacker _attacker;
     private IEnemyTurnHandler _enemyTurnHandler;
     private Cell _startCell;
     private MoveCommand _moveCommand;
@@ -23,6 +25,7 @@ public class Player : Ghost, IPauseHandler
     private PlayerAnimationHandler _animationHandler;
     private Command _currentCommand;
     private PlayerView _playerView;
+    private List<Enemy> _enemies = new List<Enemy>();
 
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
@@ -40,6 +43,7 @@ public class Player : Ghost, IPauseHandler
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
         _navigator = GetComponent<Navigator>();
+        _attacker = GetComponent<PlayerAttacker>();
         _playerView = playerView;
         _animationHandler = GetComponent<PlayerAnimationHandler>();
         _enemyTurnHandler = enemyTurnHandler;
@@ -52,6 +56,12 @@ public class Player : Ghost, IPauseHandler
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator);
         _abilityCommand = new AbilityCommand(_ability);
         _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglassAnimation);
+    }
+
+    public void SetTargets(List<Enemy> enemies)
+    {
+        _enemies.AddRange(enemies);
+        _attacker.Initialize(_enemies);
     }
 
     public void PrepareAbility() => SwitchCurrentCommand(_abilityCommand);
