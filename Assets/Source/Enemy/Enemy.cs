@@ -74,6 +74,7 @@ public class Enemy : Ghost, IPauseHandler
 
     private void ChangeDestination(Cell destination)
     {
+        _mover.CurrentCell.BecomeUnoccupied();
         _currentIndex = 0;
 
         if (destination == null)
@@ -128,7 +129,7 @@ public class Enemy : Ghost, IPauseHandler
             _phrasePlayer.StopRightThere();
         }
 
-        if (_currentIndex - 1 > 0)
+        if (_currentIndex - 1 >= 0)
             _cellsOnPath[_currentIndex - 1].BecomeUnoccupied();
 
         _mover.CurrentCell.BecomeOccupied();

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using UnityEngine;
 
 public class Treasure : InteractiveObject
@@ -9,6 +6,11 @@ public class Treasure : InteractiveObject
     [SerializeField] private Key _key;
     private Animator _animator;
     private bool _treasureAccquired;
+
+    private void OnDisable()
+    {
+        _view.InteractButton.onClick.RemoveListener(Interact);
+    }
 
     public override void Initialize(Player player)
     {
