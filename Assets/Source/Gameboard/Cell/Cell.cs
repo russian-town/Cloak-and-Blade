@@ -26,6 +26,7 @@ public class Cell : MonoBehaviour
     public bool HasPath => _distance != int.MaxValue;
     public bool IsAlternative { get; set; }
     public bool IsOccupied { get; private set; }
+    public bool HasTrap { get; private set; }
 
     public CellContent Content
     {
@@ -75,6 +76,8 @@ public class Cell : MonoBehaviour
         _distance = 0;
         _nextOnPath = null;
     }
+
+    public void BecomeTrap() => HasTrap = true;
 
     public Cell GrowPathTo(Cell neighbor)
     {

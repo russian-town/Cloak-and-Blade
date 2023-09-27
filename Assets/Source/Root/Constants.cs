@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Constants 
 {
     public const string North = "North";
@@ -14,4 +10,5 @@ public class Constants
     public const string CloseParameter = "Close";
     public const string IsMovingBool = "IsMoving";
     public const string IsSkippingBool = "IsSkipping";
+    public const string MainMenu = "MainMenu";
 }

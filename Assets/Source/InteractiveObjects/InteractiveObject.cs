@@ -5,6 +5,7 @@ public abstract class InteractiveObject : MonoBehaviour
 {
     [SerializeField] private List<Cell> _cellsInInteractibleRange;
 
+    protected IReadOnlyList<Cell> CellsInInteractibleRange => _cellsInInteractibleRange;
     protected Player Player { get; private set; }
 
     private void OnDisable()

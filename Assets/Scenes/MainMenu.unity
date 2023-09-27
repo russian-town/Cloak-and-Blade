@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.039278172, g: 0.08843259, b: 0.27756763, a: 1}
+  m_IndirectSpecularColor: {r: 0.029844176, g: 0.08441386, b: 0.278978, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1546,7 +1546,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749121520}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Test, Assembly-CSharp
         m_MethodName: Poop
         m_Mode: 1
@@ -1833,7 +1833,6 @@ GameObject:
   - component: {fileID: 749121519}
   - component: {fileID: 749121518}
   - component: {fileID: 749121517}
-  - component: {fileID: 749121520}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -1906,7 +1905,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749121520}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Test, Assembly-CSharp
         m_MethodName: Poop
         m_Mode: 1
@@ -1956,18 +1955,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 749121515}
   m_CullTransparentMesh: 1
---- !u!114 &749121520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 749121515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6656eeeafff981e4c8d3a1ea0c18cfca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &760319126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6075155838382831309, guid: 273b8f4150121d249ac7e2fd11da7005, type: 3}
@@ -2684,6 +2671,8 @@ GameObject:
   - component: {fileID: 1011744816}
   - component: {fileID: 1011744815}
   - component: {fileID: 1011744819}
+  - component: {fileID: 1011744821}
+  - component: {fileID: 1011744820}
   m_Layer: 5
   m_Name: MenuUi
   m_TagString: Untagged
@@ -2790,6 +2779,33 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1011744820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011744813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3255e9385039e54c87396a731ad8eba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1011744821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011744813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c3f5c3057f11b146b4324faab10c6de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _play: {fileID: 749121517}
+  _leaderboard: {fileID: 1679313883}
+  _settings: {fileID: 580871242}
 --- !u!1001 &1013375247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4051,7 +4067,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 189.9
+  m_fontSize: 195.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4061,7 +4077,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 20
+  m_characterSpacing: 8
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -4496,7 +4512,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749121520}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Test, Assembly-CSharp
         m_MethodName: Poop
         m_Mode: 1

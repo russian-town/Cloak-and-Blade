@@ -50,7 +50,7 @@ public class Game : MonoBehaviour
 
     private void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-    private void Exit() { }
+    private void Exit() => SceneManager.LoadScene(Constants.MainMenu);
 
     private void OnPlayerDead() => GameOver();
 

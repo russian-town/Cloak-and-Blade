@@ -19,7 +19,16 @@ public class PlayerInput : MonoBehaviour
             if (targetCell == null)
                 return;
 
-            _player.ExecuteCurrentCommand(targetCell);
+            if (targetCell == _player.CurrentCell.North.North && _player.CurrentCell.North.HasTrap)
+                _player.ExecuteCurrentCommand(_player.CurrentCell.North);
+            else if (targetCell == _player.CurrentCell.South.South && _player.CurrentCell.South.HasTrap)
+                _player.ExecuteCurrentCommand(_player.CurrentCell.South);
+            else if (targetCell == _player.CurrentCell.East.East && _player.CurrentCell.East.HasTrap)
+                _player.ExecuteCurrentCommand(_player.CurrentCell.East);
+            else if (targetCell == _player.CurrentCell.West.West && _player.CurrentCell.West.HasTrap)
+                _player.ExecuteCurrentCommand(_player.CurrentCell.West);
+            else
+                _player.ExecuteCurrentCommand(targetCell);
         }
     }
 
