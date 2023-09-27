@@ -12,11 +12,6 @@ public abstract class InteractiveObject : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (_player)
-            Debug.Log("Player " + gameObject.name);
-        else
-            Debug.Log("Not player " + gameObject.name);
-
         _player.StepEnded -= OnStepEnded;
         Disable();
     }
