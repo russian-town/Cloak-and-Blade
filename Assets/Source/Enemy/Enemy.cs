@@ -26,6 +26,9 @@ public class Enemy : Ghost, IPauseHandler
     private int _south = 180;
     private int _west = 270;
     private bool _isFreeze;
+    private TheWorld _theWorld;
+
+    private void OnDisable() => _player.StepEnded -= UpdatePlayerStepCount;
 
     public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, EnemyZoneDrawer enemyZoneDrawer)
     {
@@ -110,13 +113,28 @@ public class Enemy : Ghost, IPauseHandler
     public void TakeAbility(Ability ability)
     {
         if (ability == null)
-        {
-            _isFreeze = false;
             return;
+
+        if (ability is TheWorld theWorld)
+        {
+            _isFreeze = true;
+            _theWorld = theWorld;
         }
 
-        if (ability is TheWorld)
-            _isFreeze = true;
+        _player.StepEnded += UpdatePlayerStepCount;
+        Debug.Log("Attack");
+    }
+
+    public void UpdatePlayerStepCount()
+    {
+        Debug.Log(_theWorld.CurrentStepCount);
+
+        if (_theWorld != null && _theWorld.CurrentStepCount >= _theWorld.MaxStepCount)
+        {
+            _isFreeze = false;
+            _player.StepEnded -= UpdatePlayerStepCount;
+            _theWorld = null;
+        }
     }
 
     public IEnumerator PerformMove()
