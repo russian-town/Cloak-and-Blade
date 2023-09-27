@@ -36,16 +36,16 @@ public class Game : MonoBehaviour
 
     public void SetPause()
     {
-        _pause.Enable();
         _pauseScreen.Show();
         _playerView.Hide();
+        _pause.Enable();
     }
 
     private void Continue()
     {
-        _pause.Disable();
         _pauseScreen.Hide();
         _playerView.Show();
+        _pause.Disable();
     }
 
     private void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
