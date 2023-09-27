@@ -6,7 +6,7 @@ public class TheWorld : Ability
     [SerializeField] private int _maxStepCount;
 
     private PlayerAttacker _attacker;
-    private PlayerMover _mover;
+    private Player _player;
     private bool _isActive;
     private int _currentStepCount;
 
@@ -15,13 +15,13 @@ public class TheWorld : Ability
 
     private void OnDisable()
     {
-        _mover.MoveEnded -= IncreaseCurrentStepCount;
+        _player.StepEnded -= IncreaseCurrentStepCount;
     }
 
     public override void Initialize()
     {
         _attacker = GetComponent<PlayerAttacker>();
-        _mover = GetComponent<PlayerMover>();
+        _player = GetComponent<Player>();
     }
 
     public override void Cancel() 
@@ -39,19 +39,18 @@ public class TheWorld : Ability
 
         _isActive = true;
         _currentStepCount = 0;
-        _mover.MoveEnded += IncreaseCurrentStepCount;
+        _player.StepEnded += IncreaseCurrentStepCount;
         _attacker.Attack(this);
     }
 
     private void IncreaseCurrentStepCount()
     {
         _currentStepCount++;
-        Debug.Log(_currentStepCount);
 
         if (_currentStepCount >= _maxStepCount)
         {
             _isActive = false;
-            _mover.MoveEnded -= IncreaseCurrentStepCount;
+            _player.StepEnded -= IncreaseCurrentStepCount;
         }
     }
 }
