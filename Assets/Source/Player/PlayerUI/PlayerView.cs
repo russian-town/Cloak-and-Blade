@@ -54,9 +54,9 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _move.interactable = true;
         _ability.interactable = true;
         _skip.interactable = true;
-        _leftRotationCameraButton.interactable = true;
+/*        _leftRotationCameraButton.interactable = true;
         _rightRotationCameraButton.interactable = true;
-        _perspectiveCameraButton.interactable = true;
+        _perspectiveCameraButton.interactable = true;*/
 
         foreach (var icon in _icons)
             icon.Interactable(true);
@@ -67,9 +67,9 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _move.interactable = false;
         _ability.interactable = false;
         _skip.interactable = false;
-        _leftRotationCameraButton.interactable = false;
+/*        _leftRotationCameraButton.interactable = false;
         _rightRotationCameraButton.interactable = false;
-        _perspectiveCameraButton.interactable = false;
+        _perspectiveCameraButton.interactable = false;*/
 
         foreach (var icon in _icons)
             icon.Interactable(false);
