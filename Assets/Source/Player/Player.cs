@@ -18,6 +18,7 @@ public class Player : Ghost, IPauseHandler
     private MoveCommand _moveCommand;
     private AbilityCommand _abilityCommand;
     private SkipCommand _skipCommand;
+    private MoveBoxCommand _moveBoxCommand;
     private Navigator _navigator;
     private AnimationClip _hourglassAnimation;
     private Animator _hourglassAnimator;
@@ -29,6 +30,8 @@ public class Player : Ghost, IPauseHandler
 
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
+    public MoveCommand Move => _moveCommand;
+    public Command NextCommand { get; private set; }
 
     public event UnityAction StepEnded;
     public event UnityAction Died;
@@ -56,6 +59,7 @@ public class Player : Ghost, IPauseHandler
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator);
         _abilityCommand = new AbilityCommand(_ability);
         _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglassAnimation);
+        _moveBoxCommand = new MoveBoxCommand(_moveCommand, this);
     }
 
     public void SetTargets(List<Enemy> enemies)
@@ -124,11 +128,9 @@ public class Player : Ghost, IPauseHandler
             return;
 
         if (_currentCommand != null && _currentCommand.IsExecuting)
-        {
-            Debug.Log(_currentCommand);
             return;
-        }
 
+        NextCommand = command;
         _currentCommand?.Cancel();
         _currentCommand = command;
         StartCoroutine(_currentCommand.Prepare(this));
