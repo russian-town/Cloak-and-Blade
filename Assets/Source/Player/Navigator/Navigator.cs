@@ -20,17 +20,22 @@ public class Navigator : MonoBehaviour
         AddCell(currentCell.South);
         AddCell(currentCell.West);
         AddCell(currentCell.East);
-        AddCell(currentCell.North.North);
-        AddCell(currentCell.South.South);
-        AddCell(currentCell.West.West);
-        AddCell(currentCell.East.East);
+
+        if (currentCell.North != null && currentCell.North.Content.Type != CellContentType.Wall)
+            AddCell(currentCell.North.North);
+        if (currentCell.South != null && currentCell.South.Content.Type != CellContentType.Wall)
+            AddCell(currentCell.South.South);
+        if (currentCell.West != null && currentCell.West.Content.Type != CellContentType.Wall)
+            AddCell(currentCell.West.West);
+        if (currentCell.East != null && currentCell.East.Content.Type != CellContentType.Wall)
+            AddCell(currentCell.East.East);
     }
 
     public void ClearAvailableCells() => _availableCells.Clear();
 
     public bool CanMoveToCell(Cell cell)
     {
-        if (_availableCells.Contains(cell) && cell.Content.Type != CellContentType.Wall && cell != null)
+        if (_availableCells.Contains(cell))
             return true;
 
         return false;
@@ -38,7 +43,7 @@ public class Navigator : MonoBehaviour
 
     private void AddCell(Cell cell)
     {
-        if (cell == null)
+        if (cell == null || cell.Content.Type == CellContentType.Wall)
             return;
 
         _availableCells.Add(cell);
