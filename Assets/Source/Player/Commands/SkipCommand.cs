@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class SkipCommand : Command
 {
+    private readonly float _fadeInSpeed = 2f;
+
     private Player _player;
     private Animator _hourglassAnimator;
     private CanvasGroup _hourglass;
     private MonoBehaviour _context;
-    private readonly float _fadeInSpeed = 2f;
     private Coroutine _waitForEnemies;
     private PlayerAnimationHandler _playerAnimationHandler;
     private AnimationClip _hourglassClip;
@@ -39,6 +40,7 @@ public class SkipCommand : Command
         yield return _context.StartCoroutine(FadeIn(0));
         _hourglassAnimator.SetBool(Constants.IsSkippingParameter, false);
         _playerAnimationHandler.StopSkipAnimation();
+        Cancel();
         yield break;
     }
 

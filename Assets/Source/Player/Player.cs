@@ -18,7 +18,6 @@ public class Player : Ghost, IPauseHandler
     private MoveCommand _moveCommand;
     private AbilityCommand _abilityCommand;
     private SkipCommand _skipCommand;
-    private MoveBoxCommand _moveBoxCommand;
     private Navigator _navigator;
     private AnimationClip _hourglassAnimation;
     private Animator _hourglassAnimator;
@@ -27,6 +26,7 @@ public class Player : Ghost, IPauseHandler
     private Command _currentCommand;
     private PlayerView _playerView;
     private List<Enemy> _enemies = new List<Enemy>();
+    private Command _deferredCommand;
 
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
@@ -36,10 +36,7 @@ public class Player : Ghost, IPauseHandler
     public event UnityAction StepEnded;
     public event UnityAction Died;
 
-    public void Unsubscribe()
-    {
-        _mover.MoveEnded -= OnMoveEnded;
-    }
+    public void Unsubscribe() => _mover.MoveEnded -= OnMoveEnded;
 
     public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView)
     {
@@ -59,7 +56,6 @@ public class Player : Ghost, IPauseHandler
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator);
         _abilityCommand = new AbilityCommand(_ability);
         _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglassAnimation);
-        _moveBoxCommand = new MoveBoxCommand(_moveCommand, this);
     }
 
     public void SetTargets(List<Enemy> enemies)
@@ -95,7 +91,12 @@ public class Player : Ghost, IPauseHandler
     public void ExecuteCurrentCommand(Cell cell)
     {
         if (_currentCommand == null)
-            return;
+        {
+            if (_deferredCommand != null)
+                SwitchCurrentCommand(_deferredCommand);
+            else
+                return;
+        }
 
         if (_currentCommand.IsExecuting == false)
             StartCoroutine(_currentCommand.Execute(cell, this));
@@ -130,6 +131,9 @@ public class Player : Ghost, IPauseHandler
         if (_currentCommand != null && _currentCommand.IsExecuting)
             return;
 
+        if (command is AbilityCommand abilityCommand && abilityCommand.Ability is IDeferredAbility)
+            _deferredCommand = abilityCommand;
+
         NextCommand = command;
         _currentCommand?.Cancel();
         _currentCommand = command;
@@ -138,7 +142,10 @@ public class Player : Ghost, IPauseHandler
 
     private void OnMoveEnded()
     {
-        if (_currentCommand is not MoveCommand)
+        if (_currentCommand is not SkipCommand)
+            _deferredCommand = null;
+
+        if (_currentCommand is not IUnmissable)
             _currentCommand = null;
         else
             StartCoroutine(_currentCommand.Prepare(this));

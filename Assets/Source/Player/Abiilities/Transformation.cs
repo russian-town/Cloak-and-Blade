@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerAttacker))]
-public class Transformation : Ability
+public class Transformation : Ability, IDeferredAbility
 {
     [SerializeField] private PlayerModel _basicModel;
     [SerializeField] private PlayerModel _transformationModel;
@@ -11,6 +11,7 @@ public class Transformation : Ability
     private PlayerAttacker _attacker;
     private PlayerMover _mover;
     private Player _player;
+    private bool _isTransformation;
 
     public event UnityAction TransformationEnded;
 
@@ -25,12 +26,16 @@ public class Transformation : Ability
 
     public override void Prepare()
     {
+        if (_isTransformation)
+            return;
+
         _mover.MoveEnded += Cancel;
         _transformationEffect.Play();
         _basicModel.Hide();
         _transformationModel.Show();
         _attacker.Attack(this);
         StartCoroutine(_player.Move.Prepare(this));
+        _isTransformation = true;
     }
 
     protected override void Action(Cell cell)
@@ -49,5 +54,6 @@ public class Transformation : Ability
         _transformationEffect.Play();
         _basicModel.Show();
         _transformationModel.Hide();
+        _isTransformation = false;
     }
 }

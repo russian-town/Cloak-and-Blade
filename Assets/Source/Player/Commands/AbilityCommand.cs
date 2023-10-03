@@ -5,6 +5,8 @@ public class AbilityCommand : Command
 {
     private readonly Ability _ability;
 
+    public Ability Ability => _ability;
+
     public AbilityCommand(Ability ability)
     {
         _ability = ability;

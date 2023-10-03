@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Linq;
 
-public class MoveCommand : Command
+public class MoveCommand : Command, IUnmissable
 {
     private Player _player;
     private PlayerMover _playerMover;
