@@ -3,16 +3,14 @@ using UnityEngine;
 
 public class ModelsScroll : MonoBehaviour
 {
-    private MenuPlayerModel[] _playerModels;
-    private Vector3[] _place;
-    private List<Character> _characters = new List<Character>();
+    private List<MenuPlayerModel> _menuPlayerModels = new List<MenuPlayerModel>();
 
-    public void Initialize(Character caracter)
+    public void Initialize(MenuPlayerModel model)
     {
-        _characters.Add(caracter);
+        _menuPlayerModels.Add(model);
     }
 
-    private void OnSelectedButtonClicked()
+    public void SwitchCurrentModel(MenuPlayerModel menuPlayerModel)
     {
 
     }
