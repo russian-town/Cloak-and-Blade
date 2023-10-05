@@ -105,7 +105,7 @@ public class Player : Ghost, IPauseHandler
         _model.Hide();
         _diedParticle.Play();
         yield return new WaitUntil(() => !_diedParticle.isPlaying);
-        Died?.Invoke();
+        /*Died?.Invoke();*/
     }
 
     private void SwitchCurrentCommand(Command command)
