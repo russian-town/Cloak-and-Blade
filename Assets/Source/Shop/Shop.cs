@@ -5,10 +5,11 @@ using UnityEngine.UI;
 public class Shop : MonoBehaviour
 {
     [SerializeField] private HorizontalLayoutGroup _parent;
-    [SerializeField] private Character[] _characters;
+    [SerializeField] private List<Character> _characters = new List<Character>();
     [SerializeField] private CharacterView _characterView;
     [SerializeField] private Wallet _wallet;
     [SerializeField] private PlayersHandler _playersHandler;
+    [SerializeField] private MenuModelChanger _menuModelChanger;
 
     private List<CharacterView> _characterViews = new List<CharacterView>();
     private Character _currentSelectedCharacter;
@@ -36,6 +37,7 @@ public class Shop : MonoBehaviour
             _characterViews.Add(characterView);
             characterView.SellButtonClicked += OnSellButtonClick;
             characterView.SelectButtonClicked += OnSelectButtonClick;
+            _menuModelChanger.Create(character);
 
             if (character.Type == Type.Default)
             {
@@ -44,6 +46,7 @@ public class Shop : MonoBehaviour
                 if (_currentSelectedCharacter == null)
                 {
                     TrySelectCaracter(character, characterView);
+                    _menuModelChanger.SetDefaultModel(_characterViews.IndexOf(characterView));
                 }
 
                 Debug.Log("Set default player.");
@@ -76,7 +79,7 @@ public class Shop : MonoBehaviour
 
     private void TrySelectCaracter(Character character, CharacterView characterView)
     {
-        if(character.IsBuyed)
+        if (character.IsBuyed)
         {
             _currentSelectedCharacter?.UnSelect();
             _currentCharacterView?.UpdateView();
@@ -86,7 +89,10 @@ public class Shop : MonoBehaviour
             _currentCharacterView = characterView;
             _currentCharacterView.UpdateView();
 
-            //Здесь смена модели
+            if (_characterViews.Contains(characterView))
+            {
+                _menuModelChanger.TryChange(_characterViews.IndexOf(characterView));
+            }
         }
     }
 }

@@ -16,6 +16,6 @@ MonoBehaviour:
   _price: 20
   _icon: {fileID: 21300000, guid: 9fec9b531ee671a499b9ed48fd5da361, type: 3}
   _player: {fileID: 1549750858970697843, guid: ee7284e9bafef4b4bb6c2e07dce44fc2, type: 3}
-  _menuPlayerModelTemplate: {fileID: 0}
+  _menuPlayerModelTemplate: {fileID: 3858748843819563802, guid: f11d8ccb12e9c9949ac0ad47961c1f26, type: 3}
   _isBuyed: 1
-  _isSelect: 1
+  _isSelect: 0
