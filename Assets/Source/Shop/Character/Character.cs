@@ -7,7 +7,7 @@ public class Character : ScriptableObject
     [SerializeField] private int _price;
     [SerializeField] private Sprite _icon;
     [SerializeField] private Player _player;
-    [SerializeField] private MenuPlayerModel _menuPlayerModel;
+    [SerializeField] private MenuPlayerModel _menuPlayerModelTemplate;
 
     [SerializeField] private bool _isBuyed;
     [SerializeField] private bool _isSelect;
@@ -18,7 +18,6 @@ public class Character : ScriptableObject
     public bool IsBuyed => _isBuyed;
     public bool IsSelect => _isSelect;
     public Player Player => _player;
-    public MenuPlayerModel MenuPlayerModel => _menuPlayerModel;
 
     public void Buy() => _isBuyed = true;
 

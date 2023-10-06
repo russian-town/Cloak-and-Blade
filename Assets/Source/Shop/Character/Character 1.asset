@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a61b34770ca74d5499c9465f99c4a844, type: 3}
   m_Name: Character 1
   m_EditorClassIdentifier: 
+  _type: 0
   _price: 15
   _icon: {fileID: 21300000, guid: 5198335602a80b14690b9a5b63e8a74e, type: 3}
   _player: {fileID: 1549750858970697843, guid: 5e34add410b20064583d11f9970347ec, type: 3}
+  _menuPlayerModelTemplate: {fileID: 0}
+  _isBuyed: 1
+  _isSelect: 0
