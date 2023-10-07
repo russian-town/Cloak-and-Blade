@@ -5,6 +5,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerMover))]
 public class Player : Ghost, IPauseHandler
 {
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _rotationSpeed;
     [SerializeField] private Ability _ability;
     [SerializeField] private ItemsInHold _itemsInHold;
     [SerializeField] private ParticleSystem _diedParticle;
@@ -49,7 +51,7 @@ public class Player : Ghost, IPauseHandler
         _hourglass = hourglass;
         _hourglassAnimator = hourglassAnimator;
         _hourglassAnimation = hourglassAnimation;
-        _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator);
+        _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator, _moveSpeed, _rotationSpeed);
         _abilityCommand = new AbilityCommand(_ability);
         _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglassAnimation);
     }
@@ -66,11 +68,11 @@ public class Player : Ghost, IPauseHandler
 
     public void SkipTurn() => OnMoveEnded();
 
-    public bool TryMoveToCell(Cell targetCell)
+    public bool TryMoveToCell(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
-        if (_navigator.CanMoveToCell(targetCell) && targetCell.IsOccupied == false)
+        if (_navigator.CanMoveToCell(targetCell) && targetCell.IsOccupied == false && targetCell.Content.Type != CellContentType.Wall)
         {
-            _mover.Move(targetCell);
+            _mover.Move(targetCell, moveSpeed, rotationSpeed);
             _startCell = _mover.CurrentCell;
             return true;
         }
@@ -105,7 +107,7 @@ public class Player : Ghost, IPauseHandler
         _model.Hide();
         _diedParticle.Play();
         yield return new WaitUntil(() => !_diedParticle.isPlaying);
-        /*Died?.Invoke();*/
+        Died?.Invoke();
     }
 
     private void SwitchCurrentCommand(Command command)

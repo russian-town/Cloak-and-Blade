@@ -7,9 +7,9 @@ public class PlayerMover : Mover
 
     public event UnityAction MoveEnded;
 
-    protected override IEnumerator StartMoveTo(Cell targetCell)
+    protected override IEnumerator StartMoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
-        yield return base.StartMoveTo(targetCell);
+        yield return base.StartMoveTo(targetCell, moveSpeed, rotationSpeed);
         MoveEnded?.Invoke();
     }
 }

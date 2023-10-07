@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialFlow : MonoBehaviour
 {
-    [SerializeField] private Canvas _movementGuideScreen;
-    [SerializeField] private Canvas _playerUI;
+    [SerializeField] private Button _skipButton;
+    [SerializeField] private Button _cameraMode;
+    [SerializeField] private Button _cameraTurnClock;
+    [SerializeField] private Button _cameraTurnCounter;
+    [SerializeField] private Button _turnSkip;
 
     private void Start()
     {
-        _movementGuideScreen.gameObject.SetActive(true);
-        _playerUI.gameObject.SetActive(false);
     }
 }

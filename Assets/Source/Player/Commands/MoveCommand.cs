@@ -1,19 +1,24 @@
+using System;
 using System.Collections;
 using System.Linq;
 
 public class MoveCommand : Command
 {
+    private float _moveSpeed;
+    private float _rotationSpeed;
     private Player _player;
     private PlayerMover _playerMover;
     private PlayerView _playerView;
     private Navigator _navigator;
 
-    public MoveCommand(Player player, PlayerMover playerMover, PlayerView playerView, Navigator navigator)
+    public MoveCommand(Player player, PlayerMover playerMover, PlayerView playerView, Navigator navigator, float moveSpeed, float rotationSpeed)
     {
         _player = player;
         _playerMover = playerMover;
         _playerView = playerView;
         _navigator = navigator;
+        _moveSpeed = moveSpeed;
+        _rotationSpeed = rotationSpeed;
     }
 
     protected override IEnumerator PrepareAction() 
@@ -30,7 +35,7 @@ public class MoveCommand : Command
 
     protected override IEnumerator ExecuteAction(Cell clickedCell)
     {
-        if (_player.TryMoveToCell(clickedCell))
+        if (_player.TryMoveToCell(clickedCell, _moveSpeed, _rotationSpeed))
             yield return _playerMover.StartMoveCoroutine;
     }
 }

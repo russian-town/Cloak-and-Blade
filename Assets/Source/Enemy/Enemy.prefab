@@ -445,10 +445,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9539b94a40c5d2d46a50d52cd93c8542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 3
-  _rotationSpeed: 200
   _transform: {fileID: 2947814527195524518}
   _phrasePlayer: {fileID: 4889016931956276511}
+  _moveSpeed: 3
+  _rotationSpeed: 300
 --- !u!114 &5740147665255432580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,7 +599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 3
-  _rotationSpeed: 360
+  _rotationSpeed: 300
 --- !u!1 &6743015669532120573
 GameObject:
   m_ObjectHideFlags: 0
