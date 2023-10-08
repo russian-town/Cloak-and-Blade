@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 
-public class MoveCommand : Command
+public class MoveCommand : Command, IUnmissable
 {
     private float _moveSpeed;
     private float _rotationSpeed;

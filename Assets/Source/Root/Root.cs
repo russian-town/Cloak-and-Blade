@@ -27,12 +27,10 @@ public class Root : MonoBehaviour
 
     private Player _player;
     private Pause _pause;
+    private List<Enemy> _enemies = new List<Enemy>();
 
     private void OnDisable()
     {
-        //foreach (var interactiveObject in _interactiveObjects)
-        //    interactiveObject.Unsubscribe();
-
         _playerView.Unsubscribe();
         _room.Unsubscribe();
         _game.Unsubscribe();
@@ -69,10 +67,12 @@ public class Root : MonoBehaviour
             EnemyZoneDrawer zoneDrawer = Instantiate(_enemyZoneDrawerTemplate, new Vector3(0, 0.1f, 0), Quaternion.identity);
             Enemy enemy = (Enemy)_spawner.Get(setter.Destinations[0], setter.EnemyTemplate);
             enemy.Initialize(setter.Destinations, _player, _gameboard, zoneDrawer);
+            _enemies.Add(enemy);
             _room.AddEnemy(enemy);
             _pause.AddHandler(enemy);
         }
 
+        _player.SetTargets(_enemies);
         _game.Initialize(_player, _pause);
         _gameboard.HideGrid();
     }

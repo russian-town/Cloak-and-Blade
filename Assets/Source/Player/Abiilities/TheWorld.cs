@@ -1,43 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMover))]
 public class TheWorld : Ability
 {
-    [SerializeField] private int _stepCount;
+    [SerializeField] private int _maxStepCount;
 
-    private PlayerMover _mover;
+    private PlayerAttacker _attacker;
+    private Player _player;
+    private bool _isActive;
     private int _currentStepCount;
 
-    private void OnDisable() => _mover.MoveEnded -= IncreaseStepCount;
+    public int CurrentStepCount => _currentStepCount;
+    public int MaxStepCount => _maxStepCount;
+
+    private void OnDisable()
+    {
+        _player.StepEnded -= IncreaseCurrentStepCount;
+    }
 
     public override void Initialize()
     {
-        _mover = GetComponent<PlayerMover>();
-        _mover.MoveEnded += IncreaseStepCount;
+        _attacker = GetComponent<PlayerAttacker>();
+        _player = GetComponent<Player>();
     }
 
-    public override void Cancel()
+    public override void Cancel() 
     {
-        throw new System.NotImplementedException();
+        _isActive = false;
+        _currentStepCount = 0;
     }
 
-    public override void Prepare()
-    {
-        throw new System.NotImplementedException();
-    }
+    public override void Prepare() { }
 
     protected override void Action(Cell cell)
     {
-        throw new System.NotImplementedException();
+        if (_isActive)
+            return;
+
+        _isActive = true;
+        _currentStepCount = 0;
+        _player.StepEnded += IncreaseCurrentStepCount;
+        _attacker.Attack(this);
     }
 
-    private void IncreaseStepCount()
+    private void IncreaseCurrentStepCount()
     {
-        if (_currentStepCount < _stepCount)
-            _currentStepCount++;
-        else
-            Cancel();
+        _currentStepCount++;
+
+        if (_currentStepCount >= _maxStepCount)
+        {
+            _isActive = false;
+            _player.StepEnded -= IncreaseCurrentStepCount;
+        }
     }
 }

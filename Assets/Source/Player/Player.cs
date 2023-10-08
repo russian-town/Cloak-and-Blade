@@ -1,8 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerMover))]
+[RequireComponent(typeof(PlayerMover), typeof(PlayerAttacker))]
 public class Player : Ghost, IPauseHandler
 {
     [SerializeField] private float _moveSpeed;
@@ -13,6 +14,7 @@ public class Player : Ghost, IPauseHandler
     [SerializeField] private PlayerModel _model;
 
     private PlayerMover _mover;
+    private PlayerAttacker _attacker;
     private IEnemyTurnHandler _enemyTurnHandler;
     private Cell _startCell;
     private MoveCommand _moveCommand;
@@ -25,23 +27,25 @@ public class Player : Ghost, IPauseHandler
     private PlayerAnimationHandler _animationHandler;
     private Command _currentCommand;
     private PlayerView _playerView;
+    private List<Enemy> _enemies = new List<Enemy>();
+    private Command _deferredCommand;
 
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
+    public MoveCommand Move => _moveCommand;
+    public Command NextCommand { get; private set; }
 
     public event UnityAction StepEnded;
     public event UnityAction Died;
 
-    public void Unsubscribe()
-    {
-        _mover.MoveEnded -= OnMoveEnded;
-    }
+    public void Unsubscribe() => _mover.MoveEnded -= OnMoveEnded;
 
     public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
         _navigator = GetComponent<Navigator>();
+        _attacker = GetComponent<PlayerAttacker>();
         _playerView = playerView;
         _animationHandler = GetComponent<PlayerAnimationHandler>();
         _enemyTurnHandler = enemyTurnHandler;
@@ -54,6 +58,12 @@ public class Player : Ghost, IPauseHandler
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator, _moveSpeed, _rotationSpeed);
         _abilityCommand = new AbilityCommand(_ability);
         _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglassAnimation);
+    }
+
+    public void SetTargets(List<Enemy> enemies)
+    {
+        _enemies.AddRange(enemies);
+        _attacker.Initialize(_enemies);
     }
 
     public void PrepareAbility() => SwitchCurrentCommand(_abilityCommand);
@@ -83,7 +93,12 @@ public class Player : Ghost, IPauseHandler
     public void ExecuteCurrentCommand(Cell cell)
     {
         if (_currentCommand == null)
-            return;
+        {
+            if (_deferredCommand != null)
+                SwitchCurrentCommand(_deferredCommand);
+            else
+                return;
+        }
 
         if (_currentCommand.IsExecuting == false)
             StartCoroutine(_currentCommand.Execute(cell, this));
@@ -116,11 +131,12 @@ public class Player : Ghost, IPauseHandler
             return;
 
         if (_currentCommand != null && _currentCommand.IsExecuting)
-        {
-            Debug.Log(_currentCommand);
             return;
-        }
 
+        if (command is AbilityCommand abilityCommand && abilityCommand.Ability is IDeferredAbility)
+            _deferredCommand = abilityCommand;
+
+        NextCommand = command;
         _currentCommand?.Cancel();
         _currentCommand = command;
         StartCoroutine(_currentCommand.Prepare(this));
@@ -128,7 +144,10 @@ public class Player : Ghost, IPauseHandler
 
     private void OnMoveEnded()
     {
-        if (_currentCommand is not MoveCommand)
+        if (_currentCommand is not SkipCommand)
+            _deferredCommand = null;
+
+        if (_currentCommand is not IUnmissable)
             _currentCommand = null;
         else
             StartCoroutine(_currentCommand.Prepare(this));
