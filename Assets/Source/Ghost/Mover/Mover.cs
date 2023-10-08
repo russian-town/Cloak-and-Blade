@@ -6,13 +6,9 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
 
-    private float _currentMoveSpeed;
-    private float _currentRotationSpeed;
     private GhostAnimationHandler _animationHandler;
     private Cell _startCell;
-    private float _startMoveSpeed;
-    private float _startRotationSpeed;
-    private bool _isPaused;
+    private float _pauseSpeed = 1;
 
     public Coroutine StartMoveCoroutine { get; private set; }
     public Cell CurrentCell { get; private set; }
@@ -30,10 +26,7 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
             StartMoveCoroutine = StartCoroutine(StartMoveTo(targetCell, moveSpeed, rotationSpeed));
     }
 
-    public void SetPause(bool isPause)
-    {
-        _isPaused = isPause;
-    }
+    public void SetPause(bool isPause) => _pauseSpeed = isPause ? 0 : 1;
 
     protected virtual IEnumerator StartMoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
@@ -42,8 +35,7 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
         while (transform.rotation != targetRotation)
         {
-            yield return new WaitUntil(() => _isPaused == false);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * _pauseSpeed * Time.deltaTime);
             yield return null;
         }
 
@@ -51,8 +43,7 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
         while (transform.localPosition != targetCell.transform.localPosition)
         {
-            yield return new WaitUntil(() => _isPaused == false);
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetCell.transform.localPosition, Time.deltaTime * moveSpeed);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetCell.transform.localPosition, Time.deltaTime * _pauseSpeed * moveSpeed);
             yield return null;
         }
 

@@ -34420,6 +34420,7 @@ GameObject:
   - component: {fileID: 720380231298066782}
   - component: {fileID: 8706773978073144649}
   - component: {fileID: 75521067584571495}
+  - component: {fileID: 5871129594279941698}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -34459,7 +34460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 3
-  _rotationSpeed: 300
+  _rotationSpeed: 360
   _ability: {fileID: 7476510155192117186}
   _itemsInHold: {fileID: 720380231298066782}
   _diedParticle: {fileID: 199662967926653570}
@@ -34631,6 +34632,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5871129594279941698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446810359213418316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bed8db516f72e8949946a6a1499d9a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5642011164774408019
 GameObject:
   m_ObjectHideFlags: 0

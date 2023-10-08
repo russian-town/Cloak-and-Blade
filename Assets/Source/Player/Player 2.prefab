@@ -19907,6 +19907,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9291b3323eb2c8440a338df512d1cee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveSpeed: 3
+  _rotationSpeed: 360
   _ability: {fileID: 6201754493826117524}
   _itemsInHold: {fileID: 720380231298066782}
   _diedParticle: {fileID: 199662967926653570}
