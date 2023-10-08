@@ -10,7 +10,6 @@ public class Gameboard : MonoBehaviour
     [SerializeField] private CellContentSpawner _cellContentSpawner;
     [SerializeField] private List<Cell> _cells;
     [SerializeField] private Queue<Cell> _searchFrontier = new Queue<Cell>();
-    [SerializeField] private ParticleSystem _enemySightEffectTemplate;
 
     public IReadOnlyList<Cell> Cells => _cells;
 

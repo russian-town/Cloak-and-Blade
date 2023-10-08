@@ -24,6 +24,7 @@ public class Root : MonoBehaviour
     [SerializeField] private EnemyZoneDrawer _enemyZoneDrawerTemplate;
     [SerializeField] private GhostSpawner _spawner;
     [SerializeField] private Game _game;
+    [SerializeField] private ArrowPointer _arrowPointer;
 
     private Player _player;
     private Pause _pause;
@@ -73,6 +74,7 @@ public class Root : MonoBehaviour
         }
 
         _player.SetTargets(_enemies);
+        _arrowPointer.Initialize(_player);
         _game.Initialize(_player, _pause);
         _gameboard.HideGrid();
     }
