@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class TutorialZone : InteractiveObject
@@ -8,6 +9,8 @@ public class TutorialZone : InteractiveObject
     [SerializeField] private Button _closeButton;
 
     private bool _isZonePassed;
+
+    public event UnityAction ZonePassed;
 
     private void Start()
     {
@@ -35,6 +38,7 @@ public class TutorialZone : InteractiveObject
         _view.gameObject.SetActive(false);
         _playerUI.gameObject.SetActive(true);
         _closeButton.onClick.RemoveListener(() => Interact());
+        ZonePassed?.Invoke();
     }
 
     protected override void Disable()

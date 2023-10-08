@@ -1,15 +1,17 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TutorialFlow : MonoBehaviour
 {
-    [SerializeField] private Button _skipButton;
-    [SerializeField] private Button _cameraMode;
-    [SerializeField] private Button _cameraTurnClock;
-    [SerializeField] private Button _cameraTurnCounter;
-    [SerializeField] private Button _turnSkip;
+    [SerializeField] private TutorialButtonHider _skipButton;
+    [SerializeField] private TutorialButtonHider _cameraMode;
+    [SerializeField] private TutorialButtonHider _cameraTurnClock;
+    [SerializeField] private TutorialButtonHider _cameraTurnCounter;
 
     private void Start()
     {
+        _skipButton.Hide();
+        _cameraMode.Hide();
+        _cameraTurnClock.Hide();
+        _cameraTurnCounter.Hide();
     }
 }

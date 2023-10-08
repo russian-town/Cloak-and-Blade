@@ -1858,6 +1858,8 @@ GameObject:
   - component: {fileID: 20969665}
   - component: {fileID: 20969664}
   - component: {fileID: 20969666}
+  - component: {fileID: 20969669}
+  - component: {fileID: 20969670}
   m_Layer: 5
   m_Name: ChangeCameraAngle
   m_TagString: Untagged
@@ -1983,6 +1985,31 @@ RectTransform:
   m_AnchoredPosition: {x: 278.03, y: 128.01953}
   m_SizeDelta: {x: 211.65002, y: 211.6463}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &20969669
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20969663}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &20969670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20969663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240d2fbfb7f616943801771107ad432a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tutorialZone: {fileID: 605132012}
 --- !u!1 &21086488
 GameObject:
   m_ObjectHideFlags: 0
@@ -3178,11 +3205,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb4248d30b2c4c6489f332b85eabfa8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skipButton: {fileID: 0}
-  _cameraMode: {fileID: 0}
-  _cameraTurnClock: {fileID: 0}
-  _cameraTurnCounter: {fileID: 0}
-  _turnSkip: {fileID: 0}
+  _skipButton: {fileID: 771062771}
+  _cameraMode: {fileID: 20969670}
+  _cameraTurnClock: {fileID: 1724642842}
+  _cameraTurnCounter: {fileID: 362698444}
 --- !u!4 &40891849
 Transform:
   m_ObjectHideFlags: 0
@@ -23257,6 +23283,8 @@ GameObject:
   - component: {fileID: 362698440}
   - component: {fileID: 362698439}
   - component: {fileID: 362698441}
+  - component: {fileID: 362698445}
+  - component: {fileID: 362698444}
   m_Layer: 5
   m_Name: TurnClockwise
   m_TagString: Untagged
@@ -23381,6 +23409,31 @@ RectTransform:
   m_AnchoredPosition: {x: 458.86, y: 97.197266}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &362698444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362698438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240d2fbfb7f616943801771107ad432a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tutorialZone: {fileID: 605132012}
+--- !u!225 &362698445
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362698438}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &365958288
 GameObject:
   m_ObjectHideFlags: 0
@@ -47546,6 +47599,8 @@ GameObject:
   - component: {fileID: 771062768}
   - component: {fileID: 771062767}
   - component: {fileID: 771062769}
+  - component: {fileID: 771062770}
+  - component: {fileID: 771062771}
   m_Layer: 5
   m_Name: Skip
   m_TagString: Untagged
@@ -47657,6 +47712,31 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &771062770
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771062765}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &771062771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771062765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240d2fbfb7f616943801771107ad432a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tutorialZone: {fileID: 622090635}
 --- !u!1 &775854668
 GameObject:
   m_ObjectHideFlags: 0
@@ -48980,7 +49060,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &800583871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49051,8 +49131,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800583869}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.49730745}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -49062,7 +49142,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -412.97324, y: -190.58228}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &800607111
@@ -75723,7 +75803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1229217447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76556,8 +76636,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242609273}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.49730745}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -76567,7 +76647,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -412.97324, y: -190.58228}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1244997656
@@ -89060,7 +89140,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.000061035156, y: 0}
-  m_SizeDelta: {x: -130.79483, y: -53.02823}
+  m_SizeDelta: {x: 0, y: -53.02823}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1450195273
 Animator:
@@ -98140,7 +98220,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1626094877}
-  - component: {fileID: 1626094878}
   m_Layer: 0
   m_Name: TutorialZones
   m_TagString: Untagged
@@ -98169,23 +98248,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1626094878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626094876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb4248d30b2c4c6489f332b85eabfa8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _skipButton: {fileID: 0}
-  _cameraMode: {fileID: 0}
-  _cameraTurnClock: {fileID: 0}
-  _cameraTurnCounter: {fileID: 0}
-  _turnSkip: {fileID: 0}
 --- !u!1 &1626446315
 GameObject:
   m_ObjectHideFlags: 0
@@ -103971,6 +104033,8 @@ GameObject:
   - component: {fileID: 1724642837}
   - component: {fileID: 1724642836}
   - component: {fileID: 1724642838}
+  - component: {fileID: 1724642841}
+  - component: {fileID: 1724642842}
   m_Layer: 5
   m_Name: TurnCounterClockwise
   m_TagString: Untagged
@@ -104095,6 +104159,31 @@ RectTransform:
   m_AnchoredPosition: {x: 97.200195, y: 97.19922}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1724642841
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724642835}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1724642842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724642835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240d2fbfb7f616943801771107ad432a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tutorialZone: {fileID: 605132012}
 --- !u!23 &1725145346
 MeshRenderer:
   m_ObjectHideFlags: 0
