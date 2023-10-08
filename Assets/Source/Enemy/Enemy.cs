@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(EnemySightHandler), typeof(EnemyMover), typeof(EnemyAnimationHandler))]
 public class Enemy : Ghost, IPauseHandler
 {
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _rotationSpeed;
     [SerializeField] private Transform _transform;
     [SerializeField] private EnemyPhrasePlayer _phrasePlayer;
     [SerializeField] private ParticleSystem _freezeEffect;
@@ -179,7 +181,7 @@ public class Enemy : Ghost, IPauseHandler
         if (_cellsOnPath[_currentIndex] == null || _currentIndex == _cellsOnPath.Count)
             yield break;
 
-        _mover.Move(_cellsOnPath[_currentIndex]);
+        _mover.Move(_cellsOnPath[_currentIndex], _moveSpeed, _rotationSpeed);
         yield return _mover.StartMoveCoroutine;
 
         if (_cellsOnPath.Count > 0)
