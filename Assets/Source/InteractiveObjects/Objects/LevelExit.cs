@@ -1,12 +1,15 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class LevelExit : InteractiveObject
+public class LevelExit : InteractiveObject, ILevelFinisher
 {
     [SerializeField] private InteractiveObjectView _view;
     [SerializeField] private Treasure _treasure;
     [SerializeField] private Image _lockedImage;
     [SerializeField] private Image _unLockedImage;
+
+    public event UnityAction LevelPassed;
 
     public override void Initialize(Player player)
     {
@@ -48,9 +51,14 @@ public class LevelExit : InteractiveObject
     public void TryOpen()
     {
         if (Player.ItemsInHold.FindItemInList(_treasure))
+        {
             print("level passed");
+            LevelPassed?.Invoke();
+        }
         else
+        {
             print("level not passed");
+        }
     }
 
     protected override void Disable()

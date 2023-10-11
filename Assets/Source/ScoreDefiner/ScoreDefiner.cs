@@ -1,22 +1,29 @@
 using UnityEngine;
 
+[RequireComponent (typeof(ScoreDefinerView))]
 public class ScoreDefiner : MonoBehaviour
 {
-    [SerializeField] private int _stepCountToFirstStart;
     [SerializeField] private int _stepCountToSecodStart;
     [SerializeField] private int _stepCountToThirdStart;
 
+    private ScoreDefinerView _view;
     private int _starsCount;
 
-    private void AccrueStars(int stepCount)
+    public void Initialize()
     {
-        if (stepCount <= _stepCountToFirstStart)
-            _starsCount = 1;
+        _view = GetComponent<ScoreDefinerView>();
+        _view.Initialize();
+    }
+
+    public void AccrueStars(int stepCount)
+    {    
+        if (stepCount <= _stepCountToThirdStart)
+            _starsCount = 3;
         else if (stepCount <= _stepCountToSecodStart)
             _starsCount = 2;
-        else if (stepCount <= _stepCountToThirdStart)
-            _starsCount = 3;
         else
-            return;
+            _starsCount = 1;
+
+        _view.ShowStars(_starsCount);
     }
 }

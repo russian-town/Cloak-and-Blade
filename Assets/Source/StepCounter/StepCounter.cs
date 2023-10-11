@@ -7,6 +7,8 @@ public class StepCounter : MonoBehaviour
     private int _stepCount;
     private StepCounterView _view;
 
+    public int CurrentStepCount => _stepCount;
+
     private void OnDisable()
     {
         _player.StepEnded -= OnStepEnded;
