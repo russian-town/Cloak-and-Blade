@@ -17,7 +17,7 @@ public class Character : ScriptableObject
     public Type Type => _type;
     public int Price => _price;
     public Sprite Icon => _icon;
-    public bool IsBuyed => _isBought;
+    public bool IsBought => _isBought;
     public bool IsSelect => _isSelect;
     public Player Player => _player;
     public MenuModel MenuModelTemplate => _menuPlayerModelTemplate;
