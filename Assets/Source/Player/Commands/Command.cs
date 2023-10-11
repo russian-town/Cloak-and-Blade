@@ -9,6 +9,7 @@ public abstract class Command
 
     public IEnumerator Prepare(MonoBehaviour context)
     {
+        _isReady = false;
         yield return context.StartCoroutine(PrepareAction());
         _isReady = true;
     }
@@ -17,8 +18,10 @@ public abstract class Command
     {
         yield return new WaitUntil(() => _isReady);
         IsExecuting = true;
+        Debug.Log("Executing...");
         yield return context.StartCoroutine(ExecuteAction(clickedCell));
         IsExecuting = false;
+        Debug.Log("Execute.");
     }
 
     protected abstract IEnumerator PrepareAction();

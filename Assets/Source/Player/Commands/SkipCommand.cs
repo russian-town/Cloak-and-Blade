@@ -41,6 +41,7 @@ public class SkipCommand : Command
         _hourglassAnimator.SetBool(Constants.IsSkippingParameter, false);
         _playerAnimationHandler.StopSkipAnimation();
         Cancel();
+        _player.ResetCommand();
         yield break;
     }
 

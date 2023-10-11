@@ -76,7 +76,7 @@ public class Player : Ghost, IPauseHandler
         ExecuteCurrentCommand(CurrentCell);
     }
 
-    public void SkipTurn() => OnMoveEnded();
+    public void SkipTurn() => StepEnded?.Invoke();
 
     public bool TryMoveToCell(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
@@ -92,6 +92,9 @@ public class Player : Ghost, IPauseHandler
 
     public void ExecuteCurrentCommand(Cell cell)
     {
+        if (_currentCommand?.IsExecuting == true)
+            return;
+
         if (_currentCommand == null)
         {
             if (_deferredCommand != null)
@@ -100,8 +103,7 @@ public class Player : Ghost, IPauseHandler
                 return;
         }
 
-        if (_currentCommand.IsExecuting == false)
-            StartCoroutine(_currentCommand.Execute(cell, this));
+        StartCoroutine(_currentCommand.Execute(cell, this));
     }
 
     public void Die() => StartCoroutine(MakeDeath());
@@ -116,6 +118,20 @@ public class Player : Ghost, IPauseHandler
             _animationHandler.StartAnimation();
     }
 
+    public bool ResetCommand()
+    {
+        if (_currentCommand is not SkipCommand)
+            _deferredCommand = null;
+
+        if (_currentCommand is not IUnmissable)
+        {
+            _currentCommand = null;
+            return true;
+        }
+
+        return false;
+    }
+
     private IEnumerator MakeDeath()
     {
         _currentCommand = null;
@@ -127,10 +143,15 @@ public class Player : Ghost, IPauseHandler
 
     private void SwitchCurrentCommand(Command command)
     {
-        if (command == _currentCommand || _currentCommand is SkipCommand)
+        Debug.Log(_currentCommand);
+
+        if (_currentCommand is SkipCommand)
             return;
 
         if (_currentCommand != null && _currentCommand.IsExecuting)
+            return;
+
+        if (command == _currentCommand)
             return;
 
         if (command is AbilityCommand abilityCommand && abilityCommand.Ability is IDeferredAbility)
@@ -144,12 +165,7 @@ public class Player : Ghost, IPauseHandler
 
     private void OnMoveEnded()
     {
-        if (_currentCommand is not SkipCommand)
-            _deferredCommand = null;
-
-        if (_currentCommand is not IUnmissable)
-            _currentCommand = null;
-        else
+        if (!ResetCommand())
             StartCoroutine(_currentCommand.Prepare(this));
 
         StepEnded?.Invoke();
