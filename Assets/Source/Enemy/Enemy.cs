@@ -146,9 +146,6 @@ public class Enemy : Ghost, IPauseHandler
 
     public void UpdatePlayerStepCount()
     {
-        //Ошибка при смерте игрока
-        Debug.Log(_theWorld.CurrentStepCount);
-
         if (_theWorld != null && _theWorld.CurrentStepCount >= _theWorld.MaxStepCount)
         {
             _isFreeze = false;
