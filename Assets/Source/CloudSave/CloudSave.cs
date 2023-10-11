@@ -4,7 +4,7 @@ using UnityEngine;
 using Agava.YandexGames;
 using Agava.WebUtility;
 
-public class CloudSave : MonoBehaviour
+public class CloudSave
 {
     public void Save(PlayerData data)
     {

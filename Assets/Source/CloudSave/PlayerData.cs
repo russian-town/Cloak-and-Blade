@@ -6,7 +6,9 @@ public class PlayerData
 {
     private Player _currentPlayer;
 
-    PlayerData(Player currentPlayer)
+    public Player CurrentPlayer => _currentPlayer;
+
+    public PlayerData(Player currentPlayer)
     {
         _currentPlayer = currentPlayer;
     }

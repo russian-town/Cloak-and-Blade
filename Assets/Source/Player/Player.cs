@@ -143,8 +143,6 @@ public class Player : Ghost, IPauseHandler
 
     private void SwitchCurrentCommand(Command command)
     {
-        Debug.Log(_currentCommand);
-
         if (_currentCommand is SkipCommand)
             return;
 
