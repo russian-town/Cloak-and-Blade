@@ -1,18 +1,30 @@
+using Agava.YandexGames;
+using Lean.Localization;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class YandexInit : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private LeanLocalization _localization;
+
+    private void Awake()
     {
-        
+        YandexGamesSdk.CallbackLogging = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator Start()
     {
-        
+        yield return YandexGamesSdk.Initialize();
+
+        YandexGamesSdk.GameReady();
+
+        if (YandexGamesSdk.Environment.i18n.lang == "en")
+            _localization.SetCurrentLanguage(Constants.English);
+
+        if (YandexGamesSdk.Environment.i18n.lang == "ru")
+            _localization.SetCurrentLanguage(Constants.Russian);
+
+        if (YandexGamesSdk.Environment.i18n.lang == "tr")
+            _localization.SetCurrentLanguage(Constants.Turkish);
     }
 }

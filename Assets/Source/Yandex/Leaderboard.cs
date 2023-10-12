@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CanvasGroup))]
 public class LeaderBoard : MonoBehaviour
 {
-    [SerializeField] private VerticalLayoutGroup _leaderBoardView;
+    [SerializeField] private GridLayoutGroup _leaderBoardView;
     [SerializeField] private LeaderBoardUnit _leaderBoardUnitTemplate;
     [SerializeField] private LeaderBoardUnit _thePlayer;
     [SerializeField] private int _maxLeaderboardUnits;
@@ -42,7 +42,7 @@ public class LeaderBoard : MonoBehaviour
 
     public void CloseLeaderBoard()
     {
-        _blackBacking.gameObject.SetActive(true);
+        _blackBacking.gameObject.SetActive(false);
         _canvasGroup.alpha = 0;
         _canvasGroup.blocksRaycasts = false;
     }
