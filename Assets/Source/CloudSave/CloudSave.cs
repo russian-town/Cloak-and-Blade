@@ -9,8 +9,6 @@ public class CloudSave
 {
     private PlayerData _cloudSaveData;
 
-    public PlayerData PlayerData { get; private set; }
-
     public void Save(PlayerData data)
     {
         string saveData = JsonUtility.ToJson(data);
@@ -25,6 +23,7 @@ public class CloudSave
 
         UnityEngine.PlayerPrefs.SetString(Constants.PlayerProgress, saveData);
         UnityEngine.PlayerPrefs.Save();
+        Debug.Log("Saved.");
     }
 
     public PlayerData Load()

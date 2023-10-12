@@ -47,6 +47,7 @@ public class Shop : MonoBehaviour
             _currentSelectedCharacter = _playerData.CurrentSelectedCharacter;
             Debug.Log(_playerData.CurrentCharacterView);
             _currentCharacterView = _playerData.CurrentCharacterView;
+            Debug.Log(_playerData.Money);
             return true;
         }
 
@@ -55,7 +56,8 @@ public class Shop : MonoBehaviour
 
     private void SaveData()
     {
-        _playerData = new PlayerData(_playersHandler.CurrentPlayer, _currentCharacterView, _currentSelectedCharacter);
+        _playerData = new PlayerData(_playersHandler.CurrentPlayer, _currentCharacterView, _currentSelectedCharacter, _wallet.Money);
+        Debug.Log(_playerData.CurrentPlayer);
         _saver.Save(_playerData);
     }
 
