@@ -112,7 +112,7 @@ public class Shop : MonoBehaviour
 
     private void TrySelectCaracter(Character character, CharacterView characterView)
     {
-        if (character.IsBuyed)
+        if (character.IsBought)
         {
             _currentSelectedCharacter?.UnSelect();
             _currentCharacterView?.UpdateView();

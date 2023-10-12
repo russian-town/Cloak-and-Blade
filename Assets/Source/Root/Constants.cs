@@ -11,6 +11,11 @@ public class Constants
     public const string IsMovingBool = "IsMoving";
     public const string IsSkippingBool = "IsSkipping";
     public const string MainMenu = "MainMenu";
-    public const string Tutorial = "Tutorial";
-    public const string PlayerProgress = "PlayerProgress";
+    public const string LeaderBoardName = "Leaderboard";
+    public const string AnonymousEnglish = "Anonymous";
+    public const string AnonymousRussian = "Аноним";
+    public const string AnonymousTurkish = "Anonim";
+    public const string English = "English";
+    public const string Russian = "Russian";
+    public const string Turkish = "Turkish";
 }

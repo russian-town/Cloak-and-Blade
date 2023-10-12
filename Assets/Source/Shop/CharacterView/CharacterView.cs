@@ -49,7 +49,7 @@ public class CharacterView : MonoBehaviour
 
     private void TryLockBuyCharacter()
     {
-        if (_character.IsBuyed)
+        if (_character.IsBought)
         {
             _sellButton.gameObject.SetActive(false);
             _selectButton.gameObject.SetActive(true);
