@@ -1806,7 +1806,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &574629686
 PrefabInstance:
@@ -3506,7 +3506,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3255e9385039e54c87396a731ad8eba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelLoader: {fileID: 1365407903}
 --- !u!114 &1011744821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4852,7 +4851,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1374222549 stripped
 Transform:
@@ -5847,7 +5846,7 @@ Transform:
   - {fileID: 886430191}
   - {fileID: 1749930148}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1729170913 stripped
 Transform:

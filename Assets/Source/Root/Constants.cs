@@ -18,4 +18,6 @@ public class Constants
     public const string English = "English";
     public const string Russian = "Russian";
     public const string Turkish = "Turkish";
+    public const string PlayerProgress = "PlayerProgress";
+    public const string Tutorial = "Tutorial";
 }
