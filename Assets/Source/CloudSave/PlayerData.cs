@@ -1,3 +1,4 @@
+[System.Serializable]
 public class PlayerData
 {
     private Player _currentPlayer;

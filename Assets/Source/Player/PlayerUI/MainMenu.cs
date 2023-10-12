@@ -21,5 +21,5 @@ public class MainMenu : MonoBehaviour
         _mainMenuVeiw.PlayButtonClicked -= StartGame;
     }
 
-    private void StartGame() => SceneManager.LoadScene("Tutorial");
+    private void StartGame() => SceneManager.LoadScene("TestingScene");
 }

@@ -17,7 +17,15 @@ public class Shop : MonoBehaviour
     private PlayerData _playerData;
     private CloudSave _saver = new CloudSave();
 
-    private void Start()
+    private void OnDisable()
+    {
+        foreach (var characterView in _characterViews)
+        {
+            characterView.SelectButtonClicked -= OnSelectButtonClick;
+        }
+    }
+
+    public void Initialize()
     {
         if (TryLoadSaveData())
             Debug.Log("Data loaded.");
@@ -25,14 +33,6 @@ public class Shop : MonoBehaviour
             Debug.Log("Data is null.");
 
         AddCharacterView();
-    }
-
-    private void OnDisable()
-    {
-        foreach (var characterView in _characterViews)
-        {
-            characterView.SelectButtonClicked -= OnSelectButtonClick;
-        }
     }
 
     private bool TryLoadSaveData()

@@ -1793,6 +1793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _localization: {fileID: 1686767398}
+  _shop: {fileID: 1753363357}
 --- !u!4 &555569355
 Transform:
   m_ObjectHideFlags: 0

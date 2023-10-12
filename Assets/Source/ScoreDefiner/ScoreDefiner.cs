@@ -5,6 +5,7 @@ public class ScoreDefiner : MonoBehaviour
 {
     [SerializeField] private int _stepCountToSecodStart;
     [SerializeField] private int _stepCountToThirdStart;
+    [SerializeField] private LeaderBoardScoreSetter _scoreSetter;
 
     private ScoreDefinerView _view;
     private int _starsCount;
@@ -24,6 +25,7 @@ public class ScoreDefiner : MonoBehaviour
         else
             _starsCount = 1;
 
+        _scoreSetter.SetPlayerScore(_starsCount);
         _view.ShowStars(_starsCount);
     }
 }

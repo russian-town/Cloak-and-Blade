@@ -29,6 +29,9 @@ public class CloudSave
     public PlayerData Load()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
+        if (YandexGamesSdk.IsInitialized == false)
+            return null;
+
         if (PlayerAccount.IsAuthorized)
         {
             PlayerAccount.GetCloudSaveData(SaveCallback);
