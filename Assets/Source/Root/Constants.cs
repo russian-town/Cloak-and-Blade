@@ -11,4 +11,6 @@ public class Constants
     public const string IsMovingBool = "IsMoving";
     public const string IsSkippingBool = "IsSkipping";
     public const string MainMenu = "MainMenu";
+    public const string Tutorial = "Tutorial";
+    public const string PlayerProgress = "PlayerProgress";
 }

@@ -14,9 +14,16 @@ public class Shop : MonoBehaviour
     private List<CharacterView> _characterViews = new List<CharacterView>();
     private Character _currentSelectedCharacter;
     private CharacterView _currentCharacterView;
+    private PlayerData _playerData;
+    private CloudSave _saver = new CloudSave();
 
     private void Start()
     {
+        if (TryLoadSaveData())
+            Debug.Log("Data loaded.");
+        else
+            Debug.Log("Data is null.");
+
         AddCharacterView();
     }
 
@@ -26,6 +33,30 @@ public class Shop : MonoBehaviour
         {
             characterView.SelectButtonClicked -= OnSelectButtonClick;
         }
+    }
+
+    private bool TryLoadSaveData()
+    {
+        _playerData = _saver.Load();
+
+        if (_playerData != null)
+        {
+            Debug.Log(_playerData.CurrentPlayer);
+            _playersHandler.SetCurrentPlayer(_playerData.CurrentPlayer);
+            Debug.Log(_playerData.CurrentSelectedCharacter);
+            _currentSelectedCharacter = _playerData.CurrentSelectedCharacter;
+            Debug.Log(_playerData.CurrentCharacterView);
+            _currentCharacterView = _playerData.CurrentCharacterView;
+            return true;
+        }
+
+        return false;
+    }
+
+    private void SaveData()
+    {
+        _playerData = new PlayerData(_playersHandler.CurrentPlayer, _currentCharacterView, _currentSelectedCharacter);
+        _saver.Save(_playerData);
     }
 
     private void AddCharacterView()
@@ -93,6 +124,8 @@ public class Shop : MonoBehaviour
             {
                 _menuModelChanger.TryChange(_characterViews.IndexOf(characterView));
             }
+
+            SaveData();
         }
     }
 }
