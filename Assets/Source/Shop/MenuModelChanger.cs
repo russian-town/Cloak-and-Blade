@@ -9,6 +9,18 @@ public class MenuModelChanger : MonoBehaviour
     private MenuModel _selectedMenuModel;
     private MenuModel _defaultModel;
 
+    public MenuModel SelectedMenuModel => _selectedMenuModel;
+
+    public void LoadSelectedModel(int index)
+    {
+        if (_selectedMenuModel == null)
+        {
+            Debug.Log("Selected model loaded.");
+            _selectedMenuModel = _menuModels[index];
+            _selectedMenuModel.Show();
+        }
+    }
+
     public void Create(Character character)
     {
         MenuModel menuModel = Instantiate(character.MenuModelTemplate, _modelPlace.transform);
