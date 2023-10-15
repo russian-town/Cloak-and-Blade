@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class Shop : MonoBehaviour
+public class Shop : MonoBehaviour, IDataReader, IDataWriter
 {
     [SerializeField] private HorizontalLayoutGroup _parent;
     [SerializeField] private List<Character> _characters = new List<Character>();
@@ -14,6 +15,9 @@ public class Shop : MonoBehaviour
     private List<CharacterView> _characterViews = new List<CharacterView>();
     private Character _currentSelectedCharacter;
     private CharacterView _currentCharacterView;
+
+    public event UnityAction CharacterSelected;
+    public event UnityAction CharacterSold;
 
     private void OnDisable()
     {
@@ -44,16 +48,34 @@ public class Shop : MonoBehaviour
                 character.Buy();
 
                 if (_currentSelectedCharacter == null)
-                {
-                    TrySelectCaracter(character, characterView);
-                    _menuModelChanger.SetDefaultModel(_characterViews.IndexOf(characterView));
-                    _currentCharacterView = characterView;
-                    Debug.Log("Set default player.");
-                }
+                    SetCurrentCharacter(character, characterView);
+            }
+
+            if (_currentSelectedCharacter == character)
+            {
+                _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(characterView));
+                SetCurrentCharacter(character, characterView);
             }
 
             characterView.UpdateView();
         }
+    }
+
+    public void Read(PlayerData playerData)
+    {
+        _currentSelectedCharacter = playerData.CurrentSelectedCharacter;
+    }
+
+    public void Write(PlayerData playerData)
+    {
+        playerData.CurrentSelectedCharacter = _currentSelectedCharacter;
+    }
+
+    private void SetCurrentCharacter(Character character, CharacterView characterView)
+    {
+        _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(characterView));
+        TrySelectCaracter(character, characterView);
+        _characterView = characterView;
     }
 
     private void OnSellButtonClick(Character character, CharacterView characterView)
@@ -68,12 +90,13 @@ public class Shop : MonoBehaviour
 
     private void TrySellCharacter(Character character, CharacterView characterView)
     {
-        if (character.Price <= _wallet.Money)
+        if (character.Price <= _wallet.Stars)
         {
             _wallet.DicreaseMoney(character.Price);
             character.Buy();
             _playersHandler.AddAviablePlayer(character.Player);
             characterView.SellButtonClicked -= OnSellButtonClick;
+            CharacterSold?.Invoke();
         }
     }
 
@@ -93,6 +116,8 @@ public class Shop : MonoBehaviour
             {
                 _menuModelChanger.TryChange(_characterViews.IndexOf(characterView));
             }
+
+            CharacterSelected?.Invoke();
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayersHandler : MonoBehaviour
+public class PlayersHandler : MonoBehaviour, IDataReader, IDataWriter
 {
     private List<Player> _aviablePlayers = new List<Player>();
     private Player _currentPlayer;
@@ -10,8 +10,12 @@ public class PlayersHandler : MonoBehaviour
 
     public void AddAviablePlayer(Player player) => _aviablePlayers.Add(player);
 
-    public void SetCurrentPlayer(Player player)
+    public void SetCurrentPlayer(Player player) => _currentPlayer = player;
+
+    public void Write(PlayerData playerData)
     {
-        _currentPlayer = player;
+        playerData.CurrentPlayer = _currentPlayer;
     }
+
+    public void Read(PlayerData playerData) => _currentPlayer = playerData.CurrentPlayer;
 }

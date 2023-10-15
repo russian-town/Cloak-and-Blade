@@ -6,7 +6,7 @@ using UnityEngine;
 public class YandexInit : MonoBehaviour
 {
     [SerializeField] private LeanLocalization _localization;
-    [SerializeField] private Shop _shop;
+    [SerializeField] private MainSceneLogic _mainSceneLogic;
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class YandexInit : MonoBehaviour
             _localization.SetCurrentLanguage(Constants.Turkish);
 #endif
 
-        _shop.Initialize();
+        _mainSceneLogic.Initialize();
         yield break;
     }
 }

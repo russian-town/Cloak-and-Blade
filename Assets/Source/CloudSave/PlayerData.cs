@@ -1,10 +1,7 @@
-using System.Collections.Generic;
-
 [System.Serializable]
 public class PlayerData
 {
-    public Player CurrentPlayer;
+    public int Stars;
     public Character CurrentSelectedCharacter;
-    public int Money;
-    public MenuModel SelectedMenuModel;
+    public Player CurrentPlayer;
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Character", menuName = "New character", order = 51)]
-public class Character : ScriptableObject
+public class Character : ScriptableObject, IDataReader, IDataWriter
 {
     [SerializeField] private Type _type;
     [SerializeField] private int _price;
@@ -11,8 +11,6 @@ public class Character : ScriptableObject
 
     [SerializeField] private bool _isBought;
     [SerializeField] private bool _isSelect;
-
-    private MenuModel _menuModel;
 
     public Type Type => _type;
     public int Price => _price;
@@ -27,6 +25,31 @@ public class Character : ScriptableObject
     public void Select() => _isSelect = true;
 
     public void UnSelect() => _isSelect = false;
+
+    public void Read(PlayerData playerData)
+    {
+        //if (playerData.IsBought.ContainsKey(this))
+        //{
+        //    _isBought = playerData.IsBought[this];
+        //    Debug.Log(_isBought);
+        //}
+
+        //if (playerData.IsSelect.ContainsKey(this))
+        //    _isSelect = playerData.IsSelect[this];
+    }
+
+    public void Write(PlayerData playerData)
+    {
+        //if (playerData.IsBought.ContainsKey(this))
+        //    playerData.IsBought[this] = _isBought;
+        //else
+        //    playerData.IsBought.Add(this, _isBought);
+
+        //if (playerData.IsSelect.ContainsKey(this))
+        //    playerData.IsSelect[this] = _isSelect;
+        //else
+        //    playerData.IsSelect.Add(this, _isSelect);
+    }
 }
 
 public enum Type

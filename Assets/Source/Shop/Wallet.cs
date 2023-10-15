@@ -1,22 +1,33 @@
 using UnityEngine;
 
-public class Wallet : MonoBehaviour
+public class Wallet : MonoBehaviour, IDataReader, IDataWriter
 {
-    [SerializeField] private int _money;
+    [SerializeField] private int _stars;
     [SerializeField] private WalletView _walletView;
 
-    public int Money => _money;
+    public int Stars => _stars;
 
     private void Start()
     {
-        _walletView.UpdateText(_money);
+        _walletView.UpdateText(_stars);
     }
 
     public void DicreaseMoney(int price)
     {
-        if (price > 0)
-            _money -= price;
+        if (price < 0)
+            return;
 
-        _walletView.UpdateText(_money);
+        _stars -= price;
+        _walletView.UpdateText(_stars);
+    }
+
+    public void Read(PlayerData playerData)
+    {
+        _stars = playerData.Stars;
+    }
+
+    public void Write(PlayerData playerData)
+    {
+        playerData.Stars = _stars;
     }
 }

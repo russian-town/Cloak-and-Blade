@@ -7,19 +7,6 @@ public class MenuModelChanger : MonoBehaviour
 
     private List<MenuModel> _menuModels = new List<MenuModel>();
     private MenuModel _selectedMenuModel;
-    private MenuModel _defaultModel;
-
-    public MenuModel SelectedMenuModel => _selectedMenuModel;
-
-    public void LoadSelectedModel(int index)
-    {
-        if (_selectedMenuModel == null)
-        {
-            Debug.Log("Selected model loaded.");
-            _selectedMenuModel = _menuModels[index];
-            _selectedMenuModel.Show();
-        }
-    }
 
     public void Create(Character character)
     {
@@ -27,17 +14,6 @@ public class MenuModelChanger : MonoBehaviour
         _menuModels.Add(menuModel);
         menuModel.Hide();
         menuModel.transform.rotation = _modelPlace.Rotation;
-    }
-
-    public void SetDefaultModel(int index)
-    {
-        _defaultModel = _menuModels[index];
-
-        if (_selectedMenuModel == null)
-        {
-            _selectedMenuModel = _defaultModel;
-            _selectedMenuModel.Show();
-        }
     }
 
     public void TryChange(int index)
@@ -50,7 +26,7 @@ public class MenuModelChanger : MonoBehaviour
         SetSelectedModel(index);
     }
 
-    private void SetSelectedModel(int index)
+    public void SetSelectedModel(int index)
     {
         _selectedMenuModel = _menuModels[index];
         _selectedMenuModel.Show();

@@ -7,7 +7,8 @@ using System;
 
 public class CloudSave
 {
-    private PlayerData _cloudSaveData;
+    public event Action<string> DataLoaded;
+    public event Action<string> ErrorCallback;
 
     public void Save(PlayerData data)
     {
@@ -26,19 +27,23 @@ public class CloudSave
         Debug.Log("Saved.");
     }
 
-    public PlayerData Load()
+    public bool TryLoadCloudSaves()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (YandexGamesSdk.IsInitialized == false)
             return null;
 
         if (PlayerAccount.IsAuthorized)
-        {
-            PlayerAccount.GetCloudSaveData(SaveCallback);
-            return _cloudSaveData;
-        }
+            PlayerAccount.GetCloudSaveData(DataLoaded, ErrorCallback);
+
+            return true;
 #endif
 
+        return false;
+    }
+
+    public PlayerData LoadLocalSaves()
+    {
         if (UnityEngine.PlayerPrefs.HasKey(Constants.PlayerProgress) == false)
             return null;
 
@@ -49,10 +54,5 @@ public class CloudSave
 
         PlayerData playerData = JsonUtility.FromJson<PlayerData>(data);
         return playerData;
-    }
-
-    private void SaveCallback(string data)
-    {
-        _cloudSaveData = JsonUtility.FromJson<PlayerData>(data);
     }
 }
