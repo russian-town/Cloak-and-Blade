@@ -27,10 +27,12 @@ public class Saver : MonoBehaviour
 
     public void Save()
     {
-        foreach (var writer in _dataWriters)
-            writer.Write(_playerData);
+        var playerData = new PlayerData();
 
-        _cloudSave.Save(_playerData);
+        foreach (var writer in _dataWriters)
+            writer.Write(playerData);
+
+        _cloudSave.Save(playerData);
     }
 
     public void Load()

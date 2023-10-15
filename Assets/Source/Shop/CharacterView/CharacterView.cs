@@ -51,7 +51,6 @@ public class CharacterView : MonoBehaviour
     {
         if (_character.IsBought)
         {
-            Debug.Log($"Lock {_character.name}");
             _sellButton.gameObject.SetActive(false);
             _selectButton.gameObject.SetActive(true);
             //_sellButton.interactable = false;

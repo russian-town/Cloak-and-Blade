@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Character", menuName = "New character", order = 51)]
@@ -22,34 +23,35 @@ public class Character : ScriptableObject, IDataReader, IDataWriter
 
     public void Buy() => _isBought = true;
 
-    public void Select() => _isSelect = true;
-
-    public void UnSelect() => _isSelect = false;
+    public void Write(PlayerData playerData)
+    {
+        if (playerData.Characters.Contains(this))
+        {
+            int index = playerData.Characters.IndexOf(this);
+            playerData.IsBought[index] = _isBought;
+            playerData.IsSelect[index] = _isSelect;
+        }
+        else
+        {
+            playerData.Characters.Add(this);
+            playerData.IsBought.Add(_isBought);
+            playerData.IsSelect.Add(_isSelect);
+        }
+    }
 
     public void Read(PlayerData playerData)
     {
-        //if (playerData.IsBought.ContainsKey(this))
-        //{
-        //    _isBought = playerData.IsBought[this];
-        //    Debug.Log(_isBought);
-        //}
-
-        //if (playerData.IsSelect.ContainsKey(this))
-        //    _isSelect = playerData.IsSelect[this];
+        if (playerData.Characters.Contains(this))
+        {
+            int index = playerData.Characters.IndexOf(this);
+            _isBought = playerData.IsBought[index];
+            _isSelect = playerData.IsSelect[index];
+        }
     }
 
-    public void Write(PlayerData playerData)
-    {
-        //if (playerData.IsBought.ContainsKey(this))
-        //    playerData.IsBought[this] = _isBought;
-        //else
-        //    playerData.IsBought.Add(this, _isBought);
+    public void Select() => _isSelect = true;
 
-        //if (playerData.IsSelect.ContainsKey(this))
-        //    playerData.IsSelect[this] = _isSelect;
-        //else
-        //    playerData.IsSelect.Add(this, _isSelect);
-    }
+    public void UnSelect() => _isSelect = false;
 }
 
 public enum Type

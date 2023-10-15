@@ -7,7 +7,7 @@ public class Wallet : MonoBehaviour, IDataReader, IDataWriter
 
     public int Stars => _stars;
 
-    private void Start()
+    public void Initialize()
     {
         _walletView.UpdateText(_stars);
     }

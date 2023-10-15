@@ -27,6 +27,7 @@ public class MainSceneLogic : MonoBehaviour
         _saver.AddDataWriters(new IDataWriter[] { _shop, _playersHandler, _wallet });
         _saver.AddDataWriters(_characters);
         _saver.Load();
+        _wallet.Initialize();
         _shop.Initialize();
     }
 
