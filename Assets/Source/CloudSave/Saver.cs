@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Saver : MonoBehaviour
 {
+    [SerializeField] private Shop _shop;
+    [SerializeField] private Wallet _wallet;
+
     private List<IDataReader> _dataReaders = new List<IDataReader>();
     private List<IDataWriter> _dataWriters = new List<IDataWriter>();
 
@@ -54,6 +57,9 @@ public class Saver : MonoBehaviour
 
         foreach (var reader in _dataReaders)
             reader.Read(_playerData);
+
+        _shop.Initialize();
+        _wallet.Initialize();
     }
 
     private void OnErrorCallback(string error) => LoadLocalSaves();
@@ -62,10 +68,13 @@ public class Saver : MonoBehaviour
     {
         _playerData = _cloudSave.LoadLocalSaves();
 
-        if (_playerData == null)
-            return;
+        if (_playerData != null)
+        {
+            foreach (var reader in _dataReaders)
+                reader.Read(_playerData);
+        }
 
-        foreach (var reader in _dataReaders)
-            reader.Read(_playerData);
+        _shop.Initialize();
+        _wallet.Initialize();
     }
 }

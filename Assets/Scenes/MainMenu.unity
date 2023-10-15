@@ -473,6 +473,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91fa48743f30a843b20a850ec86f961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shop: {fileID: 1753363357}
+  _wallet: {fileID: 553359101}
 --- !u!4 &116403032
 Transform:
   m_ObjectHideFlags: 0

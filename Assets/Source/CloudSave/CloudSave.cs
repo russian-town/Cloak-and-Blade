@@ -24,7 +24,6 @@ public class CloudSave
 
         UnityEngine.PlayerPrefs.SetString(Constants.PlayerProgress, saveData);
         UnityEngine.PlayerPrefs.Save();
-        Debug.Log("Saved.");
     }
 
     public bool TryLoadCloudSaves()
