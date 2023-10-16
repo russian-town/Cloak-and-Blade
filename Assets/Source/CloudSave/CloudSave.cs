@@ -30,7 +30,7 @@ public class CloudSave
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (YandexGamesSdk.IsInitialized == false)
-            return null;
+            return false;
 
         if (PlayerAccount.IsAuthorized)
             PlayerAccount.GetCloudSaveData(DataLoaded, ErrorCallback);
