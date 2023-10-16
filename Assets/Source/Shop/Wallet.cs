@@ -5,19 +5,12 @@ public class Wallet : MonoBehaviour, IDataReader, IDataWriter, IInitializable
 {
     [SerializeField] private int _stars;
     [SerializeField] private WalletView _walletView;
-    [SerializeField] private TMP_InputField _inputField;
 
     public int Stars => _stars;
-
-    private void OnDisable()
-    {
-        _inputField.onEndEdit.RemoveListener(OnEndEdit);
-    }
 
     public void Initialize()
     {
         _walletView.UpdateText(_stars);
-        _inputField.onEndEdit.AddListener(OnEndEdit);
     }
 
     public void DicreaseMoney(int price)
