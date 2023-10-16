@@ -1,80 +1,85 @@
+using Agava.YandexGames;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Saver : MonoBehaviour
 {
-    [SerializeField] private Shop _shop;
-    [SerializeField] private Wallet _wallet;
-
     private List<IDataReader> _dataReaders = new List<IDataReader>();
     private List<IDataWriter> _dataWriters = new List<IDataWriter>();
-
+    private List<IInitializable> _initializables = new List<IInitializable>();
+    private ISaveLoadService _currentSaveLoadService;
     private CloudSave _cloudSave = new CloudSave();
-    private PlayerData _playerData = new PlayerData();
+    private LocalSave _localSave = new LocalSave();
 
     private void OnEnable()
     {
         _cloudSave.DataLoaded += OnDataLoaded;
-        _cloudSave.ErrorCallback += OnErrorCallback;
+        _cloudSave.ErrorLoadCallback += OnErrorLoadCallback;
+        _cloudSave.ErrorSaveCallback += OnErrorSaveCallBack;
     }
 
     private void OnDisable()
     {
         _cloudSave.DataLoaded -= OnDataLoaded;
-        _cloudSave.ErrorCallback -= OnErrorCallback;
+        _cloudSave.ErrorLoadCallback -= OnErrorLoadCallback;
+        _cloudSave.ErrorSaveCallback -= OnErrorSaveCallBack;
+    }
+
+    public void Initialize()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (PlayerAccount.IsAuthorized)
+            _currentSaveLoadService = _cloudSave;
+        else
+            _currentSaveLoadService = _localSave;
+#else
+        _currentSaveLoadService = _localSave;
+#endif
+
+        _currentSaveLoadService.AddDataWriters(_dataWriters.ToArray());
+        _currentSaveLoadService.AddDataReaders(_dataReaders.ToArray());
     }
 
     public void AddDataReaders(IDataReader[] dataReader) => _dataReaders.AddRange(dataReader);
 
     public void AddDataWriters(IDataWriter[] dataWriter) => _dataWriters.AddRange(dataWriter);
 
+    public void AddInitializable(IInitializable initializable) => _initializables.Add(initializable);
+
     public void Save()
     {
-        var playerData = new PlayerData();
-
-        foreach (var writer in _dataWriters)
-            writer.Write(playerData);
-
-        _cloudSave.Save(playerData);
+        PlayerData playerData = new PlayerData();
+        _currentSaveLoadService.Save(playerData);
     }
 
     public void Load()
     {
-        if (_cloudSave.TryLoadCloudSaves())
-            return;
+        _currentSaveLoadService.Load();
 
-        LoadLocalSaves();
+        if (_currentSaveLoadService is LocalSave)
+            OnDataLoaded(null);
     }
 
     private void OnDataLoaded(string data)
     {
-        PlayerData playerData = JsonUtility.FromJson<PlayerData>(data);
-
-        if (playerData == null)
+        if (_initializables.Count == 0)
             return;
 
-        _playerData = playerData;
-
-        foreach (var reader in _dataReaders)
-            reader.Read(_playerData);
-
-        _shop.Initialize();
-        _wallet.Initialize();
+        foreach (var initializable in _initializables)
+        {
+            initializable.Initialize();
+        }
     }
 
-    private void OnErrorCallback(string error) => LoadLocalSaves();
-
-    private void LoadLocalSaves()
+    private void OnErrorLoadCallback(string error)
     {
-        _playerData = _cloudSave.LoadLocalSaves();
+        Debug.Log(error);
+        _localSave.Load();
+    }
 
-        if (_playerData != null)
-        {
-            foreach (var reader in _dataReaders)
-                reader.Read(_playerData);
-        }
-
-        _shop.Initialize();
-        _wallet.Initialize();
+    private void OnErrorSaveCallBack(string error)
+    {
+        PlayerData playerData = new PlayerData();
+        _localSave.Save(playerData);
     }
 }

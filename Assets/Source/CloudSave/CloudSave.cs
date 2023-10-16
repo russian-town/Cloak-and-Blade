@@ -5,53 +5,63 @@ using Agava.YandexGames;
 using Agava.WebUtility;
 using System;
 
-public class CloudSave
+public class CloudSave : ISaveLoadService
 {
+    private List<IDataWriter> _dataWriters = new List<IDataWriter>();
+    private List<IDataReader> _dataReaders = new List<IDataReader>();
+
     public event Action<string> DataLoaded;
-    public event Action<string> ErrorCallback;
+    public event Action<string> ErrorLoadCallback;
+    public event Action<string> ErrorSaveCallback;
+
+    public void AddDataWriters(IDataWriter[] dataWriters) => _dataWriters.AddRange(dataWriters);
+
+    public void AddDataReaders(IDataReader[] dataReaders) => _dataReaders.AddRange(dataReaders);
 
     public void Save(PlayerData data)
     {
+        if (data == null)
+            return;
+
+        foreach (var writer in _dataWriters)
+        {
+            writer.Write(data);
+        }
+
         string saveData = JsonUtility.ToJson(data);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (PlayerAccount.IsAuthorized)
-        {
-            PlayerAccount.SetCloudSaveData(saveData);
-            return;
-        }
+            PlayerAccount.SetCloudSaveData(saveData, null, ErrorSaveCallback);
 #endif
-
-        UnityEngine.PlayerPrefs.SetString(Constants.PlayerProgress, saveData);
-        UnityEngine.PlayerPrefs.Save();
     }
 
-    public bool TryLoadCloudSaves()
+    public void Load()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (YandexGamesSdk.IsInitialized == false)
-            return false;
+            return;
 
         if (PlayerAccount.IsAuthorized)
-            PlayerAccount.GetCloudSaveData(DataLoaded, ErrorCallback);
-
-            return true;
+            PlayerAccount.GetCloudSaveData(OnDataLoaded, OnErrorLoad);
 #endif
-
-        return false;
     }
 
-    public PlayerData LoadLocalSaves()
+    public void OnDataLoaded(string data)
     {
-        if (UnityEngine.PlayerPrefs.HasKey(Constants.PlayerProgress) == false)
-            return null;
-
-        string data = UnityEngine.PlayerPrefs.GetString(Constants.PlayerProgress);
-
-        if (string.IsNullOrEmpty(data))
-            return null;
-
         PlayerData playerData = JsonUtility.FromJson<PlayerData>(data);
-        return playerData;
+
+        if (playerData == null)
+        {
+            Debug.Log("PlayerData is null.");
+            return;
+        }
+
+        foreach (var reader in _dataReaders)
+            reader.Read(playerData);
+
+        DataLoaded?.Invoke(data);
     }
+
+    public void OnErrorLoad(string error) => ErrorLoadCallback?.Invoke(error);
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class Shop : MonoBehaviour, IDataReader, IDataWriter
+public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
 {
     [SerializeField] private HorizontalLayoutGroup _parent;
     [SerializeField] private List<Character> _characters = new List<Character>();
@@ -27,10 +27,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter
         }
     }
 
-    public void Initialize()
-    {
-        AddCharacterView();
-    }
+    public void Initialize() => AddCharacterView();
 
     private void AddCharacterView()
     {
@@ -94,7 +91,6 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter
         {
             _wallet.DicreaseMoney(character.Price);
             character.Buy();
-            _playersHandler.AddAviablePlayer(character.Player);
             characterView.SellButtonClicked -= OnSellButtonClick;
             CharacterSold?.Invoke();
         }

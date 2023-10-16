@@ -1,10 +1,7 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System;
-using System.Collections;
 using TMPro;
 
-public class Wallet : MonoBehaviour, IDataReader, IDataWriter
+public class Wallet : MonoBehaviour, IDataReader, IDataWriter, IInitializable
 {
     [SerializeField] private int _stars;
     [SerializeField] private WalletView _walletView;

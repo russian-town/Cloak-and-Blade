@@ -26,26 +26,24 @@ public class LocalSave : ISaveLoadService
         PlayerPrefs.Save();
     }
 
-    public PlayerData Load()
+    public void Load()
     {
         if (PlayerPrefs.HasKey(Constants.PlayerProgress) == false)
-            return null;
+            return;
 
         string data = PlayerPrefs.GetString(Constants.PlayerProgress);
 
         if (string.IsNullOrEmpty(data))
-            return null;
+            return;
 
         PlayerData playerData = JsonUtility.FromJson<PlayerData>(data);
 
-        if (playerData != null)
-        {
-            foreach (var dataReader in _dataReaders)
-            {
-                dataReader.Read(playerData);
-            }
-        }
+        if (playerData == null)
+            return;
 
-        return playerData;
+        foreach (var dataReader in _dataReaders)
+        {
+            dataReader.Read(playerData);
+        }
     }
 }

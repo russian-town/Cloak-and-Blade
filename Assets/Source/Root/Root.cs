@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Root : MonoBehaviour
+public class Root : MonoBehaviour, IInitializable
 {
-    [SerializeField] private Player _playerTemplate;
+    [SerializeField] private List<Player> _playerTemplates = new List<Player>();
+    [SerializeField] private Player _defaultPlayerTemplate;
     [SerializeField] private PlayerView _playerView;
     [SerializeField] private InputView _inputView;
     [SerializeField] private Cell _playerSpawnCell;
@@ -27,6 +28,8 @@ public class Root : MonoBehaviour
     [SerializeField] private StepCounter _stepCounter;
     [SerializeField] private ScoreDefiner _scoreDefiner;
     [SerializeField] private LevelExit _levelExit;
+    [SerializeField] private PlayersHandler _playersHandler;
+    [SerializeField] private Saver _saver;
 
     private Player _player;
     private Pause _pause;
@@ -42,12 +45,25 @@ public class Root : MonoBehaviour
 
     private void Start()
     {
-        Initialize();
+        _saver.AddDataReaders(new IDataReader[] {_playersHandler});
+        _saver.AddDataWriters(new IDataWriter[] { _playersHandler });
+        _saver.AddInitializable(this);
+        _saver.Initialize();
+        _saver.Load();
     }
 
-    private void Initialize()
+    public void Initialize()
     {
-        _player = (Player)_spawner.Get(_playerSpawnCell, _playerTemplate);
+        if (_playerTemplates.Contains(_playersHandler.CurrentPlayer))
+        {
+            int index = _playerTemplates.IndexOf(_playersHandler.CurrentPlayer);
+            _player = (Player)_spawner.Get(_playerSpawnCell, _playerTemplates[index]);
+        }
+        else
+        {
+            _player = (Player)_spawner.Get(_playerSpawnCell, _defaultPlayerTemplate);
+        }
+
         _player.Initialize(_playerSpawnCell, _hourglassAnimation, _hourglassAnimator, _hourglass, _room, _playerView);
         _playerInput.Initialize(_camera, _gameboard, _player);
         _playerView.Initialize(_player);

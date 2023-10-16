@@ -22,10 +22,13 @@ public class MainSceneLogic : MonoBehaviour
 
     public void Initialize()
     {
+        _saver.AddInitializable(_shop);
+        _saver.AddInitializable(_wallet);
         _saver.AddDataReaders(new IDataReader[] {_shop, _playersHandler, _wallet});
         _saver.AddDataReaders(_characters);
         _saver.AddDataWriters(new IDataWriter[] { _shop, _playersHandler, _wallet });
         _saver.AddDataWriters(_characters);
+        _saver.Initialize();
         _saver.Load();
     }
 

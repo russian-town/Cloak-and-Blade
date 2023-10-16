@@ -6,5 +6,5 @@ public interface ISaveLoadService
 
     public void Save(PlayerData playerData);
 
-    public PlayerData Load();
+    public void Load();
 }
