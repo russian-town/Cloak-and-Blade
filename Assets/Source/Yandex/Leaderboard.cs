@@ -1,5 +1,6 @@
 using Agava.WebUtility;
 using Agava.YandexGames;
+using Unity.Burst;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class LeaderBoard : MonoBehaviour
     [SerializeField] private int _maxLeaderboardUnits;
     [SerializeField] private Sprite _defaultProfilePicture;
     [SerializeField] private Image _blackBacking;
+    [SerializeField] private Canvas _autorizationRequirmentScreen;
 
     private CanvasGroup _canvasGroup;
 
@@ -23,6 +25,7 @@ public class LeaderBoard : MonoBehaviour
         _canvasGroup.blocksRaycasts = false;
         _canvasGroup.alpha = 0;
         ClearLeaderBoard();
+        _autorizationRequirmentScreen.gameObject.SetActive(false);
     }
 
     public void OnOpenLeaderBoardButtonClick()
@@ -33,10 +36,7 @@ public class LeaderBoard : MonoBehaviour
         }
         else
         {
-            PlayerAccount.Authorize(OpenLeaderBoard, null);
-
-            if (PlayerAccount.IsAuthorized)
-                PlayerAccount.RequestPersonalProfileDataPermission();
+            _autorizationRequirmentScreen.gameObject.SetActive(true);
         }
     }
 
@@ -46,6 +46,15 @@ public class LeaderBoard : MonoBehaviour
         _canvasGroup.alpha = 0;
         _canvasGroup.blocksRaycasts = false;
     }
+
+    public void Authorize()
+    {
+        PlayerAccount.Authorize(OpenLeaderBoard, null);
+
+        if (PlayerAccount.IsAuthorized)
+            PlayerAccount.RequestPersonalProfileDataPermission();
+    }
+
 
     private void OpenLeaderBoard()
     {
