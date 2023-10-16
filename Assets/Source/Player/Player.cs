@@ -29,11 +29,13 @@ public class Player : Ghost, IPauseHandler
     private PlayerView _playerView;
     private List<Enemy> _enemies = new List<Enemy>();
     private Command _deferredCommand;
+    private List<EffectChangeHanldler> _sceneEffects = new List<EffectChangeHanldler>();
 
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
     public MoveCommand Move => _moveCommand;
     public Command NextCommand { get; private set; }
+    public IReadOnlyList<EffectChangeHanldler> SceneEffects => _sceneEffects;
 
     public event UnityAction StepEnded;
     public event UnityAction Died;
@@ -58,6 +60,15 @@ public class Player : Ghost, IPauseHandler
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator, _moveSpeed, _rotationSpeed);
         _abilityCommand = new AbilityCommand(_ability);
         _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglassAnimation);
+    }
+
+    public void AddEffects(List<EffectChangeHanldler> sceneEffect)
+    {
+        if (sceneEffect == null)
+            return;
+
+        if (sceneEffect.Count > 0)
+            _sceneEffects.AddRange(sceneEffect);
     }
 
     public void SetTargets(List<Enemy> enemies)
