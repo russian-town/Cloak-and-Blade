@@ -13,8 +13,6 @@ public class Audio : MonoBehaviour
     [SerializeField] private AudioMixerGroup _soundGroup;
     [SerializeField] private AudioMixerGroup _musicGroup;
 
-    private float _minVolumeValue = 0.0001f;
-
     private void OnEnable()
     {
         _masterSlider.onValueChanged.AddListener(ChangeMasterVolume);
