@@ -62,7 +62,12 @@ public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
             yield break;
 
         foreach (Enemy enemy in _enemies)
+        {
+            if (enemy.IsFreeze)
+                continue;
+
             yield return enemy.StartPerformMove();
+        }
 
         _turn = Turn.Player;
         _view.Subscribe();

@@ -29,8 +29,9 @@ public class Enemy : Ghost, IPauseHandler
     private int _east = 90;
     private int _south = 180;
     private int _west = 270;
-    private bool _isFreeze;
     private bool _isBlind;
+
+    public bool IsFreeze { get; private set; }
 
     public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, EnemyZoneDrawer enemyZoneDrawer)
     {
@@ -60,11 +61,11 @@ public class Enemy : Ghost, IPauseHandler
 
     public void Freeze()
     {
-        _isFreeze = true;
+        IsFreeze = true;
         _freezeEffect.Play();
     }
 
-    public void UnFreeze() => _isFreeze = false;
+    public void UnFreeze() => IsFreeze = false;
 
     public void Blind() => _isBlind = true;
 
@@ -77,9 +78,6 @@ public class Enemy : Ghost, IPauseHandler
 
     private IEnumerator PerformMove()
     {
-        if (_isFreeze)
-            yield break;
-
         _sightHandler.ClearSight();
         _previousCell = _mover.CurrentCell;
 
