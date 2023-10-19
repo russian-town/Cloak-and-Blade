@@ -31,6 +31,7 @@ public class Player : Ghost, IPauseHandler
     private Command _deferredCommand;
     private List<EffectChangeHanldler> _sceneEffects = new List<EffectChangeHanldler>();
 
+    public Coroutine MoveCoroutine { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
     public MoveCommand Move => _moveCommand;
@@ -93,7 +94,7 @@ public class Player : Ghost, IPauseHandler
     {
         if (_navigator.CanMoveToCell(targetCell) && targetCell.IsOccupied == false && targetCell.Content.Type != CellContentType.Wall)
         {
-            _mover.Move(targetCell, moveSpeed, rotationSpeed);
+            MoveCoroutine = _mover.StartMoveTo(targetCell, moveSpeed, rotationSpeed);
             _startCell = _mover.CurrentCell;
             return true;
         }

@@ -14,8 +14,9 @@ public class Enemy : Ghost, IPauseHandler
     private EnemySightHandler _sightHandler;
     private EnemyZoneDrawer _zoneDrawer;
     private EnemyMover _mover;
-    private List<Cell> _cellsOnPath;
     private Cell _startCell;
+    private Cell _nextCell;
+    private Cell _previousCell;
     private Player _player;
     private EnemyAnimationHandler _animationHandler;
     private Gameboard _gameBoard;
@@ -36,12 +37,11 @@ public class Enemy : Ghost, IPauseHandler
         _sightHandler = GetComponent<EnemySightHandler>();
         _animationHandler = GetComponent<EnemyAnimationHandler>();
         _mover = GetComponent<EnemyMover>();
-        _mover.Initialize(_startCell, _animationHandler);
-        _cellsOnPath = new List<Cell>();
         _destinations = destinations;
         _currentDestination = _destinations[1];
         _currentDestinationIndex = 1;
         _startCell = _destinations[0];
+        _mover.Initialize(_startCell, _animationHandler);
         _player = player;
         _gameBoard = gameboard;
         _zoneDrawer = enemyZoneDrawer;
@@ -56,6 +56,55 @@ public class Enemy : Ghost, IPauseHandler
             _animationHandler.StopAnimation();
         else
             _animationHandler.StartAnimation();
+    }
+
+    public void Freeze() => _isFreeze = true;
+
+    public void UnFreeze() => _isFreeze = false;
+
+    public void Blind() => _isBlind = true;
+
+    public void UnBlind() => _isBlind = false;
+
+    public Coroutine StartPerformMove()
+    {
+        return StartCoroutine(PerformMove());
+    }
+
+    private IEnumerator PerformMove()
+    {
+        if (_isFreeze)
+            yield break;
+
+        _sightHandler.ClearSight();
+        _previousCell = _mover.CurrentCell;
+
+        if (!CalculatePath())
+            yield return new WaitUntil(() => CalculatePath());
+
+        if (_nextCell == _player.CurrentCell && _isBlind == false)
+        {
+            yield return _mover.StartRotate(_nextCell, _rotationSpeed);
+            _player.Die();
+            yield break;
+        }
+
+        yield return _mover.StartMoveTo(_nextCell, _moveSpeed, _rotationSpeed);
+
+        if (_nextCell != null)
+            GenerateSight(_nextCell);
+
+        if (_sightHandler.TryFindPlayer(_player) && _isBlind == false)
+        {
+            _player.Die();
+            _phrasePlayer.StopRightThere();
+        }
+
+        if (_previousCell != null)
+            _previousCell.BecomeUnoccupied();
+
+        _mover.CurrentCell.BecomeOccupied();
+        _currentIndex++;
     }
 
     private void GenerateSight(Cell currentCell)
@@ -73,85 +122,27 @@ public class Enemy : Ghost, IPauseHandler
             _sightHandler.GenerateSight(currentCell, Constants.West);
     }
 
-    private void ChangeDestination(Cell destination)
+    private void ChangeDestination()
     {
         _mover.CurrentCell.BecomeUnoccupied();
-        _currentIndex = 0;
+        _currentDestinationIndex++;
 
-        if (destination == null)
-            return;
+        if(_currentDestinationIndex > _destinations.Length - 1)
+            _currentDestinationIndex = 0;
 
-        _currentDestination = destination;
+        _currentDestination = _destinations[_currentDestinationIndex];
     }
 
-    private void CalculatePath()
+    public bool CalculatePath()
     {
-        if (_cellsOnPath.Count > 0 && _currentIndex == _cellsOnPath.Count)
+        if (_gameBoard.FindPath(_currentDestination, ref _nextCell, _mover.CurrentCell))
         {
-            if (_currentDestinationIndex < _destinations.Length - 1)
-            {
-                _currentDestinationIndex++;
-                _startCell = _cellsOnPath[_currentIndex - 1];
-                _currentIndex = 0;
-            }
-            else
-            {
-                _currentDestinationIndex = 0;
-                _startCell = _cellsOnPath[_currentIndex - 1];
-                _currentIndex = 0;
-            }
-
-            ChangeDestination(_destinations[_currentDestinationIndex]);
+            return true;
         }
-
-        _gameBoard.GeneratePath(out _cellsOnPath, _currentDestination, _startCell);
-    }
-
-    public void Freeze() => _isFreeze = true;
-
-    public void UnFreeze() => _isFreeze = false;
-
-    public void Blind() => _isBlind = true;
-
-    public void UnBlind() => _isBlind = false;
-
-    public IEnumerator PerformMove()
-    {
-        if (_isFreeze)
-            yield break;
-
-        _sightHandler.ClearSight();
-        CalculatePath();
-
-        if (_cellsOnPath.Count == 0)
-            yield break;
-
-        if (_cellsOnPath[_currentIndex] == null || _currentIndex == _cellsOnPath.Count)
-            yield break;
-
-        if (_cellsOnPath[_currentIndex] == _player.CurrentCell)
+        else
         {
-            yield return StartCoroutine(_mover.Rotate(_cellsOnPath[_currentIndex], _rotationSpeed));
-            _player.Die();
-            yield break;
+            ChangeDestination();
+            return false;
         }
-
-        _mover.Move(_cellsOnPath[_currentIndex], _moveSpeed, _rotationSpeed);
-        yield return _mover.StartMoveCoroutine;
-
-        if (_cellsOnPath.Count > 0)
-            GenerateSight(_cellsOnPath[_currentIndex]);
-
-        if (_sightHandler.TryFindPlayer(_player) && _isBlind == false)
-        {
-            _player.Die();
-            _phrasePlayer.StopRightThere();
-        }
-
-        if (_currentIndex - 1 >= 0)
-            _cellsOnPath[_currentIndex - 1].BecomeUnoccupied();
-
-        _mover.CurrentCell.BecomeOccupied();
-        _currentIndex++;
     }
 }

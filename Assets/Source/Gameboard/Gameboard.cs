@@ -67,9 +67,7 @@ public class Gameboard : MonoBehaviour
         }
     }
 
-    public void GeneratePath(out List<Cell> path, Cell destination, Cell startCell) => FindPath(destination, out path, startCell);
-
-    public bool FindPath(Cell destination, out List<Cell> path,  Cell startCell)
+    public bool FindPath(Cell destination, ref Cell nextCell, Cell startCell)
     {
         foreach (Cell cell in _cells)
         {
@@ -84,7 +82,12 @@ public class Gameboard : MonoBehaviour
             }
         }
 
-        path = new List<Cell>();
+        if (_searchFrontier.Count == 0)
+        {
+            nextCell = null;
+            return false;
+        }
+
 
         while (_searchFrontier.Count > 0)
         {
@@ -114,16 +117,10 @@ public class Gameboard : MonoBehaviour
             cell.ShowPath();
         }
 
-        foreach (var cell in _cells)
-        {
-            Cell nextCell = startCell.NextOnPath;
-            startCell = nextCell;
+        nextCell = startCell.NextOnPath;
 
-            if (nextCell != null)
-                path.Add(nextCell);
-            else
-                break;
-        }
+        if (nextCell == null)
+            return false;
 
         return true;
     }

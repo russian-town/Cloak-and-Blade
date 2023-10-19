@@ -62,7 +62,7 @@ public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
             yield break;
 
         foreach (Enemy enemy in _enemies)
-            yield return StartCoroutine(enemy.PerformMove());
+            yield return enemy.StartPerformMove();
 
         _turn = Turn.Player;
         _view.Subscribe();
