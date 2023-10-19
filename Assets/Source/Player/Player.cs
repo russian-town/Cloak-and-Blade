@@ -21,9 +21,7 @@ public class Player : Ghost, IPauseHandler
     private AbilityCommand _abilityCommand;
     private SkipCommand _skipCommand;
     private Navigator _navigator;
-    private AnimationClip _hourglassAnimation;
-    private Animator _hourglassAnimator;
-    private CanvasGroup _hourglass;
+    private Hourglass _hourglass;
     private PlayerAnimationHandler _animationHandler;
     private Command _currentCommand;
     private PlayerView _playerView;
@@ -43,7 +41,7 @@ public class Player : Ghost, IPauseHandler
 
     public void Unsubscribe() => _mover.MoveEnded -= OnMoveEnded;
 
-    public void Initialize(Cell startCell, AnimationClip hourglassAnimation, Animator hourglassAnimator, CanvasGroup hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView)
+    public void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
@@ -56,11 +54,9 @@ public class Player : Ghost, IPauseHandler
         _ability.Initialize();
         _mover.MoveEnded += OnMoveEnded;
         _hourglass = hourglass;
-        _hourglassAnimator = hourglassAnimator;
-        _hourglassAnimation = hourglassAnimation;
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator, _moveSpeed, _rotationSpeed);
         _abilityCommand = new AbilityCommand(_ability);
-        _skipCommand = new SkipCommand(this, _hourglassAnimator, this, _hourglass, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglassAnimation);
+        _skipCommand = new SkipCommand(this, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglass);
     }
 
     public void AddEffects(List<EffectChangeHanldler> sceneEffect)
