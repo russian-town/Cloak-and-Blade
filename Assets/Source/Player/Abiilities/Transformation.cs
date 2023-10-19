@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerAttacker))]
 public class Transformation : Ability, IDeferredAbility
@@ -12,8 +11,7 @@ public class Transformation : Ability, IDeferredAbility
     private PlayerMover _mover;
     private Player _player;
     private bool _isTransformation;
-
-    public event UnityAction TransformationEnded;
+    private Cell _currentCell;
 
     private void OnDisable() => _mover.MoveEnded -= Cancel;
 
@@ -33,8 +31,10 @@ public class Transformation : Ability, IDeferredAbility
         _transformationEffect.Play();
         _basicModel.Hide();
         _transformationModel.Show();
-        _attacker.Attack(this);
+        _attacker.Attack(AttackType.Blind);
         StartCoroutine(_player.Move.Prepare(this));
+        _currentCell = _player.CurrentCell;
+        _currentCell.Content.BecomeWall();
         _isTransformation = true;
     }
 
@@ -48,7 +48,8 @@ public class Transformation : Ability, IDeferredAbility
         if (_player.NextCommand is SkipCommand)
             return;
 
-        TransformationEnded?.Invoke();
+        _currentCell.Content.BecomeEmpty();
+        _attacker.Attack(AttackType.UnBlind);
         _player.Move.Cancel();
         _mover.MoveEnded -= Cancel;
         _transformationEffect.Play();

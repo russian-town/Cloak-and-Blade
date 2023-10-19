@@ -28,7 +28,7 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
     public void SetPause(bool isPause) => _pauseSpeed = isPause ? 0 : 1;
 
-    protected virtual IEnumerator StartMoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
+    public IEnumerator Rotate(Cell targetCell, float rotationSpeed)
     {
         Vector3 rotationTarget = targetCell.transform.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(rotationTarget, Vector3.up);
@@ -38,7 +38,11 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * _pauseSpeed * Time.deltaTime);
             yield return null;
         }
+    }
 
+    protected virtual IEnumerator StartMoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
+    {
+        yield return StartCoroutine(Rotate(targetCell, rotationSpeed));
         _animationHandler.PlayFlyAnimation();
 
         while (transform.localPosition != targetCell.transform.localPosition)

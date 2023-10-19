@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,13 +18,7 @@ public class TheWorld : Ability
     private bool _isActive;
     private int _currentStepCount;
 
-    public int CurrentStepCount => _currentStepCount;
-    public int MaxStepCount => _maxStepCount;
-
-    private void OnDisable()
-    {
-        _player.StepEnded -= IncreaseCurrentStepCount;
-    }
+    private void OnDisable() => _player.StepEnded -= OnStepEnded;
 
     public override void Initialize()
     {
@@ -53,13 +46,15 @@ public class TheWorld : Ability
         _source.clip = _timeStop;
         _source.Play();
         _currentStepCount = 0;
-        _player.StepEnded += IncreaseCurrentStepCount;
-        _attacker.Attack(this);
+        _player.StepEnded += OnStepEnded;
+        _attacker.Attack(AttackType.Freeze);
         _burstActionEffect.Play();
 
         foreach (var effect in _effectsToChange)
             effect.ChangeEffectSpeed(0, _effectSlowDuration);
     }
+
+    private void OnStepEnded() => IncreaseCurrentStepCount();
 
     private void IncreaseCurrentStepCount()
     {
@@ -70,7 +65,8 @@ public class TheWorld : Ability
             _isActive = false;
             _source.clip = _timeResume;
             _source.Play();
-            _player.StepEnded -= IncreaseCurrentStepCount;
+            _attacker.Attack(AttackType.UnFreeze);
+            _player.StepEnded -= OnStepEnded;
 
             foreach (var effect in _effectsToChange)
                 effect.ChangeEffectSpeed(1, _effectSpeedUpDuration);

@@ -30,17 +30,6 @@ public class Enemy : Ghost, IPauseHandler
     private int _west = 270;
     private bool _isFreeze;
     private bool _isBlind;
-    private TheWorld _theWorld;
-    private Transformation _transformation;
-
-    private void OnDisable()
-    {
-        if (_player)
-            _player.StepEnded -= UpdatePlayerStepCount;
-
-        if (_transformation)
-            _transformation.TransformationEnded -= CancelBlind;
-    }
 
     public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, EnemyZoneDrawer enemyZoneDrawer)
     {
@@ -64,13 +53,9 @@ public class Enemy : Ghost, IPauseHandler
         _mover.SetPause(isPause);
 
         if (isPause == true)
-        {
             _animationHandler.StopAnimation();
-        }
         else
-        {
             _animationHandler.StartAnimation();
-        }
     }
 
     private void GenerateSight(Cell currentCell)
@@ -122,48 +107,13 @@ public class Enemy : Ghost, IPauseHandler
         _gameBoard.GeneratePath(out _cellsOnPath, _currentDestination, _startCell);
     }
 
-    public void TakeAbility(Ability ability)
-    {
-        if (ability == null)
-            return;
+    public void Freeze() => _isFreeze = true;
 
-        if (ability is TheWorld theWorld)
-        {
-            _isFreeze = true;
-            _theWorld = theWorld;
-            _freezeEffect.Play();
-            _player.StepEnded += UpdatePlayerStepCount;
-        }
-        else if(ability is Transformation transformation)
-        {
-            _isBlind = true;
-            _transformation = transformation;
-            _transformation.TransformationEnded += CancelBlind;
-        }
+    public void UnFreeze() => _isFreeze = false;
 
-        Debug.Log("Attack");
-    }
+    public void Blind() => _isBlind = true;
 
-    public void UpdatePlayerStepCount()
-    {
-        if (_theWorld != null && _theWorld.CurrentStepCount >= _theWorld.MaxStepCount)
-        {
-            _isFreeze = false;
-            _player.StepEnded -= UpdatePlayerStepCount;
-            _theWorld = null;
-        }
-    }
-
-    public void CancelBlind()
-    {
-        _isBlind = false;
-
-        if (_transformation)
-        {
-            _transformation.TransformationEnded -= CancelBlind;
-            _transformation = null;
-        }
-    }
+    public void UnBlind() => _isBlind = false;
 
     public IEnumerator PerformMove()
     {
@@ -178,6 +128,13 @@ public class Enemy : Ghost, IPauseHandler
 
         if (_cellsOnPath[_currentIndex] == null || _currentIndex == _cellsOnPath.Count)
             yield break;
+
+        if (_cellsOnPath[_currentIndex] == _player.CurrentCell)
+        {
+            yield return StartCoroutine(_mover.Rotate(_cellsOnPath[_currentIndex], _rotationSpeed));
+            _player.Die();
+            yield break;
+        }
 
         _mover.Move(_cellsOnPath[_currentIndex], _moveSpeed, _rotationSpeed);
         yield return _mover.StartMoveCoroutine;
