@@ -58,7 +58,11 @@ public class Enemy : Ghost, IPauseHandler
             _animationHandler.StartAnimation();
     }
 
-    public void Freeze() => _isFreeze = true;
+    public void Freeze()
+    {
+        _isFreeze = true;
+        _freezeEffect.Play();
+    }
 
     public void UnFreeze() => _isFreeze = false;
 
