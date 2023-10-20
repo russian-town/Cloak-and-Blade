@@ -24879,7 +24879,7 @@ MonoBehaviour:
   _timeResume: {fileID: 8300000, guid: 41826ad5482ba134fa787b74aa1c7270, type: 3}
   _effectSlowDuration: 0.37
   _effectSpeedUpDuration: 0.6
-  _burstActionEffect: {fileID: 1430474686496724586}
+  _burstActionEffect: {fileID: 2707862494078988581}
   _effectsToChange:
   - {fileID: 2317861448096751788}
   - {fileID: 3012413086927372329}
@@ -36166,8 +36166,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8467381860169546803, guid: 28b2f01a211efa047b0ca4fd75334968, type: 3}
   m_PrefabInstance: {fileID: 8929691148030057893}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &1430474686496724586 stripped
+--- !u!198 &2707862494078988581 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7509387256434215887, guid: 28b2f01a211efa047b0ca4fd75334968, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6807437534531316864, guid: 28b2f01a211efa047b0ca4fd75334968, type: 3}
   m_PrefabInstance: {fileID: 8929691148030057893}
   m_PrefabAsset: {fileID: 0}

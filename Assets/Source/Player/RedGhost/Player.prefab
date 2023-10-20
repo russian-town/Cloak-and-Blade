@@ -34617,13 +34617,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 250
-  _rotationSpeed: 500
+  _rotationSpeed: 1000
   _blinkRange: 4
   _prepareEffect: {fileID: 2817901522446229652}
   _actionEffect: {fileID: 4929641086221911637}
   _source: {fileID: 75521067584571495}
   _prepareSound: {fileID: 8300000, guid: 77e92341db94e39478edcc2a03739261, type: 3}
-  _actionSound: {fileID: 8300000, guid: c922ea847737fd640b989ffd4a910d3b, type: 3}
+  _actionSound: {fileID: 8300000, guid: 96bfa484808c55442b286331dbee4f2b, type: 3}
 --- !u!114 &4968454722151075018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34639,7 +34639,7 @@ MonoBehaviour:
   _moveSpeed: 3
   _rotationSpeed: 360
   _itemsInHold: {fileID: 720380231298066782}
-  _diedParticle: {fileID: 0}
+  _diedParticle: {fileID: 199662967926653570}
   _model: {fileID: 5861697019979390712}
   _abilityIcon: {fileID: 21300000, guid: c7983f142b364304a82bb8158574b413, type: 3}
 --- !u!1 &5642011164774408019
