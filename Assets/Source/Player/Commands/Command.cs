@@ -4,13 +4,18 @@ using UnityEngine;
 public abstract class Command
 {
     private bool _isReady = false;
+    private Coroutine _executeActionCoroutine = null;
+    private Coroutine _prepareActionCoroutine = null;
 
     public bool IsExecuting { get; private set; }
+
+    public abstract IEnumerator WaitOfExecute();
 
     public IEnumerator Prepare(MonoBehaviour context)
     {
         _isReady = false;
-        yield return context.StartCoroutine(PrepareAction());
+        _prepareActionCoroutine = context.StartCoroutine(PrepareAction());
+        yield return _prepareActionCoroutine;
         _isReady = true;
     }
 
@@ -18,7 +23,8 @@ public abstract class Command
     {
         yield return new WaitUntil(() => _isReady);
         IsExecuting = true;
-        yield return context.StartCoroutine(ExecuteAction(clickedCell));
+        _executeActionCoroutine = context.StartCoroutine(ExecuteAction(clickedCell));
+        yield return _executeActionCoroutine;
         IsExecuting = false;
     }
 
@@ -26,5 +32,20 @@ public abstract class Command
 
     protected abstract IEnumerator ExecuteAction(Cell clickedCell);
 
-    public virtual void Cancel() => _isReady = false;
+    public virtual void Cancel(MonoBehaviour context)
+    {
+        _isReady = false;
+
+        if (_prepareActionCoroutine != null)
+        {
+            context.StopCoroutine(_prepareActionCoroutine);
+            _prepareActionCoroutine = null;
+        }
+
+        if(_executeActionCoroutine != null)
+        {
+            context.StopCoroutine(_executeActionCoroutine);
+            _executeActionCoroutine = null;
+        }
+    }
 }

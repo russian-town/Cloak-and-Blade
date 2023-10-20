@@ -18,9 +18,7 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private Room _room;
     [SerializeField] private Camera _camera;
     [SerializeField] private PlayerInput _playerInput;
-    [SerializeField] private AnimationClip _hourglassAnimation;
-    [SerializeField] private Animator _hourglassAnimator;
-    [SerializeField] private CanvasGroup _hourglass;
+    [SerializeField] private Hourglass _hourglass;
     [SerializeField] private InteractiveObject[] _interactiveObjects;
     [SerializeField] private EnemyZoneDrawer _enemyZoneDrawerTemplate;
     [SerializeField] private GhostSpawner _spawner;
@@ -31,6 +29,7 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private PlayersHandler _playersHandler;
     [SerializeField] private Saver _saver;
     [SerializeField] private List<EffectChangeHanldler> _effectChangeHanldlers = new List<EffectChangeHanldler>();
+    [SerializeField] private YellowGhost _yellowGhost;
 
     private Player _player;
     private Pause _pause;
@@ -65,11 +64,8 @@ public class Root : MonoBehaviour, IInitializable
             _player = (Player)_spawner.Get(_playerSpawnCell, _defaultPlayerTemplate);
         }
 
-        _player.Initialize(_playerSpawnCell, _hourglassAnimation, _hourglassAnimator, _hourglass, _room, _playerView);
-
-        if (_effectChangeHanldlers != null && _effectChangeHanldlers.Count > 0)
-            _player.AddEffects(_effectChangeHanldlers);
-
+        _hourglass.Initialaze();
+        _player.Initialize(_playerSpawnCell, _hourglass, _room, _playerView, _gameboard, _playerInput);
         _playerInput.Initialize(_camera, _gameboard, _player);
         _playerView.Initialize(_player);
         _room.Initialize(_player, _playerView, _playerInput);

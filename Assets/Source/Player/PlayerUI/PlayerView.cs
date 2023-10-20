@@ -9,6 +9,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     [SerializeField] private Button _ability;
     [SerializeField] private Button _skip;
     [SerializeField] private Button _pause;
+    [SerializeField] private Button _abilityExecuteButton;
     [SerializeField] private Button _leftRotationCameraButton;
     [SerializeField] private Button _rightRotationCameraButton;
     [SerializeField] private Button _perspectiveCameraButton;
@@ -18,6 +19,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     private List<Cell> _tempCells = new List<Cell>();
 
     public event Action PauseButtonClicked;
+    public event Action AbilityExecuteButtonClicked;
 
     public void Subscribe()
     {
@@ -25,6 +27,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _ability.onClick.AddListener(OnAbilityClick);
         _skip.onClick.AddListener(OnSkipClick);
         _pause.onClick.AddListener(() => PauseButtonClicked?.Invoke());
+        _abilityExecuteButton.onClick.AddListener(() => AbilityExecuteButtonClicked?.Invoke());
     }
 
     public void Unsubscribe()
@@ -33,11 +36,13 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _ability.onClick.RemoveListener(OnAbilityClick);
         _skip.onClick.RemoveListener(OnSkipClick);
         _pause.onClick.RemoveListener(() => PauseButtonClicked?.Invoke());
+        _abilityExecuteButton.onClick.RemoveListener(() => AbilityExecuteButtonClicked?.Invoke());
     }
 
     public void Initialize(Player player)
     {
         _player = player;
+        _abilityExecuteButton.gameObject.SetActive(false);
 
         foreach (var icon in _icons)
             icon.Initialize();
@@ -48,6 +53,10 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     public void Show() => gameObject.SetActive(true);
 
     public void Hide() => gameObject.SetActive(false);
+
+    public void ShowAbilityExecuteButton() => _abilityExecuteButton.gameObject.SetActive(true);
+
+    public void HideAbilityExecuteButton() => _abilityExecuteButton.gameObject.SetActive(false);
 
     public void ShowInteravtiveButton()
     {
