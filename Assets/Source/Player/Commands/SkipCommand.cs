@@ -7,15 +7,15 @@ public class SkipCommand : Command
     private Coroutine _waitForEnemies;
     private PlayerAnimationHandler _playerAnimationHandler;
     private Hourglass _hourglass;
-    private MonoBehaviour _context;
+    private CommandExecuter _executer;
 
-    public SkipCommand(Player player, Coroutine waitForEnemies, PlayerAnimationHandler animationHandler, Hourglass hourglass, MonoBehaviour context)
+    public SkipCommand(Player player, Coroutine waitForEnemies, PlayerAnimationHandler animationHandler, Hourglass hourglass, CommandExecuter executer)
     {
         _player = player;
         _waitForEnemies = waitForEnemies;
         _playerAnimationHandler = animationHandler;
         _hourglass = hourglass;
-        _context = context;
+        _executer = executer;
     }
 
     protected override IEnumerator PrepareAction()
@@ -32,13 +32,13 @@ public class SkipCommand : Command
         yield return new WaitForSeconds(_hourglass.AnimationLength);
         yield return _hourglass.StartHide();
         _playerAnimationHandler.StopSkipAnimation();
-        Cancel(_player);
-        _player.ResetCommand();
+        Cancel(_executer);
+        _executer.ResetCommand();
         yield break;
     }
 
     public override IEnumerator WaitOfExecute()
     {
-        yield return _player.StartCoroutine(Execute(null, _context));
+        yield return _executer.StartCoroutine(Execute(null, _executer));
     }
 }

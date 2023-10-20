@@ -10,6 +10,7 @@ public class Transformation : Ability, IDeferredCommand
     private PlayerAttacker _attacker;
     private PlayerMover _mover;
     private Player _player;
+    private CommandExecuter _commandExecuter;
     private bool _isTransformation;
     private Cell _currentCell;
     private Coroutine _prepareCoroutine;
@@ -22,6 +23,7 @@ public class Transformation : Ability, IDeferredCommand
         _attacker = GetComponent<PlayerAttacker>();
         _mover = GetComponent<PlayerMover>();
         _player = GetComponent<Player>();
+        _commandExecuter = GetComponent<CommandExecuter>();
     }
 
     public override void Prepare()
@@ -34,7 +36,7 @@ public class Transformation : Ability, IDeferredCommand
         _basicModel.Hide();
         _transformationModel.Show();
         _attacker.Attack(AttackType.Blind);
-        _prepareCoroutine = _player.StartCoroutine(_player.Move.Prepare(_player));
+        _prepareCoroutine = _commandExecuter.StartCoroutine(_player.Move.Prepare(_commandExecuter));
         _currentCell = _player.CurrentCell;
         _currentCell.Content.BecomeWall();
         _isTransformation = true;
@@ -42,18 +44,18 @@ public class Transformation : Ability, IDeferredCommand
 
     protected override void Action(Cell cell)
     {
-        _executeCoroutine = _player.StartCoroutine(_player.Move.Execute(cell, _player));
+        _executeCoroutine = _commandExecuter.StartCoroutine(_player.Move.Execute(cell, _commandExecuter));
     }
 
     public override void Cancel()
     {
-        if (_player.NextCommand is SkipCommand)
+        if (_commandExecuter.NextCommand is SkipCommand)
             return;
 
-        _player.ResetDeferredCommand();
+        _commandExecuter.ResetDeferredCommand();
         _currentCell.Content.BecomeEmpty();
         _attacker.Attack(AttackType.UnBlind);
-        _player.Move.Cancel(_player);
+        _player.Move.Cancel(_commandExecuter);
         _mover.MoveEnded -= Cancel;
         _transformationEffect.Play();
         _basicModel.Show();
@@ -62,7 +64,7 @@ public class Transformation : Ability, IDeferredCommand
 
         if(_executeCoroutine != null)
         {
-            _player.StopCoroutine(_executeCoroutine);
+            _commandExecuter.StopCoroutine(_executeCoroutine);
             _executeCoroutine = null;
         }
 

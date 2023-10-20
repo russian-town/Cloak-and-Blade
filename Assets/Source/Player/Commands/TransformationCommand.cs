@@ -4,30 +4,28 @@ using UnityEngine;
 public class TransformationCommand : Command, IDeferredCommand
 {
     private Transformation _transformation;
-    private PlayerInput _playerInput;
     private Gameboard _gameboard;
     private Camera _camera;
-    private Player _player;
     private Navigator _navigator;
     private Coroutine _executeCoroutine;
+    private CommandExecuter _executer;
 
-    public TransformationCommand(Transformation transformation, PlayerInput playerInput, Gameboard gameboard, Player player, Navigator navigator)
+    public TransformationCommand(Transformation transformation, Gameboard gameboard, Navigator navigator, CommandExecuter executer)
     {
         _transformation = transformation;
         _transformation.Initialize();
-        _playerInput = playerInput;
         _gameboard = gameboard;
         _camera = Camera.main;
-        _player = player;
         _navigator = navigator;
+        _executer = executer;
     }
 
     public override IEnumerator WaitOfExecute()
     {
         Debug.Log("Wait");
-        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_playerInput, _gameboard, _camera, _player, _navigator);
+        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
         yield return waitOfClickedCell;
-        _executeCoroutine = _player.StartCoroutine(Execute(waitOfClickedCell.Cell, _player));
+        _executeCoroutine = _executer.StartCoroutine(Execute(waitOfClickedCell.Cell, _executer));
         yield return _executeCoroutine;
     }
 

@@ -8,6 +8,6 @@ public class BlackGhost : Player
     protected override Command AbilityCommand()
     {
         _transformation = GetComponent<Transformation>();
-        return new TransformationCommand(_transformation, Input, Gameboard, this, Navigator);
+        return new TransformationCommand(_transformation, Gameboard, Navigator, CommandExecuter);
     }
 }

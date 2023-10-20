@@ -5,19 +5,15 @@ public class AbilityCommand : Command
 {
     private readonly Ability _ability;
 
-    private PlayerInput _playerInput;
     private Gameboard _gameboard;
     private Camera _camera;
     private Player _player;
     private Navigator _navigator;
     private Coroutine _executeCoroutine;
 
-    public Ability Ability => _ability;
-
-    public AbilityCommand(Ability ability, PlayerInput playerInput, Gameboard gameboard, Player player, Navigator navigator)
+    public AbilityCommand(Ability ability, Gameboard gameboard, Player player, Navigator navigator)
     {
         _ability = ability;
-        _playerInput = playerInput;
         _gameboard = gameboard;
         _camera = Camera.main;
         _player = player;
@@ -48,7 +44,7 @@ public class AbilityCommand : Command
 
     public override IEnumerator WaitOfExecute()
     {
-        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_playerInput, _gameboard, _camera, _player, _navigator);
+        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
         yield return waitOfClickedCell;
         _executeCoroutine = _player.StartCoroutine(Execute(waitOfClickedCell.Cell, _player));
         yield return _executeCoroutine;

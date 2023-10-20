@@ -10,12 +10,12 @@ public class MoveCommand : Command, IUnmissable
     private PlayerMover _playerMover;
     private PlayerView _playerView;
     private Navigator _navigator;
-    private PlayerInput _playerInput;
     private Gameboard _gameboard;
     private Camera _camera;
     private Coroutine _executeCoroutine;
+    private CommandExecuter _executer;
 
-    public MoveCommand(Player player, PlayerMover playerMover, PlayerView playerView, Navigator navigator, float moveSpeed, float rotationSpeed, PlayerInput playerInput, Gameboard gameboard)
+    public MoveCommand(Player player, PlayerMover playerMover, PlayerView playerView, Navigator navigator, float moveSpeed, float rotationSpeed, Gameboard gameboard, CommandExecuter executer)
     {
         _player = player;
         _playerMover = playerMover;
@@ -23,9 +23,9 @@ public class MoveCommand : Command, IUnmissable
         _navigator = navigator;
         _moveSpeed = moveSpeed;
         _rotationSpeed = rotationSpeed;
-        _playerInput = playerInput;
         _gameboard = gameboard;
         _camera = Camera.main;
+        _executer = executer;
     }
 
     protected override IEnumerator PrepareAction() 
@@ -41,7 +41,7 @@ public class MoveCommand : Command, IUnmissable
 
         if(_executeCoroutine != null)
         {
-            _player.StopCoroutine(_executeCoroutine);
+            _executer.StopCoroutine(_executeCoroutine);
             _executeCoroutine = null;
         }
     }
@@ -54,7 +54,7 @@ public class MoveCommand : Command, IUnmissable
 
     public override IEnumerator WaitOfExecute()
     {
-        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_playerInput, _gameboard, _camera, _player, _navigator);
+        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
         yield return waitOfClickedCell;
         _executeCoroutine = _player.StartCoroutine(Execute(waitOfClickedCell.Cell, _player));
         yield return _executeCoroutine;

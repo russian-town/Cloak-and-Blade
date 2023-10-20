@@ -8,6 +8,6 @@ public class RedGhost : Player
     protected override Command AbilityCommand()
     {
         _blink = GetComponent<Blink>();
-        return new BlinkCommand(_blink, Input, Gameboard, this, Navigator);
+        return new BlinkCommand(_blink, Gameboard, Navigator, CommandExecuter);
     }
 }

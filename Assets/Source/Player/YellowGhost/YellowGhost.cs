@@ -11,6 +11,6 @@ public class YellowGhost : Player, ISceneParticlesInfluencer
     protected override Command AbilityCommand()
     {
         _theWorld = GetComponent<TheWorld>();
-        return new TheWorldCommand(_theWorld, this);
+        return new TheWorldCommand(_theWorld, this, CommandExecuter);
     }
 }

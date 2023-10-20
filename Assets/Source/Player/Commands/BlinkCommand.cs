@@ -4,22 +4,20 @@ using UnityEngine;
 public class BlinkCommand : Command
 {
     private Blink _blink;
-    private PlayerInput _playerInput;
     private Gameboard _gameboard;
     private Camera _camera;
-    private Player _player;
     private Navigator _navigator;
     private Coroutine _executeCoroutine;
+    private CommandExecuter _executer;
 
-    public BlinkCommand(Blink blink, PlayerInput playerInput, Gameboard gameboard, Player player, Navigator navigator)
+    public BlinkCommand(Blink blink, Gameboard gameboard, Navigator navigator, CommandExecuter executer)
     {
         _blink = blink;
         _blink.Initialize();
-        _playerInput = playerInput;
         _gameboard = gameboard;
-        _player = player;
         _camera = Camera.main;
         _navigator = navigator;
+        _executer = executer;
     }
 
     protected override IEnumerator PrepareAction()
@@ -30,9 +28,9 @@ public class BlinkCommand : Command
 
     public override IEnumerator WaitOfExecute()
     {
-        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_playerInput, _gameboard, _camera, _player, _navigator);
+        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
         yield return waitOfClickedCell;
-        _executeCoroutine = _player.StartCoroutine(Execute(waitOfClickedCell.Cell, _player));
+        _executeCoroutine = _executer.StartCoroutine(Execute(waitOfClickedCell.Cell, _executer));
         yield return _executeCoroutine;
     }
 
@@ -48,7 +46,7 @@ public class BlinkCommand : Command
 
         if (_executeCoroutine != null)
         {
-            _player.StopCoroutine(_executeCoroutine);
+            _executer.StopCoroutine(_executeCoroutine);
             _executeCoroutine = null;
         }
     }

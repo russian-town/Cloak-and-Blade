@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class WaitOfClickedCell : CustomYieldInstruction
 {
-    private PlayerInput _input;
     private Gameboard _gameboard;
     private Camera _camera;
-    private Player _player;
     private Navigator _navigator;
 
     private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
     public Cell Cell { get; private set; }
 
-    public WaitOfClickedCell(PlayerInput input, Gameboard gameboard, Camera camera, Player player, Navigator navigator)
+    public WaitOfClickedCell(Gameboard gameboard, Camera camera, Navigator navigator)
     {
-        _input = input;
         _gameboard = gameboard;
         _camera = camera;
-        _player = player;
         _navigator = navigator;
     }
 
