@@ -29,6 +29,7 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private PlayersHandler _playersHandler;
     [SerializeField] private Saver _saver;
     [SerializeField] private List<EffectChangeHanldler> _effectChangeHanldlers = new List<EffectChangeHanldler>();
+    [SerializeField] private YellowGhost _yellowGhost;
 
     private Player _player;
     private Pause _pause;

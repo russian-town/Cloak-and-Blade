@@ -16,6 +16,7 @@ public abstract class Player : Ghost, IPauseHandler
     private PlayerMover _mover;
     private PlayerAttacker _attacker;
     private IEnemyTurnHandler _enemyTurnHandler;
+    private ISceneParticlesInfluencer _sceneParticlesInfluencer;
     private Cell _startCell;
     private MoveCommand _moveCommand;
     private SkipCommand _skipCommand;
@@ -46,6 +47,11 @@ public abstract class Player : Ghost, IPauseHandler
 
     public event UnityAction StepEnded;
     public event UnityAction Died;
+
+    public void Initialize(ISceneParticlesInfluencer sceneParticlesInfluencer)
+    {
+        _sceneParticlesInfluencer = sceneParticlesInfluencer;
+    }
 
     public void Unsubscribe() => _mover.MoveEnded -= OnMoveEnded;
 
