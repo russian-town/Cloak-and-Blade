@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMover), typeof(PlayerAttacker))]
-public class Player : Ghost, IPauseHandler
+public abstract class Player : Ghost, IPauseHandler
 {
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
-    [SerializeField] private Ability _ability;
     [SerializeField] private ItemsInHold _itemsInHold;
     [SerializeField] private ParticleSystem _diedParticle;
     [SerializeField] private PlayerModel _model;
@@ -19,7 +18,6 @@ public class Player : Ghost, IPauseHandler
     private IEnemyTurnHandler _enemyTurnHandler;
     private Cell _startCell;
     private MoveCommand _moveCommand;
-    private AbilityCommand _abilityCommand;
     private SkipCommand _skipCommand;
     private Navigator _navigator;
     private Hourglass _hourglass;
@@ -27,14 +25,12 @@ public class Player : Ghost, IPauseHandler
     private Command _currentCommand;
     private PlayerView _playerView;
     private List<Enemy> _enemies = new List<Enemy>();
-    private Command _deferredCommand;
-    private List<EffectChangeHanldler> _sceneEffects = new List<EffectChangeHanldler>();
     private Gameboard _gameboard;
     private PlayerInput _input;
     private Coroutine _prepare;
-    private Coroutine _execute;
     private Coroutine _waitOfExecute;
     private Coroutine _switchCommand;
+    private Command _deferredCommand;
 
     public Sprite AbilityIcon => _abilityIcon;
     public Coroutine MoveCoroutine { get; private set; }
@@ -42,7 +38,11 @@ public class Player : Ghost, IPauseHandler
     public ItemsInHold ItemsInHold => _itemsInHold;
     public MoveCommand Move => _moveCommand;
     public Command NextCommand { get; private set; }
-    public IReadOnlyList<EffectChangeHanldler> SceneEffects => _sceneEffects;
+    protected PlayerInput Input => _input;
+    protected Navigator Navigator => _navigator;
+    protected Gameboard Gameboard => _gameboard;
+    protected PlayerView PlayerView => _playerView;
+    protected PlayerMover Mover => _mover;
 
     public event UnityAction StepEnded;
     public event UnityAction Died;
@@ -59,23 +59,12 @@ public class Player : Ghost, IPauseHandler
         _animationHandler = GetComponent<PlayerAnimationHandler>();
         _enemyTurnHandler = enemyTurnHandler;
         _mover.Initialize(_startCell, _animationHandler);
-        _ability.Initialize();
         _mover.MoveEnded += OnMoveEnded;
         _hourglass = hourglass;
         _gameboard = gameboard;
         _input = input;
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator, _moveSpeed, _rotationSpeed, _input, _gameboard);
-        _abilityCommand = new AbilityCommand(_ability, _input, _gameboard, this, _navigator);
         _skipCommand = new SkipCommand(this, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglass, this);
-    }
-
-    public void AddEffects(List<EffectChangeHanldler> sceneEffect)
-    {
-        if (sceneEffect == null)
-            return;
-
-        if (sceneEffect.Count > 0)
-            _sceneEffects.AddRange(sceneEffect);
     }
 
     public void SetTargets(List<Enemy> enemies)
@@ -84,7 +73,7 @@ public class Player : Ghost, IPauseHandler
         _attacker.Initialize(_enemies);
     }
 
-    public void PrepareAbility()
+    public virtual void PrepareAbility()
     {
         if (_switchCommand != null)
         {
@@ -92,7 +81,7 @@ public class Player : Ghost, IPauseHandler
             _switchCommand = null;
         }
 
-        StartCoroutine(SwitchCurrentCommand(_abilityCommand));
+        _switchCommand = StartCoroutine(SwitchCurrentCommand(AbilityCommand()));
     }
 
     public void PrepareMove()
@@ -103,7 +92,7 @@ public class Player : Ghost, IPauseHandler
             _switchCommand = null;
         }
 
-        StartCoroutine(SwitchCurrentCommand(_moveCommand));
+        _switchCommand = StartCoroutine(SwitchCurrentCommand(_moveCommand));
     }
 
     public void PrepareSkip()
@@ -114,7 +103,7 @@ public class Player : Ghost, IPauseHandler
             _switchCommand = null;
         }
 
-        StartCoroutine(SwitchCurrentCommand(_skipCommand));
+        _switchCommand = StartCoroutine(SwitchCurrentCommand(_skipCommand));
     }
 
     public void SkipTurn() => StepEnded?.Invoke();
@@ -148,6 +137,23 @@ public class Player : Ghost, IPauseHandler
         if (_currentCommand is not SkipCommand)
             _deferredCommand = null;
 
+        if (_currentCommand == null)
+        {
+            Debug.Log("Current command is null");
+
+            if(_deferredCommand != null)
+            {
+                Debug.Log("Deffered command in not null");
+                _currentCommand = _deferredCommand;
+                _switchCommand = StartCoroutine(SwitchCurrentCommand(_currentCommand));
+                return false;
+            }
+            else
+            {
+                Debug.Log("Current command is null");
+            }
+        }
+
         if (_currentCommand is not IUnmissable)
         {
             _currentCommand = null;
@@ -156,6 +162,8 @@ public class Player : Ghost, IPauseHandler
 
         return false;
     }
+
+    protected abstract Command AbilityCommand();
 
     private IEnumerator MakeDeath()
     {
@@ -168,25 +176,19 @@ public class Player : Ghost, IPauseHandler
 
     private IEnumerator SwitchCurrentCommand(Command command)
     {
-        //if (_currentCommand is SkipCommand)
-        //    return;
-
-        //if (_currentCommand != null && _currentCommand.IsExecuting)
-        //    return;
-
-        //if (command == _currentCommand)
-        //    return;
-
-        //if (command is AbilityCommand abilityCommand && abilityCommand.Ability is IDeferredAbility)
-        //    _deferredCommand = abilityCommand;
-
         if (command == _currentCommand)
             yield break;
 
         if (_currentCommand != null && _currentCommand.IsExecuting)
             yield break;
 
-        if(_prepare != null)
+        if (_currentCommand is IDeferredCommand)
+        {
+            _deferredCommand = _currentCommand;
+            Debug.Log(_currentCommand);
+        }
+       
+        if (_prepare != null)
         {
             StopCoroutine(_prepare);
             _prepare = null;
@@ -207,6 +209,7 @@ public class Player : Ghost, IPauseHandler
 
         _waitOfExecute = StartCoroutine(_currentCommand.WaitOfExecute());
         yield return _waitOfExecute;
+        Debug.Log(_currentCommand);
     }
 
     private void OnMoveEnded()

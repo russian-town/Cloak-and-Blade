@@ -54,6 +54,10 @@ public class PlayerView : MonoBehaviour, IPauseHandler
 
     public void Hide() => gameObject.SetActive(false);
 
+    public void ShowAbilityExecuteButton() => _abilityExecuteButton.gameObject.SetActive(true);
+
+    public void HideAbilityExecuteButton() => _abilityExecuteButton.gameObject.SetActive(false);
+
     public void ShowInteravtiveButton()
     {
         _move.interactable = true;

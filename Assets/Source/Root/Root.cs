@@ -65,10 +65,6 @@ public class Root : MonoBehaviour, IInitializable
 
         _hourglass.Initialaze();
         _player.Initialize(_playerSpawnCell, _hourglass, _room, _playerView, _gameboard, _playerInput);
-
-        if (_effectChangeHanldlers != null && _effectChangeHanldlers.Count > 0)
-            _player.AddEffects(_effectChangeHanldlers);
-
         _playerInput.Initialize(_camera, _gameboard, _player);
         _playerView.Initialize(_player);
         _room.Initialize(_player, _playerView, _playerInput);

@@ -6,7 +6,7 @@ public class PlayerMover : Mover
 {
     public event UnityAction MoveEnded;
 
-    public override IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
+    protected override IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
         Debug.Log(moveSpeed);
         yield return base.MoveTo(targetCell, moveSpeed, rotationSpeed);

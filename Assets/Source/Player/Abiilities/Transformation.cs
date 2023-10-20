@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAttacker))]
-public class Transformation : Ability, IDeferredAbility
+public class Transformation : Ability, IDeferredCommand
 {
     [SerializeField] private PlayerModel _basicModel;
     [SerializeField] private PlayerModel _transformationModel;

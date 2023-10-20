@@ -40,7 +40,7 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
         }
     }
 
-    public virtual IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
+    protected virtual IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
         yield return StartRotate(targetCell, rotationSpeed);
         _animationHandler.PlayFlyAnimation();

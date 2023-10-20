@@ -12,6 +12,7 @@ public class TheWorld : Ability
     [SerializeField] private float _effectSpeedUpDuration;
     [SerializeField] private ParticleSystem _burstActionEffect;
     [SerializeField] private List<EffectChangeHanldler> _effectsToChange = new List<EffectChangeHanldler>();
+    [SerializeField] private Sprite _icon;
 
     private PlayerAttacker _attacker;
     private Player _player;
@@ -24,9 +25,6 @@ public class TheWorld : Ability
     {
         _attacker = GetComponent<PlayerAttacker>();
         _player = GetComponent<Player>();
-
-        if (_player.SceneEffects != null && _player.SceneEffects.Count > 0)
-            _effectsToChange.AddRange(_player.SceneEffects);
     }
 
     public override void Cancel() 
