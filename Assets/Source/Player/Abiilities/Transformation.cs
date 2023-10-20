@@ -50,6 +50,7 @@ public class Transformation : Ability, IDeferredCommand
         if (_player.NextCommand is SkipCommand)
             return;
 
+        _player.ResetDeferredCommand();
         _currentCell.Content.BecomeEmpty();
         _attacker.Attack(AttackType.UnBlind);
         _player.Move.Cancel(_player);

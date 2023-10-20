@@ -75,6 +75,9 @@ public abstract class Player : Ghost, IPauseHandler
 
     public virtual void PrepareAbility()
     {
+        if (_currentCommand != null && _currentCommand.IsExecuting)
+            return;
+
         if (_switchCommand != null)
         {
             StopCoroutine(_switchCommand);
@@ -86,6 +89,9 @@ public abstract class Player : Ghost, IPauseHandler
 
     public void PrepareMove()
     {
+        if (_currentCommand != null && _currentCommand.IsExecuting)
+            return;
+
         if (_switchCommand != null)
         {
             StopCoroutine(_switchCommand);
@@ -97,6 +103,9 @@ public abstract class Player : Ghost, IPauseHandler
 
     public void PrepareSkip()
     {
+        if (_currentCommand != null && _currentCommand.IsExecuting)
+            return;
+
         if (_switchCommand != null)
         {
             StopCoroutine(_switchCommand);
@@ -134,27 +143,7 @@ public abstract class Player : Ghost, IPauseHandler
 
     public bool ResetCommand()
     {
-        if (_currentCommand is not SkipCommand)
-            _deferredCommand = null;
-
-        if (_currentCommand == null)
-        {
-            Debug.Log("Current command is null");
-
-            if(_deferredCommand != null)
-            {
-                Debug.Log("Deffered command in not null");
-                _currentCommand = _deferredCommand;
-                _switchCommand = StartCoroutine(SwitchCurrentCommand(_currentCommand));
-                return false;
-            }
-            else
-            {
-                Debug.Log("Current command is null");
-            }
-        }
-
-        if (_currentCommand is not IUnmissable)
+        if (_currentCommand is not IUnmissable && _deferredCommand == null)
         {
             _currentCommand = null;
             return true;
@@ -162,6 +151,8 @@ public abstract class Player : Ghost, IPauseHandler
 
         return false;
     }
+
+    public void ResetDeferredCommand() => _deferredCommand = null;
 
     protected abstract Command AbilityCommand();
 
@@ -183,11 +174,8 @@ public abstract class Player : Ghost, IPauseHandler
             yield break;
 
         if (_currentCommand is IDeferredCommand)
-        {
             _deferredCommand = _currentCommand;
-            Debug.Log(_currentCommand);
-        }
-       
+
         if (_prepare != null)
         {
             StopCoroutine(_prepare);
@@ -209,11 +197,19 @@ public abstract class Player : Ghost, IPauseHandler
 
         _waitOfExecute = StartCoroutine(_currentCommand.WaitOfExecute());
         yield return _waitOfExecute;
-        Debug.Log(_currentCommand);
+
+        if (_deferredCommand != null)
+        {
+            _switchCommand = StartCoroutine(SwitchCurrentCommand(_deferredCommand));
+            _deferredCommand = null;
+        }
     }
 
     private void OnMoveEnded()
     {
+        _deferredCommand = null;
+        Debug.Log(_deferredCommand);
+
         if (!ResetCommand())
         {
             _prepare = StartCoroutine(_currentCommand.Prepare(this));
