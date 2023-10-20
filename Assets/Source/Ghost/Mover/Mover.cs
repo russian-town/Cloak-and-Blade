@@ -3,9 +3,6 @@ using UnityEngine;
 
 public abstract class Mover : MonoBehaviour, IPauseHandler
 {
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _rotationSpeed;
-
     private GhostAnimationHandler _animationHandler;
     private Cell _startCell;
     private float _pauseSpeed = 1;
@@ -43,7 +40,7 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
         }
     }
 
-    protected virtual IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
+    public virtual IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
         yield return StartRotate(targetCell, rotationSpeed);
         _animationHandler.PlayFlyAnimation();

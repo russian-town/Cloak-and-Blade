@@ -12,6 +12,7 @@ public class Player : Ghost, IPauseHandler
     [SerializeField] private ItemsInHold _itemsInHold;
     [SerializeField] private ParticleSystem _diedParticle;
     [SerializeField] private PlayerModel _model;
+    [SerializeField] private Sprite _abilityIcon;
 
     private PlayerMover _mover;
     private PlayerAttacker _attacker;
@@ -28,7 +29,14 @@ public class Player : Ghost, IPauseHandler
     private List<Enemy> _enemies = new List<Enemy>();
     private Command _deferredCommand;
     private List<EffectChangeHanldler> _sceneEffects = new List<EffectChangeHanldler>();
+    private Gameboard _gameboard;
+    private PlayerInput _input;
+    private Coroutine _prepare;
+    private Coroutine _execute;
+    private Coroutine _waitOfExecute;
+    private Coroutine _switchCommand;
 
+    public Sprite AbilityIcon => _abilityIcon;
     public Coroutine MoveCoroutine { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
@@ -41,7 +49,7 @@ public class Player : Ghost, IPauseHandler
 
     public void Unsubscribe() => _mover.MoveEnded -= OnMoveEnded;
 
-    public void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView)
+    public void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView, Gameboard gameboard, PlayerInput input)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
@@ -54,9 +62,11 @@ public class Player : Ghost, IPauseHandler
         _ability.Initialize();
         _mover.MoveEnded += OnMoveEnded;
         _hourglass = hourglass;
-        _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator, _moveSpeed, _rotationSpeed);
-        _abilityCommand = new AbilityCommand(_ability);
-        _skipCommand = new SkipCommand(this, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglass);
+        _gameboard = gameboard;
+        _input = input;
+        _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator, _moveSpeed, _rotationSpeed, _input, _gameboard);
+        _abilityCommand = new AbilityCommand(_ability, _input, _gameboard, this, _navigator);
+        _skipCommand = new SkipCommand(this, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglass, this);
     }
 
     public void AddEffects(List<EffectChangeHanldler> sceneEffect)
@@ -74,14 +84,37 @@ public class Player : Ghost, IPauseHandler
         _attacker.Initialize(_enemies);
     }
 
-    public void PrepareAbility() => SwitchCurrentCommand(_abilityCommand);
+    public void PrepareAbility()
+    {
+        if (_switchCommand != null)
+        {
+            StopCoroutine(_switchCommand);
+            _switchCommand = null;
+        }
 
-    public void PrepareMove() => SwitchCurrentCommand(_moveCommand);
+        StartCoroutine(SwitchCurrentCommand(_abilityCommand));
+    }
+
+    public void PrepareMove()
+    {
+        if (_switchCommand != null)
+        {
+            StopCoroutine(_switchCommand);
+            _switchCommand = null;
+        }
+
+        StartCoroutine(SwitchCurrentCommand(_moveCommand));
+    }
 
     public void PrepareSkip()
     {
-        SwitchCurrentCommand(_skipCommand);
-        ExecuteCurrentCommand(CurrentCell);
+        if (_switchCommand != null)
+        {
+            StopCoroutine(_switchCommand);
+            _switchCommand = null;
+        }
+
+        StartCoroutine(SwitchCurrentCommand(_skipCommand));
     }
 
     public void SkipTurn() => StepEnded?.Invoke();
@@ -90,28 +123,12 @@ public class Player : Ghost, IPauseHandler
     {
         if (_navigator.CanMoveToCell(targetCell) && targetCell.IsOccupied == false && targetCell.Content.Type != CellContentType.Wall)
         {
-            MoveCoroutine = _mover.StartMoveTo(targetCell, moveSpeed, rotationSpeed);
+            _mover.StartMoveTo(targetCell, moveSpeed, rotationSpeed);
             _startCell = _mover.CurrentCell;
             return true;
         }
 
         return false;
-    }
-
-    public void ExecuteCurrentCommand(Cell cell)
-    {
-        if (_currentCommand?.IsExecuting == true)
-            return;
-
-        if (_currentCommand == null)
-        {
-            if (_deferredCommand != null)
-                SwitchCurrentCommand(_deferredCommand);
-            else
-                return;
-        }
-
-        StartCoroutine(_currentCommand.Execute(cell, this));
     }
 
     public void Die() => StartCoroutine(MakeDeath());
@@ -149,30 +166,56 @@ public class Player : Ghost, IPauseHandler
         Died?.Invoke();
     }
 
-    private void SwitchCurrentCommand(Command command)
+    private IEnumerator SwitchCurrentCommand(Command command)
     {
-        if (_currentCommand is SkipCommand)
-            return;
+        //if (_currentCommand is SkipCommand)
+        //    return;
 
-        if (_currentCommand != null && _currentCommand.IsExecuting)
-            return;
+        //if (_currentCommand != null && _currentCommand.IsExecuting)
+        //    return;
+
+        //if (command == _currentCommand)
+        //    return;
+
+        //if (command is AbilityCommand abilityCommand && abilityCommand.Ability is IDeferredAbility)
+        //    _deferredCommand = abilityCommand;
 
         if (command == _currentCommand)
-            return;
+            yield break;
 
-        if (command is AbilityCommand abilityCommand && abilityCommand.Ability is IDeferredAbility)
-            _deferredCommand = abilityCommand;
+        if (_currentCommand != null && _currentCommand.IsExecuting)
+            yield break;
+
+        if(_prepare != null)
+        {
+            StopCoroutine(_prepare);
+            _prepare = null;
+        }
+
+        if(_waitOfExecute != null)
+        {
+            StopCoroutine(_waitOfExecute);
+            _waitOfExecute = null;
+        }
 
         NextCommand = command;
-        _currentCommand?.Cancel();
+        _currentCommand?.Cancel(this);
         _currentCommand = command;
-        StartCoroutine(_currentCommand.Prepare(this));
+
+        _prepare = StartCoroutine(_currentCommand.Prepare(this));
+        yield return _prepare;
+
+        _waitOfExecute = StartCoroutine(_currentCommand.WaitOfExecute());
+        yield return _waitOfExecute;
     }
 
     private void OnMoveEnded()
     {
         if (!ResetCommand())
-            StartCoroutine(_currentCommand.Prepare(this));
+        {
+            _prepare = StartCoroutine(_currentCommand.Prepare(this));
+            _waitOfExecute = StartCoroutine(_currentCommand.WaitOfExecute());
+        }
 
         StepEnded?.Invoke();
     }
