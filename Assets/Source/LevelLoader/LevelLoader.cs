@@ -1,11 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelLoader : MonoBehaviour
+public class LevelLoader : MonoBehaviour, IDataReader
 {
     [SerializeField] private int _firstLevelIndex;
 
     private bool _tutorialCompleted;
+
+    public void Read(PlayerData playerData)
+    {
+        _tutorialCompleted = playerData.IsTutorialCompleted;
+    }
 
     public bool TryLoadFirstLevel()
     {

@@ -11,4 +11,5 @@ public class PlayerData
     public List<bool> IsSelect = new List<bool>();
     public List<UpgradeSetter> UpgradeSetters = new List<UpgradeSetter>();
     public List<int> Levels = new List<int>();
+    public bool IsTutorialCompleted;
 }
