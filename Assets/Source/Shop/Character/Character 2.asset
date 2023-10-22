@@ -19,3 +19,4 @@ MonoBehaviour:
   _menuPlayerModelTemplate: {fileID: 3858748843819563802, guid: f11d8ccb12e9c9949ac0ad47961c1f26, type: 3}
   _isBought: 0
   _isSelect: 0
+  _description: {fileID: 6686443814164075717, guid: c4fa87d8406dc28459d514f7cd7b1067, type: 3}

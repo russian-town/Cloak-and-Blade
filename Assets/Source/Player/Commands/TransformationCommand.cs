@@ -13,7 +13,6 @@ public class TransformationCommand : AbilityCommand, IDeferredCommand
     public TransformationCommand(Transformation transformation, Gameboard gameboard, Navigator navigator, CommandExecuter executer) : base(transformation)
     {
         _transformation = transformation;
-        _transformation.Initialize();
         _gameboard = gameboard;
         _camera = Camera.main;
         _navigator = navigator;

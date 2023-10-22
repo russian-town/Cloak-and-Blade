@@ -19,6 +19,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     private bool _isActive;
     private int _currentStepCount;
     private bool _canUse = true;
+    private UpgradeSetter _upgradeSetter;
 
     private void OnDisable()
     {
@@ -28,10 +29,12 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
         _player.StepEnded -= OnStepEnded;
     }
 
-    public override void Initialize()
+    public override void Initialize(UpgradeSetter upgradeSetter)
     {
         _attacker = GetComponent<PlayerAttacker>();
         _player = GetComponent<Player>();
+        _upgradeSetter = upgradeSetter;
+        _maxStepCount += upgradeSetter.Level;
     }
 
     public override void Cancel() 

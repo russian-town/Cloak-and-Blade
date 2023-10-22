@@ -12,7 +12,6 @@ public class TheWorldCommand : AbilityCommand
     public TheWorldCommand(TheWorld theWorld, CommandExecuter executer, YellowGhost yellowGhost) : base(theWorld)
     {
         _theWorld = theWorld;
-        _theWorld.Initialize();
         _yellowGhost = yellowGhost;
         _theWorld.AddSceneParticles(_yellowGhost.SceneEffects.ToList());
         _executer = executer;

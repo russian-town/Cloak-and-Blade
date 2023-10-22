@@ -13,15 +13,18 @@ public class Blink : Ability
     [SerializeField] private AudioClip _prepareSound;
     [SerializeField] private AudioClip _actionSound;
 
+    private UpgradeSetter _upgradeSetter;
     private Player _player;
     private List<Cell> _availableCells = new List<Cell>();
     private Navigator _navigator;
     private bool _canUse = true;
 
-    public override void Initialize()
+    public override void Initialize(UpgradeSetter upgradeSetter)
     {
         _player = GetComponent<Player>();
         _navigator = GetComponent<Navigator>();
+        _upgradeSetter = upgradeSetter;
+        _blinkRange += _upgradeSetter.Level;
     }
 
     public override void Prepare()

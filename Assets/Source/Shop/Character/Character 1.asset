@@ -17,5 +17,6 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: 41c614a402a464744a19fabe617f9072, type: 3}
   _player: {fileID: 1549750858970697843, guid: 5e34add410b20064583d11f9970347ec, type: 3}
   _menuPlayerModelTemplate: {fileID: 2595864535315199851, guid: 8dd5221ea458da84e8226ab5df5967ed, type: 3}
-  _isBought: 0
+  _isBought: 1
   _isSelect: 0
+  _description: {fileID: 425672507711141806, guid: eb7af684775137b46862892b7649d991, type: 3}

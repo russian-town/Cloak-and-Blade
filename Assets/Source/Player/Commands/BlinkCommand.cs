@@ -13,7 +13,6 @@ public class BlinkCommand : AbilityCommand
     public BlinkCommand(Blink blink, Gameboard gameboard, Navigator navigator, CommandExecuter executer) : base(blink)
     {
         _blink = blink;
-        _blink.Initialize();
         _gameboard = gameboard;
         _camera = Camera.main;
         _navigator = navigator;

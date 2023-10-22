@@ -17,6 +17,7 @@ public class Transformation : Ability, IDeferredCommand
     private Coroutine _prepareCoroutine;
     private Coroutine _executeCoroutine;
     private int _maxUseLimit;
+    private UpgradeSetter _upgradeSetter;
 
     private void OnDisable()
     {
@@ -26,12 +27,14 @@ public class Transformation : Ability, IDeferredCommand
         _mover.MoveEnded -= Cancel;
     }
 
-    public override void Initialize()
+    public override void Initialize(UpgradeSetter upgradeSetter)
     {
         _attacker = GetComponent<PlayerAttacker>();
         _mover = GetComponent<PlayerMover>();
         _player = GetComponent<Player>();
         _commandExecuter = GetComponent<CommandExecuter>();
+        _upgradeSetter = upgradeSetter;
+        _useLimit += _upgradeSetter.Level;
         _maxUseLimit = _useLimit;
     }
 

@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     [SerializeField] private Wallet _wallet;
     [SerializeField] private PlayersHandler _playersHandler;
     [SerializeField] private MenuModelChanger _menuModelChanger;
+    [SerializeField] private Upgrader _upgrader;
 
     private List<CharacterView> _characterViews = new List<CharacterView>();
     private Character _currentSelectedCharacter;
@@ -34,7 +35,10 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
         foreach (var character in _characters)
         {
             CharacterView characterView = Instantiate(_characterView, _parent.transform);
-            characterView.Render(character.Icon, character.Price, character);
+            Description description = Instantiate(character.Description);
+            description.Initialize();
+            _upgrader.Initialize(description);
+            characterView.Render(character.Icon, character.Price, character, description);
             _characterViews.Add(characterView);
             characterView.SellButtonClicked += OnSellButtonClick;
             characterView.SelectButtonClicked += OnSelectButtonClick;

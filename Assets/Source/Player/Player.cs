@@ -40,7 +40,7 @@ public abstract class Player : Ghost, IPauseHandler
 
     public void Unsubscribe() => _mover.MoveEnded -= OnMoveEnded;
 
-    public void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView, Gameboard gameboard)
+    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView, Gameboard gameboard)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();

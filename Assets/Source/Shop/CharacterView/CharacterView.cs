@@ -9,9 +9,11 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private TMP_Text _priceText;
     [SerializeField] private Button _sellButton;
     [SerializeField] private Button _selectButton;
+    [SerializeField] private Button _descriptionButton;
     [SerializeField] private TMP_Text _selectText;
 
     private Character _character;
+    private Description _description;
 
     public event UnityAction<Character, CharacterView> SellButtonClicked;
     public event UnityAction<Character, CharacterView> SelectButtonClicked;
@@ -22,6 +24,7 @@ public class CharacterView : MonoBehaviour
         _sellButton.onClick.AddListener(TryLockBuyCharacter);
         _selectButton.onClick.AddListener(() => SelectButtonClicked?.Invoke(_character, this));
         _selectButton.onClick.AddListener(TryLockSelectCharacter);
+        _descriptionButton.onClick.AddListener(OnDescriptionButtonClicked);
     }
 
     private void OnDisable()
@@ -30,15 +33,18 @@ public class CharacterView : MonoBehaviour
         _sellButton.onClick.RemoveListener(TryLockBuyCharacter);
         _selectButton.onClick.RemoveListener(() => SelectButtonClicked?.Invoke(_character, this));
         _selectButton.onClick.RemoveListener(TryLockSelectCharacter);
+        _descriptionButton.onClick.RemoveListener(OnDescriptionButtonClicked);
     }
 
-    public void Render(Sprite icon, int price, Character character)
+    public void Render(Sprite icon, int price, Character character, Description description)
     {
         _image.sprite = icon;
         _priceText.text = price.ToString();
         _character = character;
         _sellButton.gameObject.SetActive(true);
         _selectButton.gameObject.SetActive(false);
+        _description = description;
+        _description.Hide();
     }
 
     public void UpdateView()
@@ -70,4 +76,8 @@ public class CharacterView : MonoBehaviour
             _selectText.text = "Select";
         }
     }
+
+    private void OnDescriptionButtonClicked() => ShowDescription();
+
+    private void ShowDescription() => _description.Show();
 }

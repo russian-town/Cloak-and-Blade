@@ -11,6 +11,7 @@ public class Character : ScriptableObject, IDataReader, IDataWriter
 
     [SerializeField] private bool _isBought;
     [SerializeField] private bool _isSelect;
+    [SerializeField] private Description _description;
 
     public Type Type => _type;
     public int Price => _price;
@@ -19,6 +20,7 @@ public class Character : ScriptableObject, IDataReader, IDataWriter
     public bool IsSelect => _isSelect;
     public Player Player => _player;
     public MenuModel MenuModelTemplate => _menuPlayerModelTemplate;
+    public Description Description => _description;
 
     public void Buy() => _isBought = true;
 

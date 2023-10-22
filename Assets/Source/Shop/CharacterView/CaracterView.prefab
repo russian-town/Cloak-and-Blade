@@ -176,6 +176,7 @@ MonoBehaviour:
   _priceText: {fileID: 1214752476400959517}
   _sellButton: {fileID: 4492320822953908024}
   _selectButton: {fileID: 7528666437280722564}
+  _descriptionButton: {fileID: 8397150698556894507}
   _selectText: {fileID: 6423587549682042860}
 --- !u!1 &1088024040883926435
 GameObject:

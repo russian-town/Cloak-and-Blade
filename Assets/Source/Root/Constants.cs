@@ -23,4 +23,5 @@ public class Constants
     public const string MasterVolume = "MasterVolume";
     public const string SoundVolume = "SoundVolume";
     public const string MusicVolume = "MusicVolume";
+    public const int MaxLevel = 5;
 }
