@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class Audio : MonoBehaviour, IDataWriter,  IDataReader
+public class Audio : MonoBehaviour, IDataWriter, IDataReader
 {
     [SerializeField] private Slider _masterSlider;
     [SerializeField] private Slider _soundSlider;
@@ -26,9 +26,9 @@ public class Audio : MonoBehaviour, IDataWriter,  IDataReader
     }
     public void Write(PlayerData playerData)
     {
-            playerData.MasterSliderValue = _masterSlider.value;
-            playerData.SoundSliderValue = _soundSlider.value;
-            playerData.MusicSliderValue = _musicSlider.value;
+        playerData.MasterSliderValue = _masterSlider.value;
+        playerData.SoundSliderValue = _soundSlider.value;
+        playerData.MusicSliderValue = _musicSlider.value;
     }
 
     public void Read(PlayerData playerData)
@@ -36,10 +36,6 @@ public class Audio : MonoBehaviour, IDataWriter,  IDataReader
         _masterSlider.value = playerData.MasterSliderValue;
         _soundSlider.value = playerData.SoundSliderValue;
         _musicSlider.value = playerData.MusicSliderValue;
-
-        //ChangeMasterVolume(playerData.MasterSliderValue);
-        //ChangeSoundVolume(playerData.SoundSliderValue);
-        //ChangeMusicVolume(playerData.MusicSliderValue);
     }
 
     private void ChangeMasterVolume(float value)
