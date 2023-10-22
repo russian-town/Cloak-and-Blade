@@ -84,7 +84,7 @@ public class CommandExecuter : MonoBehaviour
 
         if (_deferredCommand != null)
         {
-            _switchCommand = StartCoroutine(SwitchCurrentCommand(_deferredCommand));
+            PrepareCommand(_deferredCommand);
             _deferredCommand = null;
         }
     }

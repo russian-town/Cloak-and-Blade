@@ -25,19 +25,14 @@ public abstract class Player : Ghost, IPauseHandler
     private PlayerView _playerView;
     private List<Enemy> _enemies = new List<Enemy>();
     private Gameboard _gameboard;
-    private PlayerInput _input;
     private CommandExecuter _commandExecuter;
 
-    public Sprite AbilityIcon => _abilityIcon;
     public Coroutine MoveCoroutine { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
     public MoveCommand Move => _moveCommand;
-    protected PlayerInput Input => _input;
     protected Navigator Navigator => _navigator;
     protected Gameboard Gameboard => _gameboard;
-    protected PlayerView PlayerView => _playerView;
-    protected PlayerMover Mover => _mover;
     protected CommandExecuter CommandExecuter => _commandExecuter;
 
     public event UnityAction StepEnded;
@@ -45,7 +40,7 @@ public abstract class Player : Ghost, IPauseHandler
 
     public void Unsubscribe() => _mover.MoveEnded -= OnMoveEnded;
 
-    public void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView, Gameboard gameboard, PlayerInput input)
+    public void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView, Gameboard gameboard)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
@@ -59,7 +54,6 @@ public abstract class Player : Ghost, IPauseHandler
         _mover.MoveEnded += OnMoveEnded;
         _hourglass = hourglass;
         _gameboard = gameboard;
-        _input = input;
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter);
         _skipCommand = new SkipCommand(this, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglass, _commandExecuter);
     }

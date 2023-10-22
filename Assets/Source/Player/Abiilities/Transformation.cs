@@ -16,7 +16,13 @@ public class Transformation : Ability, IDeferredCommand
     private Coroutine _prepareCoroutine;
     private Coroutine _executeCoroutine;
 
-    private void OnDisable() => _mover.MoveEnded -= Cancel;
+    private void OnDisable()
+    {
+        if (_mover == null)
+            return;
+
+        _mover.MoveEnded -= Cancel;
+    }
 
     public override void Initialize()
     {

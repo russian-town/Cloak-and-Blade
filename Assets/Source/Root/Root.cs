@@ -54,18 +54,9 @@ public class Root : MonoBehaviour, IInitializable
 
     public void Initialize()
     {
-        if (_playerTemplates.Contains(_playersHandler.CurrentPlayer))
-        {
-            int index = _playerTemplates.IndexOf(_playersHandler.CurrentPlayer);
-            _player = (Player)_spawner.Get(_playerSpawnCell, _playerTemplates[index]);
-        }
-        else
-        {
-            _player = (Player)_spawner.Get(_playerSpawnCell, _defaultPlayerTemplate);
-        }
-
+        GetPlayer();
         _hourglass.Initialaze();
-        _player.Initialize(_playerSpawnCell, _hourglass, _room, _playerView, _gameboard, _playerInput);
+        _player.Initialize(_playerSpawnCell, _hourglass, _room, _playerView, _gameboard);
         _playerInput.Initialize(_camera, _gameboard, _player);
         _playerView.Initialize(_player);
         _room.Initialize(_player, _playerView, _playerInput);
@@ -97,6 +88,19 @@ public class Root : MonoBehaviour, IInitializable
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
         _scoreDefiner.Initialize();
+    }
+
+    private void GetPlayer()
+    {
+        if (_playerTemplates.Contains(_playersHandler.CurrentPlayer))
+        {
+            int index = _playerTemplates.IndexOf(_playersHandler.CurrentPlayer);
+            _player = (Player)_spawner.Get(_playerSpawnCell, _playerTemplates[index]);
+        }
+        else
+        {
+            _player = (Player)_spawner.Get(_playerSpawnCell, _defaultPlayerTemplate);
+        }
     }
 }
 
