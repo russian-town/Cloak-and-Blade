@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
+public class Room : MonoBehaviour, IEnemyTurnWaiter, IPauseHandler, ITurnHandler
 {
     private Player _player;
     private PlayerView _view;
@@ -11,6 +11,8 @@ public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
     private Turn _turn;
     private Coroutine _startWaitForEnemies;
     private bool _isPause;
+
+    public Turn Turn => _turn;
 
     public void Unsubscribe()
     {

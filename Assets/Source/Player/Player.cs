@@ -15,7 +15,7 @@ public abstract class Player : Ghost, IPauseHandler
 
     private PlayerMover _mover;
     private PlayerAttacker _attacker;
-    private IEnemyTurnHandler _enemyTurnHandler;
+    private IEnemyTurnWaiter _enemyTurnWaiter;
     private Cell _startCell;
     private MoveCommand _moveCommand;
     private SkipCommand _skipCommand;
@@ -40,7 +40,7 @@ public abstract class Player : Ghost, IPauseHandler
 
     public void Unsubscribe() => _mover.MoveEnded -= OnMoveEnded;
 
-    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnHandler enemyTurnHandler, PlayerView playerView, Gameboard gameboard)
+    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, PlayerView playerView, Gameboard gameboard)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
@@ -49,13 +49,13 @@ public abstract class Player : Ghost, IPauseHandler
         _commandExecuter = GetComponent<CommandExecuter>();
         _playerView = playerView;
         _animationHandler = GetComponent<PlayerAnimationHandler>();
-        _enemyTurnHandler = enemyTurnHandler;
+        _enemyTurnWaiter = enemyTurnHandler;
         _mover.Initialize(_startCell, _animationHandler);
         _mover.MoveEnded += OnMoveEnded;
         _hourglass = hourglass;
         _gameboard = gameboard;
         _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter);
-        _skipCommand = new SkipCommand(this, _enemyTurnHandler.WaitForEnemies(), _animationHandler, _hourglass, _commandExecuter);
+        _skipCommand = new SkipCommand(this, _enemyTurnWaiter.WaitForEnemies(), _animationHandler, _hourglass, _commandExecuter);
     }
 
     public void SetTargets(List<Enemy> enemies)

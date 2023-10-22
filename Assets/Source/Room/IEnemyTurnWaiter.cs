@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IEnemyTurnHandler
+public interface IEnemyTurnWaiter
 {
     public Coroutine WaitForEnemies();
 }
