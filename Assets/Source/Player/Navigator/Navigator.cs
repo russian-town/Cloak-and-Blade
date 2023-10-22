@@ -3,19 +3,22 @@ using UnityEngine;
 
 public class Navigator : MonoBehaviour
 {
-    private List<Cell> _availableCells = new List<Cell>();
+    private List<Cell> _availableNorthCells = new List<Cell>();
+    private List<Cell> _availableSouthCells = new List<Cell>();
+    private List<Cell> _availableWestCells = new List<Cell>();
+    private List<Cell> _availableEasthCells = new List<Cell>();
 
-    public IReadOnlyList<Cell> AvailableCells => _availableCells;
+    public IReadOnlyList<Cell> AvailableCells => _availableNorthCells;
 
     public void RefillAvailableCells(List<Cell> availableCells)
     {
-        _availableCells.Clear();
-        _availableCells.AddRange(availableCells);
+        _availableNorthCells.Clear();
+        _availableNorthCells.AddRange(availableCells);
     }
 
     public void RefillAvailableCells(Cell currentCell)
     {
-        _availableCells.Clear();
+        _availableNorthCells.Clear();
         AddCell(currentCell.North);
         AddCell(currentCell.South);
         AddCell(currentCell.West);
@@ -31,12 +34,59 @@ public class Navigator : MonoBehaviour
             AddCell(currentCell.East.East);
     }
 
-    public void ClearAvailableCells() => _availableCells.Clear();
+    public void ClearAvailableCells() => _availableNorthCells.Clear();
 
-    public bool CanMoveToCell(Cell cell)
+    public bool CanMoveToCell(ref Cell cell)
     {
-        if (_availableCells.Contains(cell))
+        //if (_availableNorthCells.Contains(cell))
+        //    return true;
+
+        if(_availableNorthCells.Contains(cell))
+        {
+            foreach (var northCell in _availableNorthCells)
+            {
+                if(northCell.HasTrap)
+                {
+                    cell = northCell;
+                    return true;
+                }
+            }
+
             return true;
+        }
+        else if(_availableSouthCells.Contains(cell))
+        {
+            foreach (var southCell in _availableSouthCells)
+            {
+                if (southCell.HasTrap)
+                {
+                    cell = southCell;
+                    return true;
+                }
+            }
+        }
+        else if(_availableWestCells.Contains(cell))
+        {
+            foreach (var westCell in _availableWestCells)
+            {
+                if (westCell.HasTrap)
+                {
+                    cell = westCell;
+                    return true;
+                }
+            }
+        }
+        else if(_availableEasthCells.Contains(cell))
+        {
+            foreach (var eastCell in _availableEasthCells)
+            {
+                if (eastCell.HasTrap)
+                {
+                    cell = eastCell;
+                    return true;
+                }
+            }
+        }
 
         return false;
     }
@@ -46,6 +96,6 @@ public class Navigator : MonoBehaviour
         if (cell == null || cell.Content.Type == CellContentType.Wall)
             return;
 
-        _availableCells.Add(cell);
+        _availableNorthCells.Add(cell);
     }
 }

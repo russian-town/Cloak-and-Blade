@@ -80,7 +80,7 @@ public abstract class Player : Ghost, IPauseHandler
 
     public bool TryMoveToCell(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
-        if (_navigator.CanMoveToCell(targetCell) && targetCell.IsOccupied == false && targetCell.Content.Type != CellContentType.Wall)
+        if (_navigator.CanMoveToCell(ref targetCell) && targetCell.IsOccupied == false && targetCell.Content.Type != CellContentType.Wall)
         {
             _mover.StartMoveTo(targetCell, moveSpeed, rotationSpeed);
             _startCell = _mover.CurrentCell;
