@@ -64,7 +64,13 @@ public abstract class Player : Ghost, IPauseHandler
         _attacker.Initialize(_enemies);
     }
 
-    public void PrepareAbility() => _commandExecuter.PrepareCommand(AbilityCommand());
+    public void PrepareAbility()
+    {
+        if (AbilityCommand().IsUsed)
+            return;
+
+        _commandExecuter.PrepareCommand(AbilityCommand());
+    }
 
     public void PrepareMove() => _commandExecuter.PrepareCommand(_moveCommand);
 
@@ -96,7 +102,7 @@ public abstract class Player : Ghost, IPauseHandler
             _animationHandler.StartAnimation();
     }
 
-    protected abstract Command AbilityCommand();
+    protected abstract AbilityCommand AbilityCommand();
 
     private IEnumerator MakeDeath()
     {

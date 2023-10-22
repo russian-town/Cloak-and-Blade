@@ -29,7 +29,6 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private PlayersHandler _playersHandler;
     [SerializeField] private Saver _saver;
     [SerializeField] private List<EffectChangeHanldler> _effectChangeHanldlers = new List<EffectChangeHanldler>();
-    [SerializeField] private YellowGhost _yellowGhost;
 
     private Player _player;
     private Pause _pause;
@@ -45,7 +44,7 @@ public class Root : MonoBehaviour, IInitializable
 
     private void Start()
     {
-        _saver.AddDataReaders(new IDataReader[] {_playersHandler});
+        _saver.AddDataReaders(new IDataReader[] { _playersHandler });
         _saver.AddDataWriters(new IDataWriter[] { _playersHandler });
         _saver.AddInitializable(this);
         _saver.Initialize();
@@ -71,7 +70,7 @@ public class Root : MonoBehaviour, IInitializable
         foreach (var interactiveObject in _interactiveObjects)
             interactiveObject.Initialize(_player);
 
-        _pause = new Pause(new List<IPauseHandler> {_inputView, _room, _playerView, _player });
+        _pause = new Pause(new List<IPauseHandler> { _inputView, _room, _playerView, _player });
 
         foreach (var setter in _enemySetters)
         {
@@ -101,6 +100,12 @@ public class Root : MonoBehaviour, IInitializable
         {
             _player = (Player)_spawner.Get(_playerSpawnCell, _defaultPlayerTemplate);
         }
+
+        if (_effectChangeHanldlers.Count == 0)
+            return;
+
+        if (_player is ISceneParticlesInfluencer sceneParticlesInfluencer)
+            sceneParticlesInfluencer.AddSceneParticles(_effectChangeHanldlers);
     }
 }
 

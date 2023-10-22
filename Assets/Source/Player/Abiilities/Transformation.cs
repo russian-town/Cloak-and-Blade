@@ -6,6 +6,7 @@ public class Transformation : Ability, IDeferredCommand
     [SerializeField] private PlayerModel _basicModel;
     [SerializeField] private PlayerModel _transformationModel;
     [SerializeField] private ParticleSystem _transformationEffect;
+    [SerializeField] private int _useLimit = 1;
 
     private PlayerAttacker _attacker;
     private PlayerMover _mover;
@@ -15,6 +16,7 @@ public class Transformation : Ability, IDeferredCommand
     private Cell _currentCell;
     private Coroutine _prepareCoroutine;
     private Coroutine _executeCoroutine;
+    private int _maxUseLimit;
 
     private void OnDisable()
     {
@@ -30,6 +32,7 @@ public class Transformation : Ability, IDeferredCommand
         _mover = GetComponent<PlayerMover>();
         _player = GetComponent<Player>();
         _commandExecuter = GetComponent<CommandExecuter>();
+        _maxUseLimit = _useLimit;
     }
 
     public override void Prepare()
@@ -46,11 +49,6 @@ public class Transformation : Ability, IDeferredCommand
         _currentCell = _player.CurrentCell;
         _currentCell.Content.BecomeWall();
         _isTransformation = true;
-    }
-
-    protected override void Action(Cell cell)
-    {
-        _executeCoroutine = _commandExecuter.StartCoroutine(_player.Move.Execute(cell, _commandExecuter));
     }
 
     public override void Cancel()
@@ -79,5 +77,17 @@ public class Transformation : Ability, IDeferredCommand
             _player.StopCoroutine( _prepareCoroutine);
             _prepareCoroutine = null;
         }
+    }
+
+    public override bool CanUse()
+    {
+        return _useLimit > 0;
+    }
+
+    protected override void Action(Cell cell)
+    {
+        _useLimit--;
+        _useLimit = Mathf.Clamp(_useLimit, 0, _maxUseLimit);
+        _executeCoroutine = _commandExecuter.StartCoroutine(_player.Move.Execute(cell, _commandExecuter));
     }
 }

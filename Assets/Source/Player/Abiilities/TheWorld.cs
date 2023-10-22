@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMover))]
-public class TheWorld : Ability
+public class TheWorld : Ability, ISceneParticlesInfluencer
 {
     [SerializeField] private int _maxStepCount;
     [SerializeField] private AudioSource _source;
@@ -18,8 +18,15 @@ public class TheWorld : Ability
     private Player _player;
     private bool _isActive;
     private int _currentStepCount;
+    private bool _canUse = true;
 
-    private void OnDisable() => _player.StepEnded -= OnStepEnded;
+    private void OnDisable()
+    {
+        if (_player == null)
+            return;
+
+        _player.StepEnded -= OnStepEnded;
+    }
 
     public override void Initialize()
     {
@@ -35,11 +42,25 @@ public class TheWorld : Ability
 
     public override void Prepare() { }
 
+    public void AddSceneParticles(List<EffectChangeHanldler> effects)
+    {
+        if (effects.Count == 0)
+            return;
+
+        _effectsToChange.AddRange(effects);
+    }
+
+    public override bool CanUse()
+    {
+        return _canUse;
+    }
+
     protected override void Action(Cell cell)
     {
         if (_isActive)
             return;
 
+        _canUse = false;
         _isActive = true;
         _source.clip = _timeStop;
         _source.Play();

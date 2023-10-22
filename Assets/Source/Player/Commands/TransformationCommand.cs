@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class TransformationCommand : Command, IDeferredCommand
+public class TransformationCommand : AbilityCommand, IDeferredCommand
 {
     private Transformation _transformation;
     private Gameboard _gameboard;
@@ -10,7 +10,7 @@ public class TransformationCommand : Command, IDeferredCommand
     private Coroutine _executeCoroutine;
     private CommandExecuter _executer;
 
-    public TransformationCommand(Transformation transformation, Gameboard gameboard, Navigator navigator, CommandExecuter executer)
+    public TransformationCommand(Transformation transformation, Gameboard gameboard, Navigator navigator, CommandExecuter executer) : base(transformation)
     {
         _transformation = transformation;
         _transformation.Initialize();

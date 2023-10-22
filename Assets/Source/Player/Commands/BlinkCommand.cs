@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class BlinkCommand : Command
+public class BlinkCommand : AbilityCommand
 {
     private Blink _blink;
     private Gameboard _gameboard;
@@ -10,7 +10,7 @@ public class BlinkCommand : Command
     private Coroutine _executeCoroutine;
     private CommandExecuter _executer;
 
-    public BlinkCommand(Blink blink, Gameboard gameboard, Navigator navigator, CommandExecuter executer)
+    public BlinkCommand(Blink blink, Gameboard gameboard, Navigator navigator, CommandExecuter executer) : base(blink)
     {
         _blink = blink;
         _blink.Initialize();

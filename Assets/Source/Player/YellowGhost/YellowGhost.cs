@@ -1,16 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(TheWorld))]
 public class YellowGhost : Player, ISceneParticlesInfluencer
 {
     private TheWorld _theWorld;
+    private List<EffectChangeHanldler> _effects = new List<EffectChangeHanldler>();
 
-    public event UnityAction ActionCompleted;
+    public IReadOnlyList<EffectChangeHanldler> SceneEffects => _effects;
 
-    protected override Command AbilityCommand()
+    public void AddSceneParticles(List<EffectChangeHanldler> effects) => _effects.AddRange(effects);
+
+    protected override AbilityCommand AbilityCommand()
     {
         _theWorld = GetComponent<TheWorld>();
-        return new TheWorldCommand(_theWorld, this, CommandExecuter);
+        return new TheWorldCommand(_theWorld, CommandExecuter, this);
     }
 }

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public abstract class Ability : MonoBehaviour
 {
+    public abstract bool CanUse();
+
     public virtual bool Cast(Cell cell)
     {
         Action(cell);

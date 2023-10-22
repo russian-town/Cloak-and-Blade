@@ -1,18 +1,20 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
-public class TheWorldCommand : Command
+public class TheWorldCommand : AbilityCommand
 {
     private TheWorld _theWorld;
-    private Player _player;
     private Coroutine _executeCoroutine;
     private CommandExecuter _executer;
+    private YellowGhost _yellowGhost;
 
-    public TheWorldCommand(TheWorld theWorld, Player player, CommandExecuter executer)
+    public TheWorldCommand(TheWorld theWorld, CommandExecuter executer, YellowGhost yellowGhost) : base(theWorld)
     {
         _theWorld = theWorld;
         _theWorld.Initialize();
-        _player = player;
+        _yellowGhost = yellowGhost;
+        _theWorld.AddSceneParticles(_yellowGhost.SceneEffects.ToList());
         _executer = executer;
     }
 

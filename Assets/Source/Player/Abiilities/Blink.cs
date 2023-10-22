@@ -16,6 +16,7 @@ public class Blink : Ability
     private Player _player;
     private List<Cell> _availableCells = new List<Cell>();
     private Navigator _navigator;
+    private bool _canUse = true;
 
     public override void Initialize()
     {
@@ -39,6 +40,23 @@ public class Blink : Ability
         _prepareEffect.Stop();
         _source.Stop();
         _availableCells.Clear();
+    }
+
+    public override bool CanUse()
+    {
+        return _canUse;
+    }
+
+    protected override void Action(Cell cell)
+    {
+        if (_player.TryMoveToCell(cell, _moveSpeed, _rotationSpeed))
+        {
+            _canUse = false;
+            Cancel();
+            _source.clip = _actionSound;
+            _source.Play();
+            _actionEffect.Play();
+        }
     }
 
     private void BuildBlinkRange(Cell currentCell)
@@ -91,16 +109,5 @@ public class Blink : Ability
         foreach (var cell in _availableCells)
             cell.View.StopAbilityRangeEffect();
 
-    }
-
-    protected override void Action(Cell cell)
-    {
-        if (_player.TryMoveToCell(cell, _moveSpeed, _rotationSpeed))
-        {
-            Cancel();
-            _source.clip = _actionSound;
-            _source.Play();
-            _actionEffect.Play();
-        }
     }
 }

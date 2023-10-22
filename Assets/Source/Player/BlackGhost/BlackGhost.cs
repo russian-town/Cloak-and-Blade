@@ -5,7 +5,7 @@ public class BlackGhost : Player
 {
     private Transformation _transformation;
 
-    protected override Command AbilityCommand()
+    protected override AbilityCommand AbilityCommand()
     {
         _transformation = GetComponent<Transformation>();
         return new TransformationCommand(_transformation, Gameboard, Navigator, CommandExecuter);

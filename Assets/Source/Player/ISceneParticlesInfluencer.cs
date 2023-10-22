@@ -1,6 +1,6 @@
-using UnityEngine.Events;
+using System.Collections.Generic;
 
 public interface ISceneParticlesInfluencer
 {
-    public event UnityAction ActionCompleted;
+    public void AddSceneParticles(List<EffectChangeHanldler> effects);
 }
