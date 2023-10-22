@@ -46,7 +46,7 @@ public class Gameboard : MonoBehaviour
                     cell.IsAlternative = !cell.IsAlternative;
                 }
 
-                cell.Content = _cellContentSpawner.Get(CellContentType.Empty, cell.transform);
+                cell.Content.BecomeEmpty();
             }
         }
     }
