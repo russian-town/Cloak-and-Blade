@@ -9,6 +9,7 @@ public class MainSceneLogic : MonoBehaviour
     [SerializeField] private Character[] _characters;
     [SerializeField] private UpgradeSetter[] _upgradeSetters;
     [SerializeField] private LevelLoader _levelLoader;
+    [SerializeField] private Audio _audio;
 
     private void OnEnable()
     {
@@ -27,10 +28,10 @@ public class MainSceneLogic : MonoBehaviour
     {
         _saver.AddInitializable(_shop);
         _saver.AddInitializable(_wallet);
-        _saver.AddDataReaders(new IDataReader[] {_shop, _playersHandler, _wallet, _levelLoader});
+        _saver.AddDataReaders(new IDataReader[] {_shop, _playersHandler, _wallet, _levelLoader, _audio});
         _saver.AddDataReaders(_characters);
         _saver.AddDataReaders(_upgradeSetters);
-        _saver.AddDataWriters(new IDataWriter[] { _shop, _playersHandler, _wallet });
+        _saver.AddDataWriters(new IDataWriter[] { _shop, _playersHandler, _wallet, _audio});
         _saver.AddDataWriters(_characters);
         _saver.AddDataWriters(_upgradeSetters);
         _saver.Initialize();

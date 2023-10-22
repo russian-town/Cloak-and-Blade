@@ -12,4 +12,7 @@ public class PlayerData
     public List<UpgradeSetter> UpgradeSetters = new List<UpgradeSetter>();
     public List<int> Levels = new List<int>();
     public bool IsTutorialCompleted;
+    public float MasterSliderValue;
+    public float SoundSliderValue;
+    public float MusicSliderValue;
 }
