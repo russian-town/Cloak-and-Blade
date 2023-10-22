@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 766c95d8a1bca004cabd200488d545db, type: 3}
   m_Name: Blink
   m_EditorClassIdentifier: 
-  _prices: 0c00000002000000030000002200000038000000
-  _level: 2
+  _prices: 0000000000000000000000000000000000000000
+  _level: 0

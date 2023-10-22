@@ -9,4 +9,6 @@ public class PlayerData
     public List<Character> Characters = new List<Character>();
     public List<bool> IsBought = new List<bool>();
     public List<bool> IsSelect = new List<bool>();
+    public List<UpgradeSetter> UpgradeSetters = new List<UpgradeSetter>();
+    public List<int> Levels = new List<int>();
 }

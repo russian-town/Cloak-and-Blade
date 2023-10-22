@@ -761,6 +761,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: df2124cfce5edea4ca67e194fcbef659, type: 2}
   - {fileID: 11400000, guid: 23eb74a861da5ce47ad7c2dd79dab01f, type: 2}
   - {fileID: 11400000, guid: 305a78b51844ff9439926cc59ee7ec8a, type: 2}
+  _upgradeSetters:
+  - {fileID: 11400000, guid: 6fda382f50b613d4981b67a4fa0cb38a, type: 2}
+  - {fileID: 11400000, guid: 56ddc6968867f0d469d96f8a076447d8, type: 2}
+  - {fileID: 11400000, guid: e47ac6e794956fe4fb8ad7f1d6cc3f4b, type: 2}
 --- !u!4 &85342024
 Transform:
   m_ObjectHideFlags: 0
