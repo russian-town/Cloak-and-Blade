@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour, IEnemyTurnWaiter, IPauseHandler, ITurnHandler
+public class Room : MonoBehaviour, IEnemyTurnWaiter, ITurnHandler
 {
     private Player _player;
     private PlayerView _view;
-    private PlayerInput _playerInput;
     private List<Enemy> _enemies = new List<Enemy>();
     private Turn _turn;
     private Coroutine _startWaitForEnemies;
-    private bool _isPause;
 
     public Turn Turn => _turn;
 
@@ -20,21 +18,12 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter, IPauseHandler, ITurnHandler
         _view.Unsubscribe();
     }
 
-    private void Update()
-    {
-        if (_turn == Turn.Enemy || _isPause)
-            return;
-
-        _playerInput.GameUpdate();
-    }
-
-    public void Initialize(Player player, PlayerView view, PlayerInput playerInput)
+    public void Initialize(Player player, PlayerView view)
     {
         _player = player;
         _view = view;
         _player.StepEnded += OnTurnEnded;
         _turn = Turn.Player;
-        _playerInput = playerInput;
         _view.Subscribe();
         _view.ShowInteravtiveButton();
     }
@@ -86,11 +75,6 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter, IPauseHandler, ITurnHandler
         _view.Subscribe();
         _view.ShowInteravtiveButton();
         _startWaitForEnemies = null;
-    }
-
-    public void SetPause(bool isPause)
-    {
-        _isPause = isPause;
     }
 }
 

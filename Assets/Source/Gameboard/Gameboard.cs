@@ -7,7 +7,6 @@ public class Gameboard : MonoBehaviour
     [SerializeField] private Transform _ground;
     [SerializeField] private Cell _cellTemplate;
     [SerializeField] private Vector2Int _size;
-    [SerializeField] private CellContentSpawner _cellContentSpawner;
     [SerializeField] private List<Cell> _cells;
     [SerializeField] private Queue<Cell> _searchFrontier = new Queue<Cell>();
 

@@ -8,8 +8,7 @@ public class Navigator : MonoBehaviour
     private List<Cell> _availableWestCells = new List<Cell>();
     private List<Cell> _availableEasthCells = new List<Cell>();
     private List<Cell> _availableCells = new List<Cell>();
-
-    public IReadOnlyList<Cell> AvailableCells => _availableCells;
+    private List<Cell> _tempCells = new List<Cell>();
 
     public void RefillAvailableCells(List<Cell> availableCells)
     {
@@ -87,7 +86,37 @@ public class Navigator : MonoBehaviour
         return false;
     }
 
-    public Cell FindCellHasTrap(List<Cell> cells, Cell targetCell)
+    public void ShowAvailableCells()
+    {
+        HideAvailableCells();
+
+        if (_availableCells.Count == 0)
+            return;
+
+        foreach (var cell in _availableCells)
+        {
+            if (cell.Content.Type != CellContentType.Wall)
+                cell.View.Show();
+        }
+
+        _tempCells.AddRange(_availableCells);
+    }
+
+    public void HideAvailableCells()
+    {
+        if(_tempCells.Count == 0) 
+            return;
+
+        foreach (var cell in _tempCells)
+        {
+            cell.View.Hide();
+            Debug.Log("Hide");
+        }
+
+        _tempCells.Clear();
+    }
+
+    private Cell FindCellHasTrap(List<Cell> cells, Cell targetCell)
     {
         if (cells.Contains(targetCell))
         {

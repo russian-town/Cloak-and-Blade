@@ -17,7 +17,6 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private EnemySetter[] _enemySetters;
     [SerializeField] private Room _room;
     [SerializeField] private Camera _camera;
-    [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private Hourglass _hourglass;
     [SerializeField] private InteractiveObject[] _interactiveObjects;
     [SerializeField] private EnemyZoneDrawer _enemyZoneDrawerTemplate;
@@ -53,12 +52,10 @@ public class Root : MonoBehaviour, IInitializable
 
     public void Initialize()
     {
-        GetPlayer();
-        _hourglass.Initialaze();
+        _player = GetPlayer();
         _player.Initialize(_playerSpawnCell, _hourglass, _room, _playerView, _gameboard);
-        _playerInput.Initialize(_camera, _gameboard, _player);
         _playerView.Initialize(_player);
-        _room.Initialize(_player, _playerView, _playerInput);
+        _room.Initialize(_player, _playerView);
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;
         _straightCamera.Follow = _player.transform;
@@ -70,7 +67,7 @@ public class Root : MonoBehaviour, IInitializable
         foreach (var interactiveObject in _interactiveObjects)
             interactiveObject.Initialize(_player);
 
-        _pause = new Pause(new List<IPauseHandler> { _inputView, _room, _playerView, _player });
+        _pause = new Pause(new List<IPauseHandler> { _inputView, _playerView, _player, _hourglass });
 
         foreach (var setter in _enemySetters)
         {
@@ -89,23 +86,27 @@ public class Root : MonoBehaviour, IInitializable
         _scoreDefiner.Initialize();
     }
 
-    private void GetPlayer()
+    private Player GetPlayer()
     {
+        Player player;
+
         if (_playerTemplates.Contains(_playersHandler.CurrentPlayer))
         {
             int index = _playerTemplates.IndexOf(_playersHandler.CurrentPlayer);
-            _player = (Player)_spawner.Get(_playerSpawnCell, _playerTemplates[index]);
+            player = (Player)_spawner.Get(_playerSpawnCell, _playerTemplates[index]);
         }
         else
         {
-            _player = (Player)_spawner.Get(_playerSpawnCell, _defaultPlayerTemplate);
+             player = (Player)_spawner.Get(_playerSpawnCell, _defaultPlayerTemplate);
         }
 
         if (_effectChangeHanldlers.Count == 0)
-            return;
+            return player;
 
-        if (_player is ISceneParticlesInfluencer sceneParticlesInfluencer)
+        if (player is ISceneParticlesInfluencer sceneParticlesInfluencer)
             sceneParticlesInfluencer.AddSceneParticles(_effectChangeHanldlers);
+
+        return player;
     }
 }
 

@@ -53,8 +53,9 @@ public abstract class Player : Ghost, IPauseHandler
         _mover.Initialize(_startCell, _animationHandler);
         _mover.MoveEnded += OnMoveEnded;
         _hourglass = hourglass;
+        _hourglass.Initialaze(_commandExecuter);
         _gameboard = gameboard;
-        _moveCommand = new MoveCommand(this, _mover, _playerView, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter);
+        _moveCommand = new MoveCommand(this, _mover, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter);
         _skipCommand = new SkipCommand(this, _enemyTurnWaiter.WaitForEnemies(), _animationHandler, _hourglass, _commandExecuter);
     }
 

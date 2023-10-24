@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerMover : Mover
@@ -8,7 +7,6 @@ public class PlayerMover : Mover
 
     protected override IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
-        Debug.Log(moveSpeed);
         yield return base.MoveTo(targetCell, moveSpeed, rotationSpeed);
         MoveEnded?.Invoke();
     }

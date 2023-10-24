@@ -10,7 +10,7 @@ public abstract class InteractiveObject : MonoBehaviour
     protected IReadOnlyList<Cell> CellsInInteractibleRange => _cellsInInteractibleRange;
     protected Player Player => _player;
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         _player.StepEnded -= OnStepEnded;
         Disable();

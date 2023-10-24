@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 public class MoveCommand : Command, IUnmissable
@@ -8,18 +7,16 @@ public class MoveCommand : Command, IUnmissable
     private float _rotationSpeed;
     private Player _player;
     private PlayerMover _playerMover;
-    private PlayerView _playerView;
     private Navigator _navigator;
     private Gameboard _gameboard;
     private Camera _camera;
     private Coroutine _executeCoroutine;
     private CommandExecuter _executer;
 
-    public MoveCommand(Player player, PlayerMover playerMover, PlayerView playerView, Navigator navigator, float moveSpeed, float rotationSpeed, Gameboard gameboard, CommandExecuter executer)
+    public MoveCommand(Player player, PlayerMover playerMover, Navigator navigator, float moveSpeed, float rotationSpeed, Gameboard gameboard, CommandExecuter executer)
     {
         _player = player;
         _playerMover = playerMover;
-        _playerView = playerView;
         _navigator = navigator;
         _moveSpeed = moveSpeed;
         _rotationSpeed = rotationSpeed;
@@ -28,28 +25,15 @@ public class MoveCommand : Command, IUnmissable
         _executer = executer;
     }
 
-    protected override IEnumerator PrepareAction() 
-    {
-        _navigator.RefillAvailableCells(_playerMover.CurrentCell);
-        _playerView.ShowAvailableCells(_navigator.AvailableCells.ToList());
-        yield return null;
-    }
-
     public override void Cancel(MonoBehaviour context)
     {
-        _playerView.HideAvailableCells();
+        _navigator.HideAvailableCells();
 
-        if(_executeCoroutine != null)
+        if (_executeCoroutine != null)
         {
             _executer.StopCoroutine(_executeCoroutine);
             _executeCoroutine = null;
         }
-    }
-
-    protected override IEnumerator ExecuteAction(Cell clickedCell)
-    {
-        if (_player.TryMoveToCell(clickedCell, _moveSpeed, _rotationSpeed))
-            yield return _player.MoveCoroutine;
     }
 
     public override IEnumerator WaitOfExecute()
@@ -58,5 +42,18 @@ public class MoveCommand : Command, IUnmissable
         yield return waitOfClickedCell;
         _executeCoroutine = _player.StartCoroutine(Execute(waitOfClickedCell.Cell, _player));
         yield return _executeCoroutine;
+    }
+
+    protected override IEnumerator PrepareAction() 
+    {
+        _navigator.RefillAvailableCells(_playerMover.CurrentCell);
+        _navigator.ShowAvailableCells();
+        yield return null;
+    }
+
+    protected override IEnumerator ExecuteAction(Cell clickedCell)
+    {
+        if (_player.TryMoveToCell(clickedCell, _moveSpeed, _rotationSpeed))
+            yield return _player.MoveCoroutine;
     }
 }

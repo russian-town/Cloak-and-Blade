@@ -69,34 +69,6 @@ public class PlayerView : MonoBehaviour, IPauseHandler
             icon.Interactable(false);
     }
 
-    public void ShowAvailableCells(List<Cell> cells)
-    {
-        HideAvailableCells();
-        _tempCells = cells;
-
-        if (_tempCells.Count == 0)
-            return;
-
-        foreach (var cell in _tempCells)
-        {
-            if (cell.Content.Type != CellContentType.Wall)
-                cell.View.Show();
-        }
-    }
-
-    public void HideAvailableCells()
-    {
-        if (_tempCells.Count == 0)
-            return;
-
-        foreach (var cell in _tempCells)
-        {
-            cell.View.Hide();
-        }
-
-        _tempCells.Clear();
-    }
-
     public void SetPause(bool isPause)
     {
         if (isPause == true)

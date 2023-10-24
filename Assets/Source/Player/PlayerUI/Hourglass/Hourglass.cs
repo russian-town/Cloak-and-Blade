@@ -1,43 +1,45 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CanvasGroup), typeof(Animator))]
-public class Hourglass : MonoBehaviour
+public class Hourglass : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private float _fadeInSpeed;
     [SerializeField] private AnimationClip _hourglassClip;
 
     private CanvasGroup _canvasGroup;
     private Animator _animator;
+    private CommandExecuter _commandExecuter;
+    private float _pauseSpeed = 1;
 
     public float AnimationLength => _hourglassClip.length;
 
-    public void Initialaze()
+    public void Initialaze(CommandExecuter commandExecuter)
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         _animator = GetComponent<Animator>();
+        _commandExecuter = commandExecuter;
     }
 
     public Coroutine StartShow()
     {
-        return StartCoroutine(Show());
+        return _commandExecuter.StartCoroutine(Show());
     }
 
     public Coroutine StartHide()
     {
-        return StartCoroutine(Hide());
+        return _commandExecuter.StartCoroutine(Hide());
     }
 
     private IEnumerator Show()
     {
-        yield return StartCoroutine(FadeIn(1));
+        yield return _commandExecuter.StartCoroutine(FadeIn(1));
         _animator.SetBool(Constants.IsSkippingParameter, true);
     }
 
     private IEnumerator Hide()
     {
-        yield return StartCoroutine(FadeIn(0));
+        yield return _commandExecuter.StartCoroutine(FadeIn(0));
         _animator.SetBool(Constants.IsSkippingParameter, false);
     }
 
@@ -45,8 +47,10 @@ public class Hourglass : MonoBehaviour
     {
         while (_canvasGroup.alpha != target)
         {
-            _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, target, Time.deltaTime * _fadeInSpeed);
+            _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, target, Time.deltaTime * _fadeInSpeed * _pauseSpeed);
             yield return null;
         }
     }
+
+    public void SetPause(bool isPause) => _pauseSpeed = isPause ? 0 : 1;
 }
