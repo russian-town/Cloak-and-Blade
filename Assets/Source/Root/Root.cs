@@ -29,6 +29,7 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private List<EffectChangeHanldler> _effectChangeHanldlers = new List<EffectChangeHanldler>();
 
     private Saver _saver = new Saver();
+    private Wallet _wallet = new Wallet();
     private Player _player;
     private Pause _pause;
     private List<Enemy> _enemies = new List<Enemy>();
@@ -42,6 +43,7 @@ public class Root : MonoBehaviour, IInitializable
 
     private void OnDisable()
     {
+        _saver.Save();
         _saver.Disable();
         _playerView.Unsubscribe();
         _room.Unsubscribe();
@@ -51,9 +53,10 @@ public class Root : MonoBehaviour, IInitializable
 
     private void Start()
     {
-        _saver.AddDataReaders(new IDataReader[] { _playersHandler });
-        _saver.AddDataWriters(new IDataWriter[] { _playersHandler });
+        _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet });
+        _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet });
         _saver.AddInitializable(this);
+        _saver.AddInitializable(_wallet);
         _saver.Initialize();
         _saver.Load();
     }
@@ -88,7 +91,7 @@ public class Root : MonoBehaviour, IInitializable
         }
 
         _player.SetTargets(_enemies);
-        _game.Initialize(_player, _pause, _levelExit);
+        _game.Initialize(_player, _pause, _levelExit, _wallet);
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
         _scoreDefiner.Initialize();

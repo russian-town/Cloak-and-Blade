@@ -4,13 +4,14 @@ public class MainSceneLogic : MonoBehaviour
 {
     [SerializeField] private Shop _shop;
     [SerializeField] private PlayersHandler _playersHandler;
-    [SerializeField] private Wallet _wallet;
     [SerializeField] private Character[] _characters;
     [SerializeField] private UpgradeSetter[] _upgradeSetters;
     [SerializeField] private LevelLoader _levelLoader;
     [SerializeField] private Audio _audio;
+    [SerializeField] private WalletView _walletView;
 
     private Saver _saver = new Saver();
+    private Wallet _wallet = new Wallet();
 
     private void OnEnable()
     {
@@ -39,6 +40,8 @@ public class MainSceneLogic : MonoBehaviour
         _saver.AddDataWriters(_upgradeSetters);
         _saver.Initialize();
         _saver.Load();
+        _walletView.Initialize(_wallet);
+        _wallet.Initialize();
     }
 
     private void OnCharacterSold() => _saver.Save();

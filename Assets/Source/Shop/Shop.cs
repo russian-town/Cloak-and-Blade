@@ -8,7 +8,6 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     [SerializeField] private HorizontalLayoutGroup _parent;
     [SerializeField] private List<Character> _characters = new List<Character>();
     [SerializeField] private CharacterView _characterView;
-    [SerializeField] private Wallet _wallet;
     [SerializeField] private PlayersHandler _playersHandler;
     [SerializeField] private MenuModelChanger _menuModelChanger;
     [SerializeField] private Upgrader _upgrader;
@@ -16,6 +15,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     private List<CharacterView> _characterViews = new List<CharacterView>();
     private Character _currentSelectedCharacter;
     private CharacterView _currentCharacterView;
+    private Wallet _wallet;
 
     public event UnityAction CharacterSelected;
     public event UnityAction CharacterSold;
@@ -27,6 +27,8 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             characterView.SelectButtonClicked -= OnSelectButtonClick;
         }
     }
+
+    public void SetWallet(Wallet wallet) => _wallet = wallet;
 
     public void Initialize() => AddCharacterView();
 
@@ -93,7 +95,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     {
         if (character.Price <= _wallet.Stars)
         {
-            _wallet.DicreaseMoney(character.Price);
+            _wallet.DicreaseStars(character.Price);
             character.Buy();
             characterView.SellButtonClicked -= OnSellButtonClick;
             CharacterSold?.Invoke();

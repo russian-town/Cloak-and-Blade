@@ -1,43 +1,35 @@
 using UnityEngine;
-using TMPro;
+using UnityEngine.Events;
 
-public class Wallet : MonoBehaviour, IDataReader, IDataWriter, IInitializable
+public class Wallet : IDataReader, IDataWriter, IInitializable
 {
     [SerializeField] private int _stars;
-    [SerializeField] private WalletView _walletView;
 
     public int Stars => _stars;
 
-    public void Initialize()
-    {
-        _walletView.UpdateText(_stars);
-    }
+    public event UnityAction<int> StarsChanged;
 
-    public void DicreaseMoney(int price)
+    public void Initialize() => StarsChanged?.Invoke(_stars);
+
+    public void DicreaseStars(int price)
     {
         if (price < 0)
             return;
 
         _stars -= price;
-        _walletView.UpdateText(_stars);
+        StarsChanged?.Invoke(_stars);
     }
 
-    public void OnEndEdit(string text)
+    public void AddStars(int stars) 
     {
-        if (int.TryParse(text, out int stars))
-        {
-            _stars = stars;
-            _walletView.UpdateText(stars);
-        }
+        if (stars < 0)
+            return;
+
+        _stars += stars;
+        StarsChanged?.Invoke(_stars);
     }
 
-    public void Read(PlayerData playerData)
-    {
-        _stars = playerData.Stars;
-    }
+    public void Read(PlayerData playerData) => _stars = playerData.Stars;
 
-    public void Write(PlayerData playerData)
-    {
-        playerData.Stars = _stars;
-    }
+    public void Write(PlayerData playerData) => playerData.Stars = _stars;
 }

@@ -28,7 +28,7 @@ public class Upgrader : MonoBehaviour
 
         if (_wallet.Stars >= upgradeSetter.Prices[upgradeSetter.Level])
         {
-            _wallet.DicreaseMoney(upgradeSetter.Prices[upgradeSetter.Level]);
+            _wallet.DicreaseStars(upgradeSetter.Prices[upgradeSetter.Level]);
             upgradeSetter.Upgade();
             description.UpdateView();
         }

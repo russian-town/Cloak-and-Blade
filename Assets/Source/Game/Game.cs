@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
     [SerializeField] private ScoreDefiner _scoreDefiner;
     [SerializeField] private LevelFinishScreen _finishLevelScreen;
 
+    private Wallet _wallet;
     private Player _player;
     private Pause _pause;
     private ILevelFinisher _levelFinisher;
@@ -23,11 +24,13 @@ public class Game : MonoBehaviour
         _pauseScreen.ExitButtonClicked -= Exit;
         _gameOverView.RestartButtonClicked -= Restart;
         _gameOverView.ExitButtonClicked -= Exit;
+        _finishLevelScreen.ExitButtonClicked -= Exit;
         _levelFinisher.LevelPassed -= OnLevelPassed;
     }
 
-    public void Initialize(Player player, Pause pause, ILevelFinisher levelFinisher)
+    public void Initialize(Player player, Pause pause, ILevelFinisher levelFinisher, Wallet wallet)
     {
+        _wallet = wallet;
         _player = player;
         _player.Died += OnPlayerDead;
         _pause = pause;
@@ -41,6 +44,7 @@ public class Game : MonoBehaviour
         _gameOverView.RestartButtonClicked += Restart;
         _gameOverView.ExitButtonClicked += Exit;
         _levelFinisher.LevelPassed += OnLevelPassed;
+        _finishLevelScreen.ExitButtonClicked += Exit;
         _finishLevelScreen.Hide();
     }
 
@@ -63,6 +67,7 @@ public class Game : MonoBehaviour
         _playerView.Hide();
         _finishLevelScreen.Show();
         _scoreDefiner.AccrueStars(_stepCounter.CurrentStepCount);
+        _wallet.AddStars(_scoreDefiner.StarsCount);
     }
 
     private void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

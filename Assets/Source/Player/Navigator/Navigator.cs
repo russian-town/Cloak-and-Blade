@@ -10,10 +10,17 @@ public class Navigator : MonoBehaviour
     private List<Cell> _availableCells = new List<Cell>();
     private List<Cell> _tempCells = new List<Cell>();
 
-    public void RefillAvailableCells(List<Cell> availableCells)
+    public void RefillAvailableCells(List<Cell> availableNorthCells, List<Cell> availableWestCells, List<Cell> availableSouthCells, List<Cell> availableEastCells)
     {
+        _availableEasthCells.Clear();
+        _availableWestCells.Clear();
+        _availableSouthCells.Clear();
         _availableNorthCells.Clear();
-        _availableNorthCells.AddRange(availableCells);
+
+        _availableNorthCells.AddRange(availableNorthCells);
+        _availableEasthCells.AddRange(availableEastCells);
+        _availableSouthCells.AddRange(availableSouthCells);
+        _availableWestCells.AddRange(availableWestCells);
     }
 
     public void RefillAvailableCells(Cell currentCell)

@@ -10,6 +10,8 @@ public class ScoreDefiner : MonoBehaviour
     private ScoreDefinerView _view;
     private int _starsCount;
 
+    public int StarsCount => _starsCount;
+
     public void Initialize()
     {
         _view = GetComponent<ScoreDefinerView>();

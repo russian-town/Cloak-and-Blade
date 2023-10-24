@@ -70,8 +70,8 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     public void PrepareAbility()
     {
-        if (AbilityCommand().IsUsed)
-            return;
+        //if (AbilityCommand().IsUsed)
+        //    return;
 
         _commandExecuter.PrepareCommand(AbilityCommand());
     }

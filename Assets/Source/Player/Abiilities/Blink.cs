@@ -15,6 +15,10 @@ public class Blink : Ability
 
     private UpgradeSetter _upgradeSetter;
     private Player _player;
+    private List<Cell> _availableNorthCells = new List<Cell>();
+    private List<Cell> _availableEastCells = new List<Cell>();
+    private List<Cell> _availableSouthCells = new List<Cell>();
+    private List<Cell> _availableWestCells = new List<Cell>();
     private List<Cell> _availableCells = new List<Cell>();
     private Navigator _navigator;
     private bool _canUse = true;
@@ -42,6 +46,10 @@ public class Blink : Ability
         HideBlinkRange();
         _prepareEffect.Stop();
         _source.Stop();
+        _availableWestCells.Clear();
+        _availableEastCells.Clear();
+        _availableSouthCells.Clear();
+        _availableNorthCells.Clear();
         _availableCells.Clear();
     }
 
@@ -64,7 +72,12 @@ public class Blink : Ability
 
     private void BuildBlinkRange(Cell currentCell)
     {
+        _availableWestCells.Clear();
+        _availableEastCells.Clear();
+        _availableSouthCells.Clear();
+        _availableNorthCells.Clear();
         _availableCells.Clear();
+
         Cell tempCellNorth = currentCell.North;
         Cell tempCellSouth = currentCell.South;
         Cell tempCellWest = currentCell.West;
@@ -74,30 +87,34 @@ public class Blink : Ability
         {
             if (tempCellNorth != null)
             {
-                _availableCells.Add(tempCellNorth);
+                _availableNorthCells.Add(tempCellNorth);
                 tempCellNorth = tempCellNorth.North;
             }
 
             if (tempCellSouth != null)
             {
-                _availableCells.Add(tempCellSouth);
+                _availableSouthCells.Add(tempCellSouth);
                 tempCellSouth = tempCellSouth.South;
             }
 
             if (tempCellWest != null)
             {
-                _availableCells.Add(tempCellWest);
+                _availableWestCells.Add(tempCellWest);
                 tempCellWest = tempCellWest.West;
             }
 
             if (tempCellEast != null)
             {
-                _availableCells.Add(tempCellEast);
+                _availableEastCells.Add(tempCellEast);
                 tempCellEast = tempCellEast.East;
             }
         }
 
-        _navigator.RefillAvailableCells(_availableCells);
+        _availableCells.AddRange(_availableWestCells);
+        _availableCells.AddRange(_availableSouthCells);
+        _availableCells.AddRange(_availableEastCells);
+        _availableCells.AddRange(_availableNorthCells);
+        _navigator.RefillAvailableCells(_availableNorthCells, _availableWestCells, _availableSouthCells, _availableEastCells);
     }
 
     private void ShowBlinkRange()
@@ -111,6 +128,5 @@ public class Blink : Ability
     {
         foreach (var cell in _availableCells)
             cell.View.StopAbilityRangeEffect();
-
     }
 }
