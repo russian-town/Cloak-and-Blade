@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(MainMenuVeiw))]
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private LevelLoader _levelLoader;
+
     private MainMenuVeiw _mainMenuVeiw;
 
     private void Awake()
@@ -21,5 +23,5 @@ public class MainMenu : MonoBehaviour
         _mainMenuVeiw.PlayButtonClicked -= StartGame;
     }
 
-    private void StartGame() => SceneManager.LoadScene("TestingScene");
+    private void StartGame() => _levelLoader.TryLoadFirstLevel();
 }

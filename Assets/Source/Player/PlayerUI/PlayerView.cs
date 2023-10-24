@@ -13,9 +13,9 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     [SerializeField] private Button _rightRotationCameraButton;
     [SerializeField] private Button _perspectiveCameraButton;
     [SerializeField] private List<Icon> _icons = new List<Icon>();
+    [SerializeField] private Icon _abilityIcon;
 
     private Player _player;
-    private List<Cell> _tempCells = new List<Cell>();
 
     public event Action PauseButtonClicked;
 
@@ -42,6 +42,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         foreach (var icon in _icons)
             icon.Initialize();
 
+        _abilityIcon.ChangeSprite(_player.AbilityIcon);
         ShowInteravtiveButton();
     }
 

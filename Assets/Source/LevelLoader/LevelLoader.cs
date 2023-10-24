@@ -7,10 +7,7 @@ public class LevelLoader : MonoBehaviour, IDataReader
 
     private bool _tutorialCompleted;
 
-    public void Read(PlayerData playerData)
-    {
-        _tutorialCompleted = playerData.IsTutorialCompleted;
-    }
+    public void Read(PlayerData playerData) => _tutorialCompleted = playerData.IsTutorialCompleted;
 
     public bool TryLoadFirstLevel()
     {
@@ -20,8 +17,8 @@ public class LevelLoader : MonoBehaviour, IDataReader
             return false;
         }
 
-        int index = Random.Range(_firstLevelIndex, SceneManager.sceneCountInBuildSettings - 1);
-        SceneManager.LoadScene(index);
+        //int index = Random.Range(_firstLevelIndex, SceneManager.sceneCountInBuildSettings - 1);
+        SceneManager.LoadScene("TestingScene");
         return true;
     }
 }

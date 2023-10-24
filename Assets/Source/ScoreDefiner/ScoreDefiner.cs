@@ -17,7 +17,7 @@ public class ScoreDefiner : MonoBehaviour
     }
 
     public void AccrueStars(int stepCount)
-    {    
+    {
         if (stepCount <= _stepCountToThirdStart)
             _starsCount = 3;
         else if (stepCount <= _stepCountToSecodStart)
@@ -25,7 +25,10 @@ public class ScoreDefiner : MonoBehaviour
         else
             _starsCount = 1;
 
+#if UNITY_WEBGL && !UNITY_EDITOR
         _scoreSetter.SetPlayerScore(_starsCount);
+#endif
+
         _view.ShowStars(_starsCount);
     }
 }

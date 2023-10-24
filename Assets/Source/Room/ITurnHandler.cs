@@ -1,4 +1,4 @@
 public interface ITurnHandler
 {
-    public Turn Turn { get; }
+   public void SetTurn(Turn turn);
 }

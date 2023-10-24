@@ -3,15 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(Transformation))]
 public class BlackGhost : Player
 {
-    [SerializeField] private UpgradeSetter _upgradeSetter;
-
     private Transformation _transformation;
 
-    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, PlayerView playerView, Gameboard gameboard)
+    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard)
     {
-        base.Initialize(startCell, hourglass, enemyTurnHandler, playerView, gameboard);
+        base.Initialize(startCell, hourglass, enemyTurnHandler, gameboard);
         _transformation = GetComponent<Transformation>();
-        _transformation.Initialize(_upgradeSetter);
+        _transformation.Initialize(UpgradeSetter);
     }
 
     protected override AbilityCommand AbilityCommand()

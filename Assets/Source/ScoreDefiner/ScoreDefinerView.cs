@@ -28,8 +28,6 @@ public class ScoreDefinerView : MonoBehaviour
 
     public void ShowStars(int starCount)
     {
-        Debug.Log(starCount);
-
         if (starCount == 0 || starCount > 3)
             return;
 

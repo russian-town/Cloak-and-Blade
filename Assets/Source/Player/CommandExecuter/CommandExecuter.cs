@@ -1,18 +1,22 @@
 using System.Collections;
 using UnityEngine;
 
-public class CommandExecuter : MonoBehaviour
+public class CommandExecuter : MonoBehaviour, ITurnHandler
 {
     private Coroutine _prepare;
     private Coroutine _waitOfExecute;
     private Coroutine _switchCommand;
     private Command _currentCommand;
     private Command _deferredCommand;
+    private Turn _turn;
 
     public Command NextCommand { get; private set; }
 
     public void PrepareCommand(Command command)
     {
+        if (_turn == Turn.Enemy)
+            return;
+
         if (_currentCommand != null && _currentCommand.IsExecuting)
             return;
 
@@ -49,8 +53,13 @@ public class CommandExecuter : MonoBehaviour
 
     public void ResetDeferredCommand() => _deferredCommand = null;
 
+    public void SetTurn(Turn turn) => _turn = turn;
+
     private IEnumerator SwitchCurrentCommand(Command command)
     {
+        if(_turn == Turn.Enemy)
+            yield break;
+
         if (command == _currentCommand)
             yield break;
 

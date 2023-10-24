@@ -18,5 +18,5 @@ MonoBehaviour:
   _player: {fileID: 8387496975907236927, guid: 5e34add410b20064583d11f9970347ec, type: 3}
   _menuPlayerModelTemplate: {fileID: 2595864535315199851, guid: 8dd5221ea458da84e8226ab5df5967ed, type: 3}
   _isBought: 1
-  _isSelect: 1
+  _isSelect: 0
   _description: {fileID: 425672507711141806, guid: eb7af684775137b46862892b7649d991, type: 3}

@@ -110,7 +110,6 @@ public class Navigator : MonoBehaviour
         foreach (var cell in _tempCells)
         {
             cell.View.Hide();
-            Debug.Log("Hide");
         }
 
         _tempCells.Clear();

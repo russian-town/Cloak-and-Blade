@@ -15,8 +15,7 @@ public class Icon : MonoBehaviour
         _disableColor = new(_startColor.r, _startColor.g, _startColor.b, .5f);
     }
 
-    public void Interactable(bool isInteractable)
-    {
-        _image.color = isInteractable == true ? _startColor : _disableColor;
-    }
+    public void ChangeSprite(Sprite sprite) => _image.sprite = sprite;
+
+    public void Interactable(bool isInteractable) => _image.color = isInteractable == true ? _startColor : _disableColor;
 }

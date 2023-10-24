@@ -53,7 +53,9 @@ public class MoveCommand : Command, IUnmissable
 
     protected override IEnumerator ExecuteAction(Cell clickedCell)
     {
-        if (_player.TryMoveToCell(clickedCell, _moveSpeed, _rotationSpeed))
+        if (_player.TryMoveToCell(clickedCell, _moveSpeed, _rotationSpeed) == false)
+            _executer.UpdateLastCommand();
+        else
             yield return _player.MoveCoroutine;
     }
 }

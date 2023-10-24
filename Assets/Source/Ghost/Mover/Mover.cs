@@ -28,18 +28,6 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
         return StartCoroutine(MoveTo(targetCell, moveSpeed, rotationSpeed));
     }
 
-    private IEnumerator Rotate(Cell targetCell, float rotationSpeed)
-    {
-        Vector3 rotationTarget = targetCell.transform.position - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(rotationTarget, Vector3.up);
-
-        while (transform.rotation != targetRotation)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * _pauseSpeed * Time.deltaTime);
-            yield return null;
-        }
-    }
-
     protected virtual IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
         yield return StartRotate(targetCell, rotationSpeed);
@@ -55,5 +43,17 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
         CurrentCell = targetCell;
         _startCell = targetCell;
+    }
+
+    private IEnumerator Rotate(Cell targetCell, float rotationSpeed)
+    {
+        Vector3 rotationTarget = targetCell.transform.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(rotationTarget, Vector3.up);
+
+        while (transform.rotation != targetRotation)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * _pauseSpeed * Time.deltaTime);
+            yield return null;
+        }
     }
 }

@@ -2,7 +2,7 @@ using Agava.YandexGames;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Saver
+public class Saver: IDataReader
 {
     private List<IDataReader> _dataReaders = new List<IDataReader>();
     private List<IDataWriter> _dataWriters = new List<IDataWriter>();
@@ -10,6 +10,7 @@ public class Saver
     private ISaveLoadService _currentSaveLoadService;
     private CloudSave _cloudSave = new CloudSave();
     private LocalSave _localSave = new LocalSave();
+    private PlayerData _playerData = new PlayerData();
 
     public void Enable()
     {
@@ -36,6 +37,7 @@ public class Saver
         _currentSaveLoadService = _localSave;
 #endif
 
+        _dataReaders.Add(this);
         _currentSaveLoadService.AddDataWriters(_dataWriters.ToArray());
         _currentSaveLoadService.AddDataReaders(_dataReaders.ToArray());
     }
@@ -48,8 +50,7 @@ public class Saver
 
     public void Save()
     {
-        PlayerData playerData = new PlayerData();
-        _currentSaveLoadService.Save(playerData);
+        _currentSaveLoadService.Save(_playerData);
     }
 
     public void Load()
@@ -79,7 +80,8 @@ public class Saver
 
     private void OnErrorSaveCallBack(string error)
     {
-        PlayerData playerData = new PlayerData();
-        _localSave.Save(playerData);
+        _localSave.Save(_playerData);
     }
+
+    public void Read(PlayerData playerData) => _playerData = playerData;
 }

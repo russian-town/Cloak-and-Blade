@@ -33,6 +33,8 @@ public class Root : MonoBehaviour, IInitializable
     private Pause _pause;
     private List<Enemy> _enemies = new List<Enemy>();
 
+    public Saver Saver => _saver;
+
     public void OnEnable()
     {
         _saver.Enable();
@@ -59,7 +61,7 @@ public class Root : MonoBehaviour, IInitializable
     public void Initialize()
     {
         _player = GetPlayer();
-        _player.Initialize(_playerSpawnCell, _hourglass, _room, _playerView, _gameboard);
+        _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard);
         _playerView.Initialize(_player);
         _room.Initialize(_player, _playerView);
         _angledCamera.Follow = _player.transform;

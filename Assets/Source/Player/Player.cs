@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMover), typeof(PlayerAttacker), typeof(CommandExecuter))]
-public abstract class Player : Ghost, IPauseHandler
+[RequireComponent (typeof(Navigator))]
+public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 {
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
@@ -12,6 +13,7 @@ public abstract class Player : Ghost, IPauseHandler
     [SerializeField] private ParticleSystem _diedParticle;
     [SerializeField] private PlayerModel _model;
     [SerializeField] private Sprite _abilityIcon;
+    [SerializeField] private UpgradeSetter _upgradeSetter;
 
     private PlayerMover _mover;
     private PlayerAttacker _attacker;
@@ -22,11 +24,12 @@ public abstract class Player : Ghost, IPauseHandler
     private Navigator _navigator;
     private Hourglass _hourglass;
     private PlayerAnimationHandler _animationHandler;
-    private PlayerView _playerView;
     private List<Enemy> _enemies = new List<Enemy>();
     private Gameboard _gameboard;
     private CommandExecuter _commandExecuter;
+    private Turn _turn;
 
+    public Sprite AbilityIcon => _abilityIcon;
     public Coroutine MoveCoroutine { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
     public ItemsInHold ItemsInHold => _itemsInHold;
@@ -34,20 +37,20 @@ public abstract class Player : Ghost, IPauseHandler
     protected Navigator Navigator => _navigator;
     protected Gameboard Gameboard => _gameboard;
     protected CommandExecuter CommandExecuter => _commandExecuter;
+    protected UpgradeSetter UpgradeSetter => _upgradeSetter;
 
     public event UnityAction StepEnded;
     public event UnityAction Died;
 
     public void Unsubscribe() => _mover.MoveEnded -= OnMoveEnded;
 
-    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, PlayerView playerView, Gameboard gameboard)
+    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
         _navigator = GetComponent<Navigator>();
         _attacker = GetComponent<PlayerAttacker>();
         _commandExecuter = GetComponent<CommandExecuter>();
-        _playerView = playerView;
         _animationHandler = GetComponent<PlayerAnimationHandler>();
         _enemyTurnWaiter = enemyTurnHandler;
         _mover.Initialize(_startCell, _animationHandler);
@@ -81,6 +84,9 @@ public abstract class Player : Ghost, IPauseHandler
 
     public bool TryMoveToCell(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
+        if (_turn == Turn.Enemy)
+            return false;
+
         if (_navigator.CanMoveToCell(ref targetCell) && targetCell.IsOccupied == false && targetCell.Content.Type != CellContentType.Wall)
         {
             _mover.StartMoveTo(targetCell, moveSpeed, rotationSpeed);
@@ -101,6 +107,12 @@ public abstract class Player : Ghost, IPauseHandler
             _animationHandler.StopAnimation();
         else
             _animationHandler.StartAnimation();
+    }
+
+    public void SetTurn(Turn turn)
+    {
+        _turn = turn;
+        _commandExecuter?.SetTurn(_turn);
     }
 
     protected abstract AbilityCommand AbilityCommand();

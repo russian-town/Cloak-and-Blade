@@ -3,15 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(Blink))]
 public class RedGhost : Player
 {
-    [SerializeField] private UpgradeSetter _upgradeSetter;
-
     private Blink _blink;
 
-    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, PlayerView playerView, Gameboard gameboard)
+    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard)
     {
-        base.Initialize(startCell, hourglass, enemyTurnHandler, playerView, gameboard);
+        base.Initialize(startCell, hourglass, enemyTurnHandler, gameboard);
         _blink = GetComponent<Blink>();
-        _blink.Initialize(_upgradeSetter);
+        _blink.Initialize(UpgradeSetter);
     }
 
     protected override AbilityCommand AbilityCommand()

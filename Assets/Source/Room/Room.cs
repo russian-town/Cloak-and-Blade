@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour, IEnemyTurnWaiter, ITurnHandler
+public class Room : MonoBehaviour, IEnemyTurnWaiter
 {
     private Player _player;
     private PlayerView _view;
     private List<Enemy> _enemies = new List<Enemy>();
     private Turn _turn;
     private Coroutine _startWaitForEnemies;
-
-    public Turn Turn => _turn;
 
     public void Unsubscribe()
     {
@@ -24,6 +22,7 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter, ITurnHandler
         _view = view;
         _player.StepEnded += OnTurnEnded;
         _turn = Turn.Player;
+        _player.SetTurn(_turn);
         _view.Subscribe();
         _view.ShowInteravtiveButton();
     }
@@ -42,6 +41,7 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter, ITurnHandler
             return;
 
         _turn = Turn.Enemy;
+        _player.SetTurn(_turn);
         _view.Unsubscribe();
         _view.HideInteractiveButton();
         WaitForEnemies();
@@ -72,6 +72,7 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter, ITurnHandler
         //}
 
         _turn = Turn.Player;
+        _player.SetTurn(_turn);
         _view.Subscribe();
         _view.ShowInteravtiveButton();
         _startWaitForEnemies = null;

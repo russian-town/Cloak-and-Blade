@@ -4,18 +4,16 @@ using UnityEngine;
 [RequireComponent(typeof(TheWorld))]
 public class YellowGhost : Player, ISceneParticlesInfluencer
 {
-    [SerializeField] private UpgradeSetter _upgradeSetter;
-
     private TheWorld _theWorld;
     private List<EffectChangeHanldler> _effects = new List<EffectChangeHanldler>();
 
     public IReadOnlyList<EffectChangeHanldler> SceneEffects => _effects;
 
-    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, PlayerView playerView, Gameboard gameboard)
+    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard)
     {
-        base.Initialize(startCell, hourglass, enemyTurnHandler, playerView, gameboard);
+        base.Initialize(startCell, hourglass, enemyTurnHandler, gameboard);
         _theWorld = GetComponent<TheWorld>();
-        _theWorld.Initialize(_upgradeSetter);
+        _theWorld.Initialize(UpgradeSetter);
     }
 
     public void AddSceneParticles(List<EffectChangeHanldler> effects) => _effects.AddRange(effects);
