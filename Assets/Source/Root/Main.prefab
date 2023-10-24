@@ -13081,50 +13081,6 @@ MonoBehaviour:
   - Language: Turkish
     Text: Anahtar
     Object: {fileID: 0}
---- !u!1 &3471915309906566216
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 670933111131742137}
-  - component: {fileID: 4014747888049472448}
-  m_Layer: 0
-  m_Name: Saver
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &670933111131742137
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3471915309906566216}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2276782161095214370}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4014747888049472448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3471915309906566216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a91fa48743f30a843b20a850ec86f961, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3489106531611761371
 GameObject:
   m_ObjectHideFlags: 0
@@ -14897,7 +14853,6 @@ MonoBehaviour:
   _scoreDefiner: {fileID: 5715900506087772183}
   _levelExit: {fileID: 0}
   _playersHandler: {fileID: 8126894048268690948}
-  _saver: {fileID: 4014747888049472448}
   _effectChangeHanldlers:
   - {fileID: 0}
 --- !u!1 &4933249905461279240
@@ -18136,7 +18091,6 @@ Transform:
   - {fileID: 2899068687794627987}
   - {fileID: 6459547915091534755}
   - {fileID: 7746722009503350792}
-  - {fileID: 670933111131742137}
   - {fileID: 4332812893191223494}
   - {fileID: 8450308746421662709}
   - {fileID: 2209763770559869914}

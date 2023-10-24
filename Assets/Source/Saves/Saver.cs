@@ -2,7 +2,7 @@ using Agava.YandexGames;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Saver : MonoBehaviour
+public class Saver
 {
     private List<IDataReader> _dataReaders = new List<IDataReader>();
     private List<IDataWriter> _dataWriters = new List<IDataWriter>();
@@ -11,14 +11,14 @@ public class Saver : MonoBehaviour
     private CloudSave _cloudSave = new CloudSave();
     private LocalSave _localSave = new LocalSave();
 
-    private void OnEnable()
+    public void Enable()
     {
         _cloudSave.DataLoaded += OnDataLoaded;
         _cloudSave.ErrorLoadCallback += OnErrorLoadCallback;
         _cloudSave.ErrorSaveCallback += OnErrorSaveCallBack;
     }
 
-    private void OnDisable()
+    public void Disable()
     {
         _cloudSave.DataLoaded -= OnDataLoaded;
         _cloudSave.ErrorLoadCallback -= OnErrorLoadCallback;

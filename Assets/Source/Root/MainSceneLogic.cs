@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class MainSceneLogic : MonoBehaviour
 {
-    [SerializeField] private Saver _saver;
     [SerializeField] private Shop _shop;
     [SerializeField] private PlayersHandler _playersHandler;
     [SerializeField] private Wallet _wallet;
@@ -11,14 +10,18 @@ public class MainSceneLogic : MonoBehaviour
     [SerializeField] private LevelLoader _levelLoader;
     [SerializeField] private Audio _audio;
 
+    private Saver _saver = new Saver();
+
     private void OnEnable()
     {
+        _saver.Enable();
         _shop.CharacterSold += OnCharacterSold;
         _shop.CharacterSelected += OnCharacterSelected;
     }
 
     private void OnDisable()
     {
+        _saver.Disable();
         _shop.CharacterSold -= OnCharacterSold;
         _shop.CharacterSelected -= OnCharacterSelected;
         _saver.Save();

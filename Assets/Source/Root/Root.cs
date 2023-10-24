@@ -26,15 +26,21 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private ScoreDefiner _scoreDefiner;
     [SerializeField] private LevelExit _levelExit;
     [SerializeField] private PlayersHandler _playersHandler;
-    [SerializeField] private Saver _saver;
     [SerializeField] private List<EffectChangeHanldler> _effectChangeHanldlers = new List<EffectChangeHanldler>();
 
+    private Saver _saver = new Saver();
     private Player _player;
     private Pause _pause;
     private List<Enemy> _enemies = new List<Enemy>();
 
+    public void OnEnable()
+    {
+        _saver.Enable();
+    }
+
     private void OnDisable()
     {
+        _saver.Disable();
         _playerView.Unsubscribe();
         _room.Unsubscribe();
         _game.Unsubscribe();
