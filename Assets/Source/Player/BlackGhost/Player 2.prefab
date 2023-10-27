@@ -19985,6 +19985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a6153456dd68a843af6c57bd699242a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveRange: 2
   _moveSpeed: 3
   _rotationSpeed: 360
   _itemsInHold: {fileID: 720380231298066782}

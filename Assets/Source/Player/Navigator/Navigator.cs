@@ -44,7 +44,7 @@ public class Navigator : MonoBehaviour
             cell = findNorthCell;
             return true;
         }
-        else if(TryFindCellHasTrap(_availableSouthCells, cell, out Cell findSouthCell))
+        else if (TryFindCellHasTrap(_availableSouthCells, cell, out Cell findSouthCell))
         {
             cell = findSouthCell;
             return true;
@@ -79,7 +79,7 @@ public class Navigator : MonoBehaviour
 
     public void HideAvailableCells()
     {
-        if(_tempCells.Count == 0) 
+        if (_tempCells.Count == 0)
             return;
 
         foreach (var cell in _tempCells)
@@ -107,7 +107,7 @@ public class Navigator : MonoBehaviour
             {
                 if (cell.HasTrap)
                 {
-                    if(cells.IndexOf(findCell) < cells.IndexOf(cell))
+                    if (cells.IndexOf(findCell) < cells.IndexOf(cell))
                     {
                         targetCell = findCell;
                         return true;
@@ -130,7 +130,20 @@ public class Navigator : MonoBehaviour
     {
         if (tempCell != null)
         {
-            if (ignoreWalls == true && tempCell.Content.Type != CellContentType.Wall || ignoreWalls == false)
+            if (ignoreWalls == true)
+            {
+                if (tempCell.Content.Type == CellContentType.Wall)
+                {
+                    return false;
+                }
+                else
+                {
+                    cells.Add(tempCell);
+                    _availableCells.Add(tempCell);
+                    return true;
+                }
+            }
+            else if (ignoreWalls == false)
             {
                 cells.Add(tempCell);
                 _availableCells.Add(tempCell);
