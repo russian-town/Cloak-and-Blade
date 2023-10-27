@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MoveCommand : Command, IUnmissable
 {
+    private int _range;
     private float _moveSpeed;
     private float _rotationSpeed;
     private Player _player;
@@ -13,7 +14,7 @@ public class MoveCommand : Command, IUnmissable
     private Coroutine _executeCoroutine;
     private CommandExecuter _executer;
 
-    public MoveCommand(Player player, PlayerMover playerMover, Navigator navigator, float moveSpeed, float rotationSpeed, Gameboard gameboard, CommandExecuter executer)
+    public MoveCommand(Player player, PlayerMover playerMover, Navigator navigator, float moveSpeed, float rotationSpeed, Gameboard gameboard, CommandExecuter executer, int range)
     {
         _player = player;
         _playerMover = playerMover;
@@ -23,6 +24,7 @@ public class MoveCommand : Command, IUnmissable
         _gameboard = gameboard;
         _camera = Camera.main;
         _executer = executer;
+        _range = range;
     }
 
     public override void Cancel(MonoBehaviour context)
@@ -46,7 +48,7 @@ public class MoveCommand : Command, IUnmissable
 
     protected override IEnumerator PrepareAction() 
     {
-        _navigator.RefillAvailableCells(_playerMover.CurrentCell);
+        _navigator.RefillAvailableCells(_playerMover.CurrentCell, true, _range);
         _navigator.ShowAvailableCells();
         yield return null;
     }

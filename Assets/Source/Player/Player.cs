@@ -7,6 +7,7 @@ using UnityEngine.Events;
 [RequireComponent (typeof(Navigator))]
 public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 {
+    [SerializeField][Range(1, 5)] private int _moveRange = 2;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private ItemsInHold _itemsInHold;
@@ -58,7 +59,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _hourglass = hourglass;
         _hourglass.Initialaze(_commandExecuter);
         _gameboard = gameboard;
-        _moveCommand = new MoveCommand(this, _mover, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter);
+        _moveCommand = new MoveCommand(this, _mover, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter, _moveRange);
         _skipCommand = new SkipCommand(this, _enemyTurnWaiter.WaitForEnemies(), _animationHandler, _hourglass, _commandExecuter);
     }
 

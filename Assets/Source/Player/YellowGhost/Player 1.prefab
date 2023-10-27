@@ -24909,6 +24909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d5f1612ff7240408afe63dfded84c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveRange: 5
   _moveSpeed: 3
   _rotationSpeed: 360
   _itemsInHold: {fileID: 720380231298066782}

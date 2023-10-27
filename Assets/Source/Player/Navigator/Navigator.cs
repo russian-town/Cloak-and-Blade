@@ -3,90 +3,60 @@ using UnityEngine;
 
 public class Navigator : MonoBehaviour
 {
-    private List<Cell> _availableNorthCells = new List<Cell>();
-    private List<Cell> _availableSouthCells = new List<Cell>();
-    private List<Cell> _availableWestCells = new List<Cell>();
-    private List<Cell> _availableEasthCells = new List<Cell>();
-    private List<Cell> _availableCells = new List<Cell>();
-    private List<Cell> _tempCells = new List<Cell>();
+    private readonly List<Cell> _availableNorthCells = new List<Cell>();
+    private readonly List<Cell> _availableSouthCells = new List<Cell>();
+    private readonly List<Cell> _availableWestCells = new List<Cell>();
+    private readonly List<Cell> _availableEastCells = new List<Cell>();
+    private readonly List<Cell> _availableCells = new List<Cell>();
+    private readonly List<Cell> _tempCells = new List<Cell>();
 
-    public void RefillAvailableCells(List<Cell> availableNorthCells, List<Cell> availableWestCells, List<Cell> availableSouthCells, List<Cell> availableEastCells)
+    public IReadOnlyList<Cell> AvailableCells => _availableCells;
+
+    public void RefillAvailableCells(Cell currentCell, bool ignoreWalls, int range)
     {
-        _availableEasthCells.Clear();
-        _availableWestCells.Clear();
-        _availableSouthCells.Clear();
-        _availableNorthCells.Clear();
+        ClearAllCells();
 
-        _availableNorthCells.AddRange(availableNorthCells);
-        _availableEasthCells.AddRange(availableEastCells);
-        _availableSouthCells.AddRange(availableSouthCells);
-        _availableWestCells.AddRange(availableWestCells);
-    }
+        Cell tempCellNorth = currentCell.North;
+        Cell tempCellSouth = currentCell.South;
+        Cell tempCellWest = currentCell.West;
+        Cell tempCellEast = currentCell.East;
 
-    public void RefillAvailableCells(Cell currentCell)
-    {
-        _availableNorthCells.Clear();
-        _availableSouthCells.Clear();
-        _availableEasthCells.Clear();
-        _availableWestCells.Clear();
-        _availableCells.Clear();
+        for (int i = 0; i < range; i++)
+        {
+            if (TryAddCell(tempCellNorth, _availableNorthCells, ignoreWalls))
+                tempCellNorth = tempCellNorth.North;
 
-        AddCell(currentCell.North, _availableNorthCells);
-        AddCell(currentCell.North, _availableCells);
-        AddCell(currentCell.South, _availableSouthCells);
-        AddCell(currentCell.South, _availableCells);
-        AddCell(currentCell.West, _availableWestCells);
-        AddCell(currentCell.West, _availableCells);
-        AddCell(currentCell.East, _availableEasthCells);
-        AddCell(currentCell.East, _availableCells);
+            if (TryAddCell(tempCellSouth, _availableSouthCells, ignoreWalls))
+                tempCellSouth = tempCellSouth.South;
 
-        if (currentCell.North != null && currentCell.North.Content.Type != CellContentType.Wall)
-        {
-            AddCell(currentCell.North.North, _availableNorthCells);
-            AddCell(currentCell.North.North, _availableCells);
-        }
-        if (currentCell.South != null && currentCell.South.Content.Type != CellContentType.Wall)
-        {
-            AddCell(currentCell.South.South, _availableSouthCells);
-            AddCell(currentCell.South.South, _availableCells);
-        }
-        if (currentCell.West != null && currentCell.West.Content.Type != CellContentType.Wall)
-        {
-            AddCell(currentCell.West.West, _availableWestCells);
-            AddCell(currentCell.West.West, _availableCells);
-        }
-        if (currentCell.East != null && currentCell.East.Content.Type != CellContentType.Wall)
-        {
-            AddCell(currentCell.East.East, _availableEasthCells);
-            AddCell(currentCell.East.East, _availableCells);
+            if (TryAddCell(tempCellEast, _availableEastCells, ignoreWalls))
+                tempCellEast = tempCellEast.East;
+
+            if (TryAddCell(tempCellWest, _availableWestCells, ignoreWalls))
+                tempCellWest = tempCellWest.West;
         }
     }
 
     public bool CanMoveToCell(ref Cell cell)
     {
-        Cell targetNorthCell = FindCellHasTrap(_availableNorthCells, cell);
-        Cell targetSouthCell = FindCellHasTrap(_availableSouthCells, cell);
-        Cell targetEastCell = FindCellHasTrap(_availableEasthCells, cell);
-        Cell targetWestCell = FindCellHasTrap(_availableWestCells, cell);
-
-        if (targetNorthCell != null)
+        if (TryFindCellHasTrap(_availableNorthCells, cell, out Cell findNorthCell))
         {
-            cell = targetNorthCell;
+            cell = findNorthCell;
             return true;
         }
-        else if(targetSouthCell != null)
+        else if(TryFindCellHasTrap(_availableSouthCells, cell, out Cell findSouthCell))
         {
-            cell = targetSouthCell;
+            cell = findSouthCell;
             return true;
         }
-        else if(targetEastCell != null)
+        else if (TryFindCellHasTrap(_availableEastCells, cell, out Cell findEastCell))
         {
-            cell = targetEastCell;
+            cell = findEastCell;
             return true;
         }
-        else if(targetWestCell != null)
+        else if (TryFindCellHasTrap(_availableWestCells, cell, out Cell findWestCell))
         {
-            cell = targetWestCell;
+            cell = findWestCell;
             return true;
         }
 
@@ -101,10 +71,8 @@ public class Navigator : MonoBehaviour
             return;
 
         foreach (var cell in _availableCells)
-        {
             if (cell.Content.Type != CellContentType.Wall)
                 cell.View.Show();
-        }
 
         _tempCells.AddRange(_availableCells);
     }
@@ -122,34 +90,55 @@ public class Navigator : MonoBehaviour
         _tempCells.Clear();
     }
 
-    private Cell FindCellHasTrap(List<Cell> cells, Cell targetCell)
+    private void ClearAllCells()
     {
-        if (cells.Contains(targetCell))
+        _availableNorthCells.Clear();
+        _availableSouthCells.Clear();
+        _availableEastCells.Clear();
+        _availableWestCells.Clear();
+        _availableCells.Clear();
+    }
+
+    private bool TryFindCellHasTrap(List<Cell> cells, Cell findCell, out Cell targetCell)
+    {
+        if (cells.Contains(findCell))
         {
             foreach (var cell in cells)
             {
                 if (cell.HasTrap)
                 {
-                    if(cells.IndexOf(targetCell) < cells.IndexOf(cell))
+                    if(cells.IndexOf(findCell) < cells.IndexOf(cell))
                     {
-                        return targetCell;
+                        targetCell = findCell;
+                        return true;
                     }
 
-                    return cell;
+                    targetCell = cell;
+                    return true;
                 }
             }
 
-            return targetCell;
+            targetCell = findCell;
+            return true;
         }
 
-        return null;
+        targetCell = null;
+        return false;
     }
 
-    private void AddCell(Cell cell, List<Cell> cells)
+    private bool TryAddCell(Cell tempCell, List<Cell> cells, bool ignoreWalls)
     {
-        if (cell == null || cell.Content.Type == CellContentType.Wall)
-            return;
+        if (tempCell != null)
+        {
+            if (ignoreWalls == true && tempCell.Content.Type != CellContentType.Wall || ignoreWalls == false)
+            {
+                cells.Add(tempCell);
+                _availableCells.Add(tempCell);
+            }
 
-        cells.Add(cell);
+            return true;
+        }
+
+        return false;
     }
 }

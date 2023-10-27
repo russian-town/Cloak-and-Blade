@@ -15,11 +15,6 @@ public class Blink : Ability
 
     private UpgradeSetter _upgradeSetter;
     private Player _player;
-    private List<Cell> _availableNorthCells = new List<Cell>();
-    private List<Cell> _availableEastCells = new List<Cell>();
-    private List<Cell> _availableSouthCells = new List<Cell>();
-    private List<Cell> _availableWestCells = new List<Cell>();
-    private List<Cell> _availableCells = new List<Cell>();
     private Navigator _navigator;
     private bool _canUse = true;
 
@@ -33,8 +28,7 @@ public class Blink : Ability
 
     public override void Prepare()
     {
-        Cell currentCell = _player.CurrentCell;
-        BuildBlinkRange(currentCell);
+        _navigator.RefillAvailableCells(_player.CurrentCell, false, _blinkRange);
         ShowBlinkRange();
         _source.clip = _prepareSound;
         _source.Play();
@@ -46,11 +40,6 @@ public class Blink : Ability
         HideBlinkRange();
         _prepareEffect.Stop();
         _source.Stop();
-        _availableWestCells.Clear();
-        _availableEastCells.Clear();
-        _availableSouthCells.Clear();
-        _availableNorthCells.Clear();
-        _availableCells.Clear();
     }
 
     public override bool CanUse()
@@ -70,63 +59,16 @@ public class Blink : Ability
         }
     }
 
-    private void BuildBlinkRange(Cell currentCell)
-    {
-        _availableWestCells.Clear();
-        _availableEastCells.Clear();
-        _availableSouthCells.Clear();
-        _availableNorthCells.Clear();
-        _availableCells.Clear();
-
-        Cell tempCellNorth = currentCell.North;
-        Cell tempCellSouth = currentCell.South;
-        Cell tempCellWest = currentCell.West;
-        Cell tempCellEast = currentCell.East;
-
-        for (int i = 0; i < _blinkRange; i++)
-        {
-            if (tempCellNorth != null)
-            {
-                _availableNorthCells.Add(tempCellNorth);
-                tempCellNorth = tempCellNorth.North;
-            }
-
-            if (tempCellSouth != null)
-            {
-                _availableSouthCells.Add(tempCellSouth);
-                tempCellSouth = tempCellSouth.South;
-            }
-
-            if (tempCellWest != null)
-            {
-                _availableWestCells.Add(tempCellWest);
-                tempCellWest = tempCellWest.West;
-            }
-
-            if (tempCellEast != null)
-            {
-                _availableEastCells.Add(tempCellEast);
-                tempCellEast = tempCellEast.East;
-            }
-        }
-
-        _availableCells.AddRange(_availableWestCells);
-        _availableCells.AddRange(_availableSouthCells);
-        _availableCells.AddRange(_availableEastCells);
-        _availableCells.AddRange(_availableNorthCells);
-        _navigator.RefillAvailableCells(_availableNorthCells, _availableWestCells, _availableSouthCells, _availableEastCells);
-    }
-
     private void ShowBlinkRange()
     {
-        foreach (var cell in _availableCells)
+        foreach (var cell in _navigator.AvailableCells)
             if (cell.Content.Type != CellContentType.Wall)
                 cell.View.PlayAbilityRangeEffect();
     }
 
     private void HideBlinkRange()
     {
-        foreach (var cell in _availableCells)
+        foreach (var cell in _navigator.AvailableCells)
             cell.View.StopAbilityRangeEffect();
     }
 }
