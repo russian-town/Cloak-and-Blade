@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class MoveCommand : Command, IUnmissable
 {
-    private int _range;
-    private float _moveSpeed;
-    private float _rotationSpeed;
-    private Player _player;
-    private PlayerMover _playerMover;
-    private Navigator _navigator;
-    private Gameboard _gameboard;
-    private Camera _camera;
+    private readonly int _range;
+    private readonly float _moveSpeed;
+    private readonly float _rotationSpeed;
+    private readonly Player _player;
+    private readonly PlayerMover _playerMover;
+    private readonly Navigator _navigator;
+    private readonly Gameboard _gameboard;
+    private readonly Camera _camera;
+    private readonly CommandExecuter _executer;
+
     private Coroutine _executeCoroutine;
-    private CommandExecuter _executer;
 
     public MoveCommand(Player player, PlayerMover playerMover, Navigator navigator, float moveSpeed, float rotationSpeed, Gameboard gameboard, CommandExecuter executer, int range)
     {
