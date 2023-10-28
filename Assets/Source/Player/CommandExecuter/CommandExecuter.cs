@@ -37,6 +37,8 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
         }
     }
 
+    public void CancelCurrentCommand() => _currentCommand?.Cancel(this);
+
     public bool ResetCommand()
     {
         if (_currentCommand is not IUnmissable)

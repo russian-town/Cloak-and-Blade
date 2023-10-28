@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 {
     [SerializeField][Range(1, 5)] private int _moveRange = 2;
+    [SerializeField] private float _delay;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private ItemsInHold _itemsInHold;
@@ -30,6 +31,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     private CommandExecuter _commandExecuter;
     private Turn _turn;
 
+    public bool IsDied { get; private set; }
     public Sprite AbilityIcon => _abilityIcon;
     public Coroutine MoveCoroutine { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
@@ -53,6 +55,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _attacker = GetComponent<PlayerAttacker>();
         _commandExecuter = GetComponent<CommandExecuter>();
         _animationHandler = GetComponent<PlayerAnimationHandler>();
+        _navigator.Initialize(this);
         _enemyTurnWaiter = enemyTurnHandler;
         _mover.Initialize(_startCell, _animationHandler);
         _mover.MoveEnded += OnMoveEnded;
@@ -71,8 +74,8 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     public void PrepareAbility()
     {
-        //if (AbilityCommand().IsUsed)
-        //    return;
+        if (AbilityCommand().IsUsed)
+            return;
 
         _commandExecuter.PrepareCommand(AbilityCommand());
     }
@@ -113,17 +116,20 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     public void SetTurn(Turn turn)
     {
         _turn = turn;
-        _commandExecuter?.SetTurn(_turn);
+        _navigator.SetTurn(_turn);
+        _commandExecuter.SetTurn(_turn);
     }
 
     protected abstract AbilityCommand AbilityCommand();
 
     private IEnumerator MakeDeath()
     {
-        _commandExecuter.ResetCommand();
+        IsDied = true;
+        _commandExecuter.CancelCurrentCommand();
         _model.Hide();
         _diedParticle.Play();
         yield return new WaitUntil(() => !_diedParticle.isPlaying);
+        yield return new WaitForSeconds(_delay);
         Died?.Invoke();
     }
 

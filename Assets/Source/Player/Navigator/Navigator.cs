@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Navigator : MonoBehaviour
+public class Navigator : MonoBehaviour, ITurnHandler
 {
     private readonly List<Cell> _availableNorthCells = new List<Cell>();
     private readonly List<Cell> _availableSouthCells = new List<Cell>();
@@ -9,8 +9,12 @@ public class Navigator : MonoBehaviour
     private readonly List<Cell> _availableEastCells = new List<Cell>();
     private readonly List<Cell> _availableCells = new List<Cell>();
     private readonly List<Cell> _tempCells = new List<Cell>();
+    private Turn _turn;
+    private Player _player;
 
     public IReadOnlyList<Cell> AvailableCells => _availableCells;
+
+    public void Initialize(Player player) => _player = player;
 
     public void RefillAvailableCells(Cell currentCell, bool ignoreWalls, int range)
     {
@@ -39,6 +43,9 @@ public class Navigator : MonoBehaviour
 
     public bool CanMoveToCell(ref Cell cell)
     {
+        if (_turn == Turn.Enemy || _player.IsDied)
+            return false;
+
         if (TryFindCellHasTrap(_availableNorthCells, cell, out Cell findNorthCell))
         {
             cell = findNorthCell;
@@ -89,6 +96,8 @@ public class Navigator : MonoBehaviour
 
         _tempCells.Clear();
     }
+
+    public void SetTurn(Turn turn) => _turn = turn;
 
     private void ClearAllCells()
     {

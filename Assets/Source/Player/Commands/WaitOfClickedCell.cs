@@ -25,11 +25,9 @@ public class WaitOfClickedCell : CustomYieldInstruction
             if (Input.GetMouseButtonDown(0))
             {
                 Cell targetCell = _gameboard.GetCell(TouchRay);
-                Debug.Log("Click");
 
                 if (_navigator.CanMoveToCell(ref targetCell))
                 {
-                    Debug.Log("Can move.");
                     Cell = targetCell;
                     return false;
                 }
