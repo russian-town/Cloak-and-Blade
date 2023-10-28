@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class TransformationCommand : AbilityCommand, IDeferredCommand
+public class TransformationCommand : AbilityCommand
 {
     private Transformation _transformation;
     private Gameboard _gameboard;
@@ -21,7 +21,6 @@ public class TransformationCommand : AbilityCommand, IDeferredCommand
 
     public override IEnumerator WaitOfExecute()
     {
-        Debug.Log("Wait");
         WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
         yield return waitOfClickedCell;
         _executeCoroutine = _executer.StartCoroutine(Execute(waitOfClickedCell.Cell, _executer));
@@ -30,21 +29,27 @@ public class TransformationCommand : AbilityCommand, IDeferredCommand
 
     protected override IEnumerator ExecuteAction(Cell clickedCell)
     {
-        Debug.Log("Execute");
-        yield return new WaitUntil(() => _transformation.Cast(clickedCell));
+        _transformation.Cast(clickedCell);
         yield break;
     }
 
     protected override IEnumerator PrepareAction()
     {
-        Debug.Log("Prepared");
         _transformation.Prepare();
         yield break;
     }
 
     public override void Cancel(MonoBehaviour context)
     {
-        base.Cancel(context);
-        _transformation.Cancel();
+        if (_executer.NextCommand is not SkipCommand)
+        {
+            base.Cancel(context);
+            _transformation.Cancel();
+        }
+        else
+        {
+            _transformation.Prepare();
+            _executer.StartCoroutine(WaitOfExecute());
+        }
     }
 }

@@ -7,7 +7,6 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
     private Coroutine _waitOfExecute;
     private Coroutine _switchCommand;
     private Command _currentCommand;
-    private Command _deferredCommand;
     private Turn _turn;
 
     public Command NextCommand { get; private set; }
@@ -31,8 +30,6 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
     public void UpdateLastCommand()
     {
-        _deferredCommand = null;
-
         if (!ResetCommand())
         {
             _prepare = StartCoroutine(_currentCommand.Prepare(this));
@@ -42,7 +39,7 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
     public bool ResetCommand()
     {
-        if (_currentCommand is not IUnmissable && _deferredCommand == null)
+        if (_currentCommand is not IUnmissable)
         {
             _currentCommand = null;
             return true;
@@ -50,8 +47,6 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
         return false;
     }
-
-    public void ResetDeferredCommand() => _deferredCommand = null;
 
     public void SetTurn(Turn turn) => _turn = turn;
 
@@ -65,9 +60,6 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
         if (_currentCommand != null && _currentCommand.IsExecuting)
             yield break;
-
-        if (_currentCommand is IDeferredCommand)
-            _deferredCommand = _currentCommand;
 
         if (_prepare != null)
         {
@@ -90,11 +82,5 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
         _waitOfExecute = StartCoroutine(_currentCommand.WaitOfExecute());
         yield return _waitOfExecute;
-
-        if (_deferredCommand != null)
-        {
-            PrepareCommand(_deferredCommand);
-            _deferredCommand = null;
-        }
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAttacker))]
-public class Transformation : Ability, IDeferredCommand
+public class Transformation : Ability
 {
     [SerializeField] private PlayerModel _basicModel;
     [SerializeField] private PlayerModel _transformationModel;
@@ -40,6 +40,14 @@ public class Transformation : Ability, IDeferredCommand
 
     public override void Prepare()
     {
+        if (_prepareCoroutine != null)
+        {
+            _player.StopCoroutine(_prepareCoroutine);
+            _prepareCoroutine = null;
+        }
+
+        _prepareCoroutine = _commandExecuter.StartCoroutine(_player.Move.Prepare(_commandExecuter));
+
         if (_isTransformation)
             return;
 
@@ -48,7 +56,6 @@ public class Transformation : Ability, IDeferredCommand
         _basicModel.Hide();
         _transformationModel.Show();
         _attacker.Attack(AttackType.Blind);
-        _prepareCoroutine = _commandExecuter.StartCoroutine(_player.Move.Prepare(_commandExecuter));
         _currentCell = _player.CurrentCell;
         _currentCell.Content.BecomeWall();
         _isTransformation = true;
@@ -56,10 +63,6 @@ public class Transformation : Ability, IDeferredCommand
 
     public override void Cancel()
     {
-        if (_commandExecuter.NextCommand is SkipCommand)
-            return;
-
-        _commandExecuter.ResetDeferredCommand();
         _currentCell.Content.BecomeEmpty();
         _attacker.Attack(AttackType.UnBlind);
         _player.Move.Cancel(_commandExecuter);
@@ -77,7 +80,7 @@ public class Transformation : Ability, IDeferredCommand
 
         if(_prepareCoroutine != null) 
         {
-            _player.StopCoroutine( _prepareCoroutine);
+            _commandExecuter.StopCoroutine( _prepareCoroutine);
             _prepareCoroutine = null;
         }
     }
