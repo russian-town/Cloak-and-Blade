@@ -14,6 +14,6 @@ public class BlackGhost : Player
 
     protected override AbilityCommand AbilityCommand()
     {
-        return new TransformationCommand(_transformation, Gameboard, Navigator, CommandExecuter);
+        return new TransformationCommand(_transformation, Gameboard, Navigator, CommandExecuter, this, Mover, MoveSpeed, RotationSpeed, Range);
     }
 }

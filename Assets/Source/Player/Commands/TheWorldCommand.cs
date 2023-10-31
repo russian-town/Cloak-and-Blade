@@ -5,27 +5,23 @@ using UnityEngine;
 public class TheWorldCommand : AbilityCommand
 {
     private TheWorld _theWorld;
-    private Coroutine _executeCoroutine;
-    private CommandExecuter _executer;
     private YellowGhost _yellowGhost;
 
-    public TheWorldCommand(TheWorld theWorld, CommandExecuter executer, YellowGhost yellowGhost) : base(theWorld)
+    public TheWorldCommand(TheWorld theWorld, CommandExecuter executer, YellowGhost yellowGhost) : base(theWorld, executer)
     {
         _theWorld = theWorld;
         _yellowGhost = yellowGhost;
         _theWorld.AddSceneParticles(_yellowGhost.SceneEffects.ToList());
-        _executer = executer;
     }
 
-    public override IEnumerator WaitOfExecute()
+    protected override IEnumerator WaitOfExecute()
     {
-        _executeCoroutine = _executer.StartCoroutine(Execute(null, _executer));
-        yield return _executeCoroutine;
+        yield break;
     }
 
-    protected override IEnumerator ExecuteAction(Cell clickedCell)
+    protected override IEnumerator ExecuteAction()
     {
-        yield return new WaitUntil(() => _theWorld.Cast(clickedCell));
+        yield return new WaitUntil(() => _theWorld.Cast(null));
         yield break;
     }
 
@@ -35,9 +31,9 @@ public class TheWorldCommand : AbilityCommand
         yield break;
     }
 
-    public override void Cancel(MonoBehaviour context)
+    protected override void Cancel()
     {
-        base.Cancel(context);
+        base.Cancel();
         _theWorld.Cancel();
     }
 }

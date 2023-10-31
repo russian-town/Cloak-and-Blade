@@ -9,30 +9,16 @@ public class Transformation : Ability
     [SerializeField] private int _useLimit = 1;
 
     private PlayerAttacker _attacker;
-    private PlayerMover _mover;
     private Player _player;
-    private CommandExecuter _commandExecuter;
     private bool _isTransformation;
     private Cell _currentCell;
-    private Coroutine _prepareCoroutine;
-    private Coroutine _executeCoroutine;
     private int _maxUseLimit;
     private UpgradeSetter _upgradeSetter;
-
-    private void OnDisable()
-    {
-        if (_mover == null)
-            return;
-
-        _mover.MoveEnded -= Cancel;
-    }
 
     public override void Initialize(UpgradeSetter upgradeSetter)
     {
         _attacker = GetComponent<PlayerAttacker>();
-        _mover = GetComponent<PlayerMover>();
         _player = GetComponent<Player>();
-        _commandExecuter = GetComponent<CommandExecuter>();
         _upgradeSetter = upgradeSetter;
         _useLimit += _upgradeSetter.Level;
         _maxUseLimit = _useLimit;
@@ -40,18 +26,9 @@ public class Transformation : Ability
 
     public override void Prepare()
     {
-        if (_prepareCoroutine != null)
-        {
-            _player.StopCoroutine(_prepareCoroutine);
-            _prepareCoroutine = null;
-        }
-
-        _prepareCoroutine = _commandExecuter.StartCoroutine(_player.Move.Prepare(_commandExecuter));
-
         if (_isTransformation)
             return;
 
-        _mover.MoveEnded += Cancel;
         _transformationEffect.Play();
         _basicModel.Hide();
         _transformationModel.Show();
@@ -65,24 +42,10 @@ public class Transformation : Ability
     {
         _currentCell.Content.BecomeEmpty();
         _attacker.Attack(AttackType.UnBlind);
-        _player.Move.Cancel(_commandExecuter);
-        _mover.MoveEnded -= Cancel;
         _transformationEffect.Play();
         _basicModel.Show();
         _transformationModel.Hide();
         _isTransformation = false;
-
-        if(_executeCoroutine != null)
-        {
-            _commandExecuter.StopCoroutine(_executeCoroutine);
-            _executeCoroutine = null;
-        }
-
-        if(_prepareCoroutine != null) 
-        {
-            _commandExecuter.StopCoroutine( _prepareCoroutine);
-            _prepareCoroutine = null;
-        }
     }
 
     public override bool CanUse()
@@ -94,6 +57,5 @@ public class Transformation : Ability
     {
         _useLimit--;
         _useLimit = Mathf.Clamp(_useLimit, 0, _maxUseLimit);
-        _executeCoroutine = _commandExecuter.StartCoroutine(_player.Move.Execute(cell, _commandExecuter));
     }
 }

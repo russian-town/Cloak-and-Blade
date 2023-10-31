@@ -3,49 +3,69 @@ using UnityEngine;
 
 public abstract class Command
 {
-    private bool _isReady = false;
+    private CommandExecuter _executer;
     private Coroutine _executeActionCoroutine = null;
     private Coroutine _prepareActionCoroutine = null;
+    private Coroutine _waitOfExecute = null;
+    private Coroutine _prepare = null;
 
-    public bool IsExecuting { get; private set; }
-
-    public abstract IEnumerator WaitOfExecute();
-
-    public IEnumerator Prepare(MonoBehaviour context)
+    public Command(CommandExecuter executer)
     {
-        _isReady = false;
-        _prepareActionCoroutine = context.StartCoroutine(PrepareAction());
-        yield return _prepareActionCoroutine;
-        _isReady = true;
+        _executer = executer;
     }
 
-    public IEnumerator Execute(Cell clickedCell, MonoBehaviour context)
+    public bool Enabled { get; private set; } = false;
+    public bool IsExecuting { get; private set; }
+
+    public IEnumerator Execute()
     {
-        yield return new WaitUntil(() => _isReady);
+        _prepare = _executer.StartCoroutine(Prepare());
+        yield return _prepare;
+        yield return new WaitUntil(() => Enabled);
+        _executer.CommandChanged += OnCommandChanged;
+        _waitOfExecute = _executer.StartCoroutine(WaitOfExecute());
+        yield return _waitOfExecute;
         IsExecuting = true;
-        _executeActionCoroutine = context.StartCoroutine(ExecuteAction(clickedCell));
+        _executeActionCoroutine = _executer.StartCoroutine(ExecuteAction());
         yield return _executeActionCoroutine;
         IsExecuting = false;
     }
 
+    protected virtual void Cancel()
+    {
+        if (IsExecuting)
+            return;
+
+        Enabled = false;
+        StopAction(ref _prepare);
+        StopAction(ref _waitOfExecute);
+        StopAction(ref _prepareActionCoroutine);
+        StopAction(ref _executeActionCoroutine);
+        _executer.CommandChanged -= OnCommandChanged;
+    }
+
+    protected IEnumerator Prepare()
+    {
+        Enabled = false;
+        _prepareActionCoroutine = _executer.StartCoroutine(PrepareAction());
+        yield return _prepareActionCoroutine;
+        Enabled = true;
+    }
+
+    protected abstract IEnumerator WaitOfExecute();
+
     protected abstract IEnumerator PrepareAction();
 
-    protected abstract IEnumerator ExecuteAction(Cell clickedCell);
+    protected abstract IEnumerator ExecuteAction();
 
-    public virtual void Cancel(MonoBehaviour context)
+    protected abstract void OnCommandChanged(Command command);
+
+    private void StopAction(ref Coroutine action) 
     {
-        _isReady = false;
-
-        if (_prepareActionCoroutine != null)
+        if(action != null) 
         {
-            context.StopCoroutine(_prepareActionCoroutine);
-            _prepareActionCoroutine = null;
-        }
-
-        if(_executeActionCoroutine != null)
-        {
-            context.StopCoroutine(_executeActionCoroutine);
-            _executeActionCoroutine = null;
+            _executer.StopCoroutine(action);
+            action = null;
         }
     }
 }

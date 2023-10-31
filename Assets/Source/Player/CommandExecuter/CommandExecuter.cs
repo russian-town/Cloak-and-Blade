@@ -1,83 +1,55 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CommandExecuter : MonoBehaviour, ITurnHandler
 {
-    private Coroutine _prepare;
-    private Coroutine _waitOfExecute;
-    private Coroutine _switchCommand;
     private Command _currentCommand;
     private Turn _turn;
 
-    public Command NextCommand { get; private set; }
     public Command CurrentCommand => _currentCommand;
 
-    public void PrepareCommand(Command command)
+    public event UnityAction<Command> CommandChanged;
+
+    public bool TrySwitchCommand(Command command)
     {
-        if (_turn == Turn.Enemy)
-            return;
-
-        if (_currentCommand != null && _currentCommand.IsExecuting)
-            return;
-
-        if (_switchCommand != null)
+        if (_currentCommand == command && _currentCommand.Enabled == false)
         {
-            StopCoroutine(_switchCommand);
-            _switchCommand = null;
+            PrepareCommand();
+            return false;
         }
 
-        _switchCommand = StartCoroutine(SwitchCurrentCommand(command));
+        if(CanSwith() == false)
+            return false;
+
+        _currentCommand = command;
+        CommandChanged?.Invoke(command);
+        return true;
     }
 
-    //public void UpdateLastCommand()
-    //{
-    //    if (!ResetCommand())
-    //    {
-    //        _prepare = StartCoroutine(_currentCommand.Prepare(this));
-    //        _waitOfExecute = StartCoroutine(_currentCommand.WaitOfExecute());
-    //    }
-    //}
+    public void PrepareCommand()
+    {
+        if (_currentCommand == null)
+            return;
 
-    public void CancelCurrentCommand() => _currentCommand?.Cancel(this);
+        StartCoroutine(_currentCommand.Execute());
+    }
 
     public void ResetCommand()
     {
-        return;
+        _currentCommand = null;
+        CommandChanged?.Invoke(_currentCommand);
     }
 
     public void SetTurn(Turn turn) => _turn = turn;
 
-    private IEnumerator SwitchCurrentCommand(Command command)
+    private bool CanSwith()
     {
-        if(_turn == Turn.Enemy)
-            yield break;
-
-        if (command == _currentCommand)
-            yield break;
+        if (_turn == Turn.Enemy)
+            return false;
 
         if (_currentCommand != null && _currentCommand.IsExecuting)
-            yield break;
+            return false;
 
-        if (_prepare != null)
-        {
-            StopCoroutine(_prepare);
-            _prepare = null;
-        }
-
-        if (_waitOfExecute != null)
-        {
-            StopCoroutine(_waitOfExecute);
-            _waitOfExecute = null;
-        }
-
-        NextCommand = command;
-        _currentCommand?.Cancel(this);
-        _currentCommand = command;
-
-        _prepare = StartCoroutine(_currentCommand.Prepare(this));
-        yield return _prepare;
-
-        _waitOfExecute = StartCoroutine(_currentCommand.WaitOfExecute());
-        yield return _waitOfExecute;
+        return true;
     }
 }

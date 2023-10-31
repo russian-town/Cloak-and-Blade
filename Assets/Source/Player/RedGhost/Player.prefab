@@ -34638,6 +34638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveRange: 2
+  _delay: 0
   _moveSpeed: 3
   _rotationSpeed: 360
   _itemsInHold: {fileID: 720380231298066782}

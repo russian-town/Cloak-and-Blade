@@ -11,11 +11,11 @@ public class LevelLoader : MonoBehaviour, IDataReader
 
     public bool TryLoadFirstLevel()
     {
-        if (_tutorialCompleted == false)
-        {
-            SceneManager.LoadScene(Constants.Tutorial);
-            return false;
-        }
+        //if (_tutorialCompleted == false)
+        //{
+        //    SceneManager.LoadScene(Constants.Tutorial);
+        //    return false;
+        //}
 
         //int index = Random.Range(_firstLevelIndex, SceneManager.sceneCountInBuildSettings - 1);
         SceneManager.LoadScene("TestingScene");

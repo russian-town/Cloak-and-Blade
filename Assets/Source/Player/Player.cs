@@ -35,12 +35,16 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     public Sprite AbilityIcon => _abilityIcon;
     public Coroutine MoveCoroutine { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
+    public MoveCommand MoveCommand => _moveCommand;
     public ItemsInHold ItemsInHold => _itemsInHold;
-    public MoveCommand Move => _moveCommand;
     protected Navigator Navigator => _navigator;
     protected Gameboard Gameboard => _gameboard;
     protected CommandExecuter CommandExecuter => _commandExecuter;
     protected UpgradeSetter UpgradeSetter => _upgradeSetter;
+    protected PlayerMover Mover => _mover;
+    protected float RotationSpeed => _rotationSpeed;
+    protected float MoveSpeed => _moveSpeed;
+    protected int Range => _moveRange;
 
     public event UnityAction StepEnded;
     public event UnityAction Died;
@@ -74,15 +78,24 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     public void PrepareAbility()
     {
-        if (AbilityCommand().IsUsed)
-            return;
+        //if (AbilityCommand().IsUsed)
+        //    return;
 
-        _commandExecuter.PrepareCommand(AbilityCommand());
+        if (_commandExecuter.TrySwitchCommand(AbilityCommand()))
+            _commandExecuter.PrepareCommand();
     }
 
-    public void PrepareMove() => _commandExecuter.PrepareCommand(_moveCommand);
+    public void PrepareMove()
+    {
+        if (_commandExecuter.TrySwitchCommand(_moveCommand))
+            _commandExecuter.PrepareCommand();
+    }
 
-    public void PrepareSkip() => _commandExecuter.PrepareCommand(_skipCommand);
+    public void PrepareSkip()
+    {
+        if (_commandExecuter.TrySwitchCommand(_skipCommand))
+            _commandExecuter.PrepareCommand();
+    }
 
     public void SkipTurn() => StepEnded?.Invoke();
 
@@ -93,7 +106,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
         if (_navigator.CanMoveToCell(ref targetCell) && targetCell.IsOccupied == false && targetCell.Content.Type != CellContentType.Wall)
         {
-            _mover.StartMoveTo(targetCell, moveSpeed, rotationSpeed);
+            MoveCoroutine = _mover.StartMoveTo(targetCell, moveSpeed, rotationSpeed);
             _startCell = _mover.CurrentCell;
             return true;
         }
@@ -126,7 +139,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     private IEnumerator MakeDeath()
     {
         IsDied = true;
-        _commandExecuter.CancelCurrentCommand();
+        _commandExecuter.ResetCommand();
         _model.Hide();
         _diedParticle.Play();
         yield return new WaitUntil(() => !_diedParticle.isPlaying);
@@ -134,9 +147,5 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         Died?.Invoke();
     }
 
-    private void OnMoveEnded()
-    {
-        //_commandExecuter.UpdateLastCommand();
-        StepEnded?.Invoke();
-    }
+    private void OnMoveEnded() => StepEnded?.Invoke();
 }

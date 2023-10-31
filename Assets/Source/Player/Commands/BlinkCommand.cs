@@ -9,8 +9,9 @@ public class BlinkCommand : AbilityCommand
     private Navigator _navigator;
     private Coroutine _executeCoroutine;
     private CommandExecuter _executer;
+    private Cell _cell;
 
-    public BlinkCommand(Blink blink, Gameboard gameboard, Navigator navigator, CommandExecuter executer) : base(blink)
+    public BlinkCommand(Blink blink, Gameboard gameboard, Navigator navigator, CommandExecuter executer) : base(blink, executer)
     {
         _blink = blink;
         _gameboard = gameboard;
@@ -25,22 +26,21 @@ public class BlinkCommand : AbilityCommand
         yield break;
     }
 
-    public override IEnumerator WaitOfExecute()
+    protected override IEnumerator WaitOfExecute()
     {
         WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
         yield return waitOfClickedCell;
-        _executeCoroutine = _executer.StartCoroutine(Execute(waitOfClickedCell.Cell, _executer));
-        yield return _executeCoroutine;
+        _cell = waitOfClickedCell.Cell;
     }
 
-    protected override IEnumerator ExecuteAction(Cell clickedCell)
+    protected override IEnumerator ExecuteAction()
     {
-        yield return new WaitUntil(() => _blink.Cast(clickedCell));
+        yield return new WaitUntil(() => _blink.Cast(_cell));
     }
 
-    public override void Cancel(MonoBehaviour context)
+    protected override void Cancel()
     {
-        base.Cancel(context);
+        base.Cancel();
         _blink.Cancel();
 
         if (_executeCoroutine != null)

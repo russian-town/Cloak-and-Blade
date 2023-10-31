@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class MoveCommand : Command, IUnmissable, ITurnHandler
+public class MoveCommand : Command, ITurnHandler
 {
     private readonly int _range;
     private readonly float _moveSpeed;
@@ -12,12 +12,9 @@ public class MoveCommand : Command, IUnmissable, ITurnHandler
     private readonly Gameboard _gameboard;
     private readonly Camera _camera;
     private readonly CommandExecuter _executer;
-    private Coroutine _prepare;
-    private Coroutine _waitOfExecute;
+    private Cell _cell;
 
-    private Coroutine _executeCoroutine;
-
-    public MoveCommand(Player player, PlayerMover playerMover, Navigator navigator, float moveSpeed, float rotationSpeed, Gameboard gameboard, CommandExecuter executer, int range)
+    public MoveCommand(Player player, PlayerMover playerMover, Navigator navigator, float moveSpeed, float rotationSpeed, Gameboard gameboard, CommandExecuter executer, int range) : base(executer)
     {
         _player = player;
         _playerMover = playerMover;
@@ -30,47 +27,29 @@ public class MoveCommand : Command, IUnmissable, ITurnHandler
         _range = range;
     }
 
-    public override void Cancel(MonoBehaviour context)
+    protected override void Cancel()
     {
+        base.Cancel();
         _navigator.HideAvailableCells();
-
-        if (_executeCoroutine != null)
-        {
-            _executer.StopCoroutine(_executeCoroutine);
-            _executeCoroutine = null;
-        }
-
-        if(_prepare != null) 
-        {
-            _executer.StopCoroutine(_prepare);
-            _prepare = null;
-        }
-
-        if(_waitOfExecute != null)
-        {
-            _executer.StopCoroutine(_waitOfExecute);
-            _waitOfExecute = null;
-        }
-    }
-
-    public override IEnumerator WaitOfExecute()
-    {
-        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
-        yield return waitOfClickedCell;
-        _executeCoroutine = _player.StartCoroutine(Execute(waitOfClickedCell.Cell, _player));
-        yield return _executeCoroutine;
     }
 
     public void SetTurn(Turn turn)
     {
+        if (Enabled == false)
+            return;
+
         if (turn == Turn.Enemy)
-            Cancel(_executer);
+            Cancel();
 
         if (turn == Turn.Player && _executer.CurrentCommand == this)
-        {
-            _prepare = _executer.StartCoroutine(Prepare(_executer));
-            _waitOfExecute = _executer.StartCoroutine(WaitOfExecute());
-        }
+            _executer.PrepareCommand();
+    }
+
+    protected override IEnumerator WaitOfExecute()
+    {
+        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
+        yield return waitOfClickedCell;
+        _cell = waitOfClickedCell.Cell;
     }
 
     protected override IEnumerator PrepareAction() 
@@ -80,9 +59,11 @@ public class MoveCommand : Command, IUnmissable, ITurnHandler
         yield return null;
     }
 
-    protected override IEnumerator ExecuteAction(Cell clickedCell)
+    protected override IEnumerator ExecuteAction()
     {
-        if (_player.TryMoveToCell(clickedCell, _moveSpeed, _rotationSpeed))
+        if (_player.TryMoveToCell(_cell, _moveSpeed, _rotationSpeed))
             yield return _player.MoveCoroutine;
     }
+
+    protected override void OnCommandChanged(Command command) => Cancel();
 }
