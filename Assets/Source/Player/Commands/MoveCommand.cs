@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class MoveCommand : Command, IUnmissable
+public class MoveCommand : Command, IUnmissable, ITurnHandler
 {
     private readonly int _range;
     private readonly float _moveSpeed;
@@ -12,6 +12,8 @@ public class MoveCommand : Command, IUnmissable
     private readonly Gameboard _gameboard;
     private readonly Camera _camera;
     private readonly CommandExecuter _executer;
+    private Coroutine _prepare;
+    private Coroutine _waitOfExecute;
 
     private Coroutine _executeCoroutine;
 
@@ -37,6 +39,18 @@ public class MoveCommand : Command, IUnmissable
             _executer.StopCoroutine(_executeCoroutine);
             _executeCoroutine = null;
         }
+
+        if(_prepare != null) 
+        {
+            _executer.StopCoroutine(_prepare);
+            _prepare = null;
+        }
+
+        if(_waitOfExecute != null)
+        {
+            _executer.StopCoroutine(_waitOfExecute);
+            _waitOfExecute = null;
+        }
     }
 
     public override IEnumerator WaitOfExecute()
@@ -45,6 +59,18 @@ public class MoveCommand : Command, IUnmissable
         yield return waitOfClickedCell;
         _executeCoroutine = _player.StartCoroutine(Execute(waitOfClickedCell.Cell, _player));
         yield return _executeCoroutine;
+    }
+
+    public void SetTurn(Turn turn)
+    {
+        if (turn == Turn.Enemy)
+            Cancel(_executer);
+
+        if (turn == Turn.Player && _executer.CurrentCommand == this)
+        {
+            _prepare = _executer.StartCoroutine(Prepare(_executer));
+            _waitOfExecute = _executer.StartCoroutine(WaitOfExecute());
+        }
     }
 
     protected override IEnumerator PrepareAction() 
@@ -56,9 +82,7 @@ public class MoveCommand : Command, IUnmissable
 
     protected override IEnumerator ExecuteAction(Cell clickedCell)
     {
-        if (_player.TryMoveToCell(clickedCell, _moveSpeed, _rotationSpeed) == false)
-            _executer.UpdateLastCommand();
-        else
+        if (_player.TryMoveToCell(clickedCell, _moveSpeed, _rotationSpeed))
             yield return _player.MoveCoroutine;
     }
 }

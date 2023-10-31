@@ -118,6 +118,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _turn = turn;
         _navigator.SetTurn(_turn);
         _commandExecuter.SetTurn(_turn);
+        _moveCommand.SetTurn(_turn);
     }
 
     protected abstract AbilityCommand AbilityCommand();
@@ -135,7 +136,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     private void OnMoveEnded()
     {
-        _commandExecuter.UpdateLastCommand();
+        //_commandExecuter.UpdateLastCommand();
         StepEnded?.Invoke();
     }
 }

@@ -10,6 +10,7 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
     private Turn _turn;
 
     public Command NextCommand { get; private set; }
+    public Command CurrentCommand => _currentCommand;
 
     public void PrepareCommand(Command command)
     {
@@ -28,26 +29,20 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
         _switchCommand = StartCoroutine(SwitchCurrentCommand(command));
     }
 
-    public void UpdateLastCommand()
-    {
-        if (!ResetCommand())
-        {
-            _prepare = StartCoroutine(_currentCommand.Prepare(this));
-            _waitOfExecute = StartCoroutine(_currentCommand.WaitOfExecute());
-        }
-    }
+    //public void UpdateLastCommand()
+    //{
+    //    if (!ResetCommand())
+    //    {
+    //        _prepare = StartCoroutine(_currentCommand.Prepare(this));
+    //        _waitOfExecute = StartCoroutine(_currentCommand.WaitOfExecute());
+    //    }
+    //}
 
     public void CancelCurrentCommand() => _currentCommand?.Cancel(this);
 
-    public bool ResetCommand()
+    public void ResetCommand()
     {
-        if (_currentCommand is not IUnmissable)
-        {
-            _currentCommand = null;
-            return true;
-        }
-
-        return false;
+        return;
     }
 
     public void SetTurn(Turn turn) => _turn = turn;
