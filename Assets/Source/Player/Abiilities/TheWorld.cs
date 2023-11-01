@@ -11,7 +11,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     [SerializeField] private float _effectSlowDuration;
     [SerializeField] private float _effectSpeedUpDuration;
     [SerializeField] private ParticleSystem _burstActionEffect;
-    [SerializeField] private List<EffectChangeHanldler> _effectsToChange = new List<EffectChangeHanldler>();
+    [SerializeField] private List<EffectChangeHanldler> _effectsToChange = new();
     [SerializeField] private Sprite _icon;
 
     private PlayerAttacker _attacker;
@@ -29,22 +29,6 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
         _player.StepEnded -= OnStepEnded;
     }
 
-    public override void Initialize(UpgradeSetter upgradeSetter)
-    {
-        _attacker = GetComponent<PlayerAttacker>();
-        _player = GetComponent<Player>();
-        _upgradeSetter = upgradeSetter;
-        _maxStepCount += upgradeSetter.Level;
-    }
-
-    public override void Cancel() 
-    {
-        _isActive = false;
-        _currentStepCount = 0;
-    }
-
-    public override void Prepare() { }
-
     public void AddSceneParticles(List<EffectChangeHanldler> effects)
     {
         if (effects.Count == 0)
@@ -52,6 +36,18 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
 
         _effectsToChange.AddRange(effects);
     }
+
+    public override void Initialize(UpgradeSetter upgradeSetter)
+    {
+        _attacker = GetComponent<PlayerAttacker>();
+        _player = GetComponent<Player>();
+        _upgradeSetter = upgradeSetter;
+        _maxStepCount += _upgradeSetter.Level;
+    }
+
+    public override void Cancel() { }
+
+    public override void Prepare() { }
 
     public override bool CanUse()
     {

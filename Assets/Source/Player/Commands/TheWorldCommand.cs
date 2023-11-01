@@ -30,10 +30,4 @@ public class TheWorldCommand : AbilityCommand
         _theWorld.Prepare();
         yield break;
     }
-
-    protected override void Cancel()
-    {
-        base.Cancel();
-        _theWorld.Cancel();
-    }
 }

@@ -72,10 +72,10 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
         }
 
         _turn = Turn.Player;
-        _player.SetTurn(_turn);
         _view.Subscribe();
         _view.ShowInteravtiveButton();
         _startWaitForEnemies = null;
+        _player.SetTurn(_turn);
     }
 }
 

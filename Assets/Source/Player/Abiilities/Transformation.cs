@@ -10,10 +10,11 @@ public class Transformation : Ability
 
     private PlayerAttacker _attacker;
     private Player _player;
-    private bool _isTransformation;
     private Cell _currentCell;
     private int _maxUseLimit;
     private UpgradeSetter _upgradeSetter;
+
+    public bool Prepared { get; private set; }
 
     public override void Initialize(UpgradeSetter upgradeSetter)
     {
@@ -22,11 +23,12 @@ public class Transformation : Ability
         _upgradeSetter = upgradeSetter;
         _useLimit += _upgradeSetter.Level;
         _maxUseLimit = _useLimit;
+        Debug.Log($"{this} initialazed.");
     }
 
     public override void Prepare()
     {
-        if (_isTransformation)
+        if (Prepared == true)
             return;
 
         _transformationEffect.Play();
@@ -35,7 +37,8 @@ public class Transformation : Ability
         _attacker.Attack(AttackType.Blind);
         _currentCell = _player.CurrentCell;
         _currentCell.Content.BecomeWall();
-        _isTransformation = true;
+        Prepared = true;
+        Debug.Log($"{this} prepare.");
     }
 
     public override void Cancel()
@@ -45,16 +48,19 @@ public class Transformation : Ability
         _transformationEffect.Play();
         _basicModel.Show();
         _transformationModel.Hide();
-        _isTransformation = false;
+        Prepared = false;
+        Debug.Log($"{this} cansel.");
     }
 
     public override bool CanUse()
     {
+        Debug.Log($"{this} can use = {_useLimit > 0}.");
         return _useLimit > 0;
     }
 
     protected override void Action(Cell cell)
     {
+        Debug.Log($"{this} decrease useLimit.");
         _useLimit--;
         _useLimit = Mathf.Clamp(_useLimit, 0, _maxUseLimit);
     }

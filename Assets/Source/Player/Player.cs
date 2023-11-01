@@ -78,8 +78,8 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     public void PrepareAbility()
     {
-        //if (AbilityCommand().IsUsed)
-        //    return;
+        if (AbilityCommand().IsUsed)
+            return;
 
         if (_commandExecuter.TrySwitchCommand(AbilityCommand()))
             _commandExecuter.PrepareCommand();
@@ -140,7 +140,13 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     {
         IsDied = true;
         _commandExecuter.ResetCommand();
-        _model.Hide();
+
+        while (_model.Enabled)
+        {
+            _model.Hide();
+            yield return null;
+        }
+
         _diedParticle.Play();
         yield return new WaitUntil(() => !_diedParticle.isPlaying);
         yield return new WaitForSeconds(_delay);

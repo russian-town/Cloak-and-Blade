@@ -28,6 +28,11 @@ public class AbilityCommand : Command
 
     protected override void OnCommandChanged(Command command)
     {
-        throw new System.NotImplementedException();
+        Cancel();
+    }
+
+    protected override void Cancel()
+    {
+        base.Cancel();
     }
 }

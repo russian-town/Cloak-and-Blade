@@ -7,13 +7,12 @@ public class TransformationCommand : AbilityCommand
     private readonly float _moveSpeed;
     private readonly float _rotationSpeed;
     private readonly PlayerMover _playerMover;
+    private readonly Transformation _transformation;
+    private readonly Gameboard _gameboard;
+    private readonly Camera _camera;
+    private readonly Navigator _navigator;
+    private readonly Player _player;
 
-    private Transformation _transformation;
-    private Gameboard _gameboard;
-    private Camera _camera;
-    private Navigator _navigator;
-    private CommandExecuter _executer;
-    private Player _player;
     private Cell _cell;
 
     public TransformationCommand(Transformation transformation, Gameboard gameboard, Navigator navigator, CommandExecuter executer, Player player, PlayerMover playerMover, float moveSpeed, float rotationSpeed, int range) : base(transformation, executer)
@@ -22,7 +21,6 @@ public class TransformationCommand : AbilityCommand
         _gameboard = gameboard;
         _camera = Camera.main;
         _navigator = navigator;
-        _executer = executer;
         _player = player;
         _playerMover = playerMover;
         _range = range;
@@ -32,9 +30,9 @@ public class TransformationCommand : AbilityCommand
 
     protected override void Cancel()
     {
+        base.Cancel();
         _playerMover.MoveEnded -= Cancel;
         _transformation.Cancel();
-        base.Cancel();
         _navigator.HideAvailableCells();
     }
 
@@ -56,7 +54,7 @@ public class TransformationCommand : AbilityCommand
 
     protected override IEnumerator PrepareAction()
     {
-        _navigator.RefillAvailableCells(_playerMover.CurrentCell, true, _range);
+        _navigator.RefillAvailableCellsIgnoredWalls(_playerMover.CurrentCell, _range);
         _navigator.ShowAvailableCells();
         _transformation.Prepare();
         yield return null;
@@ -64,7 +62,7 @@ public class TransformationCommand : AbilityCommand
 
     protected override void OnCommandChanged(Command command)
     {
-        if (command is SkipCommand)
+        if (command is SkipCommand || Enabled)
             return;
 
         Cancel();

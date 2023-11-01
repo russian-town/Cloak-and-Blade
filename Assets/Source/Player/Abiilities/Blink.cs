@@ -27,7 +27,7 @@ public class Blink : Ability
 
     public override void Prepare()
     {
-        _navigator.RefillAvailableCells(_player.CurrentCell, false, _blinkRange);
+        _navigator.RefillAvailableCells(_player.CurrentCell, _blinkRange);
         ShowBlinkRange();
         _source.clip = _prepareSound;
         _source.Play();

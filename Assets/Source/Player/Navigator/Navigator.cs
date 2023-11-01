@@ -16,30 +16,9 @@ public class Navigator : MonoBehaviour, ITurnHandler
 
     public void Initialize(Player player) => _player = player;
 
-    public void RefillAvailableCells(Cell currentCell, bool ignoreWalls, int range)
-    {
-        ClearAllCells();
+    public void RefillAvailableCells(Cell currentCell, int range) => RefillAvailableCells(currentCell, false, range);
 
-        Cell tempCellNorth = currentCell.North;
-        Cell tempCellSouth = currentCell.South;
-        Cell tempCellWest = currentCell.West;
-        Cell tempCellEast = currentCell.East;
-
-        for (int i = 0; i < range; i++)
-        {
-            if (TryAddCell(tempCellNorth, _availableNorthCells, ignoreWalls))
-                tempCellNorth = tempCellNorth.North;
-
-            if (TryAddCell(tempCellSouth, _availableSouthCells, ignoreWalls))
-                tempCellSouth = tempCellSouth.South;
-
-            if (TryAddCell(tempCellEast, _availableEastCells, ignoreWalls))
-                tempCellEast = tempCellEast.East;
-
-            if (TryAddCell(tempCellWest, _availableWestCells, ignoreWalls))
-                tempCellWest = tempCellWest.West;
-        }
-    }
+    public void RefillAvailableCellsIgnoredWalls(Cell currentCell, int range) => RefillAvailableCells(currentCell, true, range);
 
     public bool CanMoveToCell(ref Cell cell)
     {
@@ -99,6 +78,31 @@ public class Navigator : MonoBehaviour, ITurnHandler
 
     public void SetTurn(Turn turn) => _turn = turn;
 
+    private void RefillAvailableCells(Cell currentCell, bool ignoreWalls, int range)
+    {
+        ClearAllCells();
+
+        Cell tempCellNorth = currentCell.North;
+        Cell tempCellSouth = currentCell.South;
+        Cell tempCellWest = currentCell.West;
+        Cell tempCellEast = currentCell.East;
+
+        for (int i = 0; i < range; i++)
+        {
+            if (TryAddCell(tempCellNorth, _availableNorthCells, ignoreWalls))
+                tempCellNorth = tempCellNorth.North;
+
+            if (TryAddCell(tempCellSouth, _availableSouthCells, ignoreWalls))
+                tempCellSouth = tempCellSouth.South;
+
+            if (TryAddCell(tempCellEast, _availableEastCells, ignoreWalls))
+                tempCellEast = tempCellEast.East;
+
+            if (TryAddCell(tempCellWest, _availableWestCells, ignoreWalls))
+                tempCellWest = tempCellWest.West;
+        }
+    }
+
     private void ClearAllCells()
     {
         _availableNorthCells.Clear();
@@ -141,7 +145,7 @@ public class Navigator : MonoBehaviour, ITurnHandler
         {
             if (ignoreWalls == true)
             {
-                if (tempCell.Content.Type == CellContentType.Wall)
+                if (tempCell.Content.Type == CellContentType.Wall || tempCell.IsOccupied == true)
                 {
                     return false;
                 }
@@ -154,8 +158,15 @@ public class Navigator : MonoBehaviour, ITurnHandler
             }
             else if (ignoreWalls == false)
             {
-                cells.Add(tempCell);
-                _availableCells.Add(tempCell);
+                if (tempCell.IsOccupied == true)
+                {
+                    return false;
+                }
+                else
+                {
+                    cells.Add(tempCell);
+                    _availableCells.Add(tempCell);
+                }
             }
 
             return true;

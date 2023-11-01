@@ -54,7 +54,7 @@ public class MoveCommand : Command, ITurnHandler
 
     protected override IEnumerator PrepareAction() 
     {
-        _navigator.RefillAvailableCells(_playerMover.CurrentCell, true, _range);
+        _navigator.RefillAvailableCellsIgnoredWalls(_playerMover.CurrentCell, _range);
         _navigator.ShowAvailableCells();
         yield return null;
     }

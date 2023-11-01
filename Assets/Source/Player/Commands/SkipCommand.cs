@@ -33,11 +33,10 @@ public class SkipCommand : Command
         _player.SkipTurn();
         yield return _waitForEnemies;
         yield return new WaitForSeconds(_hourglass.AnimationLength);
-        yield return _hourglass.StartHide();
         _playerAnimationHandler.StopSkipAnimation();
-        Cancel();
+        yield return _hourglass.StartHide();
         yield break;
     }
 
-    protected override void OnCommandChanged(Command command) => Cancel();
+    protected override void OnCommandChanged(Command command) { return; }
 }
