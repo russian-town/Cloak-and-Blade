@@ -20,6 +20,8 @@ public class Navigator : MonoBehaviour, ITurnHandler
 
     public void RefillAvailableCellsIgnoredWalls(Cell currentCell, int range) => RefillAvailableCells(currentCell, true, range);
 
+    public void SetTurn(Turn turn) => _turn = turn;
+
     public bool CanMoveToCell(ref Cell cell)
     {
         if (_turn == Turn.Enemy || _player.IsDied)
@@ -75,8 +77,6 @@ public class Navigator : MonoBehaviour, ITurnHandler
 
         _tempCells.Clear();
     }
-
-    public void SetTurn(Turn turn) => _turn = turn;
 
     private void RefillAvailableCells(Cell currentCell, bool ignoreWalls, int range)
     {

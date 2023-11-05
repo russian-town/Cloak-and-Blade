@@ -31,22 +31,24 @@ public class MoveCommand : Command, ITurnHandler
     {
         base.Cancel();
         _navigator.HideAvailableCells();
+        Debug.Log("Move cansel");
     }
 
     public void SetTurn(Turn turn)
     {
-        if (Enabled == false)
+        if (_executer.CurrentCommand != this)
             return;
 
         if (turn == Turn.Enemy)
-            Cancel();
+            _navigator.HideAvailableCells();
 
-        if (turn == Turn.Player && _executer.CurrentCommand == this)
+        if (turn == Turn.Player)
             _executer.PrepareCommand();
     }
 
     protected override IEnumerator WaitOfExecute()
     {
+        Debug.Log("Wait of execute");
         WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
         yield return waitOfClickedCell;
         _cell = waitOfClickedCell.Cell;

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class TransformationCommand : AbilityCommand
+public class TransformationCommand : AbilityCommand, ITurnHandler
 {
     private readonly int _range;
     private readonly float _moveSpeed;
@@ -12,6 +12,7 @@ public class TransformationCommand : AbilityCommand
     private readonly Camera _camera;
     private readonly Navigator _navigator;
     private readonly Player _player;
+    private readonly CommandExecuter _executer;
 
     private Cell _cell;
 
@@ -26,6 +27,24 @@ public class TransformationCommand : AbilityCommand
         _range = range;
         _moveSpeed = moveSpeed;
         _rotationSpeed = rotationSpeed;
+        _executer = executer;
+    }
+
+    public void SetTurn(Turn turn)
+    {
+        if (Enabled == false)
+            return;
+
+        if(turn == Turn.Enemy)
+        {
+            _navigator.HideAvailableCells();
+        }
+        else
+        {
+            _navigator.RefillAvailableCellsIgnoredWalls(_player.CurrentCell, _range);
+            _navigator.ShowAvailableCells();
+            _executer.StartCoroutine(WaitOfExecute());
+        }
     }
 
     protected override void Cancel()
@@ -34,6 +53,7 @@ public class TransformationCommand : AbilityCommand
         _playerMover.MoveEnded -= Cancel;
         _transformation.Cancel();
         _navigator.HideAvailableCells();
+        Debug.Log("Cancel");
     }
 
     protected override IEnumerator WaitOfExecute()
@@ -62,7 +82,7 @@ public class TransformationCommand : AbilityCommand
 
     protected override void OnCommandChanged(Command command)
     {
-        if (command is SkipCommand || Enabled)
+        if (command is SkipCommand || command == this)
             return;
 
         Cancel();

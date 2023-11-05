@@ -78,8 +78,8 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     public void PrepareAbility()
     {
-        if (AbilityCommand().IsUsed)
-            return;
+        //if (AbilityCommand().IsUsed)
+        //    return;
 
         if (_commandExecuter.TrySwitchCommand(AbilityCommand()))
             _commandExecuter.PrepareCommand();
@@ -129,10 +129,13 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     public void SetTurn(Turn turn)
     {
         _turn = turn;
-        _navigator.SetTurn(_turn);
         _commandExecuter.SetTurn(_turn);
+        _navigator.SetTurn(_turn);
         _moveCommand.SetTurn(_turn);
+        TurnChanged(turn);
     }
+
+    protected virtual void TurnChanged(Turn turn) { }
 
     protected abstract AbilityCommand AbilityCommand();
 

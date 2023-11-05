@@ -12,11 +12,8 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
     public bool TrySwitchCommand(Command command)
     {
-        if (_currentCommand == command && _currentCommand.Enabled == false)
-        {
-            PrepareCommand();
+        if (_currentCommand == command && command is not SkipCommand)
             return false;
-        }
 
         if(CanSwith() == false)
             return false;

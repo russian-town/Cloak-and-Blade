@@ -8,6 +8,7 @@ public abstract class Command
     private Coroutine _prepareActionCoroutine = null;
     private Coroutine _waitOfExecute = null;
     private Coroutine _prepare = null;
+    private Coroutine _startCancel = null;
 
     public Command(CommandExecuter executer)
     {
@@ -33,15 +34,8 @@ public abstract class Command
 
     protected virtual void Cancel()
     {
-        if (IsExecuting)
-            return;
-
-        Enabled = false;
-        StopAction(ref _prepare);
-        StopAction(ref _waitOfExecute);
-        StopAction(ref _prepareActionCoroutine);
-        StopAction(ref _executeActionCoroutine);
-        _executer.CommandChanged -= OnCommandChanged;
+        StopAction(ref _startCancel);
+        _startCancel = _executer.StartCoroutine(StartCansel());
     }
 
     protected IEnumerator Prepare()
@@ -59,6 +53,20 @@ public abstract class Command
     protected abstract IEnumerator ExecuteAction();
 
     protected abstract void OnCommandChanged(Command command);
+
+    private IEnumerator StartCansel()
+    {
+        if (IsExecuting)
+            yield return new WaitUntil(() => IsExecuting == false);
+
+        Enabled = false;
+        StopAction(ref _prepare);
+        StopAction(ref _waitOfExecute);
+        StopAction(ref _prepareActionCoroutine);
+        StopAction(ref _executeActionCoroutine);
+        _executer.CommandChanged -= OnCommandChanged;
+        _startCancel = null;
+    }
 
     private void StopAction(ref Coroutine action) 
     {
