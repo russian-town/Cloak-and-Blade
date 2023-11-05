@@ -9,37 +9,35 @@ public class Hourglass : MonoBehaviour, IPauseHandler
 
     private CanvasGroup _canvasGroup;
     private Animator _animator;
-    private CommandExecuter _commandExecuter;
     private float _pauseSpeed = 1;
 
     public float AnimationLength => _hourglassClip.length;
 
-    public void Initialaze(CommandExecuter commandExecuter)
+    public void Initialaze()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         _animator = GetComponent<Animator>();
-        _commandExecuter = commandExecuter;
     }
 
     public Coroutine StartShow()
     {
-        return _commandExecuter.StartCoroutine(Show());
+        return StartCoroutine(Show());
     }
 
     public Coroutine StartHide()
     {
-        return _commandExecuter.StartCoroutine(Hide());
+        return StartCoroutine(Hide());
     }
 
     private IEnumerator Show()
     {
-        yield return _commandExecuter.StartCoroutine(FadeIn(1));
+        yield return StartCoroutine(FadeIn(1));
         _animator.SetBool(Constants.IsSkippingParameter, true);
     }
 
     private IEnumerator Hide()
     {
-        yield return _commandExecuter.StartCoroutine(FadeIn(0));
+        yield return StartCoroutine(FadeIn(0));
         _animator.SetBool(Constants.IsSkippingParameter, false);
     }
 

@@ -72,7 +72,8 @@ public class Root : MonoBehaviour, IInitializable
         _player = GetPlayer();
         _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard);
         _playerView.Initialize(_player);
-        _room.Initialize(_player, _playerView);
+        _room.Initialize(_player, _playerView, _hourglass);
+        _inputView.Initialize();
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;
         _straightCamera.Follow = _player.transform;

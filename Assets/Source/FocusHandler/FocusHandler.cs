@@ -22,11 +22,11 @@ public class FocusHandler : MonoBehaviour
     {
         if (poop)
         {
-            SetUnfocused();
+            SetFocused();
         }
         else
         {
-            SetFocused();
+            SetUnfocused();
         }
     }
 

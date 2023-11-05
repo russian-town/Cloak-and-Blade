@@ -24,7 +24,6 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     private MoveCommand _moveCommand;
     private SkipCommand _skipCommand;
     private Navigator _navigator;
-    private Hourglass _hourglass;
     private PlayerAnimationHandler _animationHandler;
     private List<Enemy> _enemies = new List<Enemy>();
     private Gameboard _gameboard;
@@ -63,11 +62,9 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _enemyTurnWaiter = enemyTurnHandler;
         _mover.Initialize(_startCell, _animationHandler);
         _mover.MoveEnded += OnMoveEnded;
-        _hourglass = hourglass;
-        _hourglass.Initialaze(_commandExecuter);
         _gameboard = gameboard;
         _moveCommand = new MoveCommand(this, _mover, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter, _moveRange);
-        _skipCommand = new SkipCommand(this, _enemyTurnWaiter.WaitForEnemies(), _animationHandler, _hourglass, _commandExecuter);
+        _skipCommand = new SkipCommand(this, _enemyTurnWaiter.WaitForEnemies(), _animationHandler, _commandExecuter);
     }
 
     public void SetTargets(List<Enemy> enemies)
@@ -78,8 +75,8 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     public void PrepareAbility()
     {
-        //if (AbilityCommand().IsUsed)
-        //    return;
+        if (AbilityCommand().IsUsed)
+            return;
 
         if (_commandExecuter.TrySwitchCommand(AbilityCommand()))
             _commandExecuter.PrepareCommand();

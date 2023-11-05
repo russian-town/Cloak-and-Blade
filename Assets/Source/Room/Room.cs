@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class Room : MonoBehaviour, IEnemyTurnWaiter
@@ -9,6 +10,7 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
     private List<Enemy> _enemies = new List<Enemy>();
     private Turn _turn;
     private Coroutine _startWaitForEnemies;
+    private Hourglass _hourglass;
 
     public void Unsubscribe()
     {
@@ -16,10 +18,12 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
         _view.Unsubscribe();
     }
 
-    public void Initialize(Player player, PlayerView view)
+    public void Initialize(Player player, PlayerView view, Hourglass hourglass)
     {
         _player = player;
         _view = view;
+        _hourglass = hourglass;
+        _hourglass.Initialaze();
         _player.StepEnded += OnTurnEnded;
         _turn = Turn.Player;
         _player.SetTurn(_turn);
@@ -52,16 +56,7 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
         if (_enemies.Count == 0)
             yield break;
 
-        //for (int i = 0; i < _enemies.Count; i++)
-        //{
-        //    if (_enemies[i].IsFreeze)
-        //        continue;
-
-        //    if (i == _enemies.Count)
-        //        yield return _enemies[i].StartPerformMove();
-        //    else
-        //        _enemies[i].StartPerformMove();
-        //}
+        yield return _hourglass.StartShow();
 
         foreach (Enemy enemy in _enemies)
         {
@@ -71,6 +66,7 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
             yield return enemy.StartPerformMove();
         }
 
+        yield return _hourglass.StartHide();
         _turn = Turn.Player;
         _view.Subscribe();
         _view.ShowInteravtiveButton();
