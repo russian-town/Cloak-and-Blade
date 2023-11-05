@@ -15,6 +15,8 @@ public class Game : MonoBehaviour
     private Pause _pause;
     private ILevelFinisher _levelFinisher;
 
+    public bool IsInitialize { get; private set; }
+
     public void Unsubscribe()
     {
         _player.Died -= OnPlayerDead;
@@ -46,6 +48,7 @@ public class Game : MonoBehaviour
         _levelFinisher.LevelPassed += OnLevelPassed;
         _finishLevelScreen.ExitButtonClicked += Exit;
         _finishLevelScreen.Hide();
+        IsInitialize = true;
     }
 
     public void SetPause()
@@ -55,7 +58,7 @@ public class Game : MonoBehaviour
         _pause.Enable();
     }
 
-    private void Continue()
+    public void Continue()
     {
         _pauseScreen.Hide();
         _playerView.Show();

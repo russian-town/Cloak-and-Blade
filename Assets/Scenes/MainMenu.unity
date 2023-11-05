@@ -765,6 +765,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e47ac6e794956fe4fb8ad7f1d6cc3f4b, type: 2}
   _levelLoader: {fileID: 1365407903}
   _audio: {fileID: 92250481}
+  _audioView: {fileID: 170453264}
   _walletView: {fileID: 8066421}
 --- !u!4 &85342024
 Transform:
@@ -886,9 +887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808db8d8263037b4a8f6ca3d81b31ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _masterSlider: {fileID: 1767943548}
-  _soundSlider: {fileID: 2093827730}
-  _musicSlider: {fileID: 1030732096}
   _masterGroup: {fileID: 24300002, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
   _soundGroup: {fileID: -7202782730146613640, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
   _musicGroup: {fileID: -3691065548320451500, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
@@ -1287,6 +1285,7 @@ GameObject:
   - component: {fileID: 170453261}
   - component: {fileID: 170453263}
   - component: {fileID: 170453262}
+  - component: {fileID: 170453264}
   m_Layer: 5
   m_Name: Sliders
   m_TagString: Untagged
@@ -1355,6 +1354,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170453260}
   m_CullTransparentMesh: 1
+--- !u!114 &170453264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170453260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea2f6acda6fc1140983c9cd2a5ec79d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _masterSlider: {fileID: 1767943548}
+  _soundSlider: {fileID: 2093827730}
+  _musicSlider: {fileID: 1030732096}
+  _audio: {fileID: 92250481}
 --- !u!1 &180267768
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,19 +27,20 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private LevelExit _levelExit;
     [SerializeField] private PlayersHandler _playersHandler;
     [SerializeField] private List<EffectChangeHanldler> _effectChangeHanldlers = new List<EffectChangeHanldler>();
+    [SerializeField] private Audio _audio;
+    [SerializeField] private FocusHandler _focusHandler;
 
-    private Saver _saver = new Saver();
-    private Wallet _wallet = new Wallet();
+    private readonly Saver _saver = new Saver();
+    private readonly Wallet _wallet = new Wallet();
+    private readonly List<Enemy> _enemies = new List<Enemy>();
+
+    private YandexAds _yandexAds = new YandexAds();
     private Player _player;
     private Pause _pause;
-    private List<Enemy> _enemies = new List<Enemy>();
 
     public Saver Saver => _saver;
 
-    public void OnEnable()
-    {
-        _saver.Enable();
-    }
+    public void OnEnable() => _saver.Enable();
 
     private void OnDisable()
     {
@@ -49,11 +50,13 @@ public class Root : MonoBehaviour, IInitializable
         _room.Unsubscribe();
         _game.Unsubscribe();
         _player.Unsubscribe();
+        _yandexAds.OpenInterstitialCallback -= OnOpenInterstitialCallback;
+        _yandexAds.CloseInterstitialCallback -= OnCloseInterstitialCallback;
     }
 
     private void Start()
     {
-        _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet });
+        _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet, _audio });
         _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet });
         _saver.AddInitializable(this);
         _saver.AddInitializable(_wallet);
@@ -63,6 +66,9 @@ public class Root : MonoBehaviour, IInitializable
 
     public void Initialize()
     {
+        _yandexAds.OpenInterstitialCallback += OnOpenInterstitialCallback;
+        _yandexAds.CloseInterstitialCallback += OnCloseInterstitialCallback;
+        _yandexAds.ShowInterstitial();
         _player = GetPlayer();
         _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard);
         _playerView.Initialize(_player);
@@ -95,6 +101,20 @@ public class Root : MonoBehaviour, IInitializable
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
         _scoreDefiner.Initialize();
+    }
+
+    private void OnOpenInterstitialCallback()
+    {
+        _focusHandler.enabled = false;
+        _game.SetPause();
+        _audio.Mute();
+    }
+
+    private void OnCloseInterstitialCallback(bool obj)
+    {
+        _game.Continue();
+        _audio.UnMute();
+        _focusHandler.enabled = true;
     }
 
     private Player GetPlayer()
