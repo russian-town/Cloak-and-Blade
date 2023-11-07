@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent (typeof(CanvasGroup))]
 public class PlayerView : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private Button _move;
@@ -16,6 +17,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     [SerializeField] private Icon _abilityIcon;
 
     private Player _player;
+    private CanvasGroup _canvasGroup;
 
     public event Action PauseButtonClicked;
 
@@ -38,6 +40,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     public void Initialize(Player player)
     {
         _player = player;
+        _canvasGroup = GetComponent<CanvasGroup>();
 
         foreach (var icon in _icons)
             icon.Initialize();
@@ -46,9 +49,17 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         ShowInteravtiveButton();
     }
 
-    public void Show() => gameObject.SetActive(true);
+    public void Show()
+    {
+        _canvasGroup.alpha = 1;
+        _canvasGroup.blocksRaycasts = true;
+    }
 
-    public void Hide() => gameObject.SetActive(false);
+    public void Hide()
+    {
+        _canvasGroup.alpha = 0;
+        _canvasGroup.blocksRaycasts = false;
+    }
 
     public void ShowInteravtiveButton()
     {
