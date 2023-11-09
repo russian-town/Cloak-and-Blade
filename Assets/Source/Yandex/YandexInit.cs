@@ -20,8 +20,6 @@ public class YandexInit : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
         yield return YandexGamesSdk.Initialize();
 
-        YandexGamesSdk.GameReady();
-
         if (YandexGamesSdk.Environment.i18n.lang == "en")
             _localization.SetCurrentLanguage(Constants.English);
 
@@ -33,6 +31,11 @@ public class YandexInit : MonoBehaviour
 #endif
 
         _mainSceneLogic.Initialize();
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        YandexGamesSdk.GameReady();
+#endif
+
         yield break;
     }
 }

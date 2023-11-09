@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     [SerializeField] private Sprite _abilityIcon;
     [SerializeField] private UpgradeSetter _upgradeSetter;
 
+    private RewardedAdHandler _adHandler;
     private PlayerMover _mover;
     private PlayerAttacker _attacker;
     private IEnemyTurnWaiter _enemyTurnWaiter;
@@ -48,9 +50,13 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     public event UnityAction StepEnded;
     public event UnityAction Died;
 
-    public void Unsubscribe() => _mover.MoveEnded -= OnMoveEnded;
+    public void Unsubscribe()
+    {
+        _mover.MoveEnded -= OnMoveEnded;
+        _commandExecuter.AbilityUsed -= OnAbilityUsed;
+    } 
 
-    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard)
+    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
@@ -62,10 +68,14 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _enemyTurnWaiter = enemyTurnHandler;
         _mover.Initialize(_startCell, _animationHandler);
         _mover.MoveEnded += OnMoveEnded;
+        _commandExecuter.AbilityUsed += OnAbilityUsed;
         _gameboard = gameboard;
+        _adHandler = adHandler;
         _moveCommand = new MoveCommand(this, _mover, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter, _moveRange);
         _skipCommand = new SkipCommand(this, _enemyTurnWaiter.WaitForEnemies(), _animationHandler, _commandExecuter);
     }
+
+ 
 
     public void SetTargets(List<Enemy> enemies)
     {
@@ -73,13 +83,28 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _attacker.Initialize(_enemies);
     }
 
-    public void PrepareAbility()
+    public void TryPrepareAbility()
     {
+        if (!_commandExecuter.TrySwitchCommand(AbilityCommand()))
+            return;
+
+        if (AbilityCommand().IsExecuting)
+            return;
+
         if (AbilityCommand().IsUsed)
             return;
 
-        if (_commandExecuter.TrySwitchCommand(AbilityCommand()))
-            _commandExecuter.PrepareCommand();
+        PrepareAbility();
+    }
+
+    public void PrepareAbility()
+    {
+        _commandExecuter.PrepareCommand();
+    }
+
+    public void ResetAbilityOnReward()
+    {
+        _commandExecuter.PrepareCommand(AbilityCommand());
     }
 
     public void PrepareMove()
@@ -152,6 +177,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         yield return new WaitForSeconds(_delay);
         Died?.Invoke();
     }
+    private void OnAbilityUsed() => _adHandler.gameObject.SetActive(true);
 
     private void OnMoveEnded() => StepEnded?.Invoke();
 }

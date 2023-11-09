@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,10 +11,32 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
     public event UnityAction<Command> CommandChanged;
 
+    public event UnityAction AbilityUsed;
+
     public bool TrySwitchCommand(Command command)
     {
-        if (_currentCommand == command && command is not SkipCommand)
-            return false;
+        if(command is AbilityCommand abilityCommandParameter)
+        {
+            if (abilityCommandParameter.IsUsed && !abilityCommandParameter.Enabled)
+            AbilityUsed?.Invoke();
+        }
+
+        if (_currentCommand != null)
+        {
+            if (_currentCommand.GetType() == command.GetType() && command is not SkipCommand)
+            {
+                if (_currentCommand is AbilityCommand abilityCommand)
+                {
+                    if (abilityCommand.IsUsed && !abilityCommand.Enabled)
+                    {
+                        AbilityUsed?.Invoke();
+                    }
+                }
+
+                return false;
+            }
+        }
+            
 
         if(CanSwith() == false)
             return false;
@@ -27,6 +50,14 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
     {
         if (_currentCommand == null)
             return;
+
+        StartCoroutine(_currentCommand.Execute());
+    }
+
+    public void PrepareCommand(Command command)
+    {
+        _currentCommand = command;
+        CommandChanged?.Invoke(command);
 
         StartCoroutine(_currentCommand.Execute());
     }

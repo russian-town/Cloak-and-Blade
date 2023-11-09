@@ -29,6 +29,7 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private List<EffectChangeHanldler> _effectChangeHanldlers = new List<EffectChangeHanldler>();
     [SerializeField] private Audio _audio;
     [SerializeField] private FocusHandler _focusHandler;
+    [SerializeField] private RewardedAdHandler _rewardAdHandler;
 
     private readonly Saver _saver = new Saver();
     private readonly Wallet _wallet = new Wallet();
@@ -50,8 +51,10 @@ public class Root : MonoBehaviour, IInitializable
         _room.Unsubscribe();
         _game.Unsubscribe();
         _player.Unsubscribe();
-        _yandexAds.OpenInterstitialCallback -= OnOpenInterstitialCallback;
-        _yandexAds.CloseInterstitialCallback -= OnCloseInterstitialCallback;
+        _yandexAds.OpenInterstitialCallback -= OnAdOpenCallback;
+        _yandexAds.CloseInterstitialCallback -= OnInterstetialClose;
+        _yandexAds.OpenCallback -= OnAdOpenCallback;
+        _yandexAds.CloseCallback -= OnAdRewardedCloseCallback;
     }
 
     private void Start()
@@ -66,14 +69,17 @@ public class Root : MonoBehaviour, IInitializable
 
     public void Initialize()
     {
-        _yandexAds.OpenInterstitialCallback += OnOpenInterstitialCallback;
-        _yandexAds.CloseInterstitialCallback += OnCloseInterstitialCallback;
+        _yandexAds.OpenInterstitialCallback += OnAdOpenCallback;
+        _yandexAds.CloseInterstitialCallback += OnInterstetialClose;
+        _yandexAds.OpenCallback += OnAdOpenCallback;
+        _yandexAds.CloseCallback += OnAdRewardedCloseCallback;
         _yandexAds.ShowInterstitial();
         _player = GetPlayer();
-        _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard);
+        _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard, _rewardAdHandler);
         _playerView.Initialize(_player);
         _room.Initialize(_player, _playerView, _hourglass);
         _inputView.Initialize();
+        _rewardAdHandler.Initialize(_player, _yandexAds);
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;
         _straightCamera.Follow = _player.transform;
@@ -104,16 +110,21 @@ public class Root : MonoBehaviour, IInitializable
         _scoreDefiner.Initialize();
     }
 
-    private void OnOpenInterstitialCallback()
+    private void OnAdOpenCallback()
     {
         _focusHandler.enabled = false;
         _game.SetPause();
         _audio.Mute();
     }
 
-    private void OnCloseInterstitialCallback(bool obj)
+    private void OnAdRewardedCloseCallback()
     {
-        _game.Continue();
+        _audio.UnMute();
+        _focusHandler.enabled = true;
+    }
+
+    private void OnInterstetialClose(bool obj)
+    {
         _audio.UnMute();
         _focusHandler.enabled = true;
     }

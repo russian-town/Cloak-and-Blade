@@ -21,28 +21,20 @@ public class FocusHandler : MonoBehaviour
     private void OnBackgroundChangeEvent(bool poop)
     {
         if (poop)
-        {
-            SetFocused();
-        }
+            SetUnFocused();
         else
-        {
-            SetUnfocused();
-        }
+            SetFocused();
     }
 
     private void OnApplicationFocus(bool focus)
     {
         if (focus == false)
-        {
-            SetFocused();
-        }
+            SetUnFocused();
         else
-        {
-            SetUnfocused();
-        }
+            SetFocused();
     }
 
-    private void SetFocused()
+    private void SetUnFocused()
     {
         if (enabled == false)
             return;
@@ -54,7 +46,7 @@ public class FocusHandler : MonoBehaviour
         _audio.Mute();
     }
 
-    private void SetUnfocused() 
+    private void SetFocused() 
     {
         if (enabled == false)
             return;
@@ -62,7 +54,6 @@ public class FocusHandler : MonoBehaviour
         if (_game.IsInitialize == false || _audio == null)
             return;
 
-        _game.Continue();
         _audio.UnMute();
     }
 }
