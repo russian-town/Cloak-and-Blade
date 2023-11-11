@@ -28,7 +28,11 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
         }
     }
 
-    public void SetWallet(Wallet wallet) => _wallet = wallet;
+    public void SetWallet(Wallet wallet)
+    {
+        _wallet = wallet;
+        _upgrader.SetWallet(_wallet);
+    }
 
     public void Initialize() => AddCharacterView();
 

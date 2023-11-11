@@ -4104,7 +4104,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.8
+  m_fontSize: 99.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6655,7 +6655,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1021956193}
-  - component: {fileID: 1021956192}
+  - component: {fileID: 1021956194}
   m_Layer: 0
   m_Name: Upgrader
   m_TagString: Untagged
@@ -6663,18 +6663,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1021956192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021956191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d01d31b7d3d9f449b195198bf69183, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1021956193
 Transform:
   m_ObjectHideFlags: 0
@@ -6690,6 +6678,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1021956194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021956191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d01d31b7d3d9f449b195198bf69183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1028147929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11375,7 +11375,7 @@ MonoBehaviour:
   _characterView: {fileID: 581764957516514155, guid: 27166fcfb91bfba41baa6d5742514e07, type: 3}
   _playersHandler: {fileID: 500471063}
   _menuModelChanger: {fileID: 890960767}
-  _upgrader: {fileID: 1021956192}
+  _upgrader: {fileID: 1021956194}
 --- !u!1 &1757354254
 GameObject:
   m_ObjectHideFlags: 0

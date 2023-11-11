@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TheWorld
   m_EditorClassIdentifier: 
   _prices: 0000000000000000000000000000000000000000
-  _level: 3
+  _level: 0

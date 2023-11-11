@@ -30,6 +30,7 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private Audio _audio;
     [SerializeField] private FocusHandler _focusHandler;
     [SerializeField] private RewardedAdHandler _rewardAdHandler;
+    [SerializeField] private WalletView _walletView;
 
     private readonly Saver _saver = new Saver();
     private readonly Wallet _wallet = new Wallet();
@@ -80,6 +81,7 @@ public class Root : MonoBehaviour, IInitializable
         _room.Initialize(_player, _playerView, _hourglass);
         _inputView.Initialize();
         _rewardAdHandler.Initialize(_player, _yandexAds);
+        _walletView.Initialize(_wallet);
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;
         _straightCamera.Follow = _player.transform;
@@ -104,7 +106,7 @@ public class Root : MonoBehaviour, IInitializable
         }
 
         _player.SetTargets(_enemies);
-        _game.Initialize(_player, _pause, _levelExit, _wallet);
+        _game.Initialize(_player, _pause, _levelExit, _wallet, _focusHandler, _audio);
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
         _scoreDefiner.Initialize();

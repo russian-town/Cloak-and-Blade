@@ -6,6 +6,7 @@ public class WalletView : MonoBehaviour
     [SerializeField] private TMP_Text _moneyText;
 
     private Wallet _wallet;
+
     private void OnDisable() => _wallet.StarsChanged -= OnStarsChanged;
 
     public void Initialize(Wallet wallet)

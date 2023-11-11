@@ -18,7 +18,7 @@ public class ScoreDefiner : MonoBehaviour
         _view.Initialize();
     }
 
-    public void AccrueStars(int stepCount)
+    public void RecieveStars(int stepCount)
     {
         if (stepCount <= _stepCountToThirdStart)
             _starsCount = 3;

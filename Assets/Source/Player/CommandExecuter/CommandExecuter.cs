@@ -18,17 +18,34 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
         {
             if (abilityCommandParameter.IsUsed)
             {
+                print("AbilityParameter is used");
                 AbilityUsed?.Invoke();
                 _abilityCommandToReset = abilityCommandParameter;
             }
         }
 
         if (_currentCommand != null)
+        {
             if (_currentCommand.GetType() == command.GetType() && command is not SkipCommand)
+            {
+                print("Trying to use same ability twice");
+                if(_currentCommand is AbilityCommand abilityCommand)
+                {
+                    if (_currentCommand.Enabled == false)
+                    {
+                        return true;
+                    }
+                }
+
                 return false;
+            }
+        }
             
         if(CanSwith() == false)
+        {
+            print("Cant switch");
             return false;
+        }
 
         _currentCommand = command;
         CommandChanged?.Invoke(command);

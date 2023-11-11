@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class Upgrader : MonoBehaviour
 {
-    [SerializeField] private Wallet _wallet;
-
+    private Wallet _wallet;
     private List<Description> _descriptions = new List<Description>();
     private Description _description;
 
@@ -33,4 +32,6 @@ public class Upgrader : MonoBehaviour
             description.UpdateView();
         }
     }
+
+    public void SetWallet(Wallet wallet) => _wallet = wallet;
 }
