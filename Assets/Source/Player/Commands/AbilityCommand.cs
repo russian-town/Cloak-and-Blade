@@ -3,6 +3,8 @@ using System.Collections;
 public class AbilityCommand : Command
 {
     private Ability _ability;
+
+    public Ability Ability { get { return _ability; } }
     
     public bool IsUsed => _ability.CanUse() == false;
 

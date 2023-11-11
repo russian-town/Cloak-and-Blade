@@ -46,6 +46,14 @@ public class Blink : Ability
         return _canUse;
     }
 
+    public override void ResetAbility()
+    {
+        if (_canUse == true)
+            return;
+
+        _canUse = true;
+    }
+
     protected override void Action(Cell cell)
     {
         if (_player.TryMoveToCell(cell, _moveSpeed, _rotationSpeed))

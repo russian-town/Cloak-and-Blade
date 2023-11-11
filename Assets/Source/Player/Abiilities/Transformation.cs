@@ -60,4 +60,9 @@ public class Transformation : Ability
         _useLimit--;
         _useLimit = Mathf.Clamp(_useLimit, 0, _maxUseLimit);
     }
+
+    public override void ResetAbility()
+    {
+        _useLimit++;
+    }
 }

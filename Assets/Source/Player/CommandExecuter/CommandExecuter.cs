@@ -5,21 +5,21 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 {
     private Command _currentCommand;
     private Turn _turn;
-    private bool _isAbilityResetable;
+    private AbilityCommand _abilityCommandToReset;
 
     public Command CurrentCommand => _currentCommand;
 
     public event UnityAction<Command> CommandChanged;
-
     public event UnityAction AbilityUsed;
 
     public bool TrySwitchCommand(Command command)
     {
         if (command is AbilityCommand abilityCommandParameter)
         {
-            if (abilityCommandParameter.IsUsed && _isAbilityResetable == false)
+            if (abilityCommandParameter.IsUsed)
             {
                 AbilityUsed?.Invoke();
+                _abilityCommandToReset = abilityCommandParameter;
             }
         }
 
@@ -27,7 +27,6 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
             if (_currentCommand.GetType() == command.GetType() && command is not SkipCommand)
                 return false;
             
-
         if(CanSwith() == false)
             return false;
 
@@ -56,6 +55,14 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
     {
         _currentCommand = null;
         CommandChanged?.Invoke(_currentCommand);
+    }
+
+    public void ResetAbilityOnReward()
+    {
+        if(_abilityCommandToReset != null)
+            _abilityCommandToReset.Ability.ResetAbility();
+
+        _currentCommand = null;
     }
 
     public void SetTurn(Turn turn) => _turn = turn;

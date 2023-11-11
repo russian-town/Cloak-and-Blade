@@ -8,6 +8,7 @@ public class RewardedAdHandler : MonoBehaviour
 
     private YandexAds _yandexAds;
     private Player _player;
+    private CommandExecuter _commandExecuter;
 
     private void OnEnable()
     {
@@ -27,6 +28,7 @@ public class RewardedAdHandler : MonoBehaviour
     {
         _yandexAds = yandexAds;
         _player = player;
+        _commandExecuter = _player.CommandExecuter;
     }
 
     public void Hide()
@@ -36,14 +38,13 @@ public class RewardedAdHandler : MonoBehaviour
 
     private void OnButtonClick()
     {
-        /*_yandexAds.ShowRewardedVideo();*/
-        _player.ResetAbilityOnReward();
+        _yandexAds.ShowRewardedVideo();
         Hide();
     } 
     
     private void OnRewardedVideoCallBack()
     {
-        _player.ResetAbilityOnReward();
         Hide();
+        _commandExecuter.ResetAbilityOnReward();
     }
 }

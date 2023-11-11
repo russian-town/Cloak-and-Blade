@@ -4,6 +4,8 @@ public abstract class Ability : MonoBehaviour
 {
     public abstract bool CanUse();
 
+    public abstract void ResetAbility();
+
     public virtual bool Cast(Cell cell)
     {
         Action(cell);

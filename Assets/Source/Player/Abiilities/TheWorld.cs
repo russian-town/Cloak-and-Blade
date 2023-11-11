@@ -54,6 +54,14 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
         return _canUse;
     }
 
+    public override void ResetAbility()
+    {
+        if (_canUse == true)
+            return;
+
+        _canUse = true;
+    }
+
     protected override void Action(Cell cell)
     {
         if (_isActive)

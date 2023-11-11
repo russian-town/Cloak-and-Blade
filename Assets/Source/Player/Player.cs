@@ -32,6 +32,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     private CommandExecuter _commandExecuter;
     private Turn _turn;
 
+    public CommandExecuter CommandExecuter => _commandExecuter;
     public bool IsDied { get; private set; }
     public Sprite AbilityIcon => _abilityIcon;
     public Coroutine MoveCoroutine { get; private set; }
@@ -40,7 +41,6 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     public ItemsInHold ItemsInHold => _itemsInHold;
     protected Navigator Navigator => _navigator;
     protected Gameboard Gameboard => _gameboard;
-    protected CommandExecuter CommandExecuter => _commandExecuter;
     protected UpgradeSetter UpgradeSetter => _upgradeSetter;
     protected PlayerMover Mover => _mover;
     protected float RotationSpeed => _rotationSpeed;
@@ -100,11 +100,6 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     public void PrepareAbility()
     {
         _commandExecuter.PrepareCommand();
-    }
-
-    public void ResetAbilityOnReward()
-    {
-        _commandExecuter.PrepareCommand(AbilityCommand());
     }
 
     public void PrepareMove()

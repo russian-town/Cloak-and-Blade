@@ -29,6 +29,8 @@ public class Hourglass : MonoBehaviour, IPauseHandler
         return StartCoroutine(Hide());
     }
 
+    public void SetPause(bool isPause) => _pauseSpeed = isPause ? 0 : 1;
+
     private IEnumerator Show()
     {
         yield return StartCoroutine(FadeIn(1));
@@ -49,6 +51,4 @@ public class Hourglass : MonoBehaviour, IPauseHandler
             yield return null;
         }
     }
-
-    public void SetPause(bool isPause) => _pauseSpeed = isPause ? 0 : 1;
 }
