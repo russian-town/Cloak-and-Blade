@@ -15,14 +15,15 @@ public abstract class Command
         _executer = executer;
     }
 
-    public bool Enabled { get; private set; } = false;
+    public bool Prepared { get; private set; } = false;
     public bool IsExecuting { get; private set; }
+    public bool Enabled { get; private set; }
 
     public IEnumerator Execute()
     {
         _prepare = _executer.StartCoroutine(Prepare());
         yield return _prepare;
-        yield return new WaitUntil(() => Enabled);
+        yield return new WaitUntil(() => Prepared);
         _executer.CommandChanged += OnCommandChanged;
         _waitOfExecute = _executer.StartCoroutine(WaitOfExecute());
         yield return _waitOfExecute;
@@ -35,15 +36,17 @@ public abstract class Command
     protected virtual void Cancel()
     {
         StopAction(ref _startCancel);
-        _startCancel = _executer.StartCoroutine(StartCansel());
+        _startCancel = _executer.StartCoroutine(StartCancel());
+        Enabled = false;
     }
 
     protected IEnumerator Prepare()
     {
-        Enabled = false;
+        Enabled = true;
+        Prepared = false;
         _prepareActionCoroutine = _executer.StartCoroutine(PrepareAction());
         yield return _prepareActionCoroutine;
-        Enabled = true;
+        Prepared = true;
     }
 
     protected abstract IEnumerator WaitOfExecute();
@@ -54,12 +57,12 @@ public abstract class Command
 
     protected abstract void OnCommandChanged(Command command);
 
-    private IEnumerator StartCansel()
+    private IEnumerator StartCancel()
     {
         if (IsExecuting)
             yield return new WaitUntil(() => IsExecuting == false);
 
-        Enabled = false;
+        Prepared = false;
         StopAction(ref _prepare);
         StopAction(ref _waitOfExecute);
         StopAction(ref _prepareActionCoroutine);

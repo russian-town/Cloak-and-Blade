@@ -32,7 +32,7 @@ public class TransformationCommand : AbilityCommand, ITurnHandler
 
     public void SetTurn(Turn turn)
     {
-        if (Enabled == false)
+        if (Prepared == false)
             return;
 
         if(turn == Turn.Enemy)

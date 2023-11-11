@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,6 +5,7 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 {
     private Command _currentCommand;
     private Turn _turn;
+    private bool _isAbilityResetable;
 
     public Command CurrentCommand => _currentCommand;
 
@@ -15,27 +15,17 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
     public bool TrySwitchCommand(Command command)
     {
-        if(command is AbilityCommand abilityCommandParameter)
+        if (command is AbilityCommand abilityCommandParameter)
         {
-            if (abilityCommandParameter.IsUsed && !abilityCommandParameter.Enabled)
-            AbilityUsed?.Invoke();
+            if (abilityCommandParameter.IsUsed && _isAbilityResetable == false)
+            {
+                AbilityUsed?.Invoke();
+            }
         }
 
         if (_currentCommand != null)
-        {
             if (_currentCommand.GetType() == command.GetType() && command is not SkipCommand)
-            {
-                if (_currentCommand is AbilityCommand abilityCommand)
-                {
-                    if (abilityCommand.IsUsed && !abilityCommand.Enabled)
-                    {
-                        AbilityUsed?.Invoke();
-                    }
-                }
-
                 return false;
-            }
-        }
             
 
         if(CanSwith() == false)

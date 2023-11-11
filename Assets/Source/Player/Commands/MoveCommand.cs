@@ -31,7 +31,6 @@ public class MoveCommand : Command, ITurnHandler
     {
         base.Cancel();
         _navigator.HideAvailableCells();
-        Debug.Log("Move cansel");
     }
 
     public void SetTurn(Turn turn)
@@ -48,7 +47,6 @@ public class MoveCommand : Command, ITurnHandler
 
     protected override IEnumerator WaitOfExecute()
     {
-        Debug.Log("Wait of execute");
         WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
         yield return waitOfClickedCell;
         _cell = waitOfClickedCell.Cell;

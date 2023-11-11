@@ -34,7 +34,12 @@ public class RewardedAdHandler : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnButtonClick() => _yandexAds.ShowRewardedVideo();
+    private void OnButtonClick()
+    {
+        /*_yandexAds.ShowRewardedVideo();*/
+        _player.ResetAbilityOnReward();
+        Hide();
+    } 
     
     private void OnRewardedVideoCallBack()
     {
