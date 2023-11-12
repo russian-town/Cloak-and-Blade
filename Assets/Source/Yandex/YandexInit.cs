@@ -7,6 +7,8 @@ public class YandexInit : MonoBehaviour
 {
     [SerializeField] private LeanLocalization _localization;
     [SerializeField] private MainSceneLogic _mainSceneLogic;
+    [SerializeField] private CanvasGroup _loadingScreen;
+    [SerializeField] private float _speed;
 
     private void Awake()
     {
@@ -36,6 +38,18 @@ public class YandexInit : MonoBehaviour
         YandexGamesSdk.GameReady();
 #endif
 
+        StartCoroutine(Fade());
         yield break;
+    }
+
+    private IEnumerator Fade() 
+    {
+        while(_loadingScreen.alpha > 0)
+        {
+            _loadingScreen.alpha = Mathf.MoveTowards(_loadingScreen.alpha, 0, Time.deltaTime * _speed);
+            yield return null;
+        }
+
+        _loadingScreen.blocksRaycasts = false;
     }
 }
