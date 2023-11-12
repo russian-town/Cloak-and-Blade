@@ -37,6 +37,7 @@ public class Root : MonoBehaviour, IInitializable
     private readonly List<Enemy> _enemies = new List<Enemy>();
 
     private YandexAds _yandexAds = new YandexAds();
+    private AdHandler _adHandler;
     private Player _player;
     private Pause _pause;
 
@@ -105,8 +106,10 @@ public class Root : MonoBehaviour, IInitializable
             _pause.AddHandler(enemy);
         }
 
+        
         _player.SetTargets(_enemies);
-        _game.Initialize(_player, _pause, _levelExit, _wallet, _focusHandler, _audio);
+        _adHandler = new AdHandler(_game, _focusHandler, _audio);
+        _game.Initialize(_player, _pause, _levelExit, _wallet, _adHandler);
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
         _scoreDefiner.Initialize();

@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,10 +14,9 @@ public class Game : MonoBehaviour
     private Player _player;
     private Pause _pause;
     private YandexAds _yandexAds;
-    private FocusHandler _focusHandler;
-    private Audio _audio;
     private ILevelFinisher _levelFinisher;
     private bool _levelPassed;
+    private AdHandler _adHandler;
 
     public bool IsInitialize { get; private set; }
 
@@ -38,13 +36,12 @@ public class Game : MonoBehaviour
         _yandexAds.CloseCallback -= OnRewardedCloseClallback;
     }
 
-    public void Initialize(Player player, Pause pause, ILevelFinisher levelFinisher, Wallet wallet, FocusHandler focusHandler, Audio audio)
+    public void Initialize(Player player, Pause pause, ILevelFinisher levelFinisher, Wallet wallet, AdHandler adHandler)
     {
         _wallet = wallet;
         _player = player;
-        _focusHandler = focusHandler;
-        _audio = audio;
         _yandexAds = new YandexAds();
+        _adHandler = adHandler;
         _yandexAds.OpenCallback += OnRewardedOpenClallback;
         _yandexAds.RewardedCallback += OnRewardedClallback;
         _yandexAds.CloseCallback += OnRewardedCloseClallback;
@@ -100,12 +97,7 @@ public class Game : MonoBehaviour
         _wallet.AddStars(_scoreDefiner.StarsCount);
     }
 
-    private void OnRewardedOpenClallback()
-    {
-        _focusHandler.enabled = false;
-        SetPause();
-        _audio.Mute();
-    }
+    private void OnRewardedOpenClallback() => _adHandler.OpenAd();
     
     private void OnRewardedClallback()
     {
@@ -113,11 +105,7 @@ public class Game : MonoBehaviour
         _levelFinishScreen.Unsubscribe();
     }
 
-    private void OnRewardedCloseClallback()
-    {
-        _audio.UnMute();
-        _focusHandler.enabled = true;
-    }
+    private void OnRewardedCloseClallback() => _adHandler.CloseAd();
 
     private void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
