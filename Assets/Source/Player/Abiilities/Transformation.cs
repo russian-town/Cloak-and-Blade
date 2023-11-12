@@ -3,10 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAttacker))]
 public class Transformation : Ability
 {
-    [SerializeField] private PlayerModel _basicModel;
-    [SerializeField] private PlayerModel _transformationModel;
-    [SerializeField] private ParticleSystem _transformationEffect;
     [SerializeField] private int _useLimit = 1;
+    [SerializeField] private PlayerModel _model;
 
     private PlayerAttacker _attacker;
     private Player _player;
@@ -33,9 +31,7 @@ public class Transformation : Ability
             return;
 
         _playerView.DisableAbilityButton();
-        _transformationEffect.Play();
-        _basicModel.Hide();
-        _transformationModel.Show();
+        _model.TransformToDecoy();
         _attacker.Attack(AttackType.Blind);
         _currentCell = _player.CurrentCell;
         _currentCell.Content.BecomeWall();
@@ -46,11 +42,9 @@ public class Transformation : Ability
     {
         _playerView.Cansel();
         _playerView.EnableAbilityButton();
+        _model.SwitchBack();
         _currentCell.Content.BecomeEmpty();
         _attacker.Attack(AttackType.UnBlind);
-        _transformationEffect.Play();
-        _basicModel.Show();
-        _transformationModel.Hide();
         Prepared = false;
     }
 

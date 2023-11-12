@@ -25,4 +25,5 @@ public class Constants
     public const string MusicVolume = "MusicVolume";
     public const int MaxLevel = 5;
     public const float MinAudioValue = -80f;
+    public const string TransformationTrigger = "Transform";
 }
