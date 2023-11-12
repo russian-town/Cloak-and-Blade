@@ -41,7 +41,6 @@ public class Transformation : Ability
 
     public override void Cancel()
     {
-        Debug.Log("poop");
         _currentCell.Content.BecomeEmpty();
         _attacker.Attack(AttackType.UnBlind);
         _transformationEffect.Play();

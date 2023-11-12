@@ -94,4 +94,8 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     private void OnAbilityClick() => _player.TryPrepareAbility();
 
     private void OnSkipClick() => _player.PrepareSkip();
+
+    private void OnAbilityEnabled() => _ability.interactable = false;
+
+    private void OnAbilityDisabled() => _ability.interactable = true;  
 }

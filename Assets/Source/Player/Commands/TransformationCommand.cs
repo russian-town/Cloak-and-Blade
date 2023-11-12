@@ -53,7 +53,6 @@ public class TransformationCommand : AbilityCommand, ITurnHandler
         _playerMover.MoveEnded -= Cancel;
         _transformation.Cancel();
         _navigator.HideAvailableCells();
-        Debug.Log("Cancel");
     }
 
     protected override IEnumerator WaitOfExecute()

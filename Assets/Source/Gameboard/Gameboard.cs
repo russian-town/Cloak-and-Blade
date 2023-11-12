@@ -72,6 +72,18 @@ public class Gameboard : MonoBehaviour
         {
             if (cell == destination)
             {
+                if (destination.Content.Type == CellContentType.Wall)
+                {
+                    if (destination.South != null && destination.South.Content.Type == CellContentType.Empty)
+                        destination = destination.South;
+                    else if (destination.West != null && destination.West.Content.Type == CellContentType.Empty)
+                        destination = destination.West;
+                    else if (destination.East != null && destination.East.Content.Type == CellContentType.Empty)
+                        destination = destination.East;
+                    else if (destination.North != null && destination.North.Content.Type == CellContentType.Empty)
+                        destination = destination.North;
+                }
+
                 destination.BecomeDestination();
                 _searchFrontier.Enqueue(destination);
             }
