@@ -56,7 +56,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _commandExecuter.AbilityUsed -= OnAbilityUsed;
     } 
 
-    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler)
+    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler, PlayerView playerView)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();

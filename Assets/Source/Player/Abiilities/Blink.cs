@@ -13,20 +13,23 @@ public class Blink : Ability
     [SerializeField] private AudioClip _actionSound;
 
     private UpgradeSetter _upgradeSetter;
+    private PlayerView _playerView;
     private Player _player;
     private Navigator _navigator;
     private bool _canUse = true;
 
-    public override void Initialize(UpgradeSetter upgradeSetter)
+    public override void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView)
     {
         _player = GetComponent<Player>();
         _navigator = GetComponent<Navigator>();
         _upgradeSetter = upgradeSetter;
+        _playerView = playerView;
         _blinkRange += _upgradeSetter.Level;
     }
 
     public override void Prepare()
     {
+        _playerView.DisableAbilityButton();
         _navigator.RefillAvailableCells(_player.CurrentCell, _blinkRange);
         ShowBlinkRange();
         _source.clip = _prepareSound;
@@ -36,6 +39,8 @@ public class Blink : Ability
 
     public override void Cancel()
     {
+        _playerView.Cansel();
+        _playerView.EnableAbilityButton();
         HideBlinkRange();
         _prepareEffect.Stop();
         _source.Stop();

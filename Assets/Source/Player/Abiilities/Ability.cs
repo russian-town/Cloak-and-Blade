@@ -14,7 +14,7 @@ public abstract class Ability : MonoBehaviour
 
     protected abstract void Action(Cell cell);
 
-    public abstract void Initialize(UpgradeSetter upgradeSetter);
+    public abstract void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView);
 
     public abstract void Prepare();
 

@@ -6,11 +6,11 @@ public class BlackGhost : Player
     private Transformation _transformation;
     private TransformationCommand _transformationCommand;
 
-    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler)
+    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler, PlayerView playerView)
     {
-        base.Initialize(startCell, hourglass, enemyTurnHandler, gameboard, adHandler);
+        base.Initialize(startCell, hourglass, enemyTurnHandler, gameboard, adHandler, playerView);
         _transformation = GetComponent<Transformation>();
-        _transformation.Initialize(UpgradeSetter);
+        _transformation.Initialize(UpgradeSetter, playerView);
         _transformationCommand = new TransformationCommand(_transformation, Gameboard, Navigator, CommandExecuter, this, Mover, MoveSpeed, RotationSpeed, Range);
     }
 

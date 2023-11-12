@@ -14,13 +14,12 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
     public bool TrySwitchCommand(Command command)
     {
-        if (command is AbilityCommand abilityCommandParameter)
+        if (command is AbilityCommand abilityCommand)
         {
-            if (abilityCommandParameter.IsUsed)
+            if (abilityCommand.IsUsed)
             {
-                print("AbilityParameter is used");
                 AbilityUsed?.Invoke();
-                _abilityCommandToReset = abilityCommandParameter;
+                _abilityCommandToReset = abilityCommand;
             }
         }
 
@@ -28,8 +27,7 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
         {
             if (_currentCommand.GetType() == command.GetType() && command is not SkipCommand)
             {
-                print("Trying to use same ability twice");
-                if(_currentCommand is AbilityCommand abilityCommand)
+                if(_currentCommand is AbilityCommand)
                 {
                     if (_currentCommand.Enabled == false)
                     {

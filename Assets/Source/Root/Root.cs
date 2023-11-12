@@ -77,7 +77,7 @@ public class Root : MonoBehaviour, IInitializable
         _yandexAds.CloseCallback += OnAdRewardedCloseCallback;
         _yandexAds.ShowInterstitial();
         _player = GetPlayer();
-        _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard, _rewardAdHandler);
+        _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard, _rewardAdHandler, _playerView);
         _playerView.Initialize(_player);
         _room.Initialize(_player, _playerView, _hourglass);
         _inputView.Initialize();

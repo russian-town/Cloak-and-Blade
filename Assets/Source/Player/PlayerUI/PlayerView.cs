@@ -18,6 +18,8 @@ public class PlayerView : MonoBehaviour, IPauseHandler
 
     private Player _player;
     private CanvasGroup _canvasGroup;
+    private bool _canSwitchInteractable = false;
+    private bool _isInteractable;
 
     public event Action PauseButtonClicked;
 
@@ -63,22 +65,38 @@ public class PlayerView : MonoBehaviour, IPauseHandler
 
     public void ShowInteravtiveButton()
     {
+        _isInteractable = true;
         _move.interactable = true;
-        _ability.interactable = true;
         _skip.interactable = true;
 
+        if (_canSwitchInteractable == true)
+            _ability.interactable = true;
+
         foreach (var icon in _icons)
+        {
+            if (icon == _abilityIcon && _canSwitchInteractable == false)
+                continue;
+
             icon.Interactable(true);
+        }
     }
 
     public void HideInteractiveButton()
     {
+        _isInteractable = false;
         _move.interactable = false;
-        _ability.interactable = false;
         _skip.interactable = false;
 
+        if (_canSwitchInteractable == true)
+            _ability.interactable = false;
+
         foreach (var icon in _icons)
+        {
+            if (icon == _abilityIcon && _canSwitchInteractable == false)
+                continue;
+
             icon.Interactable(false);
+        }
     }
 
     public void SetPause(bool isPause)
@@ -89,13 +107,24 @@ public class PlayerView : MonoBehaviour, IPauseHandler
             Subscribe();
     }
 
+    public void Cansel() => _canSwitchInteractable = true;
+
+    public void EnableAbilityButton()
+    {
+        _ability.interactable = _isInteractable;
+        _abilityIcon.Interactable(_isInteractable);
+    }
+
+    public void DisableAbilityButton()
+    {
+        _canSwitchInteractable = false;
+        _ability.interactable = false;
+        _abilityIcon.Interactable(false);
+    }
+
     private void OnMoveClick() => _player.PrepareMove();
 
     private void OnAbilityClick() => _player.TryPrepareAbility();
 
     private void OnSkipClick() => _player.PrepareSkip();
-
-    private void OnAbilityEnabled() => _ability.interactable = false;
-
-    private void OnAbilityDisabled() => _ability.interactable = true;  
 }

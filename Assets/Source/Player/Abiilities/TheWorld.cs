@@ -20,6 +20,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     private int _currentStepCount;
     private bool _canUse = true;
     private UpgradeSetter _upgradeSetter;
+    private PlayerView _playerView;
 
     private void OnDisable()
     {
@@ -37,17 +38,18 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
         _effectsToChange.AddRange(effects);
     }
 
-    public override void Initialize(UpgradeSetter upgradeSetter)
+    public override void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView)
     {
         _attacker = GetComponent<PlayerAttacker>();
         _player = GetComponent<Player>();
         _upgradeSetter = upgradeSetter;
+        _playerView = playerView;
         _maxStepCount += _upgradeSetter.Level;
     }
 
     public override void Cancel() { }
 
-    public override void Prepare() { }
+    public override void Prepare() => _playerView.DisableAbilityButton();
 
     public override bool CanUse()
     {
@@ -93,6 +95,8 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
             _source.Play();
             _attacker.Attack(AttackType.UnFreeze);
             _player.StepEnded -= OnStepEnded;
+            _playerView.Cansel();
+            _playerView.EnableAbilityButton();
 
             foreach (var effect in _effectsToChange)
                 effect.ChangeEffectSpeed(1, _effectSpeedUpDuration);
