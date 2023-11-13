@@ -24910,12 +24910,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveRange: 2
+  _delay: 0
   _moveSpeed: 3
   _rotationSpeed: 360
   _itemsInHold: {fileID: 720380231298066782}
   _diedParticle: {fileID: 199662967926653570}
   _model: {fileID: 5861697019979390712}
-  _abilityIcon: {fileID: 21300000, guid: d96f6aabc43915a45a05d6df44c42f8d, type: 3}
+  _abilityIcon: {fileID: 21300000, guid: f9de8ecfe2d56bd40b41ae22727ef04a, type: 3}
   _upgradeSetter: {fileID: 11400000, guid: 56ddc6968867f0d469d96f8a076447d8, type: 2}
 --- !u!114 &8206247056970286847
 MonoBehaviour:
@@ -25093,6 +25094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3464023472272574549}
   - component: {fileID: 5861697019979390712}
+  - component: {fileID: 7802514052354074483}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -25128,6 +25130,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c74ba93b24c5442afb115d9b683882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _decoyModels: []
+  _transformationEffect: {fileID: 0}
+--- !u!95 &7802514052354074483
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7141844008061874015}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7402735721939849976
 GameObject:
   m_ObjectHideFlags: 0
