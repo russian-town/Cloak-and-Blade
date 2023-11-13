@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Root : MonoBehaviour, IInitializable
 {
-    [SerializeField] private List<Player> _playerTemplates = new List<Player>();
-    [SerializeField] private Player _defaultPlayerTemplate;
     [SerializeField] private PlayerView _playerView;
     [SerializeField] private InputView _inputView;
     [SerializeField] private Cell _playerSpawnCell;
@@ -16,7 +14,6 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private ParticleSystem _abilityRangeTemplate;
     [SerializeField] private EnemySetter[] _enemySetters;
     [SerializeField] private Room _room;
-    [SerializeField] private Camera _camera;
     [SerializeField] private Hourglass _hourglass;
     [SerializeField] private InteractiveObject[] _interactiveObjects;
     [SerializeField] private EnemyZoneDrawer _enemyZoneDrawerTemplate;
@@ -26,7 +23,6 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private ScoreDefiner _scoreDefiner;
     [SerializeField] private LevelExit _levelExit;
     [SerializeField] private PlayersHandler _playersHandler;
-    [SerializeField] private List<EffectChangeHanldler> _effectChangeHanldlers = new List<EffectChangeHanldler>();
     [SerializeField] private Audio _audio;
     [SerializeField] private FocusHandler _focusHandler;
     [SerializeField] private RewardedAdHandler _rewardAdHandler;
@@ -36,8 +32,8 @@ public class Root : MonoBehaviour, IInitializable
     private readonly Saver _saver = new Saver();
     private readonly Wallet _wallet = new Wallet();
     private readonly List<Enemy> _enemies = new List<Enemy>();
+    private readonly YandexAds _yandexAds = new YandexAds();
 
-    private YandexAds _yandexAds = new YandexAds();
     private AdHandler _adHandler;
     private Player _player;
     private Pause _pause;
@@ -77,7 +73,7 @@ public class Root : MonoBehaviour, IInitializable
         _yandexAds.OpenCallback += OnAdOpenCallback;
         _yandexAds.CloseCallback += OnAdRewardedCloseCallback;
         _yandexAds.ShowInterstitial();
-        _player = GetPlayer();
+        _player = _playersHandler.GetPlayer(_spawner, _playerSpawnCell);
         _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard, _rewardAdHandler, _playerView);
         _playerView.Initialize(_player);
         _room.Initialize(_player, _playerView, _hourglass);
@@ -107,7 +103,6 @@ public class Root : MonoBehaviour, IInitializable
             _pause.AddHandler(enemy);
         }
 
-        
         _player.SetTargets(_enemies);
         _adHandler = new AdHandler(_game, _focusHandler, _audio);
         _game.Initialize(_player, _pause, _levelExit, _wallet, _adHandler);
@@ -135,29 +130,6 @@ public class Root : MonoBehaviour, IInitializable
     {
         _audio.UnMute();
         _focusHandler.enabled = true;
-    }
-
-    private Player GetPlayer()
-    {
-        Player player;
-
-        if (_playerTemplates.Contains(_playersHandler.CurrentPlayer))
-        {
-            int index = _playerTemplates.IndexOf(_playersHandler.CurrentPlayer);
-            player = (Player)_spawner.Get(_playerSpawnCell, _playerTemplates[index]);
-        }
-        else
-        {
-             player = (Player)_spawner.Get(_playerSpawnCell, _defaultPlayerTemplate);
-        }
-
-        if (_effectChangeHanldlers.Count == 0)
-            return player;
-
-        if (player is ISceneParticlesInfluencer sceneParticlesInfluencer)
-            sceneParticlesInfluencer.AddSceneParticles(_effectChangeHanldlers);
-
-        return player;
     }
 }
 
