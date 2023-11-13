@@ -1,3 +1,4 @@
+using Lean.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,8 +13,11 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private Button _descriptionButton;
     [SerializeField] private TMP_Text _selectText;
 
+    private LeanLocalization _lean;
     private Character _character;
     private Description _description;
+    private string _select;
+    private string _selected;
 
     public event UnityAction<Character, CharacterView> SellButtonClicked;
     public event UnityAction<Character, CharacterView> SelectButtonClicked;
@@ -36,8 +40,10 @@ public class CharacterView : MonoBehaviour
         _descriptionButton.onClick.RemoveListener(OnDescriptionButtonClicked);
     }
 
-    public void Render(Sprite icon, int price, Character character, Description description)
+    public void Render(Sprite icon, int price, Character character, Description description, LeanLocalization lean)
     {
+        _lean = lean;
+        Translate();
         _image.sprite = icon;
         _priceText.text = price.ToString();
         _character = character;
@@ -59,7 +65,6 @@ public class CharacterView : MonoBehaviour
         {
             _sellButton.gameObject.SetActive(false);
             _selectButton.gameObject.SetActive(true);
-            //_sellButton.interactable = false;
         }
     }
 
@@ -68,13 +73,34 @@ public class CharacterView : MonoBehaviour
         if (_character.IsSelect)
         {
             _selectButton.interactable = false;
-            _selectText.text = "Selected";
+            _selectText.text = _selected;
         }
         else
         {
             _selectButton.interactable = true;
-            _selectText.text = "Select";
+            _selectText.text = _select;
         }
+    }
+
+    private void Translate()
+    {
+        if (_lean.CurrentLanguage == Constants.English)
+            _selected = Constants.EnglishSelected;
+
+        if (_lean.CurrentLanguage == Constants.Russian)
+            _selected = Constants.RussianSelected;
+
+        if (_lean.CurrentLanguage == Constants.Turkish)
+            _selected = Constants.TurkishSelected;
+
+        if (_lean.CurrentLanguage == Constants.English)
+            _select = Constants.EnglishSelect;
+
+        if (_lean.CurrentLanguage == Constants.Russian)
+            _select = Constants.RussianSelect;
+
+        if (_lean.CurrentLanguage == Constants.Turkish)
+            _select = Constants.TurkishSelect;
     }
 
     private void OnDescriptionButtonClicked() => ShowDescription();

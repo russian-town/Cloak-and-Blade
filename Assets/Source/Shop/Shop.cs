@@ -1,3 +1,4 @@
+using Lean.Localization;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,6 +12,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     [SerializeField] private PlayersHandler _playersHandler;
     [SerializeField] private MenuModelChanger _menuModelChanger;
     [SerializeField] private Upgrader _upgrader;
+    [SerializeField] private LeanLocalization _lean;
 
     private List<CharacterView> _characterViews = new List<CharacterView>();
     private Character _currentSelectedCharacter;
@@ -44,7 +46,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             Description description = Instantiate(character.Description);
             description.Initialize();
             _upgrader.Initialize(description);
-            characterView.Render(character.Icon, character.Price, character, description);
+            characterView.Render(character.Icon, character.Price, character, description, _lean);
             _characterViews.Add(characterView);
             characterView.SellButtonClicked += OnSellButtonClick;
             characterView.SelectButtonClicked += OnSelectButtonClick;
