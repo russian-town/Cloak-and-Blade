@@ -31,6 +31,7 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private FocusHandler _focusHandler;
     [SerializeField] private RewardedAdHandler _rewardAdHandler;
     [SerializeField] private WalletView _walletView;
+    [SerializeField] private LoadingScreen _loadingScreen;
 
     private readonly Saver _saver = new Saver();
     private readonly Wallet _wallet = new Wallet();
@@ -113,6 +114,8 @@ public class Root : MonoBehaviour, IInitializable
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
         _scoreDefiner.Initialize();
+        _loadingScreen.Initialize();
+        _loadingScreen.StartFade();
     }
 
     private void OnAdOpenCallback()

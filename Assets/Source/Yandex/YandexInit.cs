@@ -7,14 +7,16 @@ public class YandexInit : MonoBehaviour
 {
     [SerializeField] private LeanLocalization _localization;
     [SerializeField] private MainSceneLogic _mainSceneLogic;
-    [SerializeField] private CanvasGroup _loadingScreen;
     [SerializeField] private float _speed;
+    [SerializeField] private LoadingScreen _loadingScreen;
 
     private void Awake()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         YandexGamesSdk.CallbackLogging = true;
 #endif
+
+        _loadingScreen.Initialize();
     }
 
     private IEnumerator Start()
@@ -38,18 +40,7 @@ public class YandexInit : MonoBehaviour
         YandexGamesSdk.GameReady();
 #endif
 
-        StartCoroutine(Fade());
+        _loadingScreen.StartFade();
         yield break;
-    }
-
-    private IEnumerator Fade() 
-    {
-        while(_loadingScreen.alpha > 0)
-        {
-            _loadingScreen.alpha = Mathf.MoveTowards(_loadingScreen.alpha, 0, Time.deltaTime * _speed);
-            yield return null;
-        }
-
-        _loadingScreen.blocksRaycasts = false;
     }
 }
