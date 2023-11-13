@@ -408,28 +408,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.93333334
-    functionName: PlayEffect
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.93333334
     functionName: PickRandomModel
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.93333334
+  - time: 0.95
     functionName: Hide
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.93333334
-    functionName: SwitchModels
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

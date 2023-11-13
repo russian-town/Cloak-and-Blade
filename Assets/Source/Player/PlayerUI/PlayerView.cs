@@ -18,7 +18,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
 
     private Player _player;
     private CanvasGroup _canvasGroup;
-    private bool _canSwitchInteractable = false;
+    private bool _canSwitchInteractable = true;
     private bool _isInteractable;
 
     public event Action PauseButtonClicked;
