@@ -10,6 +10,7 @@ public class Description : MonoBehaviour
     [SerializeField] private List<Image> _levelMarkers = new List<Image>();
     [SerializeField] private Button _upgradeButton;
     [SerializeField] private UpgradeSetter _upgradeSetter;
+    [SerializeField] private ScreenAnimationHandler _animationHandler;
 
     public event UnityAction<UpgradeSetter, Description> UpgradeButtonClicked;
 
@@ -57,13 +58,13 @@ public class Description : MonoBehaviour
 
     public void Show()
     {
-        gameObject.SetActive(true);
+        _animationHandler.ScreenFadeIn();
         _upgradeButton.onClick.AddListener(() => UpgradeButtonClicked?.Invoke(_upgradeSetter, this));
     }
 
     public void Hide()
     {
-        gameObject.SetActive(false);
+        _animationHandler.ScreenFadeOut();
         _upgradeButton.onClick.RemoveListener(() => UpgradeButtonClicked?.Invoke(_upgradeSetter, this));
     }
 }

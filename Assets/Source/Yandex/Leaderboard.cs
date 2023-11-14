@@ -13,7 +13,7 @@ public class LeaderBoard : MonoBehaviour
     [SerializeField] private int _maxLeaderboardUnits;
     [SerializeField] private Sprite _defaultProfilePicture;
     [SerializeField] private Image _blackBacking;
-    [SerializeField] private Canvas _autorizationRequirmentScreen;
+    [SerializeField] private AuthorizationReqScreen _autorizationRequirmentScreen;
 
     private CanvasGroup _canvasGroup;
 
@@ -25,7 +25,6 @@ public class LeaderBoard : MonoBehaviour
         _canvasGroup.blocksRaycasts = false;
         _canvasGroup.alpha = 0;
         ClearLeaderBoard();
-        _autorizationRequirmentScreen.gameObject.SetActive(false);
     }
 
     public void OnOpenLeaderBoardButtonClick()
@@ -36,15 +35,8 @@ public class LeaderBoard : MonoBehaviour
         }
         else
         {
-            _autorizationRequirmentScreen.gameObject.SetActive(true);
+            _autorizationRequirmentScreen.Enable();
         }
-    }
-
-    public void CloseLeaderBoard()
-    {
-        _blackBacking.gameObject.SetActive(false);
-        _canvasGroup.alpha = 0;
-        _canvasGroup.blocksRaycasts = false;
     }
 
     public void Authorize()
@@ -58,9 +50,6 @@ public class LeaderBoard : MonoBehaviour
 
     private void OpenLeaderBoard()
     {
-        _blackBacking.gameObject.SetActive(true);
-        _canvasGroup.alpha = 1;
-        _canvasGroup.blocksRaycasts = true;
         ShowPlayer();
         BuildLeaderBoard();
     }
