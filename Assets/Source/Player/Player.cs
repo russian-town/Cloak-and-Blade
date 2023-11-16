@@ -172,7 +172,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         yield return new WaitForSeconds(_delay);
         Died?.Invoke();
     }
-    private void OnAbilityUsed() => _adHandler.gameObject.SetActive(true);
+    private void OnAbilityUsed() => _adHandler.Show();
 
     private void OnMoveEnded() => StepEnded?.Invoke();
 }

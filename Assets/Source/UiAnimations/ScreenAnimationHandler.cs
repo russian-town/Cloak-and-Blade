@@ -12,7 +12,7 @@ public class ScreenAnimationHandler : MonoBehaviour
 
     private void Start()
     {
-        _initialPosition = transform.localPosition;
+        _initialPosition = _rectTransform.localPosition;
     }
 
     public void ScreenFadeIn()

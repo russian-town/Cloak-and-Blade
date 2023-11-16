@@ -6,6 +6,7 @@ public class LevelFinishScreen : MonoBehaviour
 {
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _doubleStarsForAdButton;
+    [SerializeField] private ScreenAnimationHandler _animationHandler;
 
     private YandexAds _yandexAds;
 
@@ -26,6 +27,7 @@ public class LevelFinishScreen : MonoBehaviour
     public void Initialize(YandexAds yandexAds)
     {
         _yandexAds = yandexAds;
+        gameObject.SetActive(true);
     }
 
     public void Unsubscribe()
@@ -33,9 +35,15 @@ public class LevelFinishScreen : MonoBehaviour
         _doubleStarsForAdButton.onClick.RemoveListener(OnRewardedButtonClick);
     }
 
-    public void Show() => gameObject.SetActive(true);
+    public void Show()
+    {
+        _animationHandler.ScreenFadeIn();
+    }
 
-    public void Hide() => gameObject.SetActive(false);
+    public void Hide() 
+    {
+        _animationHandler.ScreenFadeOut();
+    } 
 
     private void OnRewardedButtonClick()
     {

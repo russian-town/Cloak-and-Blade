@@ -13,14 +13,21 @@ public abstract class ViewPanel : MonoBehaviour
 
     private void OnDisable() => Dismiss();
 
-    public virtual void Show() => _animationHandler.ScreenFadeIn();
+    public virtual void Show()
+    {
+        _animationHandler.ScreenFadeIn();
+    }
 
-    public virtual void Hide() => _animationHandler.ScreenFadeOut();
+    public virtual void Hide() 
+    {
+        _animationHandler.ScreenFadeOut();
+    } 
 
     public virtual void Initialize()
     {
         _restartButton.onClick.AddListener(() => RestartButtonClicked?.Invoke());
         _exitButton.onClick.AddListener(() => ExitButtonClicked?.Invoke());
+        gameObject.SetActive(true);
     }
 
     protected virtual void Dismiss()
