@@ -6,15 +6,16 @@ public abstract class ViewPanel : MonoBehaviour
 {
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _exitButton;
+    [SerializeField] private ScreenAnimationHandler _animationHandler;
 
     public event Action RestartButtonClicked;
     public event Action ExitButtonClicked;
 
     private void OnDisable() => Dismiss();
 
-    public virtual void Show() => gameObject.SetActive(true);
+    public virtual void Show() => _animationHandler.ScreenFadeIn();
 
-    public virtual void Hide() => gameObject.SetActive(false);
+    public virtual void Hide() => _animationHandler.ScreenFadeOut();
 
     public virtual void Initialize()
     {
