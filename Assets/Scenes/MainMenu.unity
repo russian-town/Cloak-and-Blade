@@ -1367,13 +1367,13 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: English
-    Text: Red
+    Text: Teleportation
     Object: {fileID: 0}
   - Language: Russian
-    Text: "\u041A\u0440\u0430\u0441\u043D\u044B\u0439"
+    Text: "\u0422\u0435\u043B\u0435\u043F\u043E\u0440\u0442\u0430\u0446\u0438\u044F"
     Object: {fileID: 0}
   - Language: Turkish
-    Text: "K\u0131rm\u0131z\u0131"
+    Text: "\u0131\u015F\u0131nlanma"
     Object: {fileID: 0}
 --- !u!1001 &140206759
 PrefabInstance:
@@ -7811,7 +7811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.044869278, y: 0.80843246}
   m_AnchorMax: {x: 0.957, y: 0.9452055}
-  m_AnchoredPosition: {x: -1.500061, y: 0.5}
+  m_AnchoredPosition: {x: -1.5, y: 0.5}
   m_SizeDelta: {x: 5.13501, y: -5.0700073}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1017999576
