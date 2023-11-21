@@ -6163,6 +6163,7 @@ GameObject:
   - component: {fileID: 4630608011978504954}
   - component: {fileID: 4377728790246726338}
   - component: {fileID: 7225785270043928070}
+  - component: {fileID: 6960780618193284436}
   m_Layer: 5
   m_Name: BackGround
   m_TagString: Untagged
@@ -6231,6 +6232,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6960780618193284436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590242535479929659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ced9cdc7bd75f4b8e9a554dafe8fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fadeDuration: 1
+  _canvasGroup: {fileID: 6319994346943122769}
+  _rectTransform: {fileID: 4630608011978504954}
 --- !u!1 &1654174279443058270
 GameObject:
   m_ObjectHideFlags: 0
@@ -12287,6 +12303,7 @@ GameObject:
   - component: {fileID: 3162763942243338328}
   - component: {fileID: 2959384710407497360}
   - component: {fileID: 4200613759755100489}
+  - component: {fileID: 6319994346943122769}
   m_Layer: 5
   m_Name: AdHandlerScreen
   m_TagString: Untagged
@@ -12392,6 +12409,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playAdButton: {fileID: 6883984773343772945}
   _dontPlayAdButton: {fileID: 5928636683071025354}
+  _animationHandler: {fileID: 6960780618193284436}
+--- !u!225 &6319994346943122769
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2443451412444412366}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2495616664771466700
 GameObject:
   m_ObjectHideFlags: 0
@@ -12479,6 +12509,8 @@ GameObject:
   - component: {fileID: 7160225023607313741}
   - component: {fileID: 4587495382335462800}
   - component: {fileID: 3420855290941952138}
+  - component: {fileID: 4371176282260911196}
+  - component: {fileID: 5948228645821165782}
   m_Layer: 5
   m_Name: BackGround
   m_TagString: Untagged
@@ -12548,6 +12580,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4371176282260911196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2533865497536100395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ced9cdc7bd75f4b8e9a554dafe8fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fadeDuration: 1
+  _canvasGroup: {fileID: 8508038697589724654}
+  _rectTransform: {fileID: 7160225023607313741}
+--- !u!114 &5948228645821165782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2533865497536100395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ced9cdc7bd75f4b8e9a554dafe8fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fadeDuration: 1
+  _canvasGroup: {fileID: 8508038697589724654}
+  _rectTransform: {fileID: 7160225023607313741}
 --- !u!1 &2537889073368006000
 GameObject:
   m_ObjectHideFlags: 0
@@ -13107,6 +13169,7 @@ GameObject:
   - component: {fileID: 7573708275533327663}
   - component: {fileID: 3802296221183304025}
   - component: {fileID: 6249279876966891373}
+  - component: {fileID: 4116025124141546129}
   m_Layer: 5
   m_Name: DeathScreen
   m_TagString: Untagged
@@ -13212,6 +13275,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _restartButton: {fileID: 303297377970014674}
   _exitButton: {fileID: 7990755767443601429}
+  _animationHandler: {fileID: 7716839370765411073}
+--- !u!225 &4116025124141546129
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3007438053192749326}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3031349472178345411
 GameObject:
   m_ObjectHideFlags: 0
@@ -18506,6 +18582,7 @@ GameObject:
   - component: {fileID: 7215855666000694828}
   - component: {fileID: 6582603641271852174}
   - component: {fileID: 7138661318906112904}
+  - component: {fileID: 8508038697589724654}
   m_Layer: 5
   m_Name: LevelFinishScreen
   m_TagString: Untagged
@@ -18611,6 +18688,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _exitButton: {fileID: 8675794680852372602}
   _doubleStarsForAdButton: {fileID: 7401797625404008772}
+  _animationHandler: {fileID: 4371176282260911196}
+--- !u!225 &8508038697589724654
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7397847961430772258}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7494428060496215080
 GameObject:
   m_ObjectHideFlags: 0
@@ -19409,6 +19499,7 @@ GameObject:
   - component: {fileID: 5756972299964794231}
   - component: {fileID: 2327609785269983841}
   - component: {fileID: 3247052682722588995}
+  - component: {fileID: 7716839370765411073}
   m_Layer: 5
   m_Name: BackGround
   m_TagString: Untagged
@@ -19476,6 +19567,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7716839370765411073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8238428070168111255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ced9cdc7bd75f4b8e9a554dafe8fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fadeDuration: 1
+  _canvasGroup: {fileID: 4116025124141546129}
+  _rectTransform: {fileID: 5756972299964794231}
 --- !u!1 &8359831063562021082
 GameObject:
   m_ObjectHideFlags: 0
@@ -19649,6 +19755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _restartButton: {fileID: 3911828377006505599}
   _exitButton: {fileID: 8792282586176761935}
+  _animationHandler: {fileID: 0}
   _continueButton: {fileID: 8050322123689436679}
 --- !u!1 &8385116915682761686
 GameObject:
