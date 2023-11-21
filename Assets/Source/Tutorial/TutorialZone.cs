@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class TutorialZone : InteractiveObject
 {
-    [SerializeField] private Canvas _view;
-    [SerializeField] private Canvas _playerUI;
+    [SerializeField] private ScreenAnimationHandler _view;
+    [SerializeField] private PlayerView _playerUI;
     [SerializeField] private Button _closeButton;
 
     private bool _isZonePassed;
@@ -14,7 +14,6 @@ public class TutorialZone : InteractiveObject
 
     private void Start()
     {
-        _view.gameObject.SetActive(false);
         _closeButton.onClick.AddListener(() => Interact());
     }
 
@@ -28,15 +27,15 @@ public class TutorialZone : InteractiveObject
         if (!CheckInteractionPossibility() || _isZonePassed)
             return;
 
-        _view.gameObject.SetActive(true);
-        _playerUI.gameObject.SetActive(false);
+        _view.ScreenFadeIn();
+        _playerUI.Hide();
         _isZonePassed = true;
     }
 
     public override void Interact()
     {
-        _view.gameObject.SetActive(false);
-        _playerUI.gameObject.SetActive(true);
+        _view.ScreenFadeOut();
+        _playerUI.Show();
         _closeButton.onClick.RemoveListener(() => Interact());
         ZonePassed?.Invoke();
     }

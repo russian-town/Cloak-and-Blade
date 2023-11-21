@@ -4,13 +4,12 @@ using UnityEngine.UI;
 public class ChestTutorial : MonoBehaviour
 {
     [SerializeField] private Button _keyButton;
-    [SerializeField] private Canvas _playerUI;
-    [SerializeField] private Canvas _chestGuide;
+    [SerializeField] private PlayerView _playerUI;
+    [SerializeField] private ScreenAnimationHandler _chestGuide;
     [SerializeField] private Button _closeButton;
 
     void Start()
     {
-        _chestGuide.gameObject.SetActive(false);
         _keyButton.onClick.AddListener(() => ShowTutorialScreen());
         _closeButton.onClick.AddListener(() => Close());
     }
@@ -23,14 +22,14 @@ public class ChestTutorial : MonoBehaviour
 
     public void ShowTutorialScreen()
     {
-        _playerUI.gameObject.SetActive(false);
-        _chestGuide.gameObject.SetActive(true);
+        _playerUI.Hide();
+        _chestGuide.ScreenFadeIn();
         _keyButton.onClick.RemoveListener(() => ShowTutorialScreen());
     }
 
     public void Close()
     {
-        _playerUI.gameObject.SetActive(true);
-        _chestGuide.gameObject.SetActive(false);
+        _playerUI.Show();
+        _chestGuide.ScreenFadeOut();
     }
 }

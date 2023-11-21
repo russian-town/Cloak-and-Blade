@@ -54,12 +54,14 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     public void Show()
     {
         _canvasGroup.alpha = 1;
+        _canvasGroup.interactable = true;
         _canvasGroup.blocksRaycasts = true;
     }
 
     public void Hide()
     {
         _canvasGroup.alpha = 0;
+        _canvasGroup.interactable = false;
         _canvasGroup.blocksRaycasts = false;
     }
 
