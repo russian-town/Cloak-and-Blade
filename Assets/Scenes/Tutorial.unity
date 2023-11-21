@@ -5055,6 +5055,8 @@ GameObject:
   - component: {fileID: 81619251}
   - component: {fileID: 81619250}
   - component: {fileID: 81619249}
+  - component: {fileID: 81619253}
+  - component: {fileID: 81619252}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -5127,6 +5129,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 81619253}
+        m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+        m_MethodName: BounceOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 1833753197}
         m_TargetAssemblyTypeName: ScreenAnimationHandler, Assembly-CSharp
         m_MethodName: ScreenFadeOut
@@ -5177,6 +5191,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81619247}
   m_CullTransparentMesh: 1
+--- !u!114 &81619252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81619247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 81619253}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 81619253}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &81619253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81619247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &81698553
 GameObject:
   m_ObjectHideFlags: 0
@@ -12763,6 +12837,71 @@ MonoBehaviour:
   _west: {fileID: 1883009231}
   _nextOnPath: {fileID: 0}
   _content: {fileID: 803933993}
+--- !u!1 &201693391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6792238340397236189, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &201693396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201693391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 201693397}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 201693397}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &201693397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201693391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &201821739
 GameObject:
   m_ObjectHideFlags: 0
@@ -16504,6 +16643,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262697046}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &263620112 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7671195251115007051, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &263620117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263620112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 263620118}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 263620118}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &263620118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263620112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &264254320
 GameObject:
   m_ObjectHideFlags: 0
@@ -19547,6 +19751,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317735387}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &317960468 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5716808500513862671, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &317960473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317960468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 317960474}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 317960474}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &317960474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317960468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &318086871
 GameObject:
   m_ObjectHideFlags: 0
@@ -21271,6 +21540,8 @@ GameObject:
   - component: {fileID: 344655538}
   - component: {fileID: 344655537}
   - component: {fileID: 344655536}
+  - component: {fileID: 344655540}
+  - component: {fileID: 344655539}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -21342,7 +21613,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 344655537}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 344655540}
+        m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+        m_MethodName: BounceOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &344655537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21381,6 +21664,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344655534}
   m_CullTransparentMesh: 1
+--- !u!114 &344655539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344655534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 344655540}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 344655540}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &344655540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344655534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &344896407
 GameObject:
   m_ObjectHideFlags: 0
@@ -32688,6 +33031,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 442036, guid: edf36f15892d1fb4d913feaa9b0a6dc3, type: 3}
   m_PrefabInstance: {fileID: 537039197}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &538383898 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5360074397917574503, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &538383903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538383898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 538383904}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 538383904}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &538383904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538383898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &538563867
 GameObject:
   m_ObjectHideFlags: 0
@@ -35724,6 +36132,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595705640}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &595830728 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2383403819130859363, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
+  m_PrefabInstance: {fileID: 5138524683659262820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &596362635
 GameObject:
   m_ObjectHideFlags: 0
@@ -38701,6 +39114,8 @@ GameObject:
   - component: {fileID: 637666102}
   - component: {fileID: 637666101}
   - component: {fileID: 637666100}
+  - component: {fileID: 637666104}
+  - component: {fileID: 637666103}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -38773,6 +39188,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 637666104}
+        m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+        m_MethodName: BounceOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1696416284}
         m_TargetAssemblyTypeName: ScreenAnimationHandler, Assembly-CSharp
         m_MethodName: ScreenFadeOut
@@ -38835,6 +39262,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637666098}
   m_CullTransparentMesh: 1
+--- !u!114 &637666103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637666098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 637666104}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 637666104}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &637666104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637666098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &639454167
 GameObject:
   m_ObjectHideFlags: 0
@@ -40861,6 +41348,8 @@ GameObject:
   - component: {fileID: 672961611}
   - component: {fileID: 672961610}
   - component: {fileID: 672961609}
+  - component: {fileID: 672961613}
+  - component: {fileID: 672961612}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -40932,7 +41421,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 672961610}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 672961613}
+        m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+        m_MethodName: BounceOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &672961610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40971,6 +41472,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672961607}
   m_CullTransparentMesh: 1
+--- !u!114 &672961612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672961607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 672961613}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 672961613}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &672961613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672961607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &673470654
 GameObject:
   m_ObjectHideFlags: 0
@@ -57763,17 +58324,129 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 303297377970014674, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 303297377970014674, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 303297377970014674, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1783906701}
+    - target: {fileID: 303297377970014674, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 303297377970014674, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 303297377970014674, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 303297377970014674, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 424918949991340706, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: _animationHandler
       value: 
       objectReference: {fileID: 1363403696}
+    - target: {fileID: 456249413061146625, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 456249413061146625, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 456249413061146625, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 263620118}
+    - target: {fileID: 456249413061146625, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 456249413061146625, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 456249413061146625, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 456249413061146625, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1097383007761423039, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: _gameboard
       value: 
       objectReference: {fileID: 1328591948}
+    - target: {fileID: 1510606270303230698, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510606270303230698, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510606270303230698, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1393953136}
+    - target: {fileID: 1510606270303230698, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510606270303230698, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510606270303230698, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510606270303230698, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1829820395396898502, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877297395638124002, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877297395638124002, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877297395638124002, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1635731470}
+    - target: {fileID: 1877297395638124002, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877297395638124002, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877297395638124002, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877297395638124002, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2162517309674096239, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_AnchorMax.y
@@ -57847,6 +58520,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2595805334454793313, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595805334454793313, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595805334454793313, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 317960474}
+    - target: {fileID: 2595805334454793313, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595805334454793313, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595805334454793313, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595805334454793313, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2630228377372325046, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -57894,6 +58595,34 @@ PrefabInstance:
     - target: {fileID: 2635959528115879075, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641946306006642719, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641946306006642719, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641946306006642719, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 947644241}
+    - target: {fileID: 2641946306006642719, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641946306006642719, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641946306006642719, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641946306006642719, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3007438053192749326, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_IsActive
@@ -57903,6 +58632,34 @@ PrefabInstance:
       propertyPath: m_Heading.m_Bias
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 3911828377006505599, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911828377006505599, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911828377006505599, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1787540428}
+    - target: {fileID: 3911828377006505599, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911828377006505599, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911828377006505599, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911828377006505599, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4116025124141546129, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_Alpha
       value: 0
@@ -57914,6 +58671,90 @@ PrefabInstance:
     - target: {fileID: 4116025124141546129, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_BlocksRaycasts
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796733779491943152, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796733779491943152, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796733779491943152, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 947644246}
+    - target: {fileID: 4796733779491943152, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796733779491943152, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796733779491943152, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796733779491943152, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488330811552447347, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488330811552447347, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488330811552447347, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1187784822}
+    - target: {fileID: 5488330811552447347, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488330811552447347, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488330811552447347, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488330811552447347, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928636683071025354, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928636683071025354, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928636683071025354, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198627876}
+    - target: {fileID: 5928636683071025354, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928636683071025354, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928636683071025354, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928636683071025354, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6319994346943122769, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_Alpha
@@ -57951,13 +58792,125 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6883984773343772945, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6883984773343772945, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6883984773343772945, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2046638284}
+    - target: {fileID: 6883984773343772945, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6883984773343772945, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6883984773343772945, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6883984773343772945, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7397847961430772258, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7401797625404008772, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401797625404008772, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401797625404008772, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2065195781}
+    - target: {fileID: 7401797625404008772, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401797625404008772, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401797625404008772, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401797625404008772, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7625079403314806718, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990755767443601429, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990755767443601429, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990755767443601429, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 538383904}
+    - target: {fileID: 7990755767443601429, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990755767443601429, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990755767443601429, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990755767443601429, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8050322123689436679, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8050322123689436679, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8050322123689436679, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 201693397}
+    - target: {fileID: 8050322123689436679, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8050322123689436679, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8050322123689436679, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8050322123689436679, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8177039472751546734, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_AnchorMax.y
@@ -57987,6 +58940,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8439923750201607269, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439923750201607269, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439923750201607269, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1714248194}
+    - target: {fileID: 8439923750201607269, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439923750201607269, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439923750201607269, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439923750201607269, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8508038697589724654, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_Alpha
       value: 0
@@ -58002,6 +58983,62 @@ PrefabInstance:
     - target: {fileID: 8570452107552246584, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: m_Name
       value: Main
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675794680852372602, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675794680852372602, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675794680852372602, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1095488040}
+    - target: {fileID: 8675794680852372602, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675794680852372602, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675794680852372602, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675794680852372602, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792282586176761935, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792282586176761935, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792282586176761935, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1143061939}
+    - target: {fileID: 8792282586176761935, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792282586176761935, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792282586176761935, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792282586176761935, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8871946789242465477, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       propertyPath: _gameboard
@@ -58075,42 +59112,144 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5716808500513862671, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 317960474}
+    - targetCorrespondingSourceObject: {fileID: 5716808500513862671, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 317960473}
     - targetCorrespondingSourceObject: {fileID: 7182119444965369126, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1635731463}
     - targetCorrespondingSourceObject: {fileID: 7182119444965369126, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1635731462}
+    - targetCorrespondingSourceObject: {fileID: 7182119444965369126, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1635731470}
+    - targetCorrespondingSourceObject: {fileID: 7182119444965369126, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1635731469}
     - targetCorrespondingSourceObject: {fileID: 3064073499972510147, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 947644235}
     - targetCorrespondingSourceObject: {fileID: 3064073499972510147, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 947644234}
+    - targetCorrespondingSourceObject: {fileID: 3064073499972510147, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 947644246}
+    - targetCorrespondingSourceObject: {fileID: 3064073499972510147, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 947644245}
     - targetCorrespondingSourceObject: {fileID: 2402615729411739584, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 117251617}
     - targetCorrespondingSourceObject: {fileID: 2402615729411739584, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 117251616}
+    - targetCorrespondingSourceObject: {fileID: 2402615729411739584, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1187784822}
+    - targetCorrespondingSourceObject: {fileID: 2402615729411739584, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1187784821}
+    - targetCorrespondingSourceObject: {fileID: 6286786567804396738, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1393953136}
+    - targetCorrespondingSourceObject: {fileID: 6286786567804396738, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1393953135}
     - targetCorrespondingSourceObject: {fileID: 567189744040298942, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 947644233}
     - targetCorrespondingSourceObject: {fileID: 567189744040298942, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 947644232}
+    - targetCorrespondingSourceObject: {fileID: 567189744040298942, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 947644241}
+    - targetCorrespondingSourceObject: {fileID: 567189744040298942, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 947644240}
     - targetCorrespondingSourceObject: {fileID: 3825543658245109253, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1714248188}
     - targetCorrespondingSourceObject: {fileID: 3825543658245109253, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1714248187}
+    - targetCorrespondingSourceObject: {fileID: 3825543658245109253, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1714248194}
+    - targetCorrespondingSourceObject: {fileID: 3825543658245109253, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1714248193}
     - targetCorrespondingSourceObject: {fileID: 8376278661691416449, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 725334956}
     - targetCorrespondingSourceObject: {fileID: 3329448750066989356, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1363403696}
+    - targetCorrespondingSourceObject: {fileID: 6792238340397236189, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 201693397}
+    - targetCorrespondingSourceObject: {fileID: 6792238340397236189, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 201693396}
+    - targetCorrespondingSourceObject: {fileID: 4340734889277249734, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1787540428}
+    - targetCorrespondingSourceObject: {fileID: 4340734889277249734, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1787540427}
+    - targetCorrespondingSourceObject: {fileID: 5171680917519926802, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1143061939}
+    - targetCorrespondingSourceObject: {fileID: 5171680917519926802, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1143061938}
+    - targetCorrespondingSourceObject: {fileID: 8679997297004611900, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1783906701}
+    - targetCorrespondingSourceObject: {fileID: 8679997297004611900, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1783906700}
+    - targetCorrespondingSourceObject: {fileID: 5360074397917574503, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 538383904}
+    - targetCorrespondingSourceObject: {fileID: 5360074397917574503, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 538383903}
+    - targetCorrespondingSourceObject: {fileID: 7671195251115007051, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 263620118}
+    - targetCorrespondingSourceObject: {fileID: 7671195251115007051, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 263620117}
+    - targetCorrespondingSourceObject: {fileID: 2242099489821996401, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1095488040}
+    - targetCorrespondingSourceObject: {fileID: 2242099489821996401, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1095488039}
+    - targetCorrespondingSourceObject: {fileID: 3562611121680644587, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2065195781}
+    - targetCorrespondingSourceObject: {fileID: 3562611121680644587, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2065195780}
+    - targetCorrespondingSourceObject: {fileID: 7552798118776858943, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2046638284}
+    - targetCorrespondingSourceObject: {fileID: 7552798118776858943, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2046638283}
+    - targetCorrespondingSourceObject: {fileID: 4456167785141743170, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1198627876}
+    - targetCorrespondingSourceObject: {fileID: 4456167785141743170, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1198627875}
   m_SourcePrefab: {fileID: 100100000, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
 --- !u!1 &947644226 stripped
 GameObject:
@@ -58198,6 +59337,126 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &947644240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947644227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 947644241}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 947644241}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &947644241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947644227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &947644245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947644229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 947644246}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 947644246}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &947644246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947644229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &948792829
 GameObject:
   m_ObjectHideFlags: 0
@@ -65406,7 +66665,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2209384489390957986, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
   m_PrefabInstance: {fileID: 1234052120}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1370303633}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -68118,6 +69377,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 448002, guid: 64cb684f38ab4e547a77225cd823cf62, type: 3}
   m_PrefabInstance: {fileID: 1094630706}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1095488034 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2242099489821996401, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1095488039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095488034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1095488040}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1095488040}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1095488040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095488034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1096348577
 GameObject:
   m_ObjectHideFlags: 0
@@ -70573,6 +71897,71 @@ MonoBehaviour:
   _west: {fileID: 1456279780}
   _nextOnPath: {fileID: 0}
   _content: {fileID: 1418724548}
+--- !u!1 &1143061933 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5171680917519926802, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1143061938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143061933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1143061939}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1143061939}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1143061939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143061933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1143897376
 GameObject:
   m_ObjectHideFlags: 0
@@ -72608,6 +73997,66 @@ MonoBehaviour:
   _west: {fileID: 1050313516}
   _nextOnPath: {fileID: 0}
   _content: {fileID: 512478575}
+--- !u!114 &1187784821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947644228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1187784822}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1187784822}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1187784822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947644228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1190931616
 GameObject:
   m_ObjectHideFlags: 0
@@ -73066,6 +74515,71 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 0
+--- !u!1 &1198627870 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4456167785141743170, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1198627875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198627870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1198627876}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1198627876}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1198627876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198627870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1199042508
 GameObject:
   m_ObjectHideFlags: 0
@@ -74722,6 +76236,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1089454117}
     m_Modifications:
+    - target: {fileID: 2209384489390957986, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209384489390957986, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209384489390957986, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1370303638}
+    - target: {fileID: 2209384489390957986, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209384489390957986, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209384489390957986, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209384489390957986, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7014153706146435041, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
       propertyPath: _lookAt
       value: 
@@ -74801,7 +76343,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5011766461619105348, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1370303638}
+    - targetCorrespondingSourceObject: {fileID: 5011766461619105348, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1370303637}
   m_SourcePrefab: {fileID: 100100000, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
 --- !u!4 &1234052121 stripped
 Transform:
@@ -83768,6 +85316,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1370265517}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1370303633 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5011766461619105348, guid: d465da6cdfb8171449f717be21ee12d4, type: 3}
+  m_PrefabInstance: {fileID: 1234052120}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1370303637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370303633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1370303638}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1370303638}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1370303638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370303633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1370939549
 GameObject:
   m_ObjectHideFlags: 0
@@ -85240,6 +86853,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391537715}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1393953130 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6286786567804396738, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1393953135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393953130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1393953136}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1393953136}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1393953136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393953130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1394629861
 GameObject:
   m_ObjectHideFlags: 0
@@ -86636,12 +88314,72 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1382365414276205234, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
   m_PrefabInstance: {fileID: 5138524683659262820}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 595830728}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1422849627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595830728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1422849628}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1422849628}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1422849628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595830728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1424028508
 GameObject:
   m_ObjectHideFlags: 0
@@ -97338,6 +99076,66 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1635731469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947644230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1635731470}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1635731470}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1635731470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947644230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1637151756
 GameObject:
   m_ObjectHideFlags: 0
@@ -99470,6 +101268,8 @@ GameObject:
   - component: {fileID: 1676802117}
   - component: {fileID: 1676802116}
   - component: {fileID: 1676802115}
+  - component: {fileID: 1676802119}
+  - component: {fileID: 1676802118}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -99542,6 +101342,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1676802119}
+        m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+        m_MethodName: BounceOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 884387651}
         m_TargetAssemblyTypeName: ScreenAnimationHandler, Assembly-CSharp
         m_MethodName: ScreenFadeOut
@@ -99592,6 +101404,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676802113}
   m_CullTransparentMesh: 1
+--- !u!114 &1676802118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676802113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1676802119}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1676802119}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1676802119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676802113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &1677114633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101525,6 +103397,66 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1714248193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947644226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1714248194}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1714248194}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1714248194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947644226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1717096270
 GameObject:
   m_ObjectHideFlags: 0
@@ -104241,6 +106173,8 @@ GameObject:
   - component: {fileID: 1767681540}
   - component: {fileID: 1767681539}
   - component: {fileID: 1767681538}
+  - component: {fileID: 1767681542}
+  - component: {fileID: 1767681541}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -104312,7 +106246,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1767681539}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1767681542}
+        m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+        m_MethodName: BounceOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1767681539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104351,6 +106297,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767681536}
   m_CullTransparentMesh: 1
+--- !u!114 &1767681541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767681536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1767681542}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1767681542}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1767681542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767681536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1768758897
 GameObject:
   m_ObjectHideFlags: 0
@@ -105158,6 +107164,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782596005}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1783906695 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8679997297004611900, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1783906700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783906695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1783906701}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1783906701}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1783906701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783906695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1785357468
 GameObject:
   m_ObjectHideFlags: 0
@@ -105439,6 +107510,71 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1787540422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4340734889277249734, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1787540427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787540422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1787540428}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1787540428}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1787540428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787540422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1788570454
 GameObject:
   m_ObjectHideFlags: 0
@@ -113073,6 +115209,8 @@ GameObject:
   - component: {fileID: 1914423499}
   - component: {fileID: 1914423498}
   - component: {fileID: 1914423497}
+  - component: {fileID: 1914423501}
+  - component: {fileID: 1914423500}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -113145,7 +115283,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1914423498}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1914423501}
+        m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+        m_MethodName: BounceOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1914423498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113184,6 +115334,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914423495}
   m_CullTransparentMesh: 1
+--- !u!114 &1914423500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914423495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1914423501}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1914423501}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1914423501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914423495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1915263981
 GameObject:
   m_ObjectHideFlags: 0
@@ -121172,6 +123382,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044365660}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2046638278 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7552798118776858943, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2046638283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046638278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2046638284}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2046638284}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2046638284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046638278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &2047264975
 GameObject:
   m_ObjectHideFlags: 0
@@ -121462,6 +123737,8 @@ GameObject:
   - component: {fileID: 2054078785}
   - component: {fileID: 2054078784}
   - component: {fileID: 2054078783}
+  - component: {fileID: 2054078787}
+  - component: {fileID: 2054078786}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -121533,7 +123810,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2054078784}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2054078787}
+        m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+        m_MethodName: BounceOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2054078784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121572,6 +123861,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054078781}
   m_CullTransparentMesh: 1
+--- !u!114 &2054078786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054078781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2054078787}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2054078787}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2054078787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054078781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &2054343148
 GameObject:
   m_ObjectHideFlags: 0
@@ -122560,6 +124909,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2064430967}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2065195775 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3562611121680644587, guid: 3a32c64718935da40b90ea6df4251181, type: 3}
+  m_PrefabInstance: {fileID: 947644225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2065195780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065195775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2065195781}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: Shrink
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2065195781}
+          m_TargetAssemblyTypeName: ButtonAnimationHandler, Assembly-CSharp
+          m_MethodName: ShrinkBack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2065195781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065195775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7471e41c03e7c4fb4f279da7282052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &2068105587
 GameObject:
   m_ObjectHideFlags: 0
@@ -127025,6 +129439,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1089454117}
     m_Modifications:
+    - target: {fileID: 1382365414276205234, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382365414276205234, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382365414276205234, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1422849628}
+    - target: {fileID: 1382365414276205234, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382365414276205234, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BounceOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382365414276205234, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonAnimationHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382365414276205234, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4379094912457710832, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
       propertyPath: _cellsInInteractibleRange.Array.data[0]
       value: 
@@ -127088,5 +129530,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2383403819130859363, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1422849628}
+    - targetCorrespondingSourceObject: {fileID: 2383403819130859363, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1422849627}
   m_SourcePrefab: {fileID: 100100000, guid: 05f59a2850deceb458c5c522aefd31f5, type: 3}

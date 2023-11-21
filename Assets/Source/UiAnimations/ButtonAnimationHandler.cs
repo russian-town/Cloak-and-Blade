@@ -5,12 +5,12 @@ using UnityEngine.UI;
 public class ButtonAnimationHandler : MonoBehaviour
 {
     [SerializeField] private float _duration;
-    [SerializeField] private float _bounceDuration;
     [SerializeField] private Vector3 _initialPosition;
     [SerializeField] private Vector3 _targetPosition;
-    [SerializeField] private Vector3 _targetScale;
-    [SerializeField] private Vector3 _shrinkScale;
 
+    private Vector3 _targetScale = new Vector3(0.9f, 0.9f, 0);
+    private Vector3 _shrinkScale = new Vector3(0.95f, 0.95f, 0);
+    private float _bounceDuration = .15f;
     private float _bounceInterval = .05f;
     private Vector3 _initialScale;
     private RectTransform _transform;
