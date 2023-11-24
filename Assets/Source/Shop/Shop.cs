@@ -45,7 +45,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             CharacterView characterView = Instantiate(_characterView, _parent.transform);
             Description description = Instantiate(character.Description);
             _upgrader.Initialize(description);
-            characterView.Render(character.Icon, character, description);
+            characterView.Render(character.Icon, character, description, _wallet);
             _characterViews.Add(characterView);
             characterView.SellButtonClicked += OnSellButtonClick;
             characterView.SelectButtonClicked += OnSelectButtonClick;
@@ -100,6 +100,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     {
         if (character.Price <= _wallet.Stars)
         {
+            Debug.Log($"Try sell {character.name}");
             _wallet.DicreaseStars(character.Price);
             character.Buy();
             characterView.SellButtonClicked -= OnSellButtonClick;

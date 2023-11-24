@@ -8,8 +8,8 @@ public class Character : ScriptableObject, IDataReader, IDataWriter
     [SerializeField] private Sprite _icon;
     [SerializeField] private Player _player;
     [SerializeField] private MenuModel _menuPlayerModelTemplate;
-    [SerializeField] private bool _isBought;
-    [SerializeField] private bool _isSelect;
+    [SerializeField] private bool _isBought = false;
+    [SerializeField] private bool _isSelect = false;
     [SerializeField] private Description _description;
     [SerializeField] private UpgradeSetter _upgradeSetter;
 
