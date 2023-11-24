@@ -7,17 +7,10 @@ public class Upgrader : MonoBehaviour
     private List<Description> _descriptions = new List<Description>();
     private Description _description;
 
-    private void OnDisable()
-    {
-        foreach (var description in _descriptions)
-            description.UpgradeButtonClicked -= OnUpgradeButtonClicked;
-    }
-
     public void Initialize(Description description)
     {
         _description = description;
         _descriptions.Add(_description);
-        _description.UpgradeButtonClicked += OnUpgradeButtonClicked;
     }
 
     public void OnUpgradeButtonClicked(UpgradeSetter upgradeSetter, Description description)
@@ -29,7 +22,7 @@ public class Upgrader : MonoBehaviour
         {
             _wallet.DicreaseStars(upgradeSetter.Prices[upgradeSetter.Level]);
             upgradeSetter.Upgade();
-            description.UpdateView();
+            /*description.UpdateView();*/
         }
     }
 

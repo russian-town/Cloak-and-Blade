@@ -22,12 +22,6 @@ public class Constants
     public const string English = "English";
     public const string Russian = "Russian";
     public const string Turkish = "Turkish";
-    public const string EnglishSelected = "Selected";
-    public const string RussianSelected = "Выбран";
-    public const string TurkishSelected = "Secildi";
-    public const string EnglishSelect = "Select";
-    public const string RussianSelect = "Выбрать";
-    public const string TurkishSelect = "Secme";
     #endregion
 
     #region Sound

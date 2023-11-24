@@ -1,4 +1,4 @@
-using Lean.Localization;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,14 +10,13 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private TMP_Text _priceText;
     [SerializeField] private Button _sellButton;
     [SerializeField] private Button _selectButton;
+    [SerializeField] private Button _upgradeButton;
     [SerializeField] private Button _descriptionButton;
-    [SerializeField] private TMP_Text _selectText;
+    [SerializeField] private List<Image> _stars;
 
-    private LeanLocalization _lean;
     private Character _character;
     private Description _description;
-    private string _select;
-    private string _selected;
+    private UpgradeSetter _upgradeSetter;
 
     public event UnityAction<Character, CharacterView> SellButtonClicked;
     public event UnityAction<Character, CharacterView> SelectButtonClicked;
@@ -39,24 +38,50 @@ public class CharacterView : MonoBehaviour
         _selectButton.onClick.RemoveListener(TryLockSelectCharacter);
         _descriptionButton.onClick.RemoveListener(OnDescriptionButtonClicked);
     }
+    
 
-    public void Render(Sprite icon, int price, Character character, Description description, LeanLocalization lean)
+    public void Render(Sprite icon, Character character, Description description)
     {
-        _lean = lean;
-        Translate();
         _image.sprite = icon;
-        _priceText.text = price.ToString();
         _character = character;
-        _sellButton.gameObject.SetActive(true);
-        _selectButton.gameObject.SetActive(false);
+        _upgradeSetter = _character.UpgradeSetter;
         _description = description;
         _description.Hide();
+    }
+
+    private void ResetView()
+    {
+        for (int i = 0; i < _upgradeSetter.Level; i++)
+        {
+            _stars[i].gameObject.SetActive(false);
+        }
     }
 
     public void UpdateView()
     {
         TryLockBuyCharacter();
         TryLockSelectCharacter();
+
+        if (_stars.Count == 0)
+            return;
+
+        ResetView();
+
+        if (_upgradeSetter.Level == 0)
+        {
+            _priceText.text = _upgradeSetter.Prices[0].ToString();
+            return;
+        }
+
+        for (int i = 0; i < _upgradeSetter.Level; i++)
+        {
+            _stars[i].gameObject.SetActive(true);
+
+            if (i + 1 >= _upgradeSetter.Prices.Count)
+                break;
+
+            _priceText.text = _upgradeSetter.Prices[i + 1].ToString();
+        }
     }
 
     private void TryLockBuyCharacter()
@@ -64,43 +89,23 @@ public class CharacterView : MonoBehaviour
         if (_character.IsBought)
         {
             _sellButton.gameObject.SetActive(false);
-            _selectButton.gameObject.SetActive(true);
+            _upgradeButton.gameObject.SetActive(true);
+
+            _priceText.text = _upgradeSetter.Prices[_upgradeSetter.Level].ToString();
+        }
+        else
+        {
+            _priceText.text = _character.Price.ToString();
         }
     }
 
     private void TryLockSelectCharacter()
     {
         if (_character.IsSelect)
-        {
             _selectButton.interactable = false;
-            _selectText.text = _selected;
-        }
+
         else
-        {
             _selectButton.interactable = true;
-            _selectText.text = _select;
-        }
-    }
-
-    private void Translate()
-    {
-        if (_lean.CurrentLanguage == Constants.English)
-            _selected = Constants.EnglishSelected;
-
-        if (_lean.CurrentLanguage == Constants.Russian)
-            _selected = Constants.RussianSelected;
-
-        if (_lean.CurrentLanguage == Constants.Turkish)
-            _selected = Constants.TurkishSelected;
-
-        if (_lean.CurrentLanguage == Constants.English)
-            _select = Constants.EnglishSelect;
-
-        if (_lean.CurrentLanguage == Constants.Russian)
-            _select = Constants.RussianSelect;
-
-        if (_lean.CurrentLanguage == Constants.Turkish)
-            _select = Constants.TurkishSelect;
     }
 
     private void OnDescriptionButtonClicked() => ShowDescription();

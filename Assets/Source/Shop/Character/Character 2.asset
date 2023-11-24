@@ -20,3 +20,4 @@ MonoBehaviour:
   _isBought: 0
   _isSelect: 0
   _description: {fileID: 6686443814164075717, guid: c4fa87d8406dc28459d514f7cd7b1067, type: 3}
+  _upgradeSetter: {fileID: 11400000, guid: e47ac6e794956fe4fb8ad7f1d6cc3f4b, type: 2}
