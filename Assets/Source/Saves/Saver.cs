@@ -12,6 +12,8 @@ public class Saver: IDataReader
     private LocalSave _localSave = new LocalSave();
     private PlayerData _playerData = new PlayerData();
 
+    public bool DataLoaded { get; private set; }
+
     public void Enable()
     {
         _cloudSave.DataLoaded += OnDataLoaded;
@@ -70,11 +72,12 @@ public class Saver: IDataReader
         {
             initializable.Initialize();
         }
+
+        DataLoaded = true;
     }
 
     private void OnErrorLoadCallback(string error)
     {
-        Debug.Log(error);
         _localSave.Load();
     }
 

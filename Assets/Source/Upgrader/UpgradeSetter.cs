@@ -10,7 +10,7 @@ public class UpgradeSetter : ScriptableObject, IDataWriter, IDataReader
     public int Level => _level;
     public IReadOnlyList<int> Prices => _prices;
 
-    public void Upgade()
+    public void Upgrade()
     {
         _level++;
         _level = Mathf.Clamp(_level, 0, Constants.MaxLevel);

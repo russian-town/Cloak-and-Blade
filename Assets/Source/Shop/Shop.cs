@@ -34,9 +34,10 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     {
         _wallet = wallet;
         _upgrader.SetWallet(_wallet);
+        AddCharacterView();
     }
 
-    public void Initialize() => AddCharacterView();
+    public void Initialize(){}
 
     private void AddCharacterView()
     {
@@ -100,7 +101,6 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     {
         if (character.Price <= _wallet.Stars)
         {
-            Debug.Log($"Try sell {character.name}");
             _wallet.DicreaseStars(character.Price);
             character.Buy();
             characterView.SellButtonClicked -= OnSellButtonClick;

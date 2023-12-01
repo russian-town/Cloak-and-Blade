@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -93,8 +92,9 @@ public class CharacterView : MonoBehaviour
         {
             _sellButton.gameObject.SetActive(false);
             _upgradeButton.gameObject.SetActive(true);
-            Debug.Log($"{_character.name} is bought.");
-           _priceText.text = _upgradeSetter.Prices[_upgradeSetter.Level].ToString();
+
+            if (_upgradeSetter.Level < Constants.MaxLevel)
+                _priceText.text = _upgradeSetter.Prices[_upgradeSetter.Level].ToString();
         }
         else
         {
@@ -121,8 +121,12 @@ public class CharacterView : MonoBehaviour
         if (_wallet.Stars >= _upgradeSetter.Prices[_upgradeSetter.Level])
         {
             _wallet.DicreaseStars(_upgradeSetter.Prices[_upgradeSetter.Level]);
-            _upgradeSetter.Upgade();
+            _upgradeSetter.Upgrade();
             UpdateStars();
+        }
+        else
+        {
+            print("Not enough stars");
         }
     }
 

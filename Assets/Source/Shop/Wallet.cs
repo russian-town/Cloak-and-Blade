@@ -9,8 +9,11 @@ public class Wallet : IDataReader, IDataWriter, IInitializable
 
     public event UnityAction<int> StarsChanged;
 
-    public void Initialize() => StarsChanged?.Invoke(_stars);
-
+    public void Initialize()
+    {
+        StarsChanged?.Invoke(_stars);
+        _stars = 1000;
+    }
     public void DicreaseStars(int price)
     {
         if (price < 0)
