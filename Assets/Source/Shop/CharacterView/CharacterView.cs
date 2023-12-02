@@ -106,6 +106,12 @@ public class CharacterView : MonoBehaviour
 
     private void TryLockSelectCharacter()
     {
+        if (_character.IsBought)
+            print($"{gameObject.name} is bought");
+
+        if (_character.IsSelect)
+            print($"{gameObject.name} is select");
+
         if (_character.IsSelect)
             _selectButton.interactable = false;
 

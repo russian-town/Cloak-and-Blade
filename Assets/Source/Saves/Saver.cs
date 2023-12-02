@@ -2,7 +2,7 @@ using Agava.YandexGames;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Saver: IDataReader
+public class Saver : IDataReader
 {
     private List<IDataReader> _dataReaders = new List<IDataReader>();
     private List<IDataWriter> _dataWriters = new List<IDataWriter>();
@@ -42,6 +42,22 @@ public class Saver: IDataReader
         _dataReaders.Add(this);
         _currentSaveLoadService.AddDataWriters(_dataWriters.ToArray());
         _currentSaveLoadService.AddDataReaders(_dataReaders.ToArray());
+    }
+
+    public void ResetData()
+    {
+        _playerData.Stars = 0;
+        _playerData.CurrentSelectedCharacter = null;
+        _playerData.CurrentPlayer = null;
+        _playerData.Characters.Clear();
+        _playerData.IsBought.Clear();
+        _playerData.IsSelect.Clear();
+        _playerData.UpgradeSetters.Clear();
+        _playerData.Levels.Clear();
+        _playerData.IsTutorialCompleted = false;
+        _playerData.MasterSliderValue = 0;
+        _playerData.SoundSliderValue = 0;
+        _playerData.MusicSliderValue = 0;
     }
 
     public void AddDataReaders(IDataReader[] dataReader) => _dataReaders.AddRange(dataReader);

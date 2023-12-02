@@ -47,6 +47,12 @@ public class MainSceneLogic : MonoBehaviour
         _shop.SetWallet(_wallet);
     }
 
+    public void Reset()
+    {
+        _saver.ResetData();
+        _saver.Save();
+    } 
+
     private void OnCharacterSold() => _saver.Save();
 
     private void OnCharacterSelected() => _saver.Save();
