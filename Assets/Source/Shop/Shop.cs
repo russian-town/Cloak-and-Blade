@@ -121,9 +121,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             _currentCharacterView.UpdateView();
 
             if (_characterViews.Contains(characterView))
-            {
                 _menuModelChanger.TryChange(_characterViews.IndexOf(characterView));
-            }
 
             CharacterSelected?.Invoke();
         }

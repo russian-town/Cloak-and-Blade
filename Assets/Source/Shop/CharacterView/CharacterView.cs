@@ -55,10 +55,8 @@ public class CharacterView : MonoBehaviour
 
     private void ResetView()
     {
-        for (int i = 0; i < _upgradeSetter.Level; i++)
-        {
+        for (int i = 0; i < Constants.MaxLevel; i++)
             _stars[i].gameObject.SetActive(false);
-        }
     }
 
     public void UpdateView()
@@ -106,12 +104,6 @@ public class CharacterView : MonoBehaviour
 
     private void TryLockSelectCharacter()
     {
-        if (_character.IsBought)
-            print($"{gameObject.name} is bought");
-
-        if (_character.IsSelect)
-            print($"{gameObject.name} is select");
-
         if (_character.IsSelect)
             _selectButton.interactable = false;
 
@@ -129,10 +121,6 @@ public class CharacterView : MonoBehaviour
             _wallet.DicreaseStars(_upgradeSetter.Prices[_upgradeSetter.Level]);
             _upgradeSetter.Upgrade();
             UpdateStars();
-        }
-        else
-        {
-            print("Not enough stars");
         }
     }
 

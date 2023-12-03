@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MainSceneLogic : MonoBehaviour
@@ -30,7 +31,7 @@ public class MainSceneLogic : MonoBehaviour
         _saver.Save();
     }
 
-    public void Initialize()
+    public IEnumerator Initialize()
     {
         _saver.AddInitializable(_shop);
         _saver.AddInitializable(_wallet);
@@ -42,16 +43,12 @@ public class MainSceneLogic : MonoBehaviour
         _saver.AddDataWriters(_upgradeSetters);
         _saver.Initialize();
         _saver.Load();
+        yield return new WaitUntil(() => _saver.DataLoaded);
         _walletView.Initialize(_wallet);
         _wallet.Initialize();
         _shop.SetWallet(_wallet);
+        yield return null;
     }
-
-    public void Reset()
-    {
-        _saver.ResetData();
-        _saver.Save();
-    } 
 
     private void OnCharacterSold() => _saver.Save();
 

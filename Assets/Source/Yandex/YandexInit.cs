@@ -34,7 +34,7 @@ public class YandexInit : MonoBehaviour
             _localization.SetCurrentLanguage(Constants.Turkish);
 #endif
 
-        _mainSceneLogic.Initialize();
+        StartCoroutine(_mainSceneLogic.Initialize());
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         YandexGamesSdk.GameReady();
