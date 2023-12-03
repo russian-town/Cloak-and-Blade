@@ -52,7 +52,7 @@ public class LeaderBoard : MonoBehaviour
 
     private void OpenLeaderBoard()
     {
-        if (_autorizationRequirmentScreen.CanvasGroup.alpha > 0)
+        if (_autorizationRequirmentScreen.CanvasGroup.alpha > .9)
             _autorizationRequirmentScreen.Disable();
 
         ShowPlayer();
