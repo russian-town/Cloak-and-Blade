@@ -20739,7 +20739,7 @@ MonoBehaviour:
   - {fileID: 2646437877361470857}
   - {fileID: 4645982732177539589}
   _abilityIcon: {fileID: 2646437877361470857}
-  _rewardedImage: {fileID: 0}
+  _rewardedImage: {fileID: 21300000, guid: fde47ea927b75424dbbeaa62cfd988d0, type: 3}
 --- !u!225 &9104746020703356027
 CanvasGroup:
   m_ObjectHideFlags: 0
