@@ -48,15 +48,14 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     protected float MoveSpeed => _moveSpeed;
     protected int Range => _moveRange;
 
-    public event UnityAction AbilityUsed;
-    public event UnityAction AbilityReseted;
     public event UnityAction StepEnded;
+    public event UnityAction AbilityUsed;
     public event UnityAction Died;
 
     public void Unsubscribe()
     {
         _mover.MoveEnded -= OnMoveEnded;
-        _commandExecuter.AbilityUsed -= OnAbilityUseFail;
+        _commandExecuter.AbilityUseFail -= OnAbilityUseFail;
         _commandExecuter.AbilityReseted -= OnAbilityReseted;
     }
 
@@ -72,7 +71,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _enemyTurnWaiter = enemyTurnHandler;
         _mover.Initialize(_startCell, _animationHandler);
         _mover.MoveEnded += OnMoveEnded;
-        _commandExecuter.AbilityUsed += OnAbilityUseFail;
+        _commandExecuter.AbilityUseFail += OnAbilityUseFail;
         _commandExecuter.AbilityReseted += OnAbilityReseted;
         _gameboard = gameboard;
         _adHandler = adHandler;
@@ -179,11 +178,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     private void OnAbilityUseFail() => _adHandler.Show();
 
-    private void OnAbilityReseted()
-    {
-        _battery.Enable();
-        AbilityReseted?.Invoke();
-    }
+    private void OnAbilityReseted() => _battery.Enable();
 
     private void OnMoveEnded()
     {

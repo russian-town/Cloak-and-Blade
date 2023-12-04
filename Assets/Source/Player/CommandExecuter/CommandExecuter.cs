@@ -10,7 +10,7 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
     public Command CurrentCommand => _currentCommand;
 
     public event UnityAction<Command> CommandChanged;
-    public event UnityAction AbilityUsed;
+    public event UnityAction AbilityUseFail;
     public event UnityAction AbilityReseted;
 
     public bool TrySwitchCommand(Command command)
@@ -19,7 +19,7 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
         {
             if (abilityCommand.IsUsed)
             {
-                AbilityUsed?.Invoke();
+                AbilityUseFail?.Invoke();
                 _abilityCommandToReset = abilityCommand;
             }
         }
@@ -55,14 +55,6 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
     {
         if (_currentCommand == null)
             return;
-
-        StartCoroutine(_currentCommand.Execute());
-    }
-
-    public void PrepareCommand(Command command)
-    {
-        _currentCommand = command;
-        CommandChanged?.Invoke(command);
 
         StartCoroutine(_currentCommand.Execute());
     }

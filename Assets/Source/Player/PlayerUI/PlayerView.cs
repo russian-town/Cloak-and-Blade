@@ -18,11 +18,18 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     [SerializeField] private Sprite _rewardedImage;
 
     private Player _player;
+    private CommandExecuter _commandExecuter;
     private CanvasGroup _canvasGroup;
     private bool _canSwitchInteractable = true;
     private bool _isInteractable;
 
     public event Action PauseButtonClicked;
+
+    private void OnDisable()
+    {
+        _player.AbilityUsed -= OnAbilityUsed;
+        _commandExecuter.AbilityReseted -= OnAbilityReseted;
+    }
 
     public void Subscribe()
     {
@@ -38,15 +45,14 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _ability.onClick.RemoveListener(OnAbilityClick);
         _skip.onClick.RemoveListener(OnSkipClick);
         _pause.onClick.RemoveListener(() => PauseButtonClicked?.Invoke());
-        _player.AbilityUsed -= OnAbilityUsed;
-        _player.AbilityReseted -= OnAbilityReseted;
     }
 
-    public void Initialize(Player player)
+    public void Initialize(Player player, CommandExecuter commandExecuter)
     {
         _player = player;
+        _commandExecuter = commandExecuter;
         _player.AbilityUsed += OnAbilityUsed;
-        _player.AbilityReseted += OnAbilityReseted;
+        _commandExecuter.AbilityReseted += OnAbilityReseted;
         _canvasGroup = GetComponent<CanvasGroup>();
 
         foreach (var icon in _icons)

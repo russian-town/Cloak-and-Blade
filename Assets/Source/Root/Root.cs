@@ -76,7 +76,7 @@ public class Root : MonoBehaviour, IInitializable
         _yandexAds.ShowInterstitial();
         _player = _playersHandler.GetPlayer(_spawner, _playerSpawnCell);
         _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard, _rewardAdHandler, _playerView, _battery);
-        _playerView.Initialize(_player);
+        _playerView.Initialize(_player, _player.CommandExecuter);
         _room.Initialize(_player, _playerView, _hourglass);
         _inputView.Initialize();
         _rewardAdHandler.Initialize(_player, _yandexAds);
