@@ -57,13 +57,16 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
                 character.Buy();
 
                 if (_currentSelectedCharacter == null)
+                {
                     SetCurrentCharacter(character, characterView);
+                    _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(characterView));
+                }
             }
 
             if (_currentSelectedCharacter == character)
             {
-                _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(characterView));
                 SetCurrentCharacter(character, characterView);
+                _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(characterView));
             }
 
             characterView.UpdateView();
