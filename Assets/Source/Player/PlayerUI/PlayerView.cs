@@ -15,6 +15,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     [SerializeField] private Button _perspectiveCameraButton;
     [SerializeField] private List<Icon> _icons = new List<Icon>();
     [SerializeField] private Icon _abilityIcon;
+    [SerializeField] private Sprite _rewardedImage;
 
     private Player _player;
     private CanvasGroup _canvasGroup;
@@ -37,11 +38,15 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _ability.onClick.RemoveListener(OnAbilityClick);
         _skip.onClick.RemoveListener(OnSkipClick);
         _pause.onClick.RemoveListener(() => PauseButtonClicked?.Invoke());
+        _player.AbilityUsed -= OnAbilityUsed;
+        _player.AbilityReseted -= OnAbilityReseted;
     }
 
     public void Initialize(Player player)
     {
         _player = player;
+        _player.AbilityUsed += OnAbilityUsed;
+        _player.AbilityReseted += OnAbilityReseted;
         _canvasGroup = GetComponent<CanvasGroup>();
 
         foreach (var icon in _icons)
@@ -123,6 +128,10 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _ability.interactable = false;
         _abilityIcon.Interactable(false);
     }
+
+    private void OnAbilityUsed() => _abilityIcon.ChangeSprite(_rewardedImage);
+
+    private void OnAbilityReseted() => _abilityIcon.ChangeSprite(_player.AbilityIcon);
 
     private void OnMoveClick() => _player.PrepareMove();
 

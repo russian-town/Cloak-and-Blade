@@ -11,6 +11,7 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
     public event UnityAction<Command> CommandChanged;
     public event UnityAction AbilityUsed;
+    public event UnityAction AbilityReseted;
 
     public bool TrySwitchCommand(Command command)
     {
@@ -74,8 +75,11 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
     public void ResetAbilityOnReward()
     {
-        if(_abilityCommandToReset != null)
+        if (_abilityCommandToReset != null)
+        {
             _abilityCommandToReset.Ability.ResetAbility();
+            AbilityReseted?.Invoke();
+        }
 
         _currentCommand = null;
     }

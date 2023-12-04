@@ -5,9 +5,9 @@ public class RedGhost : Player
 {
     private Blink _blink;
 
-    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler, PlayerView playerView)
+    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler, PlayerView playerView, Battery battery)
     {
-        base.Initialize(startCell, hourglass, enemyTurnHandler, gameboard, adHandler, playerView);
+        base.Initialize(startCell, hourglass, enemyTurnHandler, gameboard, adHandler, playerView, battery);
         _blink = GetComponent<Blink>();
         _blink.Initialize(UpgradeSetter, playerView);
     }

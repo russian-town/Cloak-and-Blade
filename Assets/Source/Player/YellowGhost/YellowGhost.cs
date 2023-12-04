@@ -9,9 +9,9 @@ public class YellowGhost : Player, ISceneParticlesInfluencer
 
     public IReadOnlyList<EffectChangeHanldler> SceneEffects => _effects;
 
-    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler, PlayerView playerView)
+    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler, PlayerView playerView, Battery battery)
     {
-        base.Initialize(startCell, hourglass, enemyTurnHandler, gameboard, adHandler, playerView);
+        base.Initialize(startCell, hourglass, enemyTurnHandler, gameboard, adHandler, playerView, battery);
         _theWorld = GetComponent<TheWorld>();
         _theWorld.Initialize(UpgradeSetter, playerView);
     }

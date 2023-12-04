@@ -6,6 +6,7 @@ public class RewardedAdHandler : MonoBehaviour
     [SerializeField] private Button _playAdButton;
     [SerializeField] private Button _dontPlayAdButton;
     [SerializeField] private ScreenAnimationHandler _animationHandler;
+    [SerializeField] private PlayerView _playerView;
 
     private YandexAds _yandexAds;
     private Player _player;
@@ -36,11 +37,13 @@ public class RewardedAdHandler : MonoBehaviour
     public void Show()
     {
         _animationHandler.ScreenFadeIn();
+        _playerView.Hide();
     }
 
     public void Hide()
     {
         _animationHandler.ScreenFadeOut();
+        _playerView.Show();
     }
 
     private void OnButtonClick()

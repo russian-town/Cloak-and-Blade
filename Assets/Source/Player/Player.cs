@@ -31,6 +31,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     private Gameboard _gameboard;
     private CommandExecuter _commandExecuter;
     private Turn _turn;
+    private Battery _battery;
 
     public CommandExecuter CommandExecuter => _commandExecuter;
     public bool IsDied { get; private set; }
@@ -47,16 +48,19 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     protected float MoveSpeed => _moveSpeed;
     protected int Range => _moveRange;
 
+    public event UnityAction AbilityUsed;
+    public event UnityAction AbilityReseted;
     public event UnityAction StepEnded;
     public event UnityAction Died;
 
     public void Unsubscribe()
     {
         _mover.MoveEnded -= OnMoveEnded;
-        _commandExecuter.AbilityUsed -= OnAbilityUsed;
-    } 
+        _commandExecuter.AbilityUsed -= OnAbilityUseFail;
+        _commandExecuter.AbilityReseted -= OnAbilityReseted;
+    }
 
-    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler, PlayerView playerView)
+    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler, PlayerView playerView, Battery battery)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
@@ -68,14 +72,14 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _enemyTurnWaiter = enemyTurnHandler;
         _mover.Initialize(_startCell, _animationHandler);
         _mover.MoveEnded += OnMoveEnded;
-        _commandExecuter.AbilityUsed += OnAbilityUsed;
+        _commandExecuter.AbilityUsed += OnAbilityUseFail;
+        _commandExecuter.AbilityReseted += OnAbilityReseted;
         _gameboard = gameboard;
         _adHandler = adHandler;
+        _battery = battery;
         _moveCommand = new MoveCommand(this, _mover, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter, _moveRange);
         _skipCommand = new SkipCommand(this, _enemyTurnWaiter.WaitForEnemies(), _animationHandler, _commandExecuter);
     }
-
- 
 
     public void SetTargets(List<Enemy> enemies)
     {
@@ -172,7 +176,23 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         yield return new WaitForSeconds(_delay);
         Died?.Invoke();
     }
-    private void OnAbilityUsed() => _adHandler.Show();
 
-    private void OnMoveEnded() => StepEnded?.Invoke();
+    private void OnAbilityUseFail() => _adHandler.Show();
+
+    private void OnAbilityReseted()
+    {
+        _battery.Enable();
+        AbilityReseted?.Invoke();
+    }
+
+    private void OnMoveEnded()
+    {
+        if (AbilityCommand().IsUsed)
+        {
+            _battery.Disable();
+            AbilityUsed?.Invoke();
+        }
+
+        StepEnded?.Invoke();
+    }
 }

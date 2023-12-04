@@ -28,6 +28,7 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private RewardedAdHandler _rewardAdHandler;
     [SerializeField] private WalletView _walletView;
     [SerializeField] private LoadingScreen _loadingScreen;
+    [SerializeField] private Battery _battery;
 
     private readonly Saver _saver = new Saver();
     private readonly Wallet _wallet = new Wallet();
@@ -74,7 +75,7 @@ public class Root : MonoBehaviour, IInitializable
         _yandexAds.CloseCallback += OnAdRewardedCloseCallback;
         _yandexAds.ShowInterstitial();
         _player = _playersHandler.GetPlayer(_spawner, _playerSpawnCell);
-        _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard, _rewardAdHandler, _playerView);
+        _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard, _rewardAdHandler, _playerView, _battery);
         _playerView.Initialize(_player);
         _room.Initialize(_player, _playerView, _hourglass);
         _inputView.Initialize();
