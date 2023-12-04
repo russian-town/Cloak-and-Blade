@@ -43,7 +43,6 @@ public class RewardedAdHandler : MonoBehaviour
     public void Hide()
     {
         _animationHandler.ScreenFadeOut();
-        /*_playerView.Show();*/
     }
 
     private void OnButtonClick()
