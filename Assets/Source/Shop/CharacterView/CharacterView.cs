@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
+using System;
 using UnityEngine.UI;
+using System.Collections;
 
 public class CharacterView : MonoBehaviour
 {
@@ -13,14 +14,17 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private Button _upgradeButton;
     [SerializeField] private Button _descriptionButton;
     [SerializeField] private List<Image> _stars;
+    [SerializeField] private List<ChainDOTanimation> _chains;
 
     private Character _character;
     private Description _description;
     private UpgradeSetter _upgradeSetter;
     private Wallet _wallet;
+    private WaitForSeconds _pauseBetweenChainFall = new WaitForSeconds(.3f);
+    private Coroutine _chainFallCoroutine;
 
-    public event UnityAction<Character, CharacterView> SellButtonClicked;
-    public event UnityAction<Character, CharacterView> SelectButtonClicked;
+    public event Action<Character, CharacterView> SellButtonClicked;
+    public event Action<Character, CharacterView> SelectButtonClicked;
 
     private void OnEnable()
     {
@@ -69,6 +73,36 @@ public class CharacterView : MonoBehaviour
 
         ResetView();
         UpdateStars();
+    }
+
+    public void RemoveChains()
+    {
+        _chainFallCoroutine = StartCoroutine(RemoveChainsWithPause());
+    }
+
+    public void ShakeChaings()
+    {
+        foreach (var chain in _chains)
+            chain.PlayShakeAnimation();
+    }
+
+    public void TryHideChains()
+    {
+        if (_character.IsBought)
+            foreach (var chain in _chains)
+                chain.gameObject.SetActive(false);
+        else
+            foreach (var chain in _chains)
+                chain.gameObject.SetActive(true);
+    }
+
+    private IEnumerator RemoveChainsWithPause()
+    {
+        foreach(var chain in _chains)
+        {
+            chain.PlayFallAnimation();
+            yield return _pauseBetweenChainFall;
+        }
     }
 
     private void UpdateStars()

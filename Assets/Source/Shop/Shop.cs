@@ -67,6 +67,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             }
 
             characterView.UpdateView();
+            characterView.TryHideChains();
         }
     }
 
@@ -105,6 +106,11 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             character.Buy();
             characterView.SellButtonClicked -= OnSellButtonClick;
             CharacterSold?.Invoke();
+            characterView.RemoveChains();
+        }
+        else
+        {
+            characterView.ShakeChaings();
         }
     }
 
@@ -124,6 +130,10 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
                 _menuModelChanger.TryChange(_characterViews.IndexOf(characterView));
 
             CharacterSelected?.Invoke();
+        }
+        else
+        {
+            characterView.ShakeChaings();
         }
     }
 }
