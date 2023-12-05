@@ -1,6 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UI;
+using System;
 
 public class ButtonAnimationHandler : MonoBehaviour
 {
@@ -16,15 +16,26 @@ public class ButtonAnimationHandler : MonoBehaviour
     private RectTransform _transform;
     private Sequence _bounceSequence;
 
+    public event Action PoppingOut;
+
+    public event Action Bounce;
+
     private void OnEnable()
     {
         _transform = GetComponent<RectTransform>();
         _initialScale = transform.localScale;
     }
 
-    public void PopOut() => _transform.DOAnchorPos(_targetPosition, _duration, false).SetEase(Ease.Flash);
+    public void PopOut()
+    {
+        _transform.DOAnchorPos(_targetPosition, _duration, false).SetEase(Ease.Flash);
+        PoppingOut?.Invoke();
+    }
 
-    public void PopBack() => _transform.DOAnchorPos(_initialPosition, _duration, false).SetEase(Ease.Flash);
+    public void PopBack()
+    {
+        _transform.DOAnchorPos(_initialPosition, _duration, false).SetEase(Ease.Flash);
+    }
 
     public void Shrink() => _transform.DOScale(_shrinkScale, _bounceDuration).SetEase(Ease.Flash);
 
@@ -35,5 +46,6 @@ public class ButtonAnimationHandler : MonoBehaviour
         _bounceSequence = DOTween.Sequence();
         _bounceSequence.Append(_transform.DOScale(_targetScale, _bounceDuration).SetEase(Ease.Flash)).
             AppendInterval(_bounceInterval).Append(_transform.DOScale(_initialScale, _bounceDuration).SetEase(Ease.Flash));
+        Bounce?.Invoke();
     }
 }

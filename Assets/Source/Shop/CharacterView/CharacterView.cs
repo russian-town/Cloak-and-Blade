@@ -16,6 +16,9 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private Button _descriptionButton;
     [SerializeField] private List<Image> _stars;
     [SerializeField] private List<ChainDOTanimation> _chains;
+    [SerializeField] private AudioSource _source;
+    [SerializeField] private AudioClip _fallingChainsSound;
+    [SerializeField] private CharacterViewSoundHandler _soundHandler;
 
     private Character _character;
     private Description _description;
@@ -26,6 +29,8 @@ public class CharacterView : MonoBehaviour
 
     public event Action<Character, CharacterView> SellButtonClicked;
     public event Action<Character, CharacterView> SelectButtonClicked;
+
+    public CharacterViewSoundHandler SoundHandler => _soundHandler;
 
     private void OnEnable()
     {
@@ -91,7 +96,6 @@ public class CharacterView : MonoBehaviour
     {
         if (_upgradeSetter.Level == levelValue)
         {
-            print("trying to disable buttons");
             _priceTag.gameObject.SetActive(false);
             _sellButton.gameObject.SetActive(false);
             _upgradeButton.gameObject.SetActive(false);
@@ -110,8 +114,11 @@ public class CharacterView : MonoBehaviour
 
     private IEnumerator RemoveChainsWithPause()
     {
+        _source.clip = _fallingChainsSound;
+
         foreach(var chain in _chains)
         {
+            _source.Play();
             chain.PlayFallAnimation();
             yield return _pauseBetweenChainFall;
         }
@@ -169,6 +176,11 @@ public class CharacterView : MonoBehaviour
             _wallet.DicreaseStars(_upgradeSetter.Prices[_upgradeSetter.Level]);
             _upgradeSetter.Upgrade();
             UpdateStars();
+            _soundHandler.PlayUpgrade();
+        }
+        else
+        {
+            _soundHandler.PlayNegative();
         }
     }
 

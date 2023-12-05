@@ -113,12 +113,14 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             characterView.SellButtonClicked -= OnSellButtonClick;
             CharacterSold?.Invoke();
             characterView.RemoveChains();
+            characterView.SoundHandler.PlayUnlock();
         }
         else
         {
+            characterView.SoundHandler.PlayNegative();
+            _source.clip = _shakingChainsSound;
             _source.Play();
             characterView.ShakeChaings();
-            _source.clip = _shakingChainsSound;
         }
     }
 
@@ -133,6 +135,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             _currentSelectedCharacter = character;
             _currentCharacterView = characterView;
             _currentCharacterView.UpdateView();
+            characterView.SoundHandler.PlayPositive();
 
             if (_characterViews.Contains(characterView))
                 _menuModelChanger.TryChange(_characterViews.IndexOf(characterView));
@@ -141,9 +144,10 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
         }
         else
         {
-            _source.Play();
-            characterView.ShakeChaings();
             _source.clip = _shakingChainsSound;
+            _source.Play();
+            characterView.SoundHandler.PlayNegative();
+            characterView.ShakeChaings();
         }
     }
 }
