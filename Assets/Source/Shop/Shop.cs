@@ -13,6 +13,8 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     [SerializeField] private MenuModelChanger _menuModelChanger;
     [SerializeField] private Upgrader _upgrader;
     [SerializeField] private LeanLocalization _lean;
+    [SerializeField] private AudioSource _source;
+    [SerializeField] private AudioClip _shakingChainsSound;
 
     private List<CharacterView> _characterViews = new List<CharacterView>();
     private Character _currentSelectedCharacter;
@@ -114,7 +116,9 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
         }
         else
         {
+            _source.Play();
             characterView.ShakeChaings();
+            _source.clip = _shakingChainsSound;
         }
     }
 
@@ -137,7 +141,9 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
         }
         else
         {
+            _source.Play();
             characterView.ShakeChaings();
+            _source.clip = _shakingChainsSound;
         }
     }
 }
