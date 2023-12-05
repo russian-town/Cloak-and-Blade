@@ -71,6 +71,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
 
             characterView.UpdateView();
             characterView.TryHideChains();
+            characterView.DisableButtons(Constants.MaxLevel);
         }
     }
 

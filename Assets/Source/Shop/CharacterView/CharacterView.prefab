@@ -143,6 +143,7 @@ MonoBehaviour:
   _image: {fileID: 1795076856393034516}
   _priceText: {fileID: 1214752476400959517}
   _sellButton: {fileID: 4492320822953908024}
+  _priceTag: {fileID: 2427396179640831541}
   _selectButton: {fileID: 3990782893201738614}
   _upgradeButton: {fileID: 7528666437280722564}
   _descriptionButton: {fileID: 8397150698556894507}

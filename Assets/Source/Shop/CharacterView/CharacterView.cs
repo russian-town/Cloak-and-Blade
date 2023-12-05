@@ -10,6 +10,7 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private Image _image;
     [SerializeField] private TMP_Text _priceText;
     [SerializeField] private Button _sellButton;
+    [SerializeField] private Image _priceTag;
     [SerializeField] private Button _selectButton;
     [SerializeField] private Button _upgradeButton;
     [SerializeField] private Button _descriptionButton;
@@ -86,6 +87,17 @@ public class CharacterView : MonoBehaviour
             chain.PlayShakeAnimation();
     }
 
+    public void DisableButtons(int levelValue)
+    {
+        if (_upgradeSetter.Level == levelValue)
+        {
+            print("trying to disable buttons");
+            _priceTag.gameObject.SetActive(false);
+            _sellButton.gameObject.SetActive(false);
+            _upgradeButton.gameObject.SetActive(false);
+        }
+    }
+
     public void TryHideChains()
     {
         if (_character.IsBought)
@@ -122,17 +134,21 @@ public class CharacterView : MonoBehaviour
     {
         if (_character.IsBought)
         {
-            _sellButton.gameObject.SetActive(false);
-            _upgradeButton.gameObject.SetActive(true);
-
             if (_upgradeSetter.Level < Constants.MaxLevel)
+            {
+                _sellButton.gameObject.SetActive(false);
+                _upgradeButton.gameObject.SetActive(true);
                 _priceText.text = _upgradeSetter.Prices[_upgradeSetter.Level].ToString();
+            }
         }
         else
         {
-            _sellButton.gameObject.SetActive(true);
-            _upgradeButton.gameObject.SetActive(false);
-            _priceText.text = _character.Price.ToString();
+            if (_upgradeSetter.Level < Constants.MaxLevel)
+            {
+                _sellButton.gameObject.SetActive(true);
+                _upgradeButton.gameObject.SetActive(false);
+                _priceText.text = _character.Price.ToString();
+            }
         }
     }
 
@@ -147,11 +163,9 @@ public class CharacterView : MonoBehaviour
 
     private void OnUpgradeButtonClicked()
     {
-        if (_upgradeSetter.Level == Constants.MaxLevel)
-            return;
-
         if (_wallet.Stars >= _upgradeSetter.Prices[_upgradeSetter.Level])
         {
+            DisableButtons(Constants.MaxLevel - 1);
             _wallet.DicreaseStars(_upgradeSetter.Prices[_upgradeSetter.Level]);
             _upgradeSetter.Upgrade();
             UpdateStars();
