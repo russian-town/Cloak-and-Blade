@@ -14,7 +14,7 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private Button _selectButton;
     [SerializeField] private Button _upgradeButton;
     [SerializeField] private Button _descriptionButton;
-    [SerializeField] private List<Image> _stars;
+    [SerializeField] private List<StarAnimationHandler> _stars;
     [SerializeField] private List<ChainDOTanimation> _chains;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _fallingChainsSound;
@@ -176,6 +176,7 @@ public class CharacterView : MonoBehaviour
             _wallet.DicreaseStars(_upgradeSetter.Prices[_upgradeSetter.Level]);
             _upgradeSetter.Upgrade();
             UpdateStars();
+            _stars[_upgradeSetter.Level - 1].PlayAppearAnimation();
             _soundHandler.PlayUpgrade();
         }
         else

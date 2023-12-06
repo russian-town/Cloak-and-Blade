@@ -22,7 +22,6 @@ public class Upgrader : MonoBehaviour
         {
             _wallet.DicreaseStars(upgradeSetter.Prices[upgradeSetter.Level]);
             upgradeSetter.Upgrade();
-            /*description.UpdateView();*/
         }
     }
 
