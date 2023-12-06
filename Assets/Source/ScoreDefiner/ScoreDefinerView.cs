@@ -38,8 +38,8 @@ public class ScoreDefinerView : MonoBehaviour
     {
         for (int i = 0; i < starCount; i++)
         {
-            _starSpawner.Get(_starTemplates.Dequeue(), _starContainers.Dequeue());
             yield return new WaitForSeconds(_duration);
+            _starSpawner.Get(_starTemplates.Dequeue(), _starContainers.Dequeue());
         }
     }
 }
