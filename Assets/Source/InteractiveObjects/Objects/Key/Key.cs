@@ -3,12 +3,15 @@ using UnityEngine;
 public class Key : InteractiveObject
 {
     [SerializeField] private InteractiveObjectView _view;
+    [SerializeField] private AudioSource _source;
+    [SerializeField] private GameObject _model;
 
     public override void Interact()
     {
-        print("Key acquired");
+        _source.Play();
         Player.ItemsInHold.AddObjectToItemList(gameObject.GetComponent<Key>());
-        gameObject.SetActive(false);
+        _view.gameObject.SetActive(false);
+        _model.gameObject.SetActive(false);
     }
 
     public override void Prepare()

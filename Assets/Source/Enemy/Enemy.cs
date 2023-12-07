@@ -8,7 +8,6 @@ public class Enemy : Ghost, IPauseHandler
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private Transform _transform;
-    [SerializeField] private EnemyPhrasePlayer _phrasePlayer;
     [SerializeField] private ParticleSystem _freezeEffect;
 
     private EnemySightHandler _sightHandler;
@@ -99,7 +98,6 @@ public class Enemy : Ghost, IPauseHandler
         if (_sightHandler.TryFindPlayer(_player) && _isBlind == false)
         {
             _player.Die();
-            _phrasePlayer.StopRightThere();
         }
 
         if (_previousCell != null)

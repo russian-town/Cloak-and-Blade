@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(StarAnimationHandler))]
 public class Star : MonoBehaviour
 {
+    [SerializeField] private AudioSource _source;
+
     public StarAnimationHandler AnimationHandler { get; private set; }
 
     private void Awake()
@@ -12,5 +14,9 @@ public class Star : MonoBehaviour
         AnimationHandler = GetComponent<StarAnimationHandler>();
     }
 
-    public void PlayStarAppear() => AnimationHandler.PlayAppearAnimation();
+    public void PlayStarAppear() 
+    {
+        AnimationHandler.PlayAppearAnimation();
+        _source.Play();
+    } 
 }

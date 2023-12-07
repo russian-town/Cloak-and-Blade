@@ -17,6 +17,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     [SerializeField] private PlayerModel _model;
     [SerializeField] private Sprite _abilityIcon;
     [SerializeField] private UpgradeSetter _upgradeSetter;
+    [SerializeField] private AudioSource _deathSoundSource;
 
     private RewardedAdHandler _adHandler;
     private PlayerMover _mover;
@@ -163,6 +164,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     {
         IsDied = true;
         _commandExecuter.ResetCommand();
+        _deathSoundSource.Play();
 
         while (_model.Enabled)
         {

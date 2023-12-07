@@ -406,7 +406,6 @@ GameObject:
   - component: {fileID: 2947814527195524518}
   - component: {fileID: 6125369961952874884}
   - component: {fileID: 5740147665255432580}
-  - component: {fileID: 4889016931956276511}
   - component: {fileID: 5282306527125288181}
   - component: {fileID: 6340327643320935060}
   - component: {fileID: 3849966940867811724}
@@ -449,7 +448,7 @@ MonoBehaviour:
   _moveSpeed: 3
   _rotationSpeed: 300
   _transform: {fileID: 2947814527195524518}
-  _phrasePlayer: {fileID: 4889016931956276511}
+  _phrasePlayer: {fileID: 0}
   _freezeEffect: {fileID: 8127199458827362316}
 --- !u!114 &5740147665255432580
 MonoBehaviour:
@@ -464,21 +463,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sightRange: 5
---- !u!114 &4889016931956276511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4746196120632796288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3da72dbedffcceb49893273946ee0e3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _source: {fileID: 5282306527125288181}
-  _stopRightThere: {fileID: 8300000, guid: 257b6ccef76ef3f4f91776283dfd62d6, type: 3}
-  _thenPayWithYourBlood: {fileID: 8300000, guid: 6aea452ca32a38348981ea4499d6d0ba, type: 3}
 --- !u!82 &5282306527125288181
 AudioSource:
   m_ObjectHideFlags: 0
@@ -600,8 +584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec33d4ea024f3414fb9e52de100288d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 3
-  _rotationSpeed: 360
 --- !u!1 &6743015669532120573
 GameObject:
   m_ObjectHideFlags: 0

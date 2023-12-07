@@ -16,6 +16,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     [SerializeField] private List<Icon> _icons = new List<Icon>();
     [SerializeField] private Icon _abilityIcon;
     [SerializeField] private Sprite _rewardedImage;
+    [SerializeField] private AudioSource _tickTockSound;
 
     private Player _player;
     private CommandExecuter _commandExecuter;
@@ -143,5 +144,9 @@ public class PlayerView : MonoBehaviour, IPauseHandler
 
     private void OnAbilityClick() => _player.TryPrepareAbility();
 
-    private void OnSkipClick() => _player.PrepareSkip();
+    private void OnSkipClick()
+    {
+        _player.PrepareSkip();
+        _tickTockSound.Play();
+    } 
 }

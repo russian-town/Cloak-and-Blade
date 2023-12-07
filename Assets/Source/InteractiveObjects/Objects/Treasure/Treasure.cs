@@ -7,6 +7,9 @@ public class Treasure : InteractiveObject
     [SerializeField] private Key _key;
     [SerializeField] private Image _lockedImage;
     [SerializeField] private Image _unLockedImage;
+    [SerializeField] private AudioSource _chestSource;
+    [SerializeField] private AudioSource _lockSource;
+
     private Animator _animator;
     private bool _treasureAccquired;
 
@@ -22,12 +25,13 @@ public class Treasure : InteractiveObject
     {
         if (!Player.ItemsInHold.FindItemInList(_key))
         {
-            print("Requires key");
             return;
         }
 
         _view.InteractButton.onClick.RemoveListener(Interact);
         _view.Hide();
+        _lockSource.Play();
+        _chestSource.Play();
         Open();
         _treasureAccquired = true;
     }

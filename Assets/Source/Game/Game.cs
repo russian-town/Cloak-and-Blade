@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
     [SerializeField] private StepCounter _stepCounter;
     [SerializeField] private ScoreDefiner _scoreDefiner;
     [SerializeField] private LevelFinishScreen _levelFinishScreen;
+    [SerializeField] private AudioSource _winSoundSource;
 
     private Wallet _wallet;
     private Player _player;
@@ -93,6 +94,7 @@ public class Game : MonoBehaviour
         _levelPassed = true;
         _playerView.Hide();
         _levelFinishScreen.Show();
+        _winSoundSource.Play();
         _scoreDefiner.RecieveStars(_stepCounter.CurrentStepCount);
         _wallet.AddStars(_scoreDefiner.StarsCount);
     }
