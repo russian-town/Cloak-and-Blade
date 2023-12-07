@@ -9,9 +9,11 @@ public class Treasure : InteractiveObject
     [SerializeField] private Image _unLockedImage;
     [SerializeField] private AudioSource _chestSource;
     [SerializeField] private AudioSource _lockSource;
+    [SerializeField] private AudioSource _closeSource;
 
     private Animator _animator;
     private bool _treasureAccquired;
+    private bool _closed = true;
 
     public override void Initialize(Player player)
     {
@@ -33,6 +35,7 @@ public class Treasure : InteractiveObject
         _lockSource.Play();
         _chestSource.Play();
         Open();
+        _closed = false;
         _treasureAccquired = true;
     }
 
@@ -57,6 +60,11 @@ public class Treasure : InteractiveObject
         else if (_treasureAccquired)
         {
             _animator.SetTrigger(Constants.CloseParameter);
+
+            if (!_closed)
+                _closeSource.Play();
+
+            _closed = true;
         }
         else if (_view.isActiveAndEnabled)
         {
