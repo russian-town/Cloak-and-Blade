@@ -41,7 +41,7 @@ public class Treasure : InteractiveObject
 
     public override void Prepare()
     {
-        if (CheckInteractionPossibility())
+        if (CheckInteractionPossibility() && !Player.ItemsInHold.FindItemInList(this))
         {
             _view.Show();
 
@@ -76,7 +76,7 @@ public class Treasure : InteractiveObject
     private void Open()
     {
         _animator.SetTrigger(Constants.OpenParameter);
-        Player.ItemsInHold.AddObjectToItemList(gameObject.GetComponent<Treasure>());
+        Player.ItemsInHold.AddObjectToItemList(this);
     }
 
     protected override void Disable()

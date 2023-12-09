@@ -18,7 +18,7 @@ public class LevelLoader : MonoBehaviour, IDataReader
         //}
 
         //int index = Random.Range(_firstLevelIndex, SceneManager.sceneCountInBuildSettings - 1);
-        SceneManager.LoadScene("TestingScene");
+        SceneManager.LoadScene("Cathedral-1");
         return true;
     }
 }

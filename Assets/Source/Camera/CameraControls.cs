@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using Agava.WebUtility;
 
 public class CameraControls : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class CameraControls : MonoBehaviour
     private CinemachineOrbitalTransposer _angledCameraOrbitalTransposer;
     private int _minRotation = -180;
     private int _maxRotation = 180;
+    private int _mobileFOV = 40; 
+    private int _desktopFOV = 60; 
     private bool _cameraIsStraight;
 
     private void Awake()
@@ -23,6 +26,12 @@ public class CameraControls : MonoBehaviour
         _angledCamera.Priority = 1;
         _straightCamera.Priority = 0;
         _angledCameraOrbitalTransposer.m_FollowOffset.z = _angledCameraValue;
+
+        if (Device.IsMobile)
+            _angledCamera.m_Lens.FieldOfView = _mobileFOV;
+        else
+            _angledCamera.m_Lens.FieldOfView = _desktopFOV;
+
         _cameraIsStraight = false;
     }
 

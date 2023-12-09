@@ -11,7 +11,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     [SerializeField] private float _effectSlowDuration;
     [SerializeField] private float _effectSpeedUpDuration;
     [SerializeField] private ParticleSystem _burstActionEffect;
-    [SerializeField] private List<EffectChangeHanldler> _effectsToChange = new();
+    [SerializeField] private List<EffectChangeHanldler> _effectsToChange = new List<EffectChangeHanldler>();
     [SerializeField] private Sprite _icon;
 
     private PlayerAttacker _attacker;
@@ -77,6 +77,12 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
         _player.StepEnded += OnStepEnded;
         _attacker.Attack(AttackType.Freeze);
         _burstActionEffect.Play();
+
+        if (_effectsToChange.Count == 0)
+        {
+            print("poop");
+            return;
+        }
 
         foreach (var effect in _effectsToChange)
             effect.ChangeEffectSpeed(0, _effectSlowDuration);

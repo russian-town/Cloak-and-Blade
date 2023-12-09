@@ -4,20 +4,22 @@ public class CellView : MonoBehaviour
 {
     private ParticleSystem _abilityRangeEffectTemplate;
     private ParticleSystem _abilityRangeEffect;
+    private MeshRenderer _meshRenderer;
 
     public void Initialize(ParticleSystem abilityRangeEffectTemplate)
     {
         _abilityRangeEffectTemplate = abilityRangeEffectTemplate;
+        _meshRenderer = GetComponent<MeshRenderer>();
     }
 
     public void Hide()
     {
-        gameObject.SetActive(false);
+        _meshRenderer.enabled = false;
     }
 
     public void Show()
     {
-        gameObject.SetActive(true);
+        _meshRenderer.enabled = true;
     }
 
     public void PlayAbilityRangeEffect()

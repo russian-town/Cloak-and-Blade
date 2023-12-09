@@ -9,14 +9,14 @@ public class Key : InteractiveObject
     public override void Interact()
     {
         _source.Play();
-        Player.ItemsInHold.AddObjectToItemList(gameObject.GetComponent<Key>());
+        Player.ItemsInHold.AddObjectToItemList(this);
         _view.gameObject.SetActive(false);
         _model.gameObject.SetActive(false);
     }
 
     public override void Prepare()
     {
-        if (CheckInteractionPossibility())
+        if (CheckInteractionPossibility() && !Player.ItemsInHold.FindItemInList(this))
         {
             _view.Show();
             _view.InteractButton.onClick.AddListener(Interact);

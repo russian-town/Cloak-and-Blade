@@ -17695,7 +17695,6 @@ MonoBehaviour:
   _stepCounter: {fileID: 6767774014067091756}
   _scoreDefiner: {fileID: 5715900506087772183}
   _levelFinishScreen: {fileID: 7138661318906112904}
-  _winSoundSource: {fileID: 0}
 --- !u!1 &6231249609109286749
 GameObject:
   m_ObjectHideFlags: 0
