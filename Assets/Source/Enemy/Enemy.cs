@@ -16,6 +16,7 @@ public class Enemy : Ghost, IPauseHandler
     private Cell _startCell;
     private Cell _nextCell;
     private Cell _previousCell;
+    private Cell _nextDeclaredCell;
     private Player _player;
     private EnemyAnimationHandler _animationHandler;
     private Gameboard _gameBoard;
@@ -46,6 +47,7 @@ public class Enemy : Ghost, IPauseHandler
         _gameBoard = gameboard;
         _zoneDrawer = enemyZoneDrawer;
         _sightHandler.Initialize(_zoneDrawer);
+        DeclareNextCell().View.Show();
     }
 
     public void SetPause(bool isPause)
@@ -56,6 +58,12 @@ public class Enemy : Ghost, IPauseHandler
             _animationHandler.StopAnimation();
         else
             _animationHandler.StartAnimation();
+    }
+
+    public Cell DeclareNextCell()
+    {
+        CalculatePath();
+        return _nextDeclaredCell;
     }
 
     public void Freeze()
@@ -79,9 +87,7 @@ public class Enemy : Ghost, IPauseHandler
     {
         _sightHandler.ClearSight();
         _previousCell = _mover.CurrentCell;
-
-        if (!CalculatePath())
-            yield return new WaitUntil(() => CalculatePath());
+        _nextCell = _nextDeclaredCell;
 
         if (_nextCell == _player.CurrentCell && _isBlind == false)
         {
@@ -105,6 +111,12 @@ public class Enemy : Ghost, IPauseHandler
 
         _mover.CurrentCell.BecomeOccupied();
         _currentIndex++;
+        Cell cell = DeclareNextCell();
+
+        if (cell != null)
+            cell.View.Show();
+        else
+            Debug.Log("poop");
     }
 
     private void GenerateSight(Cell currentCell)
@@ -131,11 +143,12 @@ public class Enemy : Ghost, IPauseHandler
             _currentDestinationIndex = 0;
 
         _currentDestination = _destinations[_currentDestinationIndex];
+        DeclareNextCell();
     }
 
     public bool CalculatePath()
     {
-        if (_gameBoard.FindPath(_currentDestination, ref _nextCell, _mover.CurrentCell))
+        if (_gameBoard.FindPath(_currentDestination, ref _nextDeclaredCell, _mover.CurrentCell))
         {
             return true;
         }
