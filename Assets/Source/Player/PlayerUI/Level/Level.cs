@@ -24,6 +24,11 @@ public class Level : ScriptableObject, IDataReader, IDataWriter
             _isCompleted = true;
         else
             _isCompleted = false;
+
+        if(playerData.OpenedLevelNames.Contains(Name))
+            _isOpen = true;
+        else
+            _isOpen = false;
     }
 
     public void Write(PlayerData playerData)
