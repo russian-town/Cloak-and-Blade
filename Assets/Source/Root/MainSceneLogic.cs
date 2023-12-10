@@ -47,6 +47,7 @@ public class MainSceneLogic : MonoBehaviour
         _walletView.Initialize(_wallet);
         _wallet.Initialize();
         _shop.SetWallet(_wallet);
+        _levelLoader.Initialize();
         yield return null;
     }
 
