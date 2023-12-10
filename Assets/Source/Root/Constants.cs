@@ -12,6 +12,8 @@ public class Constants
 
     #region SceneNames
     public const string MainMenu = "MainMenu";
+    public const string Cathedral1 = "Cathedral-1";
+    public const string Desert1 = "Desert-1";
     public const string Tutorial = "Tutorial";
     #endregion
 
