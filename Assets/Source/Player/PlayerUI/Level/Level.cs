@@ -21,14 +21,16 @@ public class Level : ScriptableObject, IDataReader, IDataWriter
     public void Read(PlayerData playerData)
     {
         if (playerData.FinishedLevelNames.Contains(Name))
+        {
             _isCompleted = true;
-        else
-            _isCompleted = false;
+            Debug.Log($"{Name} isCompleted in saves {_isCompleted}");
+        }
 
-        if(playerData.OpenedLevelNames.Contains(Name))
+        if (playerData.OpenedLevelNames.Contains(Name))
+        {
             _isOpen = true;
-        else
-            _isOpen = false;
+            Debug.Log($"{Name} isOpen in saves {_isOpen}");
+        }
     }
 
     public void Write(PlayerData playerData)
@@ -36,6 +38,9 @@ public class Level : ScriptableObject, IDataReader, IDataWriter
         if (playerData.OpenedLevelNames.Contains(Name))
             return;
 
-        playerData.OpenedLevelNames.Add(Name);
+        if (_isOpen == true)
+            playerData.OpenedLevelNames.Add(Name);
+
+        Debug.Log($"{Name} isOpen saved.");
     }
 }

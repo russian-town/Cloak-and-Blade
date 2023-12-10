@@ -40,7 +40,7 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
             if (i == 0)
                 _levels[i].Open();
 
-            if (i + 1 < _levels.Count)
+            if (i < _levels.Count - 1)
                 if (_levels[i].IsCompleted)
                     _levels[i + 1].Open();
 

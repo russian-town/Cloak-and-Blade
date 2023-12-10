@@ -87,12 +87,12 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
 
     public void Write(PlayerData playerData)
     {
-        _finishedLevelNames = playerData.FinishedLevelNames;
+        playerData.FinishedLevelNames = _finishedLevelNames;
     }
 
     public void Read(PlayerData playerData)
     {
-        playerData.FinishedLevelNames = _finishedLevelNames;
+        _finishedLevelNames = playerData.FinishedLevelNames;
     }
 
     private void AddStarsOnReward()
