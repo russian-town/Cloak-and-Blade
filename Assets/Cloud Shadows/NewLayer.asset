@@ -18,8 +18,8 @@ MonoBehaviour:
     m_BlendMode: 0
     m_Opacity: 1
     m_Coverage: 0.5
-    m_Softness: 0.25
-    m_Speed: 0.2
+    m_Softness: 0.7
+    m_Speed: 0.6
     m_Direction: 0
     m_Texture: {fileID: 2800000, guid: 5c30adf5e6431464eaac285649915daa, type: 3}
     m_TextureTiling: {x: 1, y: 1}
@@ -29,7 +29,7 @@ MonoBehaviour:
     m_BlendMode: 0
     m_Opacity: 1
     m_Coverage: 0.5
-    m_Softness: 0.25
+    m_Softness: 0.7
     m_Speed: 1.2
     m_Direction: 0
     m_Texture: {fileID: 2800000, guid: ae6499acdefff884abb4fff184995018, type: 3}
