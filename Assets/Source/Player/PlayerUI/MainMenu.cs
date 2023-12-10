@@ -27,7 +27,7 @@ public class MainMenu : MonoBehaviour
 
     private void StartGame()
     {
-        if (_levelsLoader.TryTutorialLoad() == false)
+        /*if (_levelsLoader.TryTutorialLoad() == false)*/
             _levelsViewScroll.Show();
     }
 }

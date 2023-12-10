@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Game : MonoBehaviour
+public class Game : MonoBehaviour, IDataWriter, IDataReader
 {
     [SerializeField] private PauseView _pauseScreen;
     [SerializeField] private PlayerView _playerView;
@@ -17,6 +18,7 @@ public class Game : MonoBehaviour
     private ILevelFinisher _levelFinisher;
     private bool _levelPassed;
     private AdHandler _adHandler;
+    private List<string> _finishedLevelNames = new List<string>();
 
     public bool IsInitialize { get; private set; }
 
@@ -83,6 +85,16 @@ public class Game : MonoBehaviour
         _pause.Disable();
     }
 
+    public void Write(PlayerData playerData)
+    {
+        _finishedLevelNames = playerData.FinishedLevelNames;
+    }
+
+    public void Read(PlayerData playerData)
+    {
+        playerData.FinishedLevelNames = _finishedLevelNames;
+    }
+
     private void AddStarsOnReward()
     {
         _wallet.AddStars(_scoreDefiner.StarsCount);
@@ -95,6 +107,11 @@ public class Game : MonoBehaviour
         _levelFinishScreen.Show();
         _scoreDefiner.RecieveStars(_stepCounter.CurrentStepCount);
         _wallet.AddStars(_scoreDefiner.StarsCount);
+
+        if (_finishedLevelNames.Contains(SceneManager.GetActiveScene().name))
+            return;
+
+        _finishedLevelNames.Add(SceneManager.GetActiveScene().name);
     }
 
     private void OnRewardedOpenClallback() => _adHandler.OpenAd();

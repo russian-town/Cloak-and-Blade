@@ -59,8 +59,8 @@ public class Root : MonoBehaviour, IInitializable
 
     private void Start()
     {
-        _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet, _audio });
-        _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet });
+        _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet, _audio, _game });
+        _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet, _game });
         _saver.AddInitializable(this);
         _saver.AddInitializable(_wallet);
         _saver.Initialize();

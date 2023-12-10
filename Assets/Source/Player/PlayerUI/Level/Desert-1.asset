@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Desert-1
   _preview: {fileID: 2053270129, guid: 7beb88c0d34511f47982e039a14191b6, type: 3}
+  _isOpen: 0
+  _isCompleted: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelLoader : MonoBehaviour, IDataReader
+public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
 {
     [SerializeField] private List<Level> _levels = new List<Level>();
     [SerializeField] private LevelView _levelViewTemplate;
@@ -19,14 +19,33 @@ public class LevelLoader : MonoBehaviour, IDataReader
             levelView.OpenLevelButtonClicked -= OnOpenLevelButtonClicked;
     }
 
-    public void Read(PlayerData playerData) => _tutorialCompleted = playerData.IsTutorialCompleted;
+    public void Read(PlayerData playerData)
+    {
+        _tutorialCompleted = playerData.IsTutorialCompleted;
+
+        foreach (var level in _levels)
+            level.Read(playerData);
+    }
+
+    public void Write(PlayerData playerData)
+    {
+        foreach (var level in _levels)
+            level.Write(playerData);
+    }
 
     public void Initialize()
     {
-        foreach (var level in _levels)
+        for (int i = 0; i < _levels.Count; i++)
         {
+            if (i == 0)
+                _levels[i].Open();
+
+            if (i + 1 < _levels.Count)
+                if (_levels[i].IsCompleted)
+                    _levels[i + 1].Open();
+
             LevelView levelView = Instantiate(_levelViewTemplate, _parent.transform);
-            levelView.Render(level);
+            levelView.Render(_levels[i]);
             _levelViews.Add(levelView);
             levelView.OpenLevelButtonClicked += OnOpenLevelButtonClicked;
         }
@@ -47,7 +66,7 @@ public class LevelLoader : MonoBehaviour, IDataReader
 
     private void TryOpenLevel(Level level)
     {
-        /*if (level.IsOpen)*/
+        if (level.IsOpen)
             SceneManager.LoadScene(level.Name);
     }
 }

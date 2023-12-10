@@ -8,6 +8,7 @@ public class LevelView : MonoBehaviour
     [SerializeField] private Button _openLevel;
     [SerializeField] private Image _preview;
     [SerializeField] private List<Image> _stars = new List<Image>();
+    [SerializeField] private Image _lock;
 
     private Level _level;
 
@@ -27,8 +28,9 @@ public class LevelView : MonoBehaviour
     {
         _level = level;
         _preview.sprite = _level.Preview;
+        _lock.gameObject.SetActive(!_level.IsOpen);
 
-        if (_level.IsOpen == false)
+        if (_level.IsCompleted == false)
             return;
 
         for (int i = 0; i < _level.StarsCount; i++)
