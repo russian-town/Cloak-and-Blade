@@ -9,6 +9,7 @@ public class Enemy : Ghost, IPauseHandler
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private Transform _transform;
     [SerializeField] private ParticleSystem _freezeEffect;
+    [SerializeField] private Transform _announcer;
     [SerializeField] private ParticleSystem _announcerNorth;
     [SerializeField] private ParticleSystem _announcerSouth;
     [SerializeField] private ParticleSystem _announcerEast;
@@ -128,6 +129,7 @@ public class Enemy : Ghost, IPauseHandler
         _mover.CurrentCell.BecomeOccupied();
         _currentIndex++;
         Cell cell = DeclareNextCell();
+        _announcer.rotation = Quaternion.Euler(Vector3.zero);
 
         if (cell == _mover.CurrentCell.North)
         {
@@ -143,15 +145,15 @@ public class Enemy : Ghost, IPauseHandler
         }
         if (cell == _mover.CurrentCell.West)
         {
-            _announcerEast.gameObject.SetActive(true);
-            _announcerEast.Play();
-            _previousAnnouncer = _announcerEast;
-        }
-        if (cell == _mover.CurrentCell.East)
-        {
             _announcerWest.gameObject.SetActive(true);
             _announcerWest.Play();
             _previousAnnouncer = _announcerWest;
+        }
+        if (cell == _mover.CurrentCell.East)
+        {
+            _announcerEast.gameObject.SetActive(true);
+            _announcerEast.Play();
+            _previousAnnouncer = _announcerEast;
         }
     }
 
