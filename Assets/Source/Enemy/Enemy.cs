@@ -9,6 +9,10 @@ public class Enemy : Ghost, IPauseHandler
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private Transform _transform;
     [SerializeField] private ParticleSystem _freezeEffect;
+    [SerializeField] private ParticleSystem _announcerNorth;
+    [SerializeField] private ParticleSystem _announcerSouth;
+    [SerializeField] private ParticleSystem _announcerEast;
+    [SerializeField] private ParticleSystem _announcerWest;
 
     private EnemySightHandler _sightHandler;
     private EnemyZoneDrawer _zoneDrawer;
@@ -22,6 +26,7 @@ public class Enemy : Ghost, IPauseHandler
     private Gameboard _gameBoard;
     private Cell _currentDestination;
     private Cell[] _destinations;
+    private ParticleSystem _previousAnnouncer;
     private int _currentIndex;
     private int _currentDestinationIndex;
     private int _north = 0;
@@ -62,7 +67,10 @@ public class Enemy : Ghost, IPauseHandler
 
     public Cell DeclareNextCell()
     {
+        
+
         CalculatePath();
+
         return _nextDeclaredCell;
     }
 
@@ -86,6 +94,14 @@ public class Enemy : Ghost, IPauseHandler
     private IEnumerator PerformMove()
     {
         _sightHandler.ClearSight();
+
+        if (_previousAnnouncer != null)
+        {
+            _previousAnnouncer.Stop();
+            _previousAnnouncer.gameObject.SetActive(false);
+            _previousAnnouncer = null;
+        }
+
         _previousCell = _mover.CurrentCell;
         _nextCell = _nextDeclaredCell;
 
@@ -113,10 +129,30 @@ public class Enemy : Ghost, IPauseHandler
         _currentIndex++;
         Cell cell = DeclareNextCell();
 
-        if (cell != null)
-            cell.View.Show();
-        else
-            Debug.Log("poop");
+        if (cell == _mover.CurrentCell.North)
+        {
+            _announcerNorth.gameObject.SetActive(true);
+            _announcerNorth.Play();
+            _previousAnnouncer = _announcerNorth;
+        }
+        if (cell == _mover.CurrentCell.South)
+        {
+            _announcerSouth.gameObject.SetActive(true);
+            _announcerSouth.Play();
+            _previousAnnouncer = _announcerSouth;
+        }
+        if (cell == _mover.CurrentCell.West)
+        {
+            _announcerEast.gameObject.SetActive(true);
+            _announcerEast.Play();
+            _previousAnnouncer = _announcerEast;
+        }
+        if (cell == _mover.CurrentCell.East)
+        {
+            _announcerWest.gameObject.SetActive(true);
+            _announcerWest.Play();
+            _previousAnnouncer = _announcerWest;
+        }
     }
 
     private void GenerateSight(Cell currentCell)
