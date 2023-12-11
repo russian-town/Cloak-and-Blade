@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
 {
-    [SerializeField] private List<Level> _levels = new List<Level>();
+    [SerializeField] private LevelsHandler _levelsHandler;
     [SerializeField] private LevelView _levelViewTemplate;
     [SerializeField] private GridLayoutGroup _parent;
 
@@ -23,29 +23,29 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
     {
         _tutorialCompleted = playerData.IsTutorialCompleted;
 
-        foreach (var level in _levels)
+        foreach (var level in _levelsHandler.Levels)
             level.Read(playerData);
     }
 
     public void Write(PlayerData playerData)
     {
-        foreach (var level in _levels)
+        foreach (var level in _levelsHandler.Levels)
             level.Write(playerData);
     }
 
     public void Initialize()
     {
-        for (int i = 0; i < _levels.Count; i++)
+        for (int i = 0; i < _levelsHandler.Levels.Count; i++)
         {
             if (i == 0)
-                _levels[i].Open();
+                _levelsHandler.Levels[i].Open();
 
-            if (i < _levels.Count - 1)
-                if (_levels[i].IsCompleted)
-                    _levels[i + 1].Open();
+            if (i < _levelsHandler.Levels.Count - 1)
+                if (_levelsHandler.Levels[i].IsCompleted)
+                    _levelsHandler.Levels[i + 1].Open();
 
             LevelView levelView = Instantiate(_levelViewTemplate, _parent.transform);
-            levelView.Render(_levels[i]);
+            levelView.Render(_levelsHandler.Levels[i]);
             _levelViews.Add(levelView);
             levelView.OpenLevelButtonClicked += OnOpenLevelButtonClicked;
         }
