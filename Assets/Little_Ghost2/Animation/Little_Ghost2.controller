@@ -231,9 +231,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.27299374
-  m_TransitionOffset: 0
-  m_ExitTime: 0.0000000135298155
+  m_TransitionDuration: 0.31782648
+  m_TransitionOffset: 0.002945981
+  m_ExitTime: 0.002438082
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -464,7 +464,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: fly
-  m_Speed: 0.75
+  m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7418390997144315331}
