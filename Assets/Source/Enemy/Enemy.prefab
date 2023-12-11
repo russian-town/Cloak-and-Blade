@@ -1305,6 +1305,10 @@ PrefabInstance:
       propertyPath: m_RenderAlignment
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7572786419682859451, guid: 32bc92ae732112542923712e3cba689d, type: 3}
+      propertyPath: m_MeshDistribution
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8466165720637054662, guid: 32bc92ae732112542923712e3cba689d, type: 3}
       propertyPath: m_Name
       value: AnnouncerNorth
@@ -1567,6 +1571,10 @@ PrefabInstance:
     - target: {fileID: 7572786419682859451, guid: 32bc92ae732112542923712e3cba689d, type: 3}
       propertyPath: m_RenderAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7572786419682859451, guid: 32bc92ae732112542923712e3cba689d, type: 3}
+      propertyPath: m_MeshDistribution
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8466165720637054662, guid: 32bc92ae732112542923712e3cba689d, type: 3}
       propertyPath: m_Name
@@ -1838,6 +1846,10 @@ PrefabInstance:
     - target: {fileID: 7572786419682859451, guid: 32bc92ae732112542923712e3cba689d, type: 3}
       propertyPath: m_RenderAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7572786419682859451, guid: 32bc92ae732112542923712e3cba689d, type: 3}
+      propertyPath: m_MeshDistribution
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8466165720637054662, guid: 32bc92ae732112542923712e3cba689d, type: 3}
       propertyPath: m_Name
@@ -2141,6 +2153,10 @@ PrefabInstance:
     - target: {fileID: 7572786419682859451, guid: 32bc92ae732112542923712e3cba689d, type: 3}
       propertyPath: m_RenderAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7572786419682859451, guid: 32bc92ae732112542923712e3cba689d, type: 3}
+      propertyPath: m_MeshDistribution
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8466165720637054662, guid: 32bc92ae732112542923712e3cba689d, type: 3}
       propertyPath: m_Name
