@@ -23,14 +23,12 @@ public class Level : ScriptableObject, IDataReader, IDataWriter
         if (playerData.FinishedLevelNames.Contains(Name))
         {
             _isCompleted = true;
-            Debug.Log($"{Name} isCompleted in saves {_isCompleted}");
+            int index = playerData.FinishedLevelNames.IndexOf(Name);
+            _starsCount = playerData.FinishedLevelStarsCount[index];
         }
 
         if (playerData.OpenedLevelNames.Contains(Name))
-        {
             _isOpen = true;
-            Debug.Log($"{Name} isOpen in saves {_isOpen}");
-        }
     }
 
     public void Write(PlayerData playerData)
@@ -40,7 +38,5 @@ public class Level : ScriptableObject, IDataReader, IDataWriter
 
         if (_isOpen == true)
             playerData.OpenedLevelNames.Add(Name);
-
-        Debug.Log($"{Name} isOpen saved.");
     }
 }
