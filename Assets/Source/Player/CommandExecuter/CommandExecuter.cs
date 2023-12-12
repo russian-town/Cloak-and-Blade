@@ -53,6 +53,9 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
     public void PrepareCommand()
     {
+        if (_turn == Turn.Enemy)
+            return;
+
         if (_currentCommand == null)
             return;
 
@@ -80,9 +83,6 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
     private bool CanSwith()
     {
-        if (_turn == Turn.Enemy)
-            return false;
-
         if (_currentCommand != null && _currentCommand.IsExecuting)
             return false;
 
