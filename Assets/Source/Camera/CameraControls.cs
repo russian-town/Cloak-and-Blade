@@ -27,10 +27,12 @@ public class CameraControls : MonoBehaviour
         _straightCamera.Priority = 0;
         _angledCameraOrbitalTransposer.m_FollowOffset.z = _angledCameraValue;
 
+#if UNITY_WEBGL && !UNITY_EDITOR
         if (Device.IsMobile)
             _angledCamera.m_Lens.FieldOfView = _mobileFOV;
         else
             _angledCamera.m_Lens.FieldOfView = _desktopFOV;
+#endif
 
         _cameraIsStraight = false;
     }
