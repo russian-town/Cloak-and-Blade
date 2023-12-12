@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Desert/Desert-1.unity
     guid: cc281b5cf87b60d4fafac5eb797a75a0
   - enabled: 1
-    path: Assets/Scenes/Forest/Forest-1.unity
+    path: Assets/Scenes/Forest/Forest-Easy.unity
     guid: 6ea24e0f13a14a944a63e9df423146dd
   - enabled: 0
     path: Assets/Scenes/TestingScene.unity

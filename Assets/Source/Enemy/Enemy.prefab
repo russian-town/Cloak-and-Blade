@@ -481,8 +481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9539b94a40c5d2d46a50d52cd93c8542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _rotationSpeed: 500
+  _moveSpeed: 3
+  _rotationSpeed: 360
   _transform: {fileID: 2947814527195524518}
   _freezeEffect: {fileID: 8127199458827362316}
   _announcer: {fileID: 1273113481994814394}
