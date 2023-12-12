@@ -23,7 +23,7 @@ public class LevelsHandler : MonoBehaviour
     {
         for (int i = 0; i < _levels.Count; i++)
             if (_levels[i].Name == SceneManager.GetActiveScene().name)
-                if (i + 1 < _levels.Count - 1)
+                if (i + 1 < _levels.Count)
                     return _levels[i + 1];
 
         return null;
