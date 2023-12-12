@@ -978,7 +978,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 91.55
+  m_fontSize: 91.5
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1376,7 +1376,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.85
+  m_fontSize: 99.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5663,7 +5663,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.85
+  m_fontSize: 99.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -12492,9 +12492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levels:
-  - {fileID: 11400000, guid: ed9e04a558154544885b751661c48b6b, type: 2}
-  - {fileID: 11400000, guid: b644d3e0bad222041818ccefa2b99bec, type: 2}
-  - {fileID: 11400000, guid: 02b0fed25eaed604ab93bc1cb5fcab26, type: 2}
+  - {fileID: 11400000, guid: bff535b2fceafce43bf16a71913aeebd, type: 2}
   _levelViewTemplate: {fileID: 4540757903303104889, guid: 93992e7b16beeea4b9ff69dec7b9b854, type: 3}
   _parent: {fileID: 1275082321}
 --- !u!4 &1365407904
@@ -17265,7 +17263,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.85
+  m_fontSize: 99.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
