@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemySightHandler), typeof(EnemyMover), typeof(EnemyAnimationHandler))]
@@ -28,7 +27,6 @@ public class Enemy : Ghost, IPauseHandler
     private Cell _currentDestination;
     private Cell[] _destinations;
     private ParticleSystem _previousAnnouncer;
-    private int _currentIndex;
     private int _currentDestinationIndex;
     private int _north = 0;
     private int _fakeNorth = 360;
@@ -36,6 +34,7 @@ public class Enemy : Ghost, IPauseHandler
     private int _south = 180;
     private int _west = 270;
     private bool _isBlind;
+    private Enemy _nextGhost;
 
     public bool IsFreeze { get; private set; }
 
@@ -55,6 +54,8 @@ public class Enemy : Ghost, IPauseHandler
         _sightHandler.Initialize(_zoneDrawer);
         DeclareNextCell().View.Show();
     }
+    
+    public void SetNextGhost(Enemy enemy) => _nextGhost = enemy;
 
     public void SetPause(bool isPause)
     {
@@ -68,10 +69,7 @@ public class Enemy : Ghost, IPauseHandler
 
     public Cell DeclareNextCell()
     {
-        
-
         CalculatePath();
-
         return _nextDeclaredCell;
     }
 
@@ -127,7 +125,6 @@ public class Enemy : Ghost, IPauseHandler
             _previousCell.BecomeUnoccupied();
 
         _mover.CurrentCell.BecomeOccupied();
-        _currentIndex++;
         Cell cell = DeclareNextCell();
         _announcer.rotation = Quaternion.Euler(Vector3.zero);
 

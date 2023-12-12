@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Room : MonoBehaviour, IEnemyTurnWaiter
 {
+    [SerializeField] [Range(0f, 1f)] private float _delay;
+
     private Player _player;
     private PlayerView _view;
     private List<Enemy> _enemies = new List<Enemy>();
@@ -56,13 +58,22 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
             yield break;
 
         yield return _hourglass.StartShow();
+        WaitForSeconds waitForSeconds = new WaitForSeconds(_delay);
 
         foreach (Enemy enemy in _enemies)
         {
             if (enemy.IsFreeze)
                 continue;
 
-            yield return enemy.StartPerformMove();
+            if (_enemies.IndexOf(enemy) == _enemies.Count)
+            {
+                yield return enemy.StartPerformMove();
+            }
+            else
+            {
+                enemy.StartPerformMove();
+                yield return waitForSeconds;
+            }
         }
 
         yield return _hourglass.StartHide();
