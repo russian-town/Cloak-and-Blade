@@ -65,5 +65,19 @@ public class MoveCommand : Command, ITurnHandler
             yield return _player.MoveCoroutine;
     }
 
-    protected override void OnCommandChanged(Command command) => Cancel();
+    protected override void OnCommandChanged(Command command)
+    {
+        if (command is SkipCommand)
+            command.CommandExecuted += OnCommandExecuted;
+
+        Cancel();
+    }
+
+    private void OnCommandExecuted(Command command)
+    {
+        command.CommandExecuted -= OnCommandExecuted;
+
+        if (command is SkipCommand)
+            _executer.TrySwitchCommand(this);
+    }
 }

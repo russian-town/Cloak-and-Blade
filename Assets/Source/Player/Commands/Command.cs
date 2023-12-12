@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ public abstract class Command
     public bool IsExecuting { get; private set; }
     public bool Enabled { get; private set; }
 
+    public event Action<Command> CommandExecuted;
+
     public IEnumerator Execute()
     {
         _prepare = _executer.StartCoroutine(Prepare());
@@ -31,6 +34,7 @@ public abstract class Command
         _executeActionCoroutine = _executer.StartCoroutine(ExecuteAction());
         yield return _executeActionCoroutine;
         IsExecuting = false;
+        CommandExecuted?.Invoke(this);
     }
 
     protected virtual void Cancel()
