@@ -1,6 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.EventSystems;
+using System;
 
 public class ScreenAnimationHandler : MonoBehaviour
 {
@@ -13,12 +13,12 @@ public class ScreenAnimationHandler : MonoBehaviour
     private float _descriptionOutOfScreen = 1200;
     private Vector3 _initialPosition;
 
+    public event Action ScreenEnabled;
+
     private void Awake()
     {
         _initialPosition = _rectTransform.localPosition;
     }
-
-    public void Poop() => print("Poop");
 
     public void ScreenFadeIn()
     {
@@ -33,6 +33,7 @@ public class ScreenAnimationHandler : MonoBehaviour
 
         _rectTransform.DOAnchorPos(_initialPosition, _fadeDuration, false).SetEase(Ease.OutQuint);
         _canvasGroup.DOFade(1, _fadeDuration);
+        ScreenEnabled?.Invoke();
     }
 
     public void ScreenFadeOut()
