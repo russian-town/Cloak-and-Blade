@@ -51,6 +51,8 @@ public class Character : ScriptableObject, IDataReader, IDataWriter
         }
     }
 
+    public void CloseDescription() => _description.Hide();
+
     public void Select() => _isSelect = true;
 
     public void UnSelect() => _isSelect = false;

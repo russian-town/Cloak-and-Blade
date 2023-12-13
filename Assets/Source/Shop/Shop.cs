@@ -39,6 +39,12 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
         AddCharacterView();
     }
 
+    public void CloseDescriptions()
+    {
+        foreach (var character in _characters)
+            character.CloseDescription();
+    }
+
     public void Initialize(){}
 
     private void AddCharacterView()
