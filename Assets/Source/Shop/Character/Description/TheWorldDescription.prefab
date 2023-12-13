@@ -67,10 +67,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'The yellow ghost can stop time.
+  m_text: 'Flavus can stop time.
 
-    While the ability is active, enemies
-    will not move.
+    While the ability is active, enemies will not
+    move.
 
 
 
@@ -735,7 +735,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Time stop
+  m_text: Flavus
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 00a6e9a555b0a2545bede65440a909a0, type: 2}
   m_sharedMaterial: {fileID: -3595107127703264355, guid: 00a6e9a555b0a2545bede65440a909a0, type: 2}
@@ -762,7 +762,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 68.35
+  m_fontSize: 77.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -816,7 +816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translationName: Yellow
+  translationName: Flavus
   FallbackText: Social functions
 --- !u!1 &6700304855416999876
 GameObject:
