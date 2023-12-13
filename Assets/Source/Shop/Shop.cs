@@ -123,7 +123,6 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
         }
         else
         {
-            characterView.SoundHandler.PlayNegative();
             _source.clip = _shakingChainsSound;
             _source.Play();
             characterView.ShakeChaings();
@@ -152,7 +151,6 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
         {
             _source.clip = _shakingChainsSound;
             _source.Play();
-            characterView.SoundHandler.PlayNegative();
             characterView.ShakeChaings();
         }
     }
