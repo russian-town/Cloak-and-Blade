@@ -118,7 +118,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: dance2
-  m_Speed: 0.34
+  m_Speed: 0.43
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
