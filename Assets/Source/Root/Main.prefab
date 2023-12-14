@@ -6251,6 +6251,7 @@ MonoBehaviour:
   _fadeDuration: 1
   _canvasGroup: {fileID: 6319994346943122769}
   _rectTransform: {fileID: 4630608011978504954}
+  _isDescriptionScreen: 0
 --- !u!1 &1636031519880921946
 GameObject:
   m_ObjectHideFlags: 0
@@ -12335,6 +12336,9 @@ MonoBehaviour:
   _defaultPlayerTemplate: {fileID: 4968454722151075018, guid: da937d1744d6aa34585d65f71770df9d, type: 3}
   _effectChangeHanldlers:
   - {fileID: 0}
+  _soundList: []
+  _splineList: []
+  _animationList: []
 --- !u!1 &2443451412444412366
 GameObject:
   m_ObjectHideFlags: 0
@@ -12641,6 +12645,7 @@ MonoBehaviour:
   _fadeDuration: 1
   _canvasGroup: {fileID: 8508038697589724654}
   _rectTransform: {fileID: 7160225023607313741}
+  _isDescriptionScreen: 0
 --- !u!114 &5948228645821165782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12656,6 +12661,7 @@ MonoBehaviour:
   _fadeDuration: 1
   _canvasGroup: {fileID: 8508038697589724654}
   _rectTransform: {fileID: 7160225023607313741}
+  _isDescriptionScreen: 0
 --- !u!1 &2537889073368006000
 GameObject:
   m_ObjectHideFlags: 0
@@ -19889,6 +19895,7 @@ MonoBehaviour:
   _fadeDuration: 1
   _canvasGroup: {fileID: 4116025124141546129}
   _rectTransform: {fileID: 5756972299964794231}
+  _isDescriptionScreen: 0
 --- !u!1 &8252478757323930782
 GameObject:
   m_ObjectHideFlags: 0

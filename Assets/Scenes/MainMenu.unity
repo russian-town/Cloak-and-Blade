@@ -2251,7 +2251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.10961678, y: 0.09216269}
   m_AnchorMax: {x: 0.41966385, y: 0.241256}
-  m_AnchoredPosition: {x: -2.5, y: 2.4999695}
+  m_AnchoredPosition: {x: -2.5, y: 2.5}
   m_SizeDelta: {x: 5.9799805, y: 2.9000244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &185561598
@@ -2584,7 +2584,7 @@ MonoBehaviour:
 
 
 
-      Improving an ability increases its duration.'
+      Upgrading an ability increases its duration.'
     Object: {fileID: 0}
   - Language: Russian
     Text: "\u0424\u043B\u0430\u0432\u0443\u0441 \u043C\u043E\u0436\u0435\u0442 \u043E\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0442\u044C
@@ -3143,9 +3143,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -3691065548320451500, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 472a7a2cbc531604d81a468f4cb91325, type: 3}
+  m_audioClip: {fileID: 8300000, guid: af962343bbde78a4c95fae9fd66ef622, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3156,7 +3156,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -4578,6 +4578,9 @@ MonoBehaviour:
   _playerTemplates: []
   _defaultPlayerTemplate: {fileID: 0}
   _effectChangeHanldlers: []
+  _soundList: []
+  _splineList: []
+  _animationList: []
 --- !u!4 &500471064
 Transform:
   m_ObjectHideFlags: 0
@@ -9773,7 +9776,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.582, y: 0.09216269}
   m_AnchorMax: {x: 0.8953926, y: 0.241256}
-  m_AnchoredPosition: {x: -2.5, y: 2.4999695}
+  m_AnchoredPosition: {x: -2.5, y: 2.5}
   m_SizeDelta: {x: -0.020019531, y: 2.9000244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1143813744
@@ -23381,7 +23384,7 @@ MonoBehaviour:
 
 
 
-      Improving an ability
+      Upgrading an ability
       increases its duration.'
     Object: {fileID: 0}
   - Language: Russian

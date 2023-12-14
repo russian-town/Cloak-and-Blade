@@ -1,3 +1,4 @@
+using EntroPi;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,9 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     [SerializeField] private float _effectSpeedUpDuration;
     [SerializeField] private ParticleSystem _burstActionEffect;
     [SerializeField] private List<EffectChangeHanldler> _effectsToChange = new List<EffectChangeHanldler>();
+    [SerializeField] private List<SoundChangeHandler> _soundList = new List<SoundChangeHandler>();
+    [SerializeField] private List<SplineChangeHandler> _splineList = new List<SplineChangeHandler>();
+    [SerializeField] private List<AnimationChangeHandler> _animationList = new List<AnimationChangeHandler>();
     [SerializeField] private Sprite _icon;
 
     private PlayerAttacker _attacker;
@@ -21,6 +25,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     private bool _canUse = true;
     private UpgradeSetter _upgradeSetter;
     private PlayerView _playerView;
+    private CloudShadows _cloudShadows;
 
     private void OnDisable()
     {
@@ -30,12 +35,15 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
         _player.StepEnded -= OnStepEnded;
     }
 
-    public void AddSceneParticles(List<EffectChangeHanldler> effects)
+    public void AddSceneEffectsToChange(List<EffectChangeHanldler> effects, List<SoundChangeHandler> sounds, List<SplineChangeHandler> splines, List<AnimationChangeHandler> animations)
     {
         if (effects.Count == 0)
             return;
 
         _effectsToChange.AddRange(effects);
+        _soundList.AddRange(sounds);
+        _splineList.AddRange(splines);
+        _animationList.AddRange(animations);
     }
 
     public override void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView)
@@ -86,6 +94,15 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
 
         foreach (var effect in _effectsToChange)
             effect.ChangeEffectSpeed(0, _effectSlowDuration);
+
+        foreach (var sound in _soundList)
+            sound.ChangeAudioPitch(0, _effectSlowDuration);
+
+        foreach (var spline in _splineList)
+            spline.ChangeSpeed(0, _effectSlowDuration);
+
+        foreach (var animation in _animationList)
+            animation.ChangeSpeed(0, _effectSlowDuration);
     }
 
     private void OnStepEnded() => IncreaseCurrentStepCount();
@@ -106,6 +123,15 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
 
             foreach (var effect in _effectsToChange)
                 effect.ChangeEffectSpeed(1, _effectSpeedUpDuration);
+
+            foreach (var sound in _soundList)
+                sound.ChangeAudioPitch(sound.InitialPitch, _effectSpeedUpDuration);
+
+            foreach (var spline in _splineList)
+                spline.ChangeSpeed(spline.InitialSpeed, _effectSpeedUpDuration);
+
+            foreach (var animation in _animationList)
+                animation.ChangeSpeed(animation.InitialSpeed, _effectSlowDuration);
         }
     }
 }

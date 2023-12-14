@@ -11,7 +11,13 @@ public class TheWorldCommand : AbilityCommand
     {
         _theWorld = theWorld;
         _yellowGhost = yellowGhost;
-        _theWorld.AddSceneParticles(_yellowGhost.SceneEffects.ToList());
+        _theWorld.AddSceneEffectsToChange
+            (
+            _yellowGhost.SceneEffects.ToList(), 
+            _yellowGhost.SceneSounds.ToList(), 
+            _yellowGhost.SceneSplines.ToList(), 
+            _yellowGhost.SceneAnimations.ToList()
+            );
     }
 
     protected override IEnumerator WaitOfExecute()
