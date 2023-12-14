@@ -161,11 +161,11 @@ public class CharacterView : MonoBehaviour
 
     private void TryLockSelectCharacter()
     {
-        if (_character.IsSelect)
+        /*if (_character.IsSelect)
             _selectButton.interactable = false;
 
         else
-            _selectButton.interactable = true;
+            _selectButton.interactable = true;*/
     }
 
     private void OnUpgradeButtonClicked()

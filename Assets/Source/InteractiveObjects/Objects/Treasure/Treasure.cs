@@ -10,6 +10,7 @@ public class Treasure : InteractiveObject
     [SerializeField] private AudioSource _chestSource;
     [SerializeField] private AudioSource _lockSource;
     [SerializeField] private AudioSource _closeSource;
+    [SerializeField] private ParticleSystem _particle;
 
     private Animator _animator;
     private bool _treasureAccquired;
@@ -34,6 +35,7 @@ public class Treasure : InteractiveObject
         _view.Hide();
         _lockSource.Play();
         _chestSource.Play();
+        _particle.Stop();
         Open();
         _closed = false;
         _treasureAccquired = true;

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 0
   _price: 15
-  _icon: {fileID: 21300000, guid: 98208f5ddff1aad42824841c48fd24bf, type: 3}
+  _icon: {fileID: 21300000, guid: 11778157c8ec118468c77bd5f4a1d49d, type: 3}
   _player: {fileID: 8387496975907236927, guid: 5e34add410b20064583d11f9970347ec, type: 3}
   _menuPlayerModelTemplate: {fileID: 2595864535315199851, guid: 8dd5221ea458da84e8226ab5df5967ed, type: 3}
   _isBought: 0

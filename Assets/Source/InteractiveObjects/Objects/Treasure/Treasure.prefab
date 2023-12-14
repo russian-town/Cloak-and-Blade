@@ -1059,7 +1059,7 @@ Transform:
   - {fileID: 8993037470810983031}
   - {fileID: 9059285941687120748}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -165, z: 0}
 --- !u!95 &5931285255057419785
 Animator:
@@ -1104,6 +1104,7 @@ MonoBehaviour:
   _chestSource: {fileID: 7879705686594046978}
   _lockSource: {fileID: 897848825542517849}
   _closeSource: {fileID: 8392029579599665721}
+  _particle: {fileID: 2719640140807860196}
 --- !u!82 &7879705686594046978
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1334,7 +1335,7 @@ PrefabInstance:
       objectReference: {fileID: 4300002, guid: 1563fdf2f6b218b48a3b4093285c1a08, type: 3}
     - target: {fileID: 8466165720637054662, guid: 32bc92ae732112542923712e3cba689d, type: 3}
       propertyPath: m_Name
-      value: KeyGlow
+      value: ChestGlow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1344,6 +1345,11 @@ PrefabInstance:
       addedObject: {fileID: 750055043207309376}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32bc92ae732112542923712e3cba689d, type: 3}
+--- !u!198 &2719640140807860196 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 206371606743087332, guid: 32bc92ae732112542923712e3cba689d, type: 3}
+  m_PrefabInstance: {fileID: 2838173412685977344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9059285941687120748 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6546610148543587436, guid: 32bc92ae732112542923712e3cba689d, type: 3}

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c7ecf1c59ff4df948b955c28c01824b2
+guid: bb8f63e11208e17489a3a27b9f015986
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,11 +49,11 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 60, z: 0, w: 60}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -121,48 +121,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Trap_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 254
-        height: 254
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 60, z: 0, w: 60}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ff41ce7a0e8cf8248907c9bdbe142213
-      internalID: 438543304
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    outline:
-    - - {x: -118.33966, y: -67}
-      - {x: -119, y: 67}
-      - {x: 120.33966, y: 67}
-      - {x: 121, y: -67}
-    physicsShape:
-    - - {x: -117, y: -68}
-      - {x: -117, y: 67}
-      - {x: 124, y: 67}
-      - {x: 124, y: -68}
+    sprites: []
+    outline: []
+    physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Trap_0: 438543304
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

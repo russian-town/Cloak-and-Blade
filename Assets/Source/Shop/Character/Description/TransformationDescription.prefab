@@ -72,7 +72,7 @@ MonoBehaviour:
 
 
 
-    Improving an ability increases
+    Upgrading an ability increases
     its duration.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41ee7723a43895444a8bf4d80a6d76a1, type: 2}

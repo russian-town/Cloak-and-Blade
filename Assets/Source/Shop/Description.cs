@@ -8,11 +8,17 @@ public class Description : MonoBehaviour
 
     public void Show()
     {
+        if (_animationHandler.IsEnabled)
+            return;
+
         _animationHandler.ScreenFadeIn();
     }
 
     public void Hide()
     {
+        if (!_animationHandler.IsEnabled)
+            return;
+
         _animationHandler.ScreenFadeOut();
     }
 }

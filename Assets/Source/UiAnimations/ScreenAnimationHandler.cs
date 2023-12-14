@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using System;
+using System.Runtime.CompilerServices;
 
 public class ScreenAnimationHandler : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class ScreenAnimationHandler : MonoBehaviour
 
     public event Action ScreenEnabled;
 
+    public bool IsEnabled { get; private set; }
+
     private void Awake()
     {
         _initialPosition = _rectTransform.localPosition;
@@ -22,6 +25,7 @@ public class ScreenAnimationHandler : MonoBehaviour
 
     public void ScreenFadeIn()
     {
+        IsEnabled = true;
         _canvasGroup.alpha = 0;
         _canvasGroup.interactable = true;
         _canvasGroup.blocksRaycasts = true;
@@ -38,6 +42,7 @@ public class ScreenAnimationHandler : MonoBehaviour
 
     public void ScreenFadeOut()
     {
+        IsEnabled = false;
         _canvasGroup.interactable = false;
         _canvasGroup.blocksRaycasts = false;
 
