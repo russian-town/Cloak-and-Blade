@@ -5,23 +5,27 @@ public class Character : ScriptableObject, IDataReader, IDataWriter
 {
     [SerializeField] private Type _type;
     [SerializeField] private int _price;
-    [SerializeField] private Sprite _icon;
+    [SerializeField] private Sprite _unlockedIcon;
+    [SerializeField] private Sprite _lockedIcon;
     [SerializeField] private Player _player;
     [SerializeField] private MenuModel _menuPlayerModelTemplate;
     [SerializeField] private bool _isBought = false;
     [SerializeField] private bool _isSelect = false;
     [SerializeField] private Description _description;
     [SerializeField] private UpgradeSetter _upgradeSetter;
+    [SerializeField] private Color _effectColor;
 
     public Type Type => _type;
     public int Price => _price;
-    public Sprite Icon => _icon;
+    public Sprite UnlockedIcon => _unlockedIcon;
+    public Sprite LockedIcon => _lockedIcon;
     public bool IsBought => _isBought;
     public bool IsSelect => _isSelect;
     public Player Player => _player;
     public MenuModel MenuModelTemplate => _menuPlayerModelTemplate;
     public Description Description => _description;
     public UpgradeSetter UpgradeSetter => _upgradeSetter;
+    public Color EffectColor => _effectColor;
 
     public void Buy() => _isBought = true;
 

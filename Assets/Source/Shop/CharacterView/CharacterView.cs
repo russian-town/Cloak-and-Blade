@@ -19,6 +19,7 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _fallingChainsSound;
     [SerializeField] private CharacterViewSoundHandler _soundHandler;
+    [SerializeField] private List<ParticleSystem> _selectionEffects = new List<ParticleSystem>();
 
     private Character _character;
     private Description _description;
@@ -51,16 +52,27 @@ public class CharacterView : MonoBehaviour
         _descriptionButton.onClick.RemoveListener(OnDescriptionButtonClicked);
         _upgradeButton.onClick.RemoveListener(OnUpgradeButtonClicked);
     }
-    
 
-    public void Render(Sprite icon, Character character, Description description, Wallet wallet)
+
+    public void Render(Sprite unlokedIcon, Sprite lokedIcon, Character character, Description description, Wallet wallet)
     {
-        _image.sprite = icon;
         _character = character;
+
+        if (_character.IsBought)
+            _image.sprite = unlokedIcon;
+        else
+            _image.sprite = lokedIcon;
+
         _upgradeSetter = _character.UpgradeSetter;
         _description = description;
         _description.Hide();
         _wallet = wallet;
+
+        foreach (var selectionEffect in _selectionEffects)
+        {
+            var main = selectionEffect.main;
+            main.startColor = _character.EffectColor;
+        }
     }
 
     private void ResetView()
@@ -83,6 +95,9 @@ public class CharacterView : MonoBehaviour
 
     public void RemoveChains()
     {
+        if (_chainFallCoroutine != null)
+            StopCoroutine(_chainFallCoroutine);
+
         _chainFallCoroutine = StartCoroutine(RemoveChainsWithPause());
     }
 
@@ -112,16 +127,20 @@ public class CharacterView : MonoBehaviour
                 chain.gameObject.SetActive(true);
     }
 
+    public void UnlockCharacter() => _image.sprite = _character.UnlockedIcon;
+
     private IEnumerator RemoveChainsWithPause()
     {
         _source.clip = _fallingChainsSound;
 
-        foreach(var chain in _chains)
+        foreach (var chain in _chains)
         {
             _source.Play();
             chain.PlayFallAnimation();
             yield return _pauseBetweenChainFall;
         }
+
+        _chainFallCoroutine = null;
     }
 
     private void UpdateStars()
@@ -166,6 +185,13 @@ public class CharacterView : MonoBehaviour
 
         else
             _selectButton.interactable = true;*/
+
+        if (_character.IsSelect)
+            foreach (var selectionEffect in _selectionEffects)
+                selectionEffect.Play();
+        else
+            foreach (var selectionEffect in _selectionEffects)
+                selectionEffect.Stop();
     }
 
     private void OnUpgradeButtonClicked()
