@@ -19,7 +19,7 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _fallingChainsSound;
     [SerializeField] private CharacterViewSoundHandler _soundHandler;
-    [SerializeField] private Image _selectedImage;
+    [SerializeField] private SelectedImageFader _selectedImage;
 
     private Character _character;
     private Description _description;
@@ -61,7 +61,7 @@ public class CharacterView : MonoBehaviour
         _description = description;
         _description.Hide();
         _wallet = wallet;
-        _selectedImage.color = _character.EffectColor;
+        _selectedImage.SetColor(_character.EffectColor);
     }
 
     public void UpdateView()
@@ -173,16 +173,10 @@ public class CharacterView : MonoBehaviour
 
     private void TryLockSelectCharacter()
     {
-        /*if (_character.IsSelect)
-            _selectButton.interactable = false;
-
-        else
-            _selectButton.interactable = true;*/
-
         if (_character.IsSelect)
-            _selectedImage.enabled = true;
+            _selectedImage.ChangeAlpha(1);
         else
-            _selectedImage.enabled = false;
+            _selectedImage.ChangeAlpha(0);
     }
 
     private void OnUpgradeButtonClicked()

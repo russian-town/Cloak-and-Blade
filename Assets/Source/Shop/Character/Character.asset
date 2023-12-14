@@ -22,4 +22,4 @@ MonoBehaviour:
   _isSelect: 0
   _description: {fileID: -1749032107755278061, guid: 9c035798da132234c9bcb69eed0b8b74, type: 3}
   _upgradeSetter: {fileID: 11400000, guid: 6fda382f50b613d4981b67a4fa0cb38a, type: 2}
-  _effectColor: {r: 0.9528302, g: 0.20225172, b: 0.20225172, a: 1}
+  _effectColor: {r: 1, g: 0.96862745, b: 0.6745098, a: 1}
