@@ -54,7 +54,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             CharacterView characterView = Instantiate(_characterView, _parent.transform);
             Description description = Instantiate(character.Description);
             _upgrader.Initialize(description);
-            characterView.Render(character.UnlockedIcon, character.LockedIcon, character, description, _wallet);
+            characterView.Render(character, description, _wallet);
             _characterViews.Add(characterView);
             characterView.SellButtonClicked += OnSellButtonClick;
             characterView.SelectButtonClicked += OnSelectButtonClick;

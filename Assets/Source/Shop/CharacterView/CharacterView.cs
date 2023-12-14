@@ -19,7 +19,7 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _fallingChainsSound;
     [SerializeField] private CharacterViewSoundHandler _soundHandler;
-    [SerializeField] private List<ParticleSystem> _selectionEffects = new List<ParticleSystem>();
+    [SerializeField] private Image _selectedImage;
 
     private Character _character;
     private Description _description;
@@ -54,31 +54,14 @@ public class CharacterView : MonoBehaviour
     }
 
 
-    public void Render(Sprite unlokedIcon, Sprite lokedIcon, Character character, Description description, Wallet wallet)
+    public void Render(Character character, Description description, Wallet wallet)
     {
         _character = character;
-
-        if (_character.IsBought)
-            _image.sprite = unlokedIcon;
-        else
-            _image.sprite = lokedIcon;
-
         _upgradeSetter = _character.UpgradeSetter;
         _description = description;
         _description.Hide();
         _wallet = wallet;
-
-        foreach (var selectionEffect in _selectionEffects)
-        {
-            var main = selectionEffect.main;
-            main.startColor = _character.EffectColor;
-        }
-    }
-
-    private void ResetView()
-    {
-        for (int i = 0; i < Constants.MaxLevel; i++)
-            _stars[i].gameObject.SetActive(false);
+        _selectedImage.color = _character.EffectColor;
     }
 
     public void UpdateView()
@@ -89,7 +72,7 @@ public class CharacterView : MonoBehaviour
         if (_stars.Count == 0)
             return;
 
-        ResetView();
+        ResetStarsView();
         UpdateStars();
     }
 
@@ -129,6 +112,12 @@ public class CharacterView : MonoBehaviour
 
     public void UnlockCharacter() => _image.sprite = _character.UnlockedIcon;
 
+    private void ResetStarsView()
+    {
+        for (int i = 0; i < Constants.MaxLevel; i++)
+            _stars[i].gameObject.SetActive(false);
+    }
+
     private IEnumerator RemoveChainsWithPause()
     {
         _source.clip = _fallingChainsSound;
@@ -160,6 +149,8 @@ public class CharacterView : MonoBehaviour
     {
         if (_character.IsBought)
         {
+            _image.sprite = _character.UnlockedIcon;
+
             if (_upgradeSetter.Level < Constants.MaxLevel)
             {
                 _sellButton.gameObject.SetActive(false);
@@ -169,6 +160,8 @@ public class CharacterView : MonoBehaviour
         }
         else
         {
+            _image.sprite = _character.LockedIcon;
+
             if (_upgradeSetter.Level < Constants.MaxLevel)
             {
                 _sellButton.gameObject.SetActive(true);
@@ -187,11 +180,9 @@ public class CharacterView : MonoBehaviour
             _selectButton.interactable = true;*/
 
         if (_character.IsSelect)
-            foreach (var selectionEffect in _selectionEffects)
-                selectionEffect.Play();
+            _selectedImage.enabled = true;
         else
-            foreach (var selectionEffect in _selectionEffects)
-                selectionEffect.Stop();
+            _selectedImage.enabled = false;
     }
 
     private void OnUpgradeButtonClicked()
