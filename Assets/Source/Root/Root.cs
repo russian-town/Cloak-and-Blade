@@ -1,6 +1,8 @@
 using Cinemachine;
+using Lean.Localization;
 using System;
 using System.Collections.Generic;
+using Agava.YandexGames;
 using UnityEngine;
 
 public class Root : MonoBehaviour, IInitializable
@@ -29,6 +31,7 @@ public class Root : MonoBehaviour, IInitializable
     [SerializeField] private WalletView _walletView;
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private Battery _battery;
+    [SerializeField] private LeanLocalization _localization;
 
     private readonly Saver _saver = new Saver();
     private readonly Wallet _wallet = new Wallet();
@@ -91,6 +94,19 @@ public class Root : MonoBehaviour, IInitializable
 
         foreach (var interactiveObject in _interactiveObjects)
             interactiveObject.Initialize(_player);
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        yield return YandexGamesSdk.Initialize();
+
+        if (YandexGamesSdk.Environment.i18n.lang == "en")
+            _localization.SetCurrentLanguage(Constants.English);
+
+        if (YandexGamesSdk.Environment.i18n.lang == "ru")
+            _localization.SetCurrentLanguage(Constants.Russian);
+
+        if (YandexGamesSdk.Environment.i18n.lang == "tr")
+            _localization.SetCurrentLanguage(Constants.Turkish);
+#endif
 
         _pause = new Pause(new List<IPauseHandler> { _inputView, _playerView, _player, _hourglass });
 

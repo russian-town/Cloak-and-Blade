@@ -15730,6 +15730,7 @@ MonoBehaviour:
   _walletView: {fileID: 6197979557493415300}
   _loadingScreen: {fileID: 1805916735437422751}
   _battery: {fileID: 6154838405200349480}
+  _localization: {fileID: 2284771368804295580}
 --- !u!1 &4933249905461279240
 GameObject:
   m_ObjectHideFlags: 0

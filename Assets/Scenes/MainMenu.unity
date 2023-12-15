@@ -948,7 +948,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 91.6
+  m_fontSize: 91.5
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1346,7 +1346,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.85
+  m_fontSize: 99.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3191,7 +3191,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -3691065548320451500, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
   m_audioClip: {fileID: 8300000, guid: af962343bbde78a4c95fae9fd66ef622, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5564,7 +5564,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7202782730146613640, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.243
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5896,7 +5896,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.85
+  m_fontSize: 99.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6704,7 +6704,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7202782730146613640, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.243
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -16073,7 +16073,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7202782730146613640, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.243
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -18094,7 +18094,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.85
+  m_fontSize: 99.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
