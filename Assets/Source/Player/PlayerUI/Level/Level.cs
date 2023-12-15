@@ -4,14 +4,16 @@ using UnityEngine;
 public class Level : ScriptableObject, IDataReader, IDataWriter
 {
     [SerializeField] private string _name;
-    [SerializeField] private Sprite _preview;
+    [SerializeField] private Sprite _unlockedPreview;
+    [SerializeField] private Sprite _lockedPreview;
     [SerializeField] private bool _isOpen;
     [SerializeField] private bool _isCompleted;
 
     private int _starsCount;
 
     public string Name => _name;
-    public Sprite Preview => _preview;
+    public Sprite UnlockedPreview => _unlockedPreview;
+    public Sprite LockedPreview => _lockedPreview;
     public bool IsOpen => _isOpen;
     public bool IsCompleted => _isCompleted;
     public int StarsCount => _starsCount;

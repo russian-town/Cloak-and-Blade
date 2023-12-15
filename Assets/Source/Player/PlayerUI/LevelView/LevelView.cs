@@ -27,7 +27,12 @@ public class LevelView : MonoBehaviour
     public void Render(Level level)
     {
         _level = level;
-        _preview.sprite = _level.Preview;
+
+        if (_level.IsOpen)
+            _preview.sprite = _level.UnlockedPreview;
+        else
+            _preview.sprite = _level.LockedPreview;
+
         _lock.gameObject.SetActive(!_level.IsOpen);
 
         if (_level.IsCompleted == false)
