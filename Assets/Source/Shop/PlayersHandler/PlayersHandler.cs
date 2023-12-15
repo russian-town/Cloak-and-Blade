@@ -5,7 +5,7 @@ public class PlayersHandler : MonoBehaviour, IDataReader, IDataWriter
 {
     [SerializeField] private List<Player> _playerTemplates = new List<Player>();
     [SerializeField] private Player _defaultPlayerTemplate;
-    [SerializeField] private List<EffectChangeHanldler> _effectChangeHanldlers = new List<EffectChangeHanldler>();
+    [SerializeField] private List<EffectChangeHanldler> _effectList = new List<EffectChangeHanldler>();
     [SerializeField] private List<SoundChangeHandler> _soundList = new List<SoundChangeHandler>();
     [SerializeField] private List<SplineChangeHandler> _splineList = new List<SplineChangeHandler>();
     [SerializeField] private List<AnimationChangeHandler> _animationList = new List<AnimationChangeHandler>();
@@ -28,11 +28,11 @@ public class PlayersHandler : MonoBehaviour, IDataReader, IDataWriter
             player = (Player)spawner.Get(playerSpawnCell, _defaultPlayerTemplate);
         }
 
-        if (_effectChangeHanldlers.Count == 0)
+        if (_effectList.Count == 0 && _soundList.Count == 0 && _splineList.Count == 0 && _animationList.Count == 0)
             return player;
 
         if (player is ISceneParticlesInfluencer sceneParticlesInfluencer)
-            sceneParticlesInfluencer.AddSceneEffectsToChange(_effectChangeHanldlers, _soundList, _splineList, _animationList);
+            sceneParticlesInfluencer.AddSceneEffectsToChange(_effectList, _soundList, _splineList, _animationList);
 
         return player;
     }

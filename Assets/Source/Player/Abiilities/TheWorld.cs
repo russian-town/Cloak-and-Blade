@@ -1,5 +1,6 @@
 using EntroPi;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMover))]
@@ -12,7 +13,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     [SerializeField] private float _effectSlowDuration;
     [SerializeField] private float _effectSpeedUpDuration;
     [SerializeField] private ParticleSystem _burstActionEffect;
-    [SerializeField] private List<EffectChangeHanldler> _effectsToChange = new List<EffectChangeHanldler>();
+    [SerializeField] private List<EffectChangeHanldler> _effectsList = new List<EffectChangeHanldler>();
     [SerializeField] private List<SoundChangeHandler> _soundList = new List<SoundChangeHandler>();
     [SerializeField] private List<SplineChangeHandler> _splineList = new List<SplineChangeHandler>();
     [SerializeField] private List<AnimationChangeHandler> _animationList = new List<AnimationChangeHandler>();
@@ -37,13 +38,10 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
 
     public void AddSceneEffectsToChange(List<EffectChangeHanldler> effects, List<SoundChangeHandler> sounds, List<SplineChangeHandler> splines, List<AnimationChangeHandler> animations)
     {
-        if (effects.Count == 0)
-            return;
-
-        _effectsToChange.AddRange(effects);
-        _soundList.AddRange(sounds);
-        _splineList.AddRange(splines);
-        _animationList.AddRange(animations);
+            _effectsList.AddRange(effects);
+            _soundList.AddRange(sounds);
+            _splineList.AddRange(splines);
+            _animationList.AddRange(animations);
     }
 
     public override void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView)
@@ -86,13 +84,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
         _attacker.Attack(AttackType.Freeze);
         _burstActionEffect.Play();
 
-        if (_effectsToChange.Count == 0)
-        {
-            print("poop");
-            return;
-        }
-
-        foreach (var effect in _effectsToChange)
+        foreach (var effect in _effectsList)
             effect.ChangeEffectSpeed(0, _effectSlowDuration);
 
         foreach (var sound in _soundList)
@@ -121,7 +113,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
             _playerView.Cansel();
             _playerView.EnableAbilityButton();
 
-            foreach (var effect in _effectsToChange)
+            foreach (var effect in _effectsList)
                 effect.ChangeEffectSpeed(1, _effectSpeedUpDuration);
 
             foreach (var sound in _soundList)
