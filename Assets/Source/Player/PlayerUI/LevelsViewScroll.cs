@@ -1,8 +1,18 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelsViewScroll : MonoBehaviour
 {
-    public void Show() => gameObject.SetActive(true);
+    [SerializeField] private ScreenAnimationHandler _screen;
+    [SerializeField] private Image _blackOut;
 
-    public void Hide() => gameObject.SetActive(false);
+    public void Show()
+    {
+        _screen.FadeIn();
+    }
+
+    public void Hide()
+    {
+        _screen.FadeOut();
+    }
 }

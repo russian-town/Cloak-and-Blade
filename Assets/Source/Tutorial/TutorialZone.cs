@@ -27,14 +27,14 @@ public class TutorialZone : InteractiveObject
         if (!CheckInteractionPossibility() || _isZonePassed)
             return;
 
-        _view.ScreenFadeIn();
+        _view.FadeIn();
         _playerUI.Hide();
         _isZonePassed = true;
     }
 
     public override void Interact()
     {
-        _view.ScreenFadeOut();
+        _view.FadeOut();
         _playerUI.Show();
         _closeButton.onClick.RemoveListener(() => Interact());
         ZonePassed?.Invoke();

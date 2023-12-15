@@ -15,12 +15,12 @@ public abstract class ViewPanel : MonoBehaviour
 
     public virtual void Show()
     {
-        _animationHandler.ScreenFadeIn();
+        _animationHandler.FadeIn();
     }
 
     public virtual void Hide() 
     {
-        _animationHandler.ScreenFadeOut();
+        _animationHandler.FadeOut();
     } 
 
     public virtual void Initialize()

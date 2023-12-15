@@ -23,7 +23,7 @@ public class ScreenAnimationHandler : MonoBehaviour
         _initialPosition = _rectTransform.localPosition;
     }
 
-    public void ScreenFadeIn()
+    public void FadeIn()
     {
         IsEnabled = true;
         _canvasGroup.alpha = 0;
@@ -40,7 +40,7 @@ public class ScreenAnimationHandler : MonoBehaviour
         ScreenEnabled?.Invoke();
     }
 
-    public void ScreenFadeOut()
+    public void FadeOut()
     {
         IsEnabled = false;
         _canvasGroup.interactable = false;

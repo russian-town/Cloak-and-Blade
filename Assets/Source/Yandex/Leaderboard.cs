@@ -57,7 +57,7 @@ public class LeaderBoard : MonoBehaviour
 
         ShowPlayer();
         BuildLeaderBoard();
-        _animationHandler.ScreenFadeIn();
+        _animationHandler.FadeIn();
     }
 
     private void ShowPlayer()

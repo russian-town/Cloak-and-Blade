@@ -16,11 +16,11 @@ public class AuthorizationReqScreen : MonoBehaviour
 
     public void Enable()
     {
-        _animationHandler.ScreenFadeIn();
+        _animationHandler.FadeIn();
     }
 
     public void Disable()
     {
-        _animationHandler.ScreenFadeOut();
+        _animationHandler.FadeOut();
     }
 }

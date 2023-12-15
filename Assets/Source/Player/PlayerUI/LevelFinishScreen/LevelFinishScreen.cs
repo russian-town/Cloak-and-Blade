@@ -37,12 +37,12 @@ public class LevelFinishScreen : MonoBehaviour
 
     public void Show()
     {
-        _animationHandler.ScreenFadeIn();
+        _animationHandler.FadeIn();
     }
 
     public void Hide() 
     {
-        _animationHandler.ScreenFadeOut();
+        _animationHandler.FadeOut();
     } 
 
     private void OnRewardedButtonClick()

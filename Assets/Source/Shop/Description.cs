@@ -11,7 +11,7 @@ public class Description : MonoBehaviour
         if (_animationHandler.IsEnabled)
             return;
 
-        _animationHandler.ScreenFadeIn();
+        _animationHandler.FadeIn();
     }
 
     public void Hide()
@@ -19,6 +19,6 @@ public class Description : MonoBehaviour
         if (!_animationHandler.IsEnabled)
             return;
 
-        _animationHandler.ScreenFadeOut();
+        _animationHandler.FadeOut();
     }
 }

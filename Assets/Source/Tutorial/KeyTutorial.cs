@@ -27,13 +27,13 @@ public class KeyTutorial : MonoBehaviour
             return;
 
         _playerUI.Hide();
-        _keyGuide.ScreenFadeIn();
+        _keyGuide.FadeIn();
         _chestButton.onClick.RemoveListener(() => ShowTutorialScreen());
     }
 
     public void Close()
     {
         _playerUI.Show();
-        _keyGuide.ScreenFadeOut();
+        _keyGuide.FadeOut();
     }
 }

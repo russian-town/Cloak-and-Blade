@@ -23,13 +23,13 @@ public class ChestTutorial : MonoBehaviour
     public void ShowTutorialScreen()
     {
         _playerUI.Hide();
-        _chestGuide.ScreenFadeIn();
+        _chestGuide.FadeIn();
         _keyButton.onClick.RemoveListener(() => ShowTutorialScreen());
     }
 
     public void Close()
     {
         _playerUI.Show();
-        _chestGuide.ScreenFadeOut();
+        _chestGuide.FadeOut();
     }
 }
