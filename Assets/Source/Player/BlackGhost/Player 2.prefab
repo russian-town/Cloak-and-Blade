@@ -19586,7 +19586,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7202782730146613640, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
   m_audioClip: {fileID: 8300000, guid: 269e371258eb45347a9a0fb155a21f75, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -29814,7 +29814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a6153456dd68a843af6c57bd699242a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveRange: 2
+  _moveRange: 3
   _delay: 0.2
   _moveSpeed: 3
   _rotationSpeed: 360
@@ -34803,7 +34803,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7202782730146613640, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
   m_audioClip: {fileID: 8300000, guid: 2fc9bad549263dc42bfee8b8bd07da48, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.03
+  m_Volume: 0.04
   m_Pitch: 1
   Loop: 1
   Mute: 0
