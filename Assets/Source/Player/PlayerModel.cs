@@ -5,6 +5,7 @@ public class PlayerModel : MonoBehaviour
 {
     [SerializeField] private DecoyModel[] _decoyModels;
     [SerializeField] private ParticleSystem _transformationEffect;
+    [SerializeField] private ParticleSystem _mimicEffect;
 
     private Animator _animator;
     private DecoyModel _currentDecoy;
@@ -21,7 +22,12 @@ public class PlayerModel : MonoBehaviour
 
     public void Show() => gameObject.SetActive(true);
 
-    public void PlayEffect() => _transformationEffect.Play();
+    public void PlayEffect()
+    {
+        _mimicEffect.gameObject.SetActive(true);
+        _mimicEffect.Play();
+        _transformationEffect.Play();
+    } 
 
     public void TransformToDecoy()
     {
@@ -31,6 +37,7 @@ public class PlayerModel : MonoBehaviour
     public void SwitchBack()
     {
         transform.localPosition = _baseLocalPosition;
+        _mimicEffect.gameObject.SetActive(false);
         _currentDecoy.Hide();
         _transformationEffect.Play();
         Show();

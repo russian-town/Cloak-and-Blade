@@ -39,7 +39,7 @@ public class Blink : Ability
 
     public override void Cancel()
     {
-        _playerView.Cansel();
+        _playerView.Cancel();
         _playerView.EnableAbilityButton();
         HideBlinkRange();
         _prepareEffect.Stop();

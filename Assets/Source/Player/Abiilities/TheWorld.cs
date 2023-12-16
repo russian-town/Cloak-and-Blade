@@ -110,7 +110,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
             _source.Play();
             _attacker.Attack(AttackType.UnFreeze);
             _player.StepEnded -= OnStepEnded;
-            _playerView.Cansel();
+            _playerView.Cancel();
             _playerView.EnableAbilityButton();
 
             foreach (var effect in _effectsList)

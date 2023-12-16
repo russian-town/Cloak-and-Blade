@@ -121,7 +121,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
             Subscribe();
     }
 
-    public void Cansel() => _canSwitchInteractable = true;
+    public void Cancel() => _canSwitchInteractable = true;
 
     public void EnableAbilityButton()
     {

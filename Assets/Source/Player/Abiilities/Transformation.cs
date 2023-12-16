@@ -40,7 +40,7 @@ public class Transformation : Ability
 
     public override void Cancel()
     {
-        _playerView.Cansel();
+        _playerView.Cancel();
         _playerView.EnableAbilityButton();
         _model.SwitchBack();
         _currentCell.Content.BecomeEmpty();
