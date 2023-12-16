@@ -96,8 +96,6 @@ public class Root : MonoBehaviour, IInitializable
             interactiveObject.Initialize(_player);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        yield return YandexGamesSdk.Initialize();
-
         if (YandexGamesSdk.Environment.i18n.lang == "en")
             _localization.SetCurrentLanguage(Constants.English);
 
