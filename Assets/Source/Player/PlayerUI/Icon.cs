@@ -40,6 +40,8 @@ public class Icon : MonoBehaviour
     {
         if (_shakingSequence != null)
             _shakingSequence.Kill();
+
+        _shakingSequence = null;
     }
 
     public void ChangeSprite(Sprite sprite) => _image.sprite = sprite;
