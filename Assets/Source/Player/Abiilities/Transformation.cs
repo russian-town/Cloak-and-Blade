@@ -5,6 +5,9 @@ public class Transformation : Ability
 {
     [SerializeField] private int _useLimit = 1;
     [SerializeField] private PlayerModel _model;
+    [SerializeField] private AudioSource _whisperSound;
+    [SerializeField] private AudioSource _laughterSound;
+    [SerializeField] private AudioSource _castSound;
 
     private PlayerAttacker _attacker;
     private Player _player;
@@ -32,6 +35,9 @@ public class Transformation : Ability
 
         _playerView.DisableAbilityButton();
         _model.TransformToDecoy();
+        _whisperSound.Play();
+        _laughterSound.Play();
+        _castSound.Play();
         _attacker.Attack(AttackType.Blind);
         _currentCell = _player.CurrentCell;
         _currentCell.Content.BecomeWall();
@@ -43,6 +49,9 @@ public class Transformation : Ability
         _playerView.Cancel();
         _playerView.EnableAbilityButton();
         _model.SwitchBack();
+        _whisperSound.Stop();
+        _laughterSound.Stop();
+        _castSound.Stop();
         _currentCell.Content.BecomeEmpty();
         _attacker.Attack(AttackType.UnBlind);
         Prepared = false;
