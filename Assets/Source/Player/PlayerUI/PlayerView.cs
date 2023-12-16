@@ -136,9 +136,17 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _abilityIcon.Interactable(false);
     }
 
-    private void OnAbilityUsed() => _abilityIcon.ChangeSprite(_rewardedImage);
+    private void OnAbilityUsed()
+    {
+        _abilityIcon.ChangeSprite(_rewardedImage);
+        _abilityIcon.PlayShakeEffect();
+    } 
 
-    private void OnAbilityReseted() => _abilityIcon.ChangeSprite(_player.AbilityIcon);
+    private void OnAbilityReseted()
+    {
+        _abilityIcon.ChangeSprite(_player.AbilityIcon);
+        _abilityIcon.StopShaking();
+    } 
 
     private void OnMoveClick() => _player.PrepareMove();
 

@@ -827,6 +827,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b899fd62566514ea32be8576617faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shakingDuration: 0
+  _shakingStrength: 0
+  _shakingVibrato: 0
+  _shakingRandomness: 0
+  _shakingDelay: 0
 --- !u!1 &1117665238615768962
 GameObject:
   m_ObjectHideFlags: 0
@@ -6150,6 +6155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b899fd62566514ea32be8576617faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shakingDuration: 0
+  _shakingStrength: 0
+  _shakingVibrato: 0
+  _shakingRandomness: 0
+  _shakingDelay: 0
 --- !u!1 &1726172404855958726
 GameObject:
   m_ObjectHideFlags: 0
@@ -11897,22 +11907,7 @@ MonoBehaviour:
   - {fileID: 8387496975907236927, guid: 5e34add410b20064583d11f9970347ec, type: 3}
   - {fileID: -3964058449434916353, guid: ee7284e9bafef4b4bb6c2e07dce44fc2, type: 3}
   _defaultPlayerTemplate: {fileID: 4968454722151075018, guid: da937d1744d6aa34585d65f71770df9d, type: 3}
-  _effectChangeHanldlers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _effectList: []
   _soundList:
   - {fileID: 0}
   - {fileID: 0}
@@ -12287,6 +12282,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b899fd62566514ea32be8576617faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shakingDuration: 0
+  _shakingStrength: 0
+  _shakingVibrato: 0
+  _shakingRandomness: 0
+  _shakingDelay: 0
 --- !u!1 &2746837040468565731
 GameObject:
   m_ObjectHideFlags: 0
@@ -12543,6 +12543,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b899fd62566514ea32be8576617faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shakingDuration: 0
+  _shakingStrength: 0
+  _shakingVibrato: 0
+  _shakingRandomness: 0
+  _shakingDelay: 0
 --- !u!1 &2976608299401277104
 GameObject:
   m_ObjectHideFlags: 0
@@ -13254,6 +13259,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b899fd62566514ea32be8576617faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shakingDuration: 0
+  _shakingStrength: 0
+  _shakingVibrato: 0
+  _shakingRandomness: 0
+  _shakingDelay: 0
 --- !u!1 &3277500842425200482
 GameObject:
   m_ObjectHideFlags: 0
@@ -19619,6 +19629,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b899fd62566514ea32be8576617faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shakingDuration: 1.5
+  _shakingStrength: 3
+  _shakingVibrato: 7
+  _shakingRandomness: 45
+  _shakingDelay: 8
 --- !u!1 &8679997297004611900
 GameObject:
   m_ObjectHideFlags: 0
@@ -20462,7 +20477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6580180956377273763, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
