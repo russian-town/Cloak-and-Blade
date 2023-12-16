@@ -8,6 +8,7 @@ public class Transformation : Ability
     [SerializeField] private AudioSource _whisperSound;
     [SerializeField] private AudioSource _laughterSound;
     [SerializeField] private AudioSource _castSound;
+    [SerializeField] private AudioSource _switchBackSound;
 
     private PlayerAttacker _attacker;
     private Player _player;
@@ -52,6 +53,7 @@ public class Transformation : Ability
         _whisperSound.Stop();
         _laughterSound.Stop();
         _castSound.Stop();
+        _switchBackSound.Play();
         _currentCell.Content.BecomeEmpty();
         _attacker.Attack(AttackType.UnBlind);
         Prepared = false;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TransformationPropParticle : MonoBehaviour
@@ -9,5 +10,6 @@ public class TransformationPropParticle : MonoBehaviour
     private void PlayGlowProp()
     {
         _particle.transform.rotation = transform.rotation;
+        _particle.Play();
     } 
 }
