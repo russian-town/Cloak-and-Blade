@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(Player), typeof(Navigator))]
@@ -8,6 +9,7 @@ public class Blink : Ability
     [SerializeField] private int _blinkRange = 4;
     [SerializeField] private ParticleSystem _prepareEffect;
     [SerializeField] private ParticleSystem _actionEffect;
+    [SerializeField] private ParticleSystem _trailEffect;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _prepareSound;
     [SerializeField] private AudioClip _actionSound;
@@ -68,6 +70,9 @@ public class Blink : Ability
             _source.clip = _actionSound;
             _source.Play();
             _actionEffect.Play();
+            Vector3 targetEffectRotation = cell.transform.position - _trailEffect.transform.position;
+            _trailEffect.transform.rotation = Quaternion.LookRotation(targetEffectRotation);   
+            _trailEffect.Play();
         }
     }
 
