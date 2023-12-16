@@ -26,7 +26,7 @@ public class PlayerModel : MonoBehaviour
     {
         _mimicEffect.gameObject.SetActive(true);
         _mimicEffect.Play();
-        _transformationEffect.Play();
+/*        _transformationEffect.Play();*/
     } 
 
     public void TransformToDecoy()
