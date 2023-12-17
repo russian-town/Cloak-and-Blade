@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Desert/Desert-Easy.unity
     guid: 286e1d6b1bef35a4f9ce82c21cf8374a
   - enabled: 1
-    path: Assets/Scenes/Cathedral/Cathedral-1.unity
+    path: Assets/Scenes/Cathedral/Cathedral-Easy.unity
     guid: 0e58ac2fc58a30547b20e5c393cf209c
   - enabled: 1
     path: Assets/Scenes/Desert/Desert-Hard.unity
