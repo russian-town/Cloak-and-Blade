@@ -58,6 +58,7 @@ public class LevelExit : InteractiveObject, ILevelFinisher
         else
         {
             print("level not passed");
+            LevelPassed?.Invoke();
         }
     }
 

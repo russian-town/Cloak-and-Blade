@@ -14614,6 +14614,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   translationName: Restart
   FallbackText: Restart
+--- !u!1 &3935682600393172160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3877958063807857174}
+  - component: {fileID: 351233329210072784}
+  m_Layer: 0
+  m_Name: LevelsHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3877958063807857174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3935682600393172160}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2276782161095214370}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &351233329210072784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3935682600393172160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0b6f93726358040948a3b97b3440c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levels:
+  - {fileID: 11400000, guid: 02b0fed25eaed604ab93bc1cb5fcab26, type: 2}
+  - {fileID: 11400000, guid: bff535b2fceafce43bf16a71913aeebd, type: 2}
+  - {fileID: 11400000, guid: ed9e04a558154544885b751661c48b6b, type: 2}
+  - {fileID: 11400000, guid: e1542f36dd3b3ea4d802dbad1f975f29, type: 2}
+  - {fileID: 11400000, guid: b644d3e0bad222041818ccefa2b99bec, type: 2}
 --- !u!1 &3949643405841501314
 GameObject:
   m_ObjectHideFlags: 0
@@ -16896,7 +16946,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2626112049185734959
 Transform:
@@ -16931,6 +16981,7 @@ MonoBehaviour:
   _stepCounter: {fileID: 6767774014067091756}
   _scoreDefiner: {fileID: 5715900506087772183}
   _levelFinishScreen: {fileID: 7138661318906112904}
+  _levelsHandler: {fileID: 351233329210072784}
 --- !u!1 &6231249609109286749
 GameObject:
   m_ObjectHideFlags: 0
@@ -17886,7 +17937,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 0
 --- !u!224 &5561539270642379158
 RectTransform:
@@ -17986,7 +18037,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _exitButton: {fileID: 8675794680852372602}
   _doubleStarsForAdButton: {fileID: 7401797625404008772}
-  _animationHandler: {fileID: 4371176282260911196}
+  _nextLevelButton: {fileID: 456249413061146625}
+  _animationHandler: {fileID: 0}
 --- !u!225 &8508038697589724654
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -19502,6 +19554,7 @@ Transform:
   - {fileID: 3799542507342883789}
   - {fileID: 2378957061685428421}
   - {fileID: 2651854557686588269}
+  - {fileID: 3877958063807857174}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

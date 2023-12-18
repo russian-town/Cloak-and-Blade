@@ -21,10 +21,14 @@ public class LevelsHandler : MonoBehaviour
 
     public Level GetNextLevel()
     {
+        Debug.Log("Get next level");
+
         for (int i = 0; i < _levels.Count; i++)
             if (_levels[i].Name == SceneManager.GetActiveScene().name)
                 if (i + 1 < _levels.Count)
                     return _levels[i + 1];
+                else
+                    return _levels[0];
 
         return null;
     }
