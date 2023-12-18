@@ -114,7 +114,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
             _playerView.EnableAbilityButton();
 
             foreach (var effect in _effectsList)
-                effect.ChangeEffectSpeed(1, _effectSpeedUpDuration);
+                effect.ChangeEffectSpeed(effect.InitialValue, _effectSpeedUpDuration);
 
             foreach (var sound in _soundList)
                 sound.ChangeAudioPitch(sound.InitialPitch, _effectSpeedUpDuration);

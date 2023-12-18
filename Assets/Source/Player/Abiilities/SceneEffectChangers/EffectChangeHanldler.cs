@@ -8,10 +8,13 @@ public class EffectChangeHanldler : MonoBehaviour
     private ParticleSystem.MainModule _main;
     private Coroutine _changeSpeedOverTime;
 
+    public float InitialValue { get; private set; }
+
     private void Start()
     {
         _system = GetComponent<ParticleSystem>();
         _main = _system.main;
+        InitialValue = _main.simulationSpeed;
     }
 
     public void ChangeEffectSpeed(float value, float duration)
