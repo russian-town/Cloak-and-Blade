@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAttacker))]
@@ -42,6 +43,8 @@ public class Transformation : Ability
         _attacker.Attack(AttackType.Blind);
         _currentCell = _player.CurrentCell;
         _currentCell.Content.BecomeWall();
+        _player.SkipTurn();
+        _player.StepEnded += OnStepEnded;
         Prepared = true;
     }
 
@@ -56,6 +59,7 @@ public class Transformation : Ability
         _switchBackSound.Play();
         _currentCell.Content.BecomeEmpty();
         _attacker.Attack(AttackType.UnBlind);
+        _player.StepEnded -= OnStepEnded;
         Prepared = false;
     }
 
@@ -64,14 +68,13 @@ public class Transformation : Ability
         return _useLimit > 0;
     }
 
+    public override void ResetAbility() => _useLimit++;
+
     protected override void Action(Cell cell)
     {
         _useLimit--;
         _useLimit = Mathf.Clamp(_useLimit, 0, _maxUseLimit);
     }
 
-    public override void ResetAbility()
-    {
-        _useLimit++;
-    }
+    private void OnStepEnded() => Action(_currentCell);
 }
