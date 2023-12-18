@@ -14,6 +14,7 @@ public class PlantAnimationHandler : MonoBehaviour
     [SerializeField] private Ease _ease;
     [SerializeField] private Ease _easeBack;
 
+    private Vector3 _initialRotation;
     private bool _isInitialized;
     private Sequence sequence;
     private System.Random _random;
@@ -27,6 +28,8 @@ public class PlantAnimationHandler : MonoBehaviour
     private IEnumerator Initialize()
     {
         _random = new System.Random();
+        _initialRotation = _targetTransform.localRotation.eulerAngles;
+        print(_initialRotation);
         yield return StartLocalTween();
         _isInitialized = true;
     }
@@ -52,7 +55,7 @@ public class PlantAnimationHandler : MonoBehaviour
         sequence.AppendInterval(_delay);
 
         sequence.Append(_targetTransform
-            .DOLocalRotate(Vector3.zero, _period / 4)
+            .DOLocalRotate(_initialRotation, _period / 4)
             .SetEase(_easeBack));
 
         sequence.Append(_targetTransform
@@ -61,7 +64,7 @@ public class PlantAnimationHandler : MonoBehaviour
         sequence.AppendInterval(_delay);
 
         sequence.Append(_targetTransform
-            .DOLocalRotate(Vector3.zero, _period / 4)
+            .DOLocalRotate(_initialRotation, _period / 4)
             .SetEase(_easeBack));
 
         sequence.SetLoops(-1, LoopType.Restart);
