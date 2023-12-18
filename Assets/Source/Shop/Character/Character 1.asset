@@ -18,7 +18,7 @@ MonoBehaviour:
   _lockedIcon: {fileID: 21300000, guid: 6133aa4f808f54a4c9ade9a490849906, type: 3}
   _player: {fileID: 8387496975907236927, guid: 5e34add410b20064583d11f9970347ec, type: 3}
   _menuPlayerModelTemplate: {fileID: 2595864535315199851, guid: 8dd5221ea458da84e8226ab5df5967ed, type: 3}
-  _isBought: 0
+  _isBought: 1
   _isSelect: 0
   _description: {fileID: -1749032107755278061, guid: a2ae7ef113cd46143b1ef5112ef37818, type: 3}
   _upgradeSetter: {fileID: 11400000, guid: 56ddc6968867f0d469d96f8a076447d8, type: 2}

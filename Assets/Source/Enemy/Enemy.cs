@@ -101,6 +101,12 @@ public class Enemy : Ghost, IPauseHandler
         _previousCell = _mover.CurrentCell;
         _nextCell = _nextDeclaredCell;
 
+        if(_nextCell == _player.CurrentCell && _isBlind == true)
+        {
+            DeclareNextCell();
+            _nextCell = _nextDeclaredCell;
+        }
+
         if (_nextCell == _player.CurrentCell && _isBlind == false)
         {
             yield return _mover.StartRotate(_nextCell, _rotationSpeed);
@@ -179,7 +185,7 @@ public class Enemy : Ghost, IPauseHandler
             _currentDestinationIndex = 0;
 
         if (_destinations[_currentDestinationIndex] == _player.CurrentCell)
-            ChangeDestination();
+            Debug.Log("Poop");
 
         _currentDestination = _destinations[_currentDestinationIndex];
         DeclareNextCell();
