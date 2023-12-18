@@ -45,6 +45,7 @@ public class Transformation : Ability
         _currentCell.Content.BecomeWall();
         _player.SkipTurn();
         _player.StepEnded += OnStepEnded;
+        _playerView.HideMoveButton();
         Prepared = true;
     }
 

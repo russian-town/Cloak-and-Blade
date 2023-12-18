@@ -121,6 +121,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             characterView.RemoveChains();
             characterView.SoundHandler.PlayUnlock();
             characterView.UnlockCharacter();
+            TrySelectCaracter(character, characterView);
         }
         else
         {

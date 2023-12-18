@@ -184,12 +184,16 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     private void OnMoveEnded()
     {
+        UpdateAbilityState();
+        StepEnded?.Invoke();
+    }
+
+    private void UpdateAbilityState()
+    {
         if (AbilityCommand().IsUsed)
         {
             _battery.Disable();
             AbilityUsed?.Invoke();
         }
-
-        StepEnded?.Invoke();
     }
 }

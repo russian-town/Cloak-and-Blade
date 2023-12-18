@@ -34,7 +34,6 @@ public class Enemy : Ghost, IPauseHandler
     private int _south = 180;
     private int _west = 270;
     private bool _isBlind;
-    private Enemy _nextGhost;
 
     public bool IsFreeze { get; private set; }
 
@@ -54,8 +53,6 @@ public class Enemy : Ghost, IPauseHandler
         _sightHandler.Initialize(_zoneDrawer);
         AnnouncerDerection();
     }
-    
-    public void SetNextGhost(Enemy enemy) => _nextGhost = enemy;
 
     public void SetPause(bool isPause)
     {
@@ -176,11 +173,13 @@ public class Enemy : Ghost, IPauseHandler
 
     private void ChangeDestination()
     {
-        _mover.CurrentCell.BecomeUnoccupied();
         _currentDestinationIndex++;
 
         if(_currentDestinationIndex > _destinations.Length - 1)
             _currentDestinationIndex = 0;
+
+        if (_destinations[_currentDestinationIndex] == _player.CurrentCell)
+            ChangeDestination();
 
         _currentDestination = _destinations[_currentDestinationIndex];
         DeclareNextCell();

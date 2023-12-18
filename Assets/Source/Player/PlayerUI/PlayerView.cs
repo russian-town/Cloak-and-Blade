@@ -15,14 +15,17 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     [SerializeField] private Button _perspectiveCameraButton;
     [SerializeField] private List<Icon> _icons = new List<Icon>();
     [SerializeField] private Icon _abilityIcon;
+    [SerializeField] private Icon _moveIcon;
     [SerializeField] private Sprite _rewardedImage;
     [SerializeField] private AudioSource _tickTockSound;
 
     private Player _player;
     private CommandExecuter _commandExecuter;
     private CanvasGroup _canvasGroup;
-    private bool _canSwitchInteractable = true;
-    private bool _isInteractable;
+    private bool _canSwitchAbilityInteractable = true;
+    private bool _canSwitchMoveInteractable = true;
+    private bool _isAbilityInteractable;
+    private bool _isMoveInteractable;
 
     public event Action PauseButtonClicked;
 
@@ -63,6 +66,13 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         ShowInteravtiveButton();
     }
 
+    public void HideMoveButton()
+    {
+        _canSwitchMoveInteractable = false;
+        _move.interactable = false;
+        _moveIcon.Interactable(false);
+    }
+
     public void Show()
     {
         _canvasGroup.alpha = 1;
@@ -79,16 +89,22 @@ public class PlayerView : MonoBehaviour, IPauseHandler
 
     public void ShowInteravtiveButton()
     {
-        _isInteractable = true;
-        _move.interactable = true;
+        _isAbilityInteractable = true;
+        _isMoveInteractable = true;
         _skip.interactable = true;
 
-        if (_canSwitchInteractable == true)
+        if (_canSwitchMoveInteractable == true)
+            _move.interactable = true;
+
+        if (_canSwitchAbilityInteractable == true)
             _ability.interactable = true;
 
         foreach (var icon in _icons)
         {
-            if (icon == _abilityIcon && _canSwitchInteractable == false)
+            if (icon == _abilityIcon && _canSwitchAbilityInteractable == false)
+                continue;
+
+            if (icon == _moveIcon && _canSwitchMoveInteractable == false)
                 continue;
 
             icon.Interactable(true);
@@ -97,16 +113,21 @@ public class PlayerView : MonoBehaviour, IPauseHandler
 
     public void HideInteractiveButton()
     {
-        _isInteractable = false;
-        _move.interactable = false;
+        _isAbilityInteractable = false;
         _skip.interactable = false;
 
-        if (_canSwitchInteractable == true)
+        if (_canSwitchMoveInteractable == true)
+            _move.interactable = false;
+
+        if (_canSwitchAbilityInteractable == true)
             _ability.interactable = false;
 
         foreach (var icon in _icons)
         {
-            if (icon == _abilityIcon && _canSwitchInteractable == false)
+            if (icon == _abilityIcon && _canSwitchAbilityInteractable == false)
+                continue;
+
+            if (icon == _moveIcon && _canSwitchMoveInteractable == false)
                 continue;
 
             icon.Interactable(false);
@@ -121,17 +142,21 @@ public class PlayerView : MonoBehaviour, IPauseHandler
             Subscribe();
     }
 
-    public void Cancel() => _canSwitchInteractable = true;
+    public void Cancel()
+    {
+        _canSwitchAbilityInteractable = true;
+        _canSwitchMoveInteractable = true;
+    }
 
     public void EnableAbilityButton()
     {
-        _ability.interactable = _isInteractable;
-        _abilityIcon.Interactable(_isInteractable);
+        _ability.interactable = _isAbilityInteractable;
+        _abilityIcon.Interactable(_isAbilityInteractable);
     }
 
     public void DisableAbilityButton()
     {
-        _canSwitchInteractable = false;
+        _canSwitchAbilityInteractable = false;
         _ability.interactable = false;
         _abilityIcon.Interactable(false);
     }

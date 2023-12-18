@@ -19947,6 +19947,7 @@ MonoBehaviour:
   - {fileID: 2646437877361470857}
   - {fileID: 4645982732177539589}
   _abilityIcon: {fileID: 2646437877361470857}
+  _moveIcon: {fileID: 3577705446514664539}
   _rewardedImage: {fileID: 21300000, guid: fde47ea927b75424dbbeaa62cfd988d0, type: 3}
   _tickTockSound: {fileID: 0}
 --- !u!225 &9104746020703356027
