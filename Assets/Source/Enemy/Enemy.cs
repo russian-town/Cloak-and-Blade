@@ -52,7 +52,7 @@ public class Enemy : Ghost, IPauseHandler
         _gameBoard = gameboard;
         _zoneDrawer = enemyZoneDrawer;
         _sightHandler.Initialize(_zoneDrawer);
-        DeclareNextCell().View.Show();
+        AnnouncerDerection();
     }
     
     public void SetNextGhost(Enemy enemy) => _nextGhost = enemy;
@@ -125,6 +125,11 @@ public class Enemy : Ghost, IPauseHandler
             _previousCell.BecomeUnoccupied();
 
         _mover.CurrentCell.BecomeOccupied();
+        AnnouncerDerection();
+    }
+
+    private void AnnouncerDerection()
+    {
         Cell cell = DeclareNextCell();
         _announcer.rotation = Quaternion.Euler(Vector3.zero);
 
