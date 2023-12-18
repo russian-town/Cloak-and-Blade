@@ -1346,7 +1346,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.8
+  m_fontSize: 99.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5896,7 +5896,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.8
+  m_fontSize: 99.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -12853,6 +12853,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 02b0fed25eaed604ab93bc1cb5fcab26, type: 2}
   - {fileID: 11400000, guid: bff535b2fceafce43bf16a71913aeebd, type: 2}
   - {fileID: 11400000, guid: ed9e04a558154544885b751661c48b6b, type: 2}
+  - {fileID: 11400000, guid: 150c80e44ca91f043826c3556218d806, type: 2}
   - {fileID: 11400000, guid: e1542f36dd3b3ea4d802dbad1f975f29, type: 2}
   - {fileID: 11400000, guid: b644d3e0bad222041818ccefa2b99bec, type: 2}
   _levelViewTemplate: {fileID: 4540757903303104889, guid: 93992e7b16beeea4b9ff69dec7b9b854, type: 3}
@@ -18110,7 +18111,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.8
+  m_fontSize: 99.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
