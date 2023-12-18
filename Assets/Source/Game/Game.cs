@@ -10,6 +10,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
     [SerializeField] private StepCounter _stepCounter;
     [SerializeField] private ScoreDefiner _scoreDefiner;
     [SerializeField] private LevelFinishScreen _levelFinishScreen;
+    [SerializeField] private LevelsHandler _levelsHandler;
 
     private Wallet _wallet;
     private Player _player;
@@ -19,6 +20,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
     private bool _levelPassed;
     private AdHandler _adHandler;
     private List<string> _finishedLevelNames = new List<string>();
+    private List<int> _finishedLevelStarsCount = new List<int>();
 
     public bool IsInitialize { get; private set; }
 
@@ -32,6 +34,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
         _gameOverView.RestartButtonClicked -= Restart;
         _gameOverView.ExitButtonClicked -= Exit;
         _levelFinishScreen.ExitButtonClicked -= Exit;
+        _levelFinishScreen.NextLevelButtonClicked -= OnNextLevelButtonClicked;
         _levelFinisher.LevelPassed -= OnLevelPassed;
         _yandexAds.OpenCallback -= OnRewardedOpenClallback;
         _yandexAds.RewardedCallback -= OnRewardedClallback;
@@ -60,6 +63,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
         _gameOverView.ExitButtonClicked += Exit;
         _levelFinisher.LevelPassed += OnLevelPassed;
         _levelFinishScreen.ExitButtonClicked += Exit;
+        _levelFinishScreen.NextLevelButtonClicked += OnNextLevelButtonClicked;
         _levelFinishScreen.Hide();
         _levelFinishScreen.Initialize(_yandexAds);
         IsInitialize = true;
@@ -88,11 +92,13 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
     public void Write(PlayerData playerData)
     {
         playerData.FinishedLevelNames = _finishedLevelNames;
+        playerData.FinishedLevelsStarsCount = _finishedLevelStarsCount;
     }
 
     public void Read(PlayerData playerData)
     {
         _finishedLevelNames = playerData.FinishedLevelNames;
+        _finishedLevelStarsCount = playerData.FinishedLevelsStarsCount;
     }
 
     private void AddStarsOnReward()
@@ -109,9 +115,17 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
         _wallet.AddStars(_scoreDefiner.StarsCount);
 
         if (_finishedLevelNames.Contains(SceneManager.GetActiveScene().name))
+        {
+            int index = _finishedLevelNames.IndexOf(SceneManager.GetActiveScene().name);
+
+            if (_scoreDefiner.StarsCount > _finishedLevelStarsCount[index])
+                _finishedLevelStarsCount[index] = _scoreDefiner.StarsCount;
+
             return;
+        }
 
         _finishedLevelNames.Add(SceneManager.GetActiveScene().name);
+        _finishedLevelStarsCount.Add(_scoreDefiner.StarsCount);
     }
 
     private void OnRewardedOpenClallback() => _adHandler.OpenAd();
@@ -129,6 +143,8 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
     private void Exit() => SceneManager.LoadScene(Constants.MainMenu);
 
     private void OnPlayerDead() => GameOver();
+
+    private void OnNextLevelButtonClicked() => SceneManager.LoadScene(_levelsHandler.GetNextLevel().Name);
 
     private void GameOver() 
     {

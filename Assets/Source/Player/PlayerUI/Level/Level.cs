@@ -23,7 +23,12 @@ public class Level : ScriptableObject, IDataReader, IDataWriter
     public void Read(PlayerData playerData)
     {
         if (playerData.FinishedLevelNames.Contains(Name))
+        {
             _isCompleted = true;
+
+            int index = playerData.FinishedLevelNames.IndexOf(Name);
+            _starsCount = playerData.FinishedLevelsStarsCount[index];
+        }
 
         if (playerData.OpenedLevelNames.Contains(Name))
             _isOpen = true;
