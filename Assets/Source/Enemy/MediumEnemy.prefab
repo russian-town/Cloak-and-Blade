@@ -450,7 +450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a010c83b3c5bc34e93231a2dc006d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sightRange: 8
+  _sightRange: 7
 --- !u!82 &5282306527125288181
 AudioSource:
   m_ObjectHideFlags: 0
