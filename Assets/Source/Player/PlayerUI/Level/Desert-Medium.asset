@@ -15,5 +15,5 @@ MonoBehaviour:
   _name: Desert-Medium
   _unlockedPreview: {fileID: 21300000, guid: 87f0c8ee0188c3b47ae230e6b32cea1a, type: 3}
   _lockedPreview: {fileID: 21300000, guid: 54812fc3b03bd9d47b6de51ceac8fd0f, type: 3}
-  _isOpen: 1
-  _isCompleted: 1
+  _isOpen: 0
+  _isCompleted: 0
