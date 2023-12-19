@@ -184,9 +184,6 @@ public class Enemy : Ghost, IPauseHandler
         if(_currentDestinationIndex > _destinations.Length - 1)
             _currentDestinationIndex = 0;
 
-        if (_destinations[_currentDestinationIndex] == _player.CurrentCell)
-            Debug.Log("Poop");
-
         _currentDestination = _destinations[_currentDestinationIndex];
         DeclareNextCell();
     }
