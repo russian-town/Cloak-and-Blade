@@ -18,6 +18,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
     private YandexAds _yandexAds;
     private ILevelFinisher _levelFinisher;
     private bool _levelPassed;
+    private bool _gameOver;
     private AdHandler _adHandler;
     private List<string> _finishedLevelNames = new List<string>();
     private List<int> _finishedLevelStarsCount = new List<int>();
@@ -71,7 +72,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
 
     public void SetPause()
     {
-        if (!_levelPassed)
+        if (!_levelPassed && !_gameOver)
             _pauseScreen.Show();
 
         _playerView.Hide();
@@ -80,7 +81,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
 
     public void Continue()
     {
-        if (!_levelPassed)
+        if (!_levelPassed && !_gameOver)
         {
             _pauseScreen.Hide();
             _playerView.Show();
@@ -148,6 +149,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader
 
     private void GameOver() 
     {
+        _gameOver = true;
         _playerView.Hide();
         _gameOverView.Show();
     }
