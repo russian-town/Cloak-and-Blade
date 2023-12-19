@@ -48,27 +48,27 @@ public class ThunderMaker : MonoBehaviour
     private IEnumerator ThunderCoroutine()
     {
         _startDelay = new WaitForSeconds(Random.Range(0, _possibleMaxStartDelay));
-        _lightDelay = new WaitForSeconds(Random.Range(_minLightDelay, _maxLightDelay));
-        _lightLength = new WaitForSeconds(Random.Range(_minLightLength, _maxLightLength));
         _soundDelay = new WaitForSeconds(Random.Range(_minSoundDelay, _maxSoundDelay));
         _thundersToStrike = Random.Range(_minThunderStreak, _maxThunderStreak);
-        print("thundering");
 
         yield return _startDelay;
 
         for (int i = 0; i < _thundersToStrike; i++)
         {
             _thunderLight.intensity += 10;
+            _lightLength = new WaitForSeconds(Random.Range(_minLightLength, _maxLightLength));
             yield return _lightLength;
+            _lightLength = null;
             _thunderLight.intensity = _baseLightIntensity;
+            _lightDelay = new WaitForSeconds(Random.Range(_minLightDelay, _maxLightDelay));
             yield return _lightDelay;
+            _lightDelay = null;
         }
 
         yield return _soundDelay;
 
         _source.PlayOneShot(_thunderSounds[Random.Range(0, _thunderSounds.Count)]);
 
-        _lightDelay = null;
         _soundDelay = null;
         _thunderCoroutine = null;
         _thundersToStrike = 0;
