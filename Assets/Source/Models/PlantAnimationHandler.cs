@@ -29,7 +29,6 @@ public class PlantAnimationHandler : MonoBehaviour
     {
         _random = new System.Random();
         _initialRotation = _targetTransform.localRotation.eulerAngles;
-        print(_initialRotation);
         yield return StartLocalTween();
         _isInitialized = true;
     }
