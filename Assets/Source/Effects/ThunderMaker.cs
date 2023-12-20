@@ -7,6 +7,7 @@ public class ThunderMaker : MonoBehaviour
     [SerializeField] private Light _thunderLight;
     [SerializeField] private List<AudioClip> _thunderSounds;
     [SerializeField] private AudioSource _source;
+    [SerializeField] private float _lightIntensity;
     [SerializeField] private float _pauseBetweenThunder;
     [SerializeField] private float _possibleMaxStartDelay;
     [SerializeField] private float _minLightLength;
@@ -17,6 +18,7 @@ public class ThunderMaker : MonoBehaviour
     [SerializeField] private float _maxSoundDelay;
     [SerializeField] private int _minThunderStreak;
     [SerializeField] private int _maxThunderStreak;
+    [SerializeField] private float _fadeAwayTime;
 
     private float _timePassed;
     private float _baseLightIntensity;
@@ -53,13 +55,26 @@ public class ThunderMaker : MonoBehaviour
 
         yield return _startDelay;
 
-        for (int i = 0; i < _thundersToStrike; i++)
+        for (int i = 0; i < _thundersToStrike + 1; i++)
         {
-            _thunderLight.intensity += 10;
+            _thunderLight.intensity += _lightIntensity;
             _lightLength = new WaitForSeconds(Random.Range(_minLightLength, _maxLightLength));
             yield return _lightLength;
             _lightLength = null;
-            _thunderLight.intensity = _baseLightIntensity;
+
+            if (i == _thundersToStrike)
+            {
+                while (_thunderLight.intensity != _baseLightIntensity)
+                {
+                    _thunderLight.intensity = Mathf.MoveTowards(_thunderLight.intensity, _baseLightIntensity, _fadeAwayTime * Time.deltaTime);
+                    yield return null;
+                }
+            }
+            else
+            {
+                _thunderLight.intensity = _baseLightIntensity;
+            }
+
             _lightDelay = new WaitForSeconds(Random.Range(_minLightDelay, _maxLightDelay));
             yield return _lightDelay;
             _lightDelay = null;
