@@ -13,7 +13,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     [SerializeField] private float _effectSlowDuration;
     [SerializeField] private float _effectSpeedUpDuration;
     [SerializeField] private ParticleSystem _burstActionEffect;
-    [SerializeField] private List<EffectChangeHanldler> _effectsList = new List<EffectChangeHanldler>();
+    [SerializeField] private List<EffectChangeHandler> _effectsList = new List<EffectChangeHandler>();
     [SerializeField] private List<SoundChangeHandler> _soundList = new List<SoundChangeHandler>();
     [SerializeField] private List<SplineChangeHandler> _splineList = new List<SplineChangeHandler>();
     [SerializeField] private List<AnimationChangeHandler> _animationList = new List<AnimationChangeHandler>();
@@ -36,7 +36,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
         _player.StepEnded -= OnStepEnded;
     }
 
-    public void AddSceneEffectsToChange(List<EffectChangeHanldler> effects, List<SoundChangeHandler> sounds, List<SplineChangeHandler> splines, List<AnimationChangeHandler> animations)
+    public void AddSceneEffectsToChange(List<EffectChangeHandler> effects, List<SoundChangeHandler> sounds, List<SplineChangeHandler> splines, List<AnimationChangeHandler> animations)
     {
             _effectsList.AddRange(effects);
             _soundList.AddRange(sounds);

@@ -5,12 +5,12 @@ using UnityEngine;
 public class YellowGhost : Player, ISceneParticlesInfluencer
 {
     private TheWorld _theWorld;
-    private List<EffectChangeHanldler> _effects = new List<EffectChangeHanldler>();
+    private List<EffectChangeHandler> _effects = new List<EffectChangeHandler>();
     private List<SoundChangeHandler> _soundList = new List<SoundChangeHandler>();
     private List<SplineChangeHandler> _splineList = new List<SplineChangeHandler>();
     private List<AnimationChangeHandler> _animationList = new List<AnimationChangeHandler>();
 
-    public IReadOnlyList<EffectChangeHanldler> SceneEffects => _effects;
+    public IReadOnlyList<EffectChangeHandler> SceneEffects => _effects;
 
     public IReadOnlyList<SoundChangeHandler> SceneSounds => _soundList;
 
@@ -25,7 +25,7 @@ public class YellowGhost : Player, ISceneParticlesInfluencer
         _theWorld.Initialize(UpgradeSetter, playerView);
     }
 
-    public void AddSceneEffectsToChange(List<EffectChangeHanldler> effects, List<SoundChangeHandler> sounds, List<SplineChangeHandler> splines, List<AnimationChangeHandler> animations)
+    public void AddSceneEffectsToChange(List<EffectChangeHandler> effects, List<SoundChangeHandler> sounds, List<SplineChangeHandler> splines, List<AnimationChangeHandler> animations)
     {
         _effects.AddRange(effects);
         _soundList.AddRange(sounds);

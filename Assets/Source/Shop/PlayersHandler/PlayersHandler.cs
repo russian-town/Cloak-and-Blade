@@ -5,7 +5,7 @@ public class PlayersHandler : MonoBehaviour, IDataReader, IDataWriter
 {
     [SerializeField] private List<Player> _playerTemplates = new List<Player>();
     [SerializeField] private Player _defaultPlayerTemplate;
-    [SerializeField] private List<EffectChangeHanldler> _effectList = new List<EffectChangeHanldler>();
+    [SerializeField] private List<EffectChangeHandler> _effectList = new List<EffectChangeHandler>();
     [SerializeField] private List<SoundChangeHandler> _soundList = new List<SoundChangeHandler>();
     [SerializeField] private List<SplineChangeHandler> _splineList = new List<SplineChangeHandler>();
     [SerializeField] private List<AnimationChangeHandler> _animationList = new List<AnimationChangeHandler>();
