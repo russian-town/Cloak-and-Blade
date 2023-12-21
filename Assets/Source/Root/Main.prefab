@@ -12596,6 +12596,8 @@ MonoBehaviour:
   _straightCamera: {fileID: 4953753627277555929}
   _rotationSpeed: 40
   _angledCameraValue: 10
+  _mobileFOV: 40
+  _desktopFOV: 60
 --- !u!1 &3007438053192749326
 GameObject:
   m_ObjectHideFlags: 0

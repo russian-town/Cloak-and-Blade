@@ -8,12 +8,12 @@ public class CameraControls : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _straightCamera;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private int _angledCameraValue;
+    [SerializeField] private int _mobileFOV = 40;
+    [SerializeField] private int _desktopFOV = 60; 
 
     private CinemachineOrbitalTransposer _angledCameraOrbitalTransposer;
     private int _minRotation = -180;
     private int _maxRotation = 180;
-    private int _mobileFOV = 40; 
-    private int _desktopFOV = 60; 
     private bool _cameraIsStraight;
 
     private void Awake()
