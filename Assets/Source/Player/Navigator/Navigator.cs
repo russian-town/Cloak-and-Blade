@@ -160,6 +160,7 @@ public class Navigator : MonoBehaviour, ITurnHandler
             {
                 if (tempCell.IsOccupied == true)
                 {
+                    print("poop");
                     return false;
                 }
                 else

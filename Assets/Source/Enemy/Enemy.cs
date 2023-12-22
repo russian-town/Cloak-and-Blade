@@ -90,6 +90,7 @@ public class Enemy : Ghost, IPauseHandler
     private IEnumerator PerformMove()
     {
         _sightHandler.ClearSight();
+        _nextDeclaredCell.BecomeOccupied();
 
         if (_previousAnnouncer != null)
         {
@@ -127,7 +128,6 @@ public class Enemy : Ghost, IPauseHandler
         if (_previousCell != null)
             _previousCell.BecomeUnoccupied();
 
-        _mover.CurrentCell.BecomeOccupied();
         AnnouncerDerection();
     }
 
@@ -179,10 +179,15 @@ public class Enemy : Ghost, IPauseHandler
 
     private void ChangeDestination()
     {
+        print("changing destination");
         _currentDestinationIndex++;
+        _destinations[_currentDestinationIndex].BecomeUnoccupied();
 
         if(_currentDestinationIndex > _destinations.Length - 1)
+        {
+            print("reached final destination");
             _currentDestinationIndex = 0;
+        }
 
         _currentDestination = _destinations[_currentDestinationIndex];
         DeclareNextCell();
