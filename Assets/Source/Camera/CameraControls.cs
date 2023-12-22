@@ -7,7 +7,7 @@ public class CameraControls : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _angledCamera;
     [SerializeField] private CinemachineVirtualCamera _straightCamera;
     [SerializeField] private float _rotationSpeed;
-    [SerializeField] private int _angledCameraValue;
+    [SerializeField] private float _angledCameraValue;
     [SerializeField] private int _mobileFOV = 40;
     [SerializeField] private int _desktopFOV = 60; 
 
