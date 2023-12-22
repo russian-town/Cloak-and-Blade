@@ -21,6 +21,7 @@ public class Enemy : Ghost, IPauseHandler
     private Cell _nextCell;
     private Cell _previousCell;
     private Cell _nextDeclaredCell;
+    private Cell _previousDestination;
     private Player _player;
     private EnemyAnimationHandler _animationHandler;
     private Gameboard _gameBoard;
@@ -92,6 +93,12 @@ public class Enemy : Ghost, IPauseHandler
         _sightHandler.ClearSight();
         _nextDeclaredCell.BecomeOccupied();
 
+        if (_previousDestination != null)
+        {
+            _previousDestination.BecomeUnoccupied();
+            _previousDestination = null;
+        }
+
         if (_previousAnnouncer != null)
         {
             _previousAnnouncer.Stop();
@@ -102,7 +109,7 @@ public class Enemy : Ghost, IPauseHandler
         _previousCell = _mover.CurrentCell;
         _nextCell = _nextDeclaredCell;
 
-        if(_nextCell == _player.CurrentCell && _isBlind == true)
+        if (_nextCell == _player.CurrentCell && _isBlind == true)
         {
             DeclareNextCell();
             _nextCell = _nextDeclaredCell;
@@ -113,6 +120,12 @@ public class Enemy : Ghost, IPauseHandler
             yield return _mover.StartRotate(_nextCell, _rotationSpeed);
             _player.Die();
             yield break;
+        }
+
+        if (_nextDeclaredCell == _destinations[_currentDestinationIndex])
+        {
+            _nextDeclaredCell.BecomeOccupied();
+            _previousDestination = _destinations[_currentDestinationIndex];
         }
 
         yield return _mover.StartMoveTo(_nextCell, _moveSpeed, _rotationSpeed);
@@ -179,15 +192,10 @@ public class Enemy : Ghost, IPauseHandler
 
     private void ChangeDestination()
     {
-        print("changing destination");
         _currentDestinationIndex++;
-        _destinations[_currentDestinationIndex].BecomeUnoccupied();
 
-        if(_currentDestinationIndex > _destinations.Length - 1)
-        {
-            print("reached final destination");
+        if (_currentDestinationIndex > _destinations.Length - 1)
             _currentDestinationIndex = 0;
-        }
 
         _currentDestination = _destinations[_currentDestinationIndex];
         DeclareNextCell();
