@@ -7,8 +7,15 @@ public class TutorialZone : InteractiveObject
 {
     [SerializeField] private List<TMPro.TMP_Text> _referenceTexts;
     [SerializeField] private DialogueHandler _dialogueHandler;
+    [SerializeField] private bool _isInteractedOnStart;
 
     private bool _isExecuted;
+    
+    private void Start()
+    {
+        if (_isInteractedOnStart)
+            Interact();
+    }
 
     public override void Interact()
     {
