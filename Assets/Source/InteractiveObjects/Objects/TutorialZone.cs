@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class TutorialZone : InteractiveObject
 {
-    [SerializeField] private List<TMPro.TMP_Text> _referenceTexts;
+    [SerializeField] private List<TutorialText> _referenceTexts;
     [SerializeField] private DialogueHandler _dialogueHandler;
     [SerializeField] private bool _isInteractedOnStart;
+    [SerializeField] private BaseTutorialElement _tutorialElement;
 
     private bool _isExecuted;
+
+    public IReadOnlyList<TutorialText> ReferenceTexts => _referenceTexts;
+    public BaseTutorialElement Element => _tutorialElement;
     
     private void Start()
     {
@@ -19,7 +23,7 @@ public class TutorialZone : InteractiveObject
 
     public override void Interact()
     {
-        _dialogueHandler.WriteDialogue(_referenceTexts);
+        _dialogueHandler.WriteDialogue(this);
         _isExecuted = true;
     }
 
@@ -30,8 +34,5 @@ public class TutorialZone : InteractiveObject
                 Interact();
     }
 
-    protected override void Disable()
-    {
-        
-    }
+    protected override void Disable() { }
 }

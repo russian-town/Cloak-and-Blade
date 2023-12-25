@@ -27,7 +27,7 @@ public class DialogueHandler : MonoBehaviour
         _source = GetComponent<AudioSource>();
     }
      
-    public void WriteDialogue(List<TMPro.TMP_Text> referenceTexts)
+    public void WriteDialogue(TutorialZone tutorialZone)
     {
         if(_dialogueCoroutine != null)
         {
@@ -36,24 +36,27 @@ public class DialogueHandler : MonoBehaviour
         }
 
         WipeText();
-        _dialogueCoroutine = StartCoroutine(WriteLine(referenceTexts));
+        _dialogueCoroutine = StartCoroutine(WriteLine(tutorialZone));
     }
 
-    private IEnumerator WriteLine(List<TMPro.TMP_Text> referenceTexts)
+    private IEnumerator WriteLine(TutorialZone tutorialZone)
     {
-        foreach(var referenceText in referenceTexts)
+        foreach(var referenceText in tutorialZone.ReferenceTexts)
         {
             yield return _waitStartDelay;
             WipeText();
 
-            for (int i = 0; i < referenceText.text.Length; i++)
+            if (referenceText.IsTutorialTrigger)
+                tutorialZone.Element.Show();
+
+            for (int i = 0; i < referenceText.Line.Length; i++)
             {
                 _source.pitch = Random.Range(_minVoicePitch, _maxVoicePitch);
 
-                if (!char.IsPunctuation(referenceText.text[i]) && !char.IsWhiteSpace(referenceText.text[i]))
+                if (!char.IsPunctuation(referenceText.Line[i]) && !char.IsWhiteSpace(referenceText.Line[i]))
                     _source.PlayOneShot(_voiceSampleBeep);
 
-                _textContainer.text += referenceText.text[i];
+                _textContainer.text += referenceText.Line[i];
                 yield return _waitDelay;
             }
 
