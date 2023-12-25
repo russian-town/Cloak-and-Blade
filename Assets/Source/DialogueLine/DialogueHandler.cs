@@ -31,7 +31,6 @@ public class DialogueHandler : MonoBehaviour
     {
         if(_dialogueCoroutine != null)
         {
-            print("poop");
             StopCoroutine(_dialogueCoroutine);
             _dialogueCoroutine = null;
         }
