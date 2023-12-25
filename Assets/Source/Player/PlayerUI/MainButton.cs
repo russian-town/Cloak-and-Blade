@@ -5,6 +5,8 @@ public class MainButton : MonoBehaviour
 {
     private CanvasGroup _canvasGroup;
 
+    public bool IsOpen {  get; private set; }
+
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
@@ -21,4 +23,6 @@ public class MainButton : MonoBehaviour
         _canvasGroup.alpha = 0;
         _canvasGroup.blocksRaycasts = false;
     }
+
+    public void Open() => IsOpen = true;
 }

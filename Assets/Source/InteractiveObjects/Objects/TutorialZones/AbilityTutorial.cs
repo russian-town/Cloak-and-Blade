@@ -8,6 +8,9 @@ public class AbilityTutorial : BaseTutorialElement
     public override void Show()
     {
         foreach (var button in _abilityButtons)
+        {
+            button.Open();
             button.Show();
+        }
     }
 }

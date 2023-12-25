@@ -11,6 +11,7 @@ public class TutorialZone : InteractiveObject
     [SerializeField] private BaseTutorialElement _tutorialElement;
 
     private bool _isExecuted;
+    private int _currentIndexText = 0;
 
     public IReadOnlyList<TutorialText> ReferenceTexts => _referenceTexts;
     public BaseTutorialElement Element => _tutorialElement;
@@ -25,6 +26,21 @@ public class TutorialZone : InteractiveObject
     {
         _dialogueHandler.WriteDialogue(this);
         _isExecuted = true;
+    }
+
+    public TutorialText GetText()
+    {
+        return _referenceTexts[_currentIndexText];
+    }
+
+    public TutorialText GetNextText()
+    {
+        _currentIndexText++;
+
+        if (_currentIndexText > _referenceTexts.Count - 1)
+            return null;
+
+        return _referenceTexts[_currentIndexText];
     }
 
     public override void Prepare()

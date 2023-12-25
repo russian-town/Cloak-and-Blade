@@ -8,6 +8,9 @@ public class CameraTutorial : BaseTutorialElement
     public override void Show()
     {
         foreach (var button in _cameraButtons)
+        {
+            button.Open();
             button.Show();
+        }
     }
 }

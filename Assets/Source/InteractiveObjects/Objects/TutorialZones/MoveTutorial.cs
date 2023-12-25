@@ -8,6 +8,9 @@ public class MoveTutorial : BaseTutorialElement
     public override void Show()
     {
         foreach (var button in _mainButtons)
+        {
+            button.Open();
             button.Show();
+        }
     }
 }
