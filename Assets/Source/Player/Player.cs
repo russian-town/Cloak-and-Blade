@@ -41,10 +41,10 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     public Cell CurrentCell => _mover.CurrentCell;
     public MoveCommand MoveCommand => _moveCommand;
     public ItemsInHold ItemsInHold => _itemsInHold;
+    public PlayerMover Mover => _mover;
     protected Navigator Navigator => _navigator;
     protected Gameboard Gameboard => _gameboard;
     protected UpgradeSetter UpgradeSetter => _upgradeSetter;
-    protected PlayerMover Mover => _mover;
     protected float RotationSpeed => _rotationSpeed;
     protected float MoveSpeed => _moveSpeed;
     protected int Range => _moveRange;

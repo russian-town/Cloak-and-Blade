@@ -50,6 +50,10 @@ public class Gameboard : MonoBehaviour
         }
     }
 
+    public void Enable() => gameObject.SetActive(true);
+
+    public void Disable() => gameObject.SetActive(false);
+
     public void HideGrid()
     {
         foreach (var cell in _cells)
