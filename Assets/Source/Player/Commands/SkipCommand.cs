@@ -4,13 +4,13 @@ using UnityEngine;
 public class SkipCommand : Command
 {
     private Player _player;
-    private Coroutine _waitForEnemies;
+    private IEnemyTurnWaiter _enemyTurnWaiter;
     private PlayerAnimationHandler _playerAnimationHandler;
 
-    public SkipCommand(Player player, Coroutine waitForEnemies, PlayerAnimationHandler animationHandler, CommandExecuter executer) : base(executer)
+    public SkipCommand(Player player, IEnemyTurnWaiter enemyTurnWaiter, PlayerAnimationHandler animationHandler, CommandExecuter executer) : base(executer)
     {
         _player = player;
-        _waitForEnemies = waitForEnemies;
+        _enemyTurnWaiter = enemyTurnWaiter;
         _playerAnimationHandler = animationHandler;
     }
 
@@ -28,7 +28,7 @@ public class SkipCommand : Command
     {
         _playerAnimationHandler.PlaySkipAnimation();
         _player.SkipTurn();
-        yield return _waitForEnemies;
+        yield return _enemyTurnWaiter.WaitForEnemies();
         _playerAnimationHandler.StopSkipAnimation();
         yield break;
     }

@@ -12,7 +12,7 @@ public class RedGhost : Player
         _blink.Initialize(UpgradeSetter, playerView);
     }
 
-    protected override AbilityCommand AbilityCommand()
+    public override AbilityCommand AbilityCommand()
     {
         return new BlinkCommand(_blink, Gameboard, Navigator, CommandExecuter);
     }

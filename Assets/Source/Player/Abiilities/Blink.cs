@@ -21,6 +21,10 @@ public class Blink : Ability
     private Navigator _navigator;
     private bool _canUse = true;
 
+    protected Navigator Navigator => _navigator;
+    protected Player Player => _player;
+    protected int BlinkRange => _blinkRange;
+
     public override void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView)
     {
         _player = GetComponent<Player>();
@@ -33,7 +37,7 @@ public class Blink : Ability
     public override void Prepare()
     {
         _playerView.DisableAbilityButton();
-        _navigator.RefillAvailableCells(_player.CurrentCell, _blinkRange);
+        RefillNavigatorCells();
         ShowBlinkRange();
         _source.clip = _prepareSound;
         _source.Play();
@@ -60,6 +64,11 @@ public class Blink : Ability
             return;
 
         _canUse = true;
+    }
+
+    public virtual void RefillNavigatorCells()
+    {
+        _navigator.RefillAvailableCells(_player.CurrentCell, _blinkRange);
     }
 
     protected override void Action(Cell cell)

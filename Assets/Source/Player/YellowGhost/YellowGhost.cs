@@ -33,7 +33,7 @@ public class YellowGhost : Player, ISceneParticlesInfluencer
         _animationList.AddRange(animations);
     } 
 
-    protected override AbilityCommand AbilityCommand()
+    public override AbilityCommand AbilityCommand()
     {
         return new TheWorldCommand(_theWorld, CommandExecuter, this);
     }

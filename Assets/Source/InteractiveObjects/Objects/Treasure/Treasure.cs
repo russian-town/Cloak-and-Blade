@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,8 @@ public class Treasure : InteractiveObject
     private Animator _animator;
     private bool _treasureAccquired;
     private bool _closed = true;
+
+    public event Action Opened;
 
     public override void Initialize(Player player)
     {
@@ -79,6 +82,7 @@ public class Treasure : InteractiveObject
     {
         _animator.SetTrigger(Constants.OpenParameter);
         Player.ItemsInHold.AddObjectToItemList(this);
+        Opened?.Invoke();
     }
 
     protected override void Disable()

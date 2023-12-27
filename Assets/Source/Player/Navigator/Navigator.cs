@@ -51,18 +51,20 @@ public class Navigator : MonoBehaviour, ITurnHandler
         return false;
     }
 
-    public void ShowAvailableCells()
+    public void ShowAvailableCells() => ShowAvailableCells(_availableCells);
+
+    private void ShowAvailableCells(List<Cell> availableCells)
     {
         HideAvailableCells();
 
-        if (_availableCells.Count == 0)
+        if (availableCells.Count == 0)
             return;
 
-        foreach (var cell in _availableCells)
+        foreach (var cell in availableCells)
             if (cell.Content.Type != CellContentType.Wall)
                 cell.View.Show();
 
-        _tempCells.AddRange(_availableCells);
+        _tempCells.AddRange(availableCells);
     }
 
     public void HideAvailableCells()
@@ -76,6 +78,46 @@ public class Navigator : MonoBehaviour, ITurnHandler
         }
 
         _tempCells.Clear();
+    }
+
+    public void RefillNorthAvailableCells(Cell currentCell, int range)
+    {
+        ClearAllCells();
+        Cell tempCellNorth = currentCell.North;
+
+        for (int i = 0; i < range; i++)
+            if (TryAddCell(tempCellNorth, _availableNorthCells, false))
+                tempCellNorth = tempCellNorth.North;
+    }
+
+    public void RefillSouthAvailableCells(Cell currentCell, int range)
+    {
+        ClearAllCells();
+        Cell tempCellSouth = currentCell.South;
+
+        for (int i = 0; i < range; i++)
+            if (TryAddCell(tempCellSouth, _availableSouthCells, false))
+                tempCellSouth = tempCellSouth.South;
+    }
+
+    public void RefillEastAvailableCells(Cell currentCell, int range)
+    {
+        ClearAllCells();
+        Cell tempCellEast = currentCell.East;
+
+        for (int i = 0; i < range; i++)
+            if (TryAddCell(tempCellEast, _availableEastCells, false))
+                tempCellEast = tempCellEast.East;
+    }
+
+    public void RefillWestAvailableCells(Cell currentCell, int range)
+    {
+        ClearAllCells();
+        Cell tempCellWest = currentCell.West;
+
+        for (int i = 0; i < range; i++)
+            if (TryAddCell(tempCellWest, _availableWestCells, false))
+                tempCellWest = tempCellWest.West;
     }
 
     private void RefillAvailableCells(Cell currentCell, bool ignoreWalls, int range)

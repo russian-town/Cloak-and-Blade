@@ -14,7 +14,7 @@ public class BlackGhost : Player
         _transformationCommand = new TransformationCommand(_transformation, Gameboard, Navigator, CommandExecuter, this, Mover, MoveSpeed, RotationSpeed, Range);
     }
 
-    protected override AbilityCommand AbilityCommand()
+    public override AbilityCommand AbilityCommand()
     {
         return _transformationCommand;
     }

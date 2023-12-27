@@ -12,7 +12,7 @@ public class AbilityTutorial : BaseTutorialElement
     {
         _player = player;
         _player.Mover.MoveEnded += OnMoveEnded;
-        _gameboard.Enable();
+       _gameboard.Enable();
 
         foreach (var button in _abilityButtons)
         {

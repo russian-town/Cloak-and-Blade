@@ -77,10 +77,6 @@ public class DialogueHandler : MonoBehaviour
         WipeText();
         _currentTutorialText = _currentTutorialZone.GetNextCongratText();
         _dialogueCoroutine = StartCoroutine(WriteLine());
-        _board.Disable();
-
-        foreach (var mainButton in _mainButtons)
-            mainButton.Hide();
     }
 
     private void WriteNextDialogue()
@@ -104,7 +100,6 @@ public class DialogueHandler : MonoBehaviour
                 if (mainButton.IsOpen)
                     mainButton.Show();
 
-            _sebastian.Hide();
             return true;
         }
 

@@ -30,12 +30,16 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
         _player.SetTurn(_turn);
         _view.Subscribe();
         _view.ShowInteravtiveButton();
+        WaitForEnemies();
     }
 
     public void AddEnemy(Enemy enemy) => _enemies.Add(enemy);
 
     public Coroutine WaitForEnemies()
     {
+        if (_startWaitForEnemies != null)
+            return null;
+
         _startWaitForEnemies = StartCoroutine(WaitEnemiesTurn());
         return _startWaitForEnemies;
     }
@@ -55,7 +59,10 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
     private IEnumerator WaitEnemiesTurn()
     {
         if (_enemies.Count == 0)
+        {
+            SetPlayerTurn();
             yield break;
+        }
 
         yield return _hourglass.StartShow();
         WaitForSeconds waitForSeconds = new WaitForSeconds(_delay);
@@ -77,10 +84,15 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
         }
 
         yield return _hourglass.StartHide();
+        SetPlayerTurn();
+        _startWaitForEnemies = null;
+    }
+
+    private void SetPlayerTurn()
+    {
         _turn = Turn.Player;
         _view.Subscribe();
         _view.ShowInteravtiveButton();
-        _startWaitForEnemies = null;
         _player.SetTurn(_turn);
     }
 }

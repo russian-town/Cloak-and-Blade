@@ -78,7 +78,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _adHandler = adHandler;
         _battery = battery;
         _moveCommand = new MoveCommand(this, _mover, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter, _moveRange);
-        _skipCommand = new SkipCommand(this, _enemyTurnWaiter.WaitForEnemies(), _animationHandler, _commandExecuter);
+        _skipCommand = new SkipCommand(this, _enemyTurnWaiter, _animationHandler, _commandExecuter);
     }
 
     public void SetTargets(List<Enemy> enemies)
@@ -156,9 +156,9 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         TurnChanged(turn);
     }
 
-    protected virtual void TurnChanged(Turn turn) { }
+    public abstract AbilityCommand AbilityCommand();
 
-    protected abstract AbilityCommand AbilityCommand();
+    protected virtual void TurnChanged(Turn turn) { }
 
     private IEnumerator MakeDeath()
     {
