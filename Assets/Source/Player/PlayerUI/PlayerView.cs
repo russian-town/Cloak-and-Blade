@@ -154,6 +154,12 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _abilityIcon.Interactable(_isAbilityInteractable);
     }
 
+    public void ResetAbilityIcon()
+    {
+        _abilityIcon.ChangeSprite(_player.AbilityIcon);
+        _abilityIcon.StopShaking();
+    }
+
     public void DisableAbilityButton()
     {
         _canSwitchAbilityInteractable = false;
@@ -167,11 +173,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _abilityIcon.PlayShakeEffect();
     } 
 
-    private void OnAbilityReseted()
-    {
-        _abilityIcon.ChangeSprite(_player.AbilityIcon);
-        _abilityIcon.StopShaking();
-    } 
+    private void OnAbilityReseted() => ResetAbilityIcon();
 
     private void OnMoveClick() => _player.PrepareMove();
 

@@ -44488,7 +44488,7 @@ MonoBehaviour:
   _diedParticle: {fileID: 199662967926653570}
   _model: {fileID: 5861697019979390712}
   _abilityIcon: {fileID: 21300000, guid: 4945606dde7f55d48ac0ccd6f6c94515, type: 3}
-  _upgradeSetter: {fileID: 11400000, guid: 6fda382f50b613d4981b67a4fa0cb38a, type: 2}
+  _upgradeSetter: {fileID: 11400000, guid: c39cd0b2d7b152f4a946b2dc23412490, type: 2}
   _deathSoundSource: {fileID: 263099746926188162}
 --- !u!114 &8701410811423617819
 MonoBehaviour:
