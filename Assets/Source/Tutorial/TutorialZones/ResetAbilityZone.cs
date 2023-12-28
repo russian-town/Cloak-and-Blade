@@ -9,6 +9,8 @@ public class ResetAbilityZone : TutorialZone
     {
         if (Player.ItemsInHold.FindItemInList(_treasure))
         {
+            Player.CommandExecuter.ResetCommand();
+
             if (Player.TryGetComponent(out TutorialCharacter character))
                 character.SetSide(_side);
 

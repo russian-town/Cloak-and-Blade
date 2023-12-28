@@ -24,10 +24,7 @@ public class CameraTutorial : BaseTutorialElement
             _cameraButtons.Remove(mainButton);
 
             if(_cameraButtons.Count <= 0)
-            {
                 InvokeTutorialZoneCompleteAction();
-                _gameboard.Enable();
-            }
         }
     }
 }

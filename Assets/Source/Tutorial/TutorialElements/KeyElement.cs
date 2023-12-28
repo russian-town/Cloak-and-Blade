@@ -8,11 +8,11 @@ public class KeyElement : BaseTutorialElement
     public override void Show(Player player)
     {
         _key.PickedUp += OnPickedUp;
-        _gameboard.Enable();
     }
 
     private void OnPickedUp()
     {
+        _gameboard.Disable();
         _key.PickedUp -= OnPickedUp;
         InvokeTutorialZoneCompleteAction();
     }

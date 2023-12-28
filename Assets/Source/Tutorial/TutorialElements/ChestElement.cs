@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChestElement : BaseTutorialElement
@@ -11,11 +8,11 @@ public class ChestElement : BaseTutorialElement
     public override void Show(Player player)
     {
         _treasure.Opened += OnTreasureOpened;
-        _gameboard.Enable();
     }
 
     private void OnTreasureOpened()
     {
+        _gameboard.Disable();
         _treasure.Opened -= OnTreasureOpened;
         InvokeTutorialZoneCompleteAction();
     }

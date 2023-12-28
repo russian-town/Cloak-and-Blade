@@ -8,5 +8,6 @@ public class KeyZone : TutorialZone
     {
         _gameboard.Disable();
         base.Interact();
+        Element.Show(Player);
     }
 }

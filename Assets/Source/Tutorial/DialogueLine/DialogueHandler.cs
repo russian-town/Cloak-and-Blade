@@ -29,6 +29,7 @@ public class DialogueHandler : MonoBehaviour
     private TutorialZone _currentTutorialZone;
     private TutorialText _currentTutorialText;
     private float _baseVolume;
+    private bool _isWrite = false;
 
     private void OnEnable()
     {
@@ -37,7 +38,7 @@ public class DialogueHandler : MonoBehaviour
 
     private void OnDisable()
     {
-        _nextLineButton.onClick.RemoveListener(OnNextLineButtonClick);
+        _nextLineButton.onClick.RemoveAllListeners();
     }
 
     private void Start()
@@ -58,6 +59,8 @@ public class DialogueHandler : MonoBehaviour
             _dialogueCoroutine = null;
         }
 
+        _isWrite = false;
+        _dialogueSkipIcon.enabled = true;
         _sebastian.Show();
         WipeText();
         _currentTutorialZone = tutorialZone;
@@ -71,15 +74,23 @@ public class DialogueHandler : MonoBehaviour
 
     public void WriteCongratDialogue()
     {
+        foreach (var mainButton in _mainButtons)
+            mainButton.Hide();
+
+        _nextLineButton.onClick.RemoveListener(OnNextLineButtonClick);
+        _nextLineButton.onClick.AddListener(SkipCongratText);
+        _currentTutorialText = _currentTutorialZone.GetNextCongratText();
+
         if (_dialogueCoroutine != null)
         {
             StopCoroutine(_dialogueCoroutine);
             _dialogueCoroutine = null;
         }
 
+        _isWrite = false;
+        _dialogueSkipIcon.enabled = true;
         _sebastian.Show();
         WipeText();
-        _currentTutorialText = _currentTutorialZone.GetNextCongratText();
         _dialogueCoroutine = StartCoroutine(WriteLine());
     }
 
@@ -100,10 +111,10 @@ public class DialogueHandler : MonoBehaviour
         {
             _currentTutorialZone.Element.Show(_currentTutorialZone.Player);
 
-            foreach (var mainButton in _mainButtons)
-                if (mainButton.IsOpen)
-                    mainButton.Show();
-
+            //foreach (var mainButton in _mainButtons)
+            //    if (mainButton.IsOpen)
+            //        mainButton.Show();
+            _dialogueSkipIcon.enabled = false;
             return true;
         }
 
@@ -132,6 +143,7 @@ public class DialogueHandler : MonoBehaviour
         CheckIfTextIsTrigger();
         _dialogueSkipIcon.sprite = _nextImage;
         _waitDelay = new WaitForSeconds(_baseDelay);
+        _isWrite = true;
         _dialogueCoroutine = null;
     }
 
@@ -143,7 +155,6 @@ public class DialogueHandler : MonoBehaviour
 
     private void OnNextLineButtonClick()
     {
-
         if (_textContainer.text != _currentTutorialText.Line)
         {
             if (_dialogueCoroutine != null)
@@ -165,9 +176,31 @@ public class DialogueHandler : MonoBehaviour
             _currentTutorialText = tutorialText;
             WriteNextDialogue();
         }
-        else
+        else if(tutorialText == null && _currentTutorialText.IsTutorialTrigger == false)
         {
             _sebastian.Hide();
+
+            foreach (var mainButton in _mainButtons)
+                if (mainButton.IsOpen)
+                    mainButton.Show();
+
+            _board.Enable();
         }
+    }
+
+    private void SkipCongratText()
+    {
+        if (_isWrite == false)
+            return;
+
+        _nextLineButton.onClick.RemoveListener(SkipCongratText);
+        _nextLineButton.onClick.AddListener(OnNextLineButtonClick);
+        _sebastian.Hide();
+
+        foreach (var mainButton in _mainButtons)
+            if (mainButton.IsOpen)
+                mainButton.Show();
+
+        _board.Enable();
     }
 }

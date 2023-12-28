@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChestZone : TutorialZone
@@ -11,6 +9,7 @@ public class ChestZone : TutorialZone
         if (Player.ItemsInHold.FindItemInList(_key))
         {
             base.Interact();
+            Element.Show(Player);
         }
     }
 }

@@ -29,7 +29,6 @@ public class EnemyTutorial : BaseTutorialElement
         {
             _player.StepEnded -= OnStepEnded;
             InvokeTutorialZoneCompleteAction();
-            _gameboard.Enable();
         }
     }
 }

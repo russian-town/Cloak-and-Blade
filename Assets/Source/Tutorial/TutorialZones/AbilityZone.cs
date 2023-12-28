@@ -8,6 +8,7 @@ public class AbilityZone : TutorialZone
     {
         if (Player.TryGetComponent(out TutorialCharacter character))
         {
+            Player.CommandExecuter.ResetCommand();
             character.SetSide(_side);
             base.Interact();
         }
