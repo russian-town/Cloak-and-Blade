@@ -18,6 +18,9 @@ public class DialogueHandler : MonoBehaviour
     [SerializeField] private Button _nextLineButton;
     [SerializeField] private Gameboard _board;
     [SerializeField] private Sebastian _sebastian;
+    [SerializeField] private Image _dialogueSkipIcon;
+    [SerializeField] private Sprite _fastForwardImage;
+    [SerializeField] private Sprite _nextImage;
 
     private Coroutine _dialogueCoroutine;
     private WaitForSeconds _waitDelay;
@@ -41,6 +44,7 @@ public class DialogueHandler : MonoBehaviour
     {
         _waitDelay = new WaitForSeconds(_baseDelay);
         _waitStartDelay = new WaitForSeconds(_startDelay);
+        _dialogueSkipIcon.gameObject.SetActive(false);
         _source = GetComponent<AudioSource>();
         _baseVolume = _source.volume;
         _board.Disable();
@@ -108,9 +112,11 @@ public class DialogueHandler : MonoBehaviour
 
     private IEnumerator WriteLine()
     {
-        yield return _waitStartDelay;
-        _source.volume = _baseVolume;
+        _dialogueSkipIcon.sprite = _fastForwardImage;
         WipeText();
+        yield return _waitStartDelay;
+        _dialogueSkipIcon.gameObject.SetActive(true);
+        _source.volume = _baseVolume;
 
         for (int i = 0; i < _currentTutorialText.Line.Length; i++)
         {
@@ -124,6 +130,7 @@ public class DialogueHandler : MonoBehaviour
         }
 
         CheckIfTextIsTrigger();
+        _dialogueSkipIcon.sprite = _nextImage;
         _waitDelay = new WaitForSeconds(_baseDelay);
         _dialogueCoroutine = null;
     }
@@ -136,6 +143,7 @@ public class DialogueHandler : MonoBehaviour
 
     private void OnNextLineButtonClick()
     {
+
         if (_textContainer.text != _currentTutorialText.Line)
         {
             if (_dialogueCoroutine != null)
@@ -153,8 +161,13 @@ public class DialogueHandler : MonoBehaviour
 
         if (tutorialText != null)
         {
+            _dialogueSkipIcon.gameObject.SetActive(false);
             _currentTutorialText = tutorialText;
             WriteNextDialogue();
+        }
+        else
+        {
+            _sebastian.Hide();
         }
     }
 }
