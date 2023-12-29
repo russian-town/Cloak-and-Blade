@@ -11,6 +11,7 @@ public class TutorialZone : InteractiveObject
     [SerializeField] private DialogueHandler _dialogueHandler;
     [SerializeField] private bool _isInteractedOnStart;
     [SerializeField] private BaseTutorialElement _tutorialElement;
+    [SerializeField] private TutorialZone _nextTutorialZone;
 
     private bool _isExecuted;
     private int _currentIndexText = 0;
@@ -32,6 +33,7 @@ public class TutorialZone : InteractiveObject
     public override void Interact()
     {
         _dialogueHandler.WriteDialogue(this);
+        HideTutorialZoneCells();
         _isExecuted = true;
     }
 
@@ -54,9 +56,6 @@ public class TutorialZone : InteractiveObject
     {
         _currentIndexCongratText++;
 
-        //if (_currentIndexText > _congratTexts.Count - 1)
-        //    return null;
-
         return _congratTexts[_currentIndexCongratText];
     }
 
@@ -67,11 +66,26 @@ public class TutorialZone : InteractiveObject
                 Interact();
     }
 
+    public void ShowTutorialZoneCells()
+    {
+        foreach (var cell in CellsInInteractibleRange)
+            cell.View.PlayAbilityRangeEffect();
+    }
+
+    public void HideTutorialZoneCells()
+    {
+        foreach (var cell in CellsInInteractibleRange)
+            cell.View.StopAbilityRangeEffect();
+    }
+
     protected override void Disable() { }
 
     private void OnTutorialZoneComplete()
     {
         _tutorialElement.TutorialZoneComplete -= OnTutorialZoneComplete;
+
+        if(_nextTutorialZone != null)
+            _nextTutorialZone.ShowTutorialZoneCells();
 
         _dialogueHandler.WriteCongratDialogue();
     }
