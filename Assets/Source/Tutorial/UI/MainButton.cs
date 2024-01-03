@@ -5,6 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CanvasGroup), typeof(Button))]
 public class MainButton : MonoBehaviour
 {
+    private LightButtonEffectHandler _effectHandler;
     private CanvasGroup _canvasGroup;
     private Button _button;
 
@@ -19,6 +20,7 @@ public class MainButton : MonoBehaviour
 
     private void Awake()
     {
+        _effectHandler = GetComponentInChildren<LightButtonEffectHandler>();
         _canvasGroup = GetComponent<CanvasGroup>();
         _button = GetComponent<Button>();
     }
@@ -36,9 +38,18 @@ public class MainButton : MonoBehaviour
 
     public void Hide() 
     {
+        if (_effectHandler != null)
+            _effectHandler.StopLightEffect();
+
         _canvasGroup.alpha = 0;
         _canvasGroup.blocksRaycasts = false;
     }
 
-    public void Open() => IsOpen = true;
+    public void Open()
+    {
+        if (_effectHandler != null)
+            _effectHandler.PlayLightEffect();
+
+        IsOpen = true;
+    }
 }
