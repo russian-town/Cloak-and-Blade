@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelView : MonoBehaviour
 {
     [SerializeField] private Button _openLevel;
+    [SerializeField] private TextMeshProUGUI _levelName;
     [SerializeField] private Image _preview;
     [SerializeField] private List<Image> _stars = new List<Image>();
     [SerializeField] private Image _lock;
@@ -27,6 +29,7 @@ public class LevelView : MonoBehaviour
     public void Render(Level level)
     {
         _level = level;
+        _levelName.text = level.name;
 
         if (_level.IsOpen)
             _preview.sprite = _level.UnlockedPreview;
