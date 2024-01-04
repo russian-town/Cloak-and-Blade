@@ -110,10 +110,6 @@ public class DialogueHandler : MonoBehaviour
         if (_currentTutorialText.IsTutorialTrigger)
         {
             _currentTutorialZone.Element.Show(_currentTutorialZone.Player);
-
-            //foreach (var mainButton in _mainButtons)
-            //    if (mainButton.IsOpen)
-            //        mainButton.Show();
             _dialogueSkipIcon.enabled = false;
             return true;
         }

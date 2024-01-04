@@ -22,6 +22,7 @@ public class CameraTutorial : BaseTutorialElement
         {
             mainButton.MainButtonClicked -= OnMainButtonClicked;
             _cameraButtons.Remove(mainButton);
+            mainButton.EffectHandler.StopLightEffect();
 
             if(_cameraButtons.Count <= 0)
                 InvokeTutorialZoneCompleteAction();

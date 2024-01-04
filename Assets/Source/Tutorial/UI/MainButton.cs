@@ -13,6 +13,8 @@ public class MainButton : MonoBehaviour
 
     public event Action<MainButton> MainButtonClicked;
 
+    public LightButtonEffectHandler EffectHandler => _effectHandler;
+
     private void OnEnable()
     {
         _button.onClick.AddListener(() => MainButtonClicked?.Invoke(this));
