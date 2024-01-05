@@ -88,6 +88,12 @@ public class Enemy : Ghost, IPauseHandler
         return StartCoroutine(PerformMove());
     }
 
+    public void Die()
+    {
+        _sightHandler.ClearSight();
+        Destroy(gameObject);
+    }
+
     private IEnumerator PerformMove()
     {
         _sightHandler.ClearSight();

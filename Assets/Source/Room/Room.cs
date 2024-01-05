@@ -35,6 +35,8 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
 
     public void AddEnemy(Enemy enemy) => _enemies.Add(enemy);
 
+    public void RemoveEnemies() => _enemies.Clear();
+
     public Coroutine WaitForEnemies()
     {
         if (_startWaitForEnemies != null)

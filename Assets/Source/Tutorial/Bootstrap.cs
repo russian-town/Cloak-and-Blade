@@ -106,4 +106,18 @@ public class Bootstrap : MonoBehaviour
         _pause.AddHandler(enemy);
         _player.SetTargets(_enemies);
     }
+
+    public void RemoveEnemy()
+    {
+        _room.RemoveEnemies();
+
+        if (_enemies.Count == 0)
+            return;
+
+        foreach (Enemy enemy in _enemies)
+        {
+            _pause.RemoveHandler(enemy);
+            enemy.Die();
+        }
+    }
 }
