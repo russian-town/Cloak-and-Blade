@@ -12,7 +12,9 @@ public class TutorialZone : InteractiveObject
     [SerializeField] private bool _isInteractedOnStart;
     [SerializeField] private BaseTutorialElement _tutorialElement;
     [SerializeField] private TutorialZone _nextTutorialZone;
+    [SerializeField] private ParticleSystem _tutorialEffectTemplate;
 
+    private List<ParticleSystem> _effects = new List<ParticleSystem>();
     private bool _isExecuted;
     private int _currentIndexText = 0;
     private int _currentIndexCongratText = -1;
@@ -72,13 +74,20 @@ public class TutorialZone : InteractiveObject
     public void ShowTutorialZoneCells()
     {
         foreach (var cell in CellsInInteractibleRange)
-            cell.View.PlayAbilityRangeEffect();
+        {
+            ParticleSystem effect = Instantiate(_tutorialEffectTemplate, cell.transform.position, cell.transform.rotation);
+            effect.Play();
+            _effects.Add(effect);
+        }
     }
 
     public void HideTutorialZoneCells()
     {
-        foreach (var cell in CellsInInteractibleRange)
-            cell.View.StopAbilityRangeEffect();
+        if(_effects.Count == 0)
+            return;
+
+        foreach (var effect in _effects)
+            effect.Stop();
     }
 
     protected override void Disable() { }
