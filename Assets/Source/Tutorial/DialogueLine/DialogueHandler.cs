@@ -29,7 +29,7 @@ public class DialogueHandler : MonoBehaviour
     private TutorialZone _currentTutorialZone;
     private TutorialText _currentTutorialText;
     private float _baseVolume;
-    private bool _isWrite = false;
+    private bool _isWritten = false;
 
     private void OnEnable()
     {
@@ -59,7 +59,7 @@ public class DialogueHandler : MonoBehaviour
             _dialogueCoroutine = null;
         }
 
-        _isWrite = false;
+        _isWritten = false;
         _dialogueSkipIcon.enabled = true;
         _sebastian.Show();
         WipeText();
@@ -87,7 +87,7 @@ public class DialogueHandler : MonoBehaviour
             _dialogueCoroutine = null;
         }
 
-        _isWrite = false;
+        _isWritten = false;
         _dialogueSkipIcon.enabled = true;
         _sebastian.Show();
         WipeText();
@@ -121,7 +121,9 @@ public class DialogueHandler : MonoBehaviour
     {
         _dialogueSkipIcon.sprite = _fastForwardImage;
         WipeText();
+        _nextLineButton.interactable = false;
         yield return _waitStartDelay;
+        _nextLineButton.interactable = true;
         _dialogueSkipIcon.gameObject.SetActive(true);
         _source.volume = _baseVolume;
 
@@ -139,7 +141,7 @@ public class DialogueHandler : MonoBehaviour
         CheckIfTextIsTrigger();
         _dialogueSkipIcon.sprite = _nextImage;
         _waitDelay = new WaitForSeconds(_baseDelay);
-        _isWrite = true;
+        _isWritten = true;
         _dialogueCoroutine = null;
     }
 
@@ -186,7 +188,7 @@ public class DialogueHandler : MonoBehaviour
 
     private void SkipCongratText()
     {
-        if (_isWrite == false)
+        if (_isWritten == false)
             return;
 
         _nextLineButton.onClick.RemoveListener(SkipCongratText);
