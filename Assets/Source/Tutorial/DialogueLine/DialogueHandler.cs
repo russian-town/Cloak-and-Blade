@@ -151,7 +151,7 @@ public class DialogueHandler : MonoBehaviour
             _textContainer.text = null;
     }
 
-    private void OnNextLineButtonClick()
+    private bool TrySpeedUpText()
     {
         if (_textContainer.text != _currentTutorialText.Line)
         {
@@ -159,9 +159,17 @@ public class DialogueHandler : MonoBehaviour
             {
                 _waitDelay = new WaitForSeconds(_fastDelay);
                 _source.volume = 0f;
-                return;
+                return true;
             }
         }
+
+        return false;
+    }
+
+    private void OnNextLineButtonClick()
+    {
+        if (TrySpeedUpText())
+            return;
 
         if (_currentTutorialZone == null)
             return;
@@ -188,6 +196,22 @@ public class DialogueHandler : MonoBehaviour
 
     private void SkipCongratText()
     {
+        if (TrySpeedUpText())
+            return;
+
+        if (_currentTutorialZone == null)
+            return;
+
+        TutorialText congratText = _currentTutorialZone.GetNextCongratText();
+
+        if (congratText != null)
+        {
+            _dialogueSkipIcon.gameObject.SetActive(false);
+            _currentTutorialText = congratText;
+            WriteNextDialogue();
+            return;
+        }
+
         if (_isWritten == false)
             return;
 

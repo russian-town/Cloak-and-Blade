@@ -56,6 +56,9 @@ public class TutorialZone : InteractiveObject
     {
         _currentIndexCongratText++;
 
+        if (_currentIndexCongratText > _congratTexts.Count - 1)
+            return null;
+
         return _congratTexts[_currentIndexCongratText];
     }
 
