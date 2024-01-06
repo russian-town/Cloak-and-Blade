@@ -1,7 +1,5 @@
 using Cinemachine;
 using Lean.Localization;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +27,6 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private Audio _audio;
     [SerializeField] private FocusHandler _focusHandler;
     [SerializeField] private RewardedAdHandler _rewardAdHandler;
-    [SerializeField] private WalletView _walletView;
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private Battery _battery;
     [SerializeField] private LeanLocalization _localization;
@@ -62,7 +59,6 @@ public class Bootstrap : MonoBehaviour
         _room.Initialize(_player, _playerView, _hourglass);
         _inputView.Initialize();
         _rewardAdHandler.Initialize(_player, _yandexAds);
-        _walletView.Initialize(_wallet);
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;
         _straightCamera.Follow = _player.transform;

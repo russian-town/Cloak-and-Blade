@@ -182,6 +182,9 @@ MonoBehaviour:
   _stepCountToSecodStart: 200
   _stepCountToThirdStart: 100
   _scoreSetter: {fileID: 4188461116898485230}
+  _oneStarReward: 1
+  _twoStarReward: 2
+  _threeStarReward: 3
 --- !u!1 &429330248021878547
 GameObject:
   m_ObjectHideFlags: 0

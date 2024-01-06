@@ -6,6 +6,9 @@ public class ScoreDefiner : MonoBehaviour
     [SerializeField] private int _stepCountToSecodStart;
     [SerializeField] private int _stepCountToThirdStart;
     [SerializeField] private LeaderBoardScoreSetter _scoreSetter;
+    [SerializeField] private int _oneStarReward;
+    [SerializeField] private int _twoStarReward;
+    [SerializeField] private int _threeStarReward;
 
     private ScoreDefinerView _view;
     private int _starsCount;
@@ -21,11 +24,11 @@ public class ScoreDefiner : MonoBehaviour
     public void RecieveStars(int stepCount)
     {
         if (stepCount <= _stepCountToThirdStart)
-            _starsCount = 3;
+            _starsCount = _threeStarReward;
         else if (stepCount <= _stepCountToSecodStart)
-            _starsCount = 2;
+            _starsCount = _twoStarReward;
         else
-            _starsCount = 1;
+            _starsCount = _oneStarReward;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         _scoreSetter.SetPlayerScore(_starsCount);
