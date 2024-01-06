@@ -9,6 +9,8 @@ public class LevelExit : InteractiveObject, ILevelFinisher
     [SerializeField] private Image _lockedImage;
     [SerializeField] private Image _unLockedImage;
 
+    private bool _unLocked = false;
+
     public event UnityAction LevelPassed;
 
     public override void Initialize(Player player)
@@ -20,11 +22,18 @@ public class LevelExit : InteractiveObject, ILevelFinisher
 
     public override void Interact()
     {
-        TryOpen();
+        if (_unLocked)
+            return;
+
+        if (TryOpen())
+            Disable();
     }
 
     public override void Prepare()
     {
+        if (_unLocked)
+            return;
+
         if (CheckInteractionPossibility())
         {
             _view.Show();
@@ -48,18 +57,25 @@ public class LevelExit : InteractiveObject, ILevelFinisher
         }
     }
 
-    public void TryOpen()
+    public bool TryOpen()
     {
+        if (_unLocked)
+            return false;
+
         if (Player.ItemsInHold.FindItemInList(_treasure))
         {
             print("level passed");
             LevelPassed?.Invoke();
+            _unLocked = true;
+            return true;
         }
         else
         {
             print("level not passed");
             LevelPassed?.Invoke();
         }
+
+        return false;
     }
 
     protected override void Disable()
