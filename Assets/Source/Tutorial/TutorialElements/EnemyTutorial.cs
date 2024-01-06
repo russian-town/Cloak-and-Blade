@@ -8,6 +8,8 @@ public class EnemyTutorial : BaseTutorialElement
     [SerializeField] private Gameboard _gameboard;
     [SerializeField] private List<Cell> _enemyPath = new List<Cell>();
     [SerializeField] private Bootstrap _bootstrap;
+    [SerializeField] private Door _door;
+    [SerializeField] private int _skipCountToOpenDoor;
 
     private Player _player;
 
@@ -27,10 +29,14 @@ public class EnemyTutorial : BaseTutorialElement
     {
         _skipCount--;
 
+        if(_skipCount == _skipCountToOpenDoor)
+            _door.Open();
+
         if (_skipCount <= 0)
         {
             _player.StepEnded -= OnStepEnded;
             InvokeTutorialZoneCompleteAction();
+            _door.Close();
             _bootstrap.RemoveEnemy();
 
             foreach (var cell in _enemyPath)
