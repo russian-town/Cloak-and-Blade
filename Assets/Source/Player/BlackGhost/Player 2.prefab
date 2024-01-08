@@ -19886,7 +19886,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3916308776901908248}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 3.4, z: 0}
+  m_LocalPosition: {x: 0, y: 4.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19904,11 +19904,11 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.3937899, g: 0.2117647, b: 1, a: 1}
-  m_Intensity: 20
-  m_Range: 5
-  m_SpotAngle: 25
-  m_InnerSpotAngle: 2
+  m_Color: {r: 0.5632845, g: 0.18396229, b: 1, a: 1}
+  m_Intensity: 2
+  m_Range: 22.1
+  m_SpotAngle: 15
+  m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -19944,7 +19944,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -25221,6 +25221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1378624325366751973}
   - component: {fileID: 758404075986929325}
+  - component: {fileID: 1044181511704899166}
   m_Layer: 0
   m_Name: Little_Ghost_2 1
   m_TagString: Untagged
@@ -25301,6 +25302,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -2.712511, y: -0.0038884878, z: 0.031070948}
     m_Extent: {x: 2.7533255, y: 1.0906959, z: 1.0935676}
   m_DirtyAABB: 0
+--- !u!114 &1044181511704899166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799552494385546622}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 3
+  eraseRenderer: 0
 --- !u!1 &5899280386053536257
 GameObject:
   m_ObjectHideFlags: 0

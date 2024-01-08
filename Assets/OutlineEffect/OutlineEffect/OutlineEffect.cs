@@ -33,12 +33,12 @@ namespace cakeslice
 	/* [ExecuteInEditMode] */
 	public class OutlineEffect : MonoBehaviour
 	{
-		/* #if UNITY_EDITOR
-				  private void OnValidate()
-				  {
-						CreateMaterialsIfNeeded();
-				  }
-		#endif */
+#if UNITY_EDITOR
+		private void OnValidate()
+		{
+			CreateMaterialsIfNeeded();
+		}
+#endif
 
 		public static OutlineEffect Instance { get; private set; }
 
@@ -51,9 +51,9 @@ namespace cakeslice
 		[Range(0, 1)]
 		public float fillAmount = 0.2f;
 
-		public Color lineColor0 = Color.red;
-		public Color lineColor1 = Color.green;
-		public Color lineColor2 = Color.blue;
+		public Color lineColor0;
+		public Color lineColor1;
+		public Color lineColor2;
 
 		public bool additiveRendering = false;
 
