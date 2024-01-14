@@ -32,7 +32,7 @@
 	
 	SubShader
 	{
-		Tags{ "Queue" = "Transparent" }
+		Tags{ "Queue" = "AlphaTest" }
 		
 		// This Pass Renders the outlines
 		Cull Front

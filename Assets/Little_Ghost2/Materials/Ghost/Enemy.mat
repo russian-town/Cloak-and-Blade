@@ -85,7 +85,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _OutlineSize: 0
+    - _OutlineSize: 35
     - _Parallax: 0.02
     - _RampLevels: 2
     - _RimAlpha: 0
@@ -102,6 +102,6 @@ Material:
     - _FresnelColor: {r: 0.56206894, g: 0.56206894, b: 0.56206894, a: 1}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
     - _LowColor: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
