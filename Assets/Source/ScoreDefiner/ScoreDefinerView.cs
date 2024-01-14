@@ -13,6 +13,7 @@ public class ScoreDefinerView : MonoBehaviour
     [SerializeField] private ThirdStarContainer _thirdStarContainer;
     [SerializeField] private float _duration;
 
+    private Coroutine _startShowStars;
     private Queue<Star> _starTemplates = new Queue<Star>();
     private Queue<StarContainer> _starContainers = new Queue<StarContainer>();
 
@@ -28,20 +29,24 @@ public class ScoreDefinerView : MonoBehaviour
 
     public void ShowStars(int starCount)
     {
-        Debug.Log(starCount);
-
-        if (starCount == 0 || starCount > 3)
+        if (starCount > 3)
             return;
 
-        StartCoroutine(StartShowingStars(starCount));
+        if(starCount == 0)
+            starCount = 3;
+
+        if (_startShowStars != null)
+            return;
+
+       _startShowStars = StartCoroutine(StartShowingStars(starCount));
     }
 
     private IEnumerator StartShowingStars(int starCount)
     {
         for (int i = 0; i < starCount; i++)
         {
-            _starSpawner.Get(_starTemplates.Dequeue(), _starContainers.Dequeue());
             yield return new WaitForSeconds(_duration);
+            _starSpawner.Get(_starTemplates.Dequeue(), _starContainers.Dequeue());
         }
     }
 }

@@ -2,6 +2,10 @@ using UnityEngine;
 
 public abstract class Ability : MonoBehaviour
 {
+    public abstract bool CanUse();
+
+    public abstract void ResetAbility();
+
     public virtual bool Cast(Cell cell)
     {
         Action(cell);
@@ -10,7 +14,7 @@ public abstract class Ability : MonoBehaviour
 
     protected abstract void Action(Cell cell);
 
-    public abstract void Initialize();
+    public abstract void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView);
 
     public abstract void Prepare();
 

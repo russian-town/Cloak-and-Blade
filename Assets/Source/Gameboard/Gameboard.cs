@@ -7,7 +7,6 @@ public class Gameboard : MonoBehaviour
     [SerializeField] private Transform _ground;
     [SerializeField] private Cell _cellTemplate;
     [SerializeField] private Vector2Int _size;
-    [SerializeField] private CellContentSpawner _cellContentSpawner;
     [SerializeField] private List<Cell> _cells;
     [SerializeField] private Queue<Cell> _searchFrontier = new Queue<Cell>();
 
@@ -46,10 +45,14 @@ public class Gameboard : MonoBehaviour
                     cell.IsAlternative = !cell.IsAlternative;
                 }
 
-                cell.Content = _cellContentSpawner.Get(CellContentType.Empty, cell.transform);
+                cell.Content.BecomeEmpty();
             }
         }
     }
+
+    public void Enable() => gameObject.SetActive(true);
+
+    public void Disable() => gameObject.SetActive(false);
 
     public void HideGrid()
     {
@@ -73,6 +76,18 @@ public class Gameboard : MonoBehaviour
         {
             if (cell == destination)
             {
+                if (destination.Content.Type == CellContentType.Wall)
+                {
+                    if (destination.South != null && destination.South.Content.Type == CellContentType.Empty)
+                        destination = destination.South;
+                    else if (destination.West != null && destination.West.Content.Type == CellContentType.Empty)
+                        destination = destination.West;
+                    else if (destination.East != null && destination.East.Content.Type == CellContentType.Empty)
+                        destination = destination.East;
+                    else if (destination.North != null && destination.North.Content.Type == CellContentType.Empty)
+                        destination = destination.North;
+                }
+
                 destination.BecomeDestination();
                 _searchFrontier.Enqueue(destination);
             }

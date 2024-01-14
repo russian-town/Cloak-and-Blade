@@ -1,30 +1,33 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
-public class TheWorldCommand : Command
+public class TheWorldCommand : AbilityCommand
 {
     private TheWorld _theWorld;
-    private Player _player;
-    private Coroutine _executeCoroutine;
-    private CommandExecuter _executer;
+    private YellowGhost _yellowGhost;
 
-    public TheWorldCommand(TheWorld theWorld, Player player, CommandExecuter executer)
+    public TheWorldCommand(TheWorld theWorld, CommandExecuter executer, YellowGhost yellowGhost) : base(theWorld, executer)
     {
         _theWorld = theWorld;
-        _theWorld.Initialize();
-        _player = player;
-        _executer = executer;
+        _yellowGhost = yellowGhost;
+        _theWorld.AddSceneEffectsToChange
+            (
+            _yellowGhost.SceneEffects.ToList(), 
+            _yellowGhost.SceneSounds.ToList(), 
+            _yellowGhost.SceneSplines.ToList(), 
+            _yellowGhost.SceneAnimations.ToList()
+            );
     }
 
-    public override IEnumerator WaitOfExecute()
+    protected override IEnumerator WaitOfExecute()
     {
-        _executeCoroutine = _executer.StartCoroutine(Execute(null, _executer));
-        yield return _executeCoroutine;
+        yield break;
     }
 
-    protected override IEnumerator ExecuteAction(Cell clickedCell)
+    protected override IEnumerator ExecuteAction()
     {
-        yield return new WaitUntil(() => _theWorld.Cast(clickedCell));
+        yield return new WaitUntil(() => _theWorld.Cast(null));
         yield break;
     }
 
@@ -32,11 +35,5 @@ public class TheWorldCommand : Command
     {
         _theWorld.Prepare();
         yield break;
-    }
-
-    public override void Cancel(MonoBehaviour context)
-    {
-        base.Cancel(context);
-        _theWorld.Cancel();
     }
 }

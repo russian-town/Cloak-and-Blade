@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
+public class Room : MonoBehaviour, IEnemyTurnWaiter
 {
+    [SerializeField] [Range(0f, 1f)] private float _delay;
+
     private Player _player;
     private PlayerView _view;
-    private PlayerInput _playerInput;
     private List<Enemy> _enemies = new List<Enemy>();
     private Turn _turn;
     private Coroutine _startWaitForEnemies;
-    private bool _isPause;
+    private Hourglass _hourglass;
 
     public void Unsubscribe()
     {
@@ -18,29 +19,29 @@ public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
         _view.Unsubscribe();
     }
 
-    private void Update()
-    {
-        if (_turn == Turn.Enemy || _isPause)
-            return;
-
-        _playerInput.GameUpdate();
-    }
-
-    public void Initialize(Player player, PlayerView view, PlayerInput playerInput)
+    public void Initialize(Player player, PlayerView view, Hourglass hourglass)
     {
         _player = player;
         _view = view;
+        _hourglass = hourglass;
+        _hourglass.Initialaze();
         _player.StepEnded += OnTurnEnded;
         _turn = Turn.Player;
-        _playerInput = playerInput;
+        _player.SetTurn(_turn);
         _view.Subscribe();
         _view.ShowInteravtiveButton();
+        WaitForEnemies();
     }
 
     public void AddEnemy(Enemy enemy) => _enemies.Add(enemy);
 
+    public void RemoveEnemies() => _enemies.Clear();
+
     public Coroutine WaitForEnemies()
     {
+        if (_startWaitForEnemies != null)
+            return null;
+
         _startWaitForEnemies = StartCoroutine(WaitEnemiesTurn());
         return _startWaitForEnemies;
     }
@@ -51,6 +52,7 @@ public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
             return;
 
         _turn = Turn.Enemy;
+        _player.SetTurn(_turn);
         _view.Unsubscribe();
         _view.HideInteractiveButton();
         WaitForEnemies();
@@ -59,36 +61,41 @@ public class Room : MonoBehaviour, IEnemyTurnHandler, IPauseHandler
     private IEnumerator WaitEnemiesTurn()
     {
         if (_enemies.Count == 0)
-            yield break;
-
-        for (int i = 0; i < _enemies.Count; i++)
         {
-            if (_enemies[i].IsFreeze)
-                continue;
-
-            if (i == _enemies.Count)
-                yield return _enemies[i].StartPerformMove();
-            else
-                _enemies[i].StartPerformMove();
+            SetPlayerTurn();
+            yield break;
         }
 
-        //foreach (Enemy enemy in _enemies)
-        //{
-        //    if (enemy.IsFreeze)
-        //        continue;
+        yield return _hourglass.StartShow();
+        WaitForSeconds waitForSeconds = new WaitForSeconds(_delay);
 
-        //    yield return enemy.StartPerformMove();
-        //}
+        foreach (Enemy enemy in _enemies)
+        {
+            if (enemy.IsFreeze)
+                continue;
 
-        _turn = Turn.Player;
-        _view.Subscribe();
-        _view.ShowInteravtiveButton();
+            if (_enemies.IndexOf(enemy) == _enemies.Count)
+            {
+                yield return enemy.StartPerformMove();
+            }
+            else
+            {
+                enemy.StartPerformMove();
+                yield return waitForSeconds;
+            }
+        }
+
+        yield return _hourglass.StartHide();
+        SetPlayerTurn();
         _startWaitForEnemies = null;
     }
 
-    public void SetPause(bool isPause)
+    private void SetPlayerTurn()
     {
-        _isPause = isPause;
+        _turn = Turn.Player;
+        _view.Subscribe();
+        _view.ShowInteravtiveButton();
+        _player.SetTurn(_turn);
     }
 }
 

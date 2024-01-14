@@ -1,51 +1,89 @@
 using System.Collections;
 using UnityEngine;
 
-public class TransformationCommand : Command, IDeferredCommand
+public class TransformationCommand : AbilityCommand, ITurnHandler
 {
-    private Transformation _transformation;
-    private Gameboard _gameboard;
-    private Camera _camera;
-    private Navigator _navigator;
-    private Coroutine _executeCoroutine;
-    private CommandExecuter _executer;
+    private readonly int _range;
+    private readonly float _moveSpeed;
+    private readonly float _rotationSpeed;
+    private readonly PlayerMover _playerMover;
+    private readonly Transformation _transformation;
+    private readonly Gameboard _gameboard;
+    private readonly Camera _camera;
+    private readonly Navigator _navigator;
+    private readonly Player _player;
+    private readonly CommandExecuter _executer;
 
-    public TransformationCommand(Transformation transformation, Gameboard gameboard, Navigator navigator, CommandExecuter executer)
+    private Cell _cell;
+
+    public TransformationCommand(Transformation transformation, Gameboard gameboard, Navigator navigator, CommandExecuter executer, Player player, PlayerMover playerMover, float moveSpeed, float rotationSpeed, int range) : base(transformation, executer)
     {
         _transformation = transformation;
-        _transformation.Initialize();
         _gameboard = gameboard;
         _camera = Camera.main;
         _navigator = navigator;
+        _player = player;
+        _playerMover = playerMover;
+        _range = range;
+        _moveSpeed = moveSpeed;
+        _rotationSpeed = rotationSpeed;
         _executer = executer;
     }
 
-    public override IEnumerator WaitOfExecute()
+    public void SetTurn(Turn turn)
     {
-        Debug.Log("Wait");
-        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
-        yield return waitOfClickedCell;
-        _executeCoroutine = _executer.StartCoroutine(Execute(waitOfClickedCell.Cell, _executer));
-        yield return _executeCoroutine;
+        if (Prepared == false)
+            return;
+
+        if(turn == Turn.Enemy)
+        {
+            _navigator.HideAvailableCells();
+        }
+        else
+        {
+            _navigator.RefillAvailableCellsIgnoredWalls(_player.CurrentCell, _range);
+            _navigator.ShowAvailableCells();
+            _executer.StartCoroutine(WaitOfExecute());
+        }
     }
 
-    protected override IEnumerator ExecuteAction(Cell clickedCell)
+    protected override void Cancel()
     {
-        Debug.Log("Execute");
-        yield return new WaitUntil(() => _transformation.Cast(clickedCell));
-        yield break;
+        base.Cancel();
+        _playerMover.MoveEnded -= Cancel;
+        _transformation.Cancel();
+        _navigator.HideAvailableCells();
+    }
+
+    protected override IEnumerator WaitOfExecute()
+    {
+        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
+        yield return waitOfClickedCell;
+        _cell = waitOfClickedCell.Cell;
+    }
+
+    protected override IEnumerator ExecuteAction()
+    {
+        _playerMover.MoveEnded += Cancel;
+        yield return new WaitUntil(() => _transformation.Cast(_cell));
+
+        if (_player.TryMoveToCell(_cell, _moveSpeed, _rotationSpeed))
+            yield return _player.MoveCoroutine;
     }
 
     protected override IEnumerator PrepareAction()
     {
-        Debug.Log("Prepared");
+        _navigator.RefillAvailableCellsIgnoredWalls(_playerMover.CurrentCell, _range);
+        _navigator.ShowAvailableCells();
         _transformation.Prepare();
-        yield break;
+        yield return null;
     }
 
-    public override void Cancel(MonoBehaviour context)
+    protected override void OnCommandChanged(Command command)
     {
-        base.Cancel(context);
-        _transformation.Cancel();
+        if (command is SkipCommand || command == this)
+            return;
+
+        Cancel();
     }
 }

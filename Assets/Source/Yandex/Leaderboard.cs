@@ -1,5 +1,6 @@
 using Agava.WebUtility;
 using Agava.YandexGames;
+using System.Collections.Generic;
 using Unity.Burst;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,13 +8,14 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CanvasGroup))]
 public class LeaderBoard : MonoBehaviour
 {
-    [SerializeField] private GridLayoutGroup _leaderBoardView;
-    [SerializeField] private LeaderBoardUnit _leaderBoardUnitTemplate;
+    [SerializeField] private CanvasGroup _leaderBoardView;
+    [SerializeField] private List<LeaderBoardUnit> _leaderBoardUnits;
     [SerializeField] private LeaderBoardUnit _thePlayer;
     [SerializeField] private int _maxLeaderboardUnits;
     [SerializeField] private Sprite _defaultProfilePicture;
     [SerializeField] private Image _blackBacking;
-    [SerializeField] private Canvas _autorizationRequirmentScreen;
+    [SerializeField] private AuthorizationReqScreen _autorizationRequirmentScreen;
+    [SerializeField] private ScreenAnimationHandler _animationHandler;
 
     private CanvasGroup _canvasGroup;
 
@@ -25,7 +27,6 @@ public class LeaderBoard : MonoBehaviour
         _canvasGroup.blocksRaycasts = false;
         _canvasGroup.alpha = 0;
         ClearLeaderBoard();
-        _autorizationRequirmentScreen.gameObject.SetActive(false);
     }
 
     public void OnOpenLeaderBoardButtonClick()
@@ -36,15 +37,8 @@ public class LeaderBoard : MonoBehaviour
         }
         else
         {
-            _autorizationRequirmentScreen.gameObject.SetActive(true);
+            _autorizationRequirmentScreen.Enable();
         }
-    }
-
-    public void CloseLeaderBoard()
-    {
-        _blackBacking.gameObject.SetActive(false);
-        _canvasGroup.alpha = 0;
-        _canvasGroup.blocksRaycasts = false;
     }
 
     public void Authorize()
@@ -58,11 +52,12 @@ public class LeaderBoard : MonoBehaviour
 
     private void OpenLeaderBoard()
     {
-        _blackBacking.gameObject.SetActive(true);
-        _canvasGroup.alpha = 1;
-        _canvasGroup.blocksRaycasts = true;
+        if (_autorizationRequirmentScreen.CanvasGroup.alpha > .9)
+            _autorizationRequirmentScreen.Disable();
+
         ShowPlayer();
         BuildLeaderBoard();
+        _animationHandler.FadeIn();
     }
 
     private void ShowPlayer()
@@ -80,16 +75,16 @@ public class LeaderBoard : MonoBehaviour
             {
                 for (int i = 0; i < _maxLeaderboardUnits; i++)
                 {
-                    LeaderBoardUnit tempUnit = Instantiate(_leaderBoardUnitTemplate, _leaderBoardView.transform);
-                    SetPlayer(tempUnit, result.entries[i]);
+                    _leaderBoardUnits[i].gameObject.SetActive(true);
+                    SetPlayer(_leaderBoardUnits[i], result.entries[i]);
                 }
             }
             else
             {
-                foreach (var entry in result.entries)
+                for (int i = 0; i < result.entries.Length; i++)
                 {
-                    LeaderBoardUnit tempUnit = Instantiate(_leaderBoardUnitTemplate, _leaderBoardView.transform);
-                    SetPlayer(tempUnit, entry);
+                    _leaderBoardUnits[i].gameObject.SetActive(true);
+                    SetPlayer(_leaderBoardUnits[i], result.entries[i]);
                 }
             }
         });
@@ -99,7 +94,7 @@ public class LeaderBoard : MonoBehaviour
     {
         if (_leaderBoardView.transform.childCount > 0)
             for (var i = _leaderBoardView.transform.childCount - 1; i >= 0; i--)
-                Object.Destroy(_leaderBoardView.transform.GetChild(i).gameObject);
+                _leaderBoardView.transform.GetChild(i).gameObject.SetActive(false);
     }
 
     private void SetPlayer(LeaderBoardUnit tempUnit, LeaderboardEntryResponse entry)

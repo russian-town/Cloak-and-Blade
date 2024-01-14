@@ -1,12 +1,15 @@
 using Cinemachine;
 using UnityEngine;
+using Agava.WebUtility;
 
 public class CameraControls : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _angledCamera;
     [SerializeField] private CinemachineVirtualCamera _straightCamera;
     [SerializeField] private float _rotationSpeed;
-    [SerializeField] private int _angledCameraValue;
+    [SerializeField] private float _angledCameraValue;
+    [SerializeField] private int _mobileFOV = 40;
+    [SerializeField] private int _desktopFOV = 60; 
 
     private CinemachineOrbitalTransposer _angledCameraOrbitalTransposer;
     private int _minRotation = -180;
@@ -23,6 +26,14 @@ public class CameraControls : MonoBehaviour
         _angledCamera.Priority = 1;
         _straightCamera.Priority = 0;
         _angledCameraOrbitalTransposer.m_FollowOffset.z = _angledCameraValue;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (Device.IsMobile)
+            _angledCamera.m_Lens.FieldOfView = _mobileFOV;
+        else
+            _angledCamera.m_Lens.FieldOfView = _desktopFOV;
+#endif
+
         _cameraIsStraight = false;
     }
 

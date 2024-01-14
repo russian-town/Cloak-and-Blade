@@ -1,91 +1,91 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class CommandExecuter : MonoBehaviour
+public class CommandExecuter : MonoBehaviour, ITurnHandler
 {
-    private Coroutine _prepare;
-    private Coroutine _waitOfExecute;
-    private Coroutine _switchCommand;
     private Command _currentCommand;
-    private Command _deferredCommand;
+    private Turn _turn;
+    private AbilityCommand _abilityCommandToReset;
 
-    public Command NextCommand { get; private set; }
+    public Command CurrentCommand => _currentCommand;
 
-    public void PrepareCommand(Command command)
+    public event UnityAction<Command> CommandChanged;
+    public event UnityAction AbilityUseFail;
+    public event UnityAction AbilityReseted;
+
+    public bool TrySwitchCommand(Command command)
     {
-        if (_currentCommand != null && _currentCommand.IsExecuting)
+        if (command is AbilityCommand abilityCommand)
+        {
+            if (abilityCommand.IsUsed)
+            {
+                AbilityUseFail?.Invoke();
+                _abilityCommandToReset = abilityCommand;
+            }
+        }
+
+        if (_currentCommand != null)
+        {
+            if (_currentCommand.GetType() == command.GetType() && command is not SkipCommand)
+            {
+                if(_currentCommand is AbilityCommand)
+                {
+                    if (_currentCommand.Enabled == false)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        }
+            
+        if(CanSwith() == false)
+        {
+            print("Cant switch");
+            return false;
+        }
+
+        _currentCommand = command;
+        CommandChanged?.Invoke(command);
+        return true;
+    }
+
+    public void PrepareCommand()
+    {
+        if (_turn == Turn.Enemy)
             return;
 
-        if (_switchCommand != null)
-        {
-            StopCoroutine(_switchCommand);
-            _switchCommand = null;
-        }
+        if (_currentCommand == null)
+            return;
 
-        _switchCommand = StartCoroutine(SwitchCurrentCommand(command));
+        StartCoroutine(_currentCommand.Execute());
     }
 
-    public void UpdateLastCommand()
+    public void ResetCommand()
     {
-        _deferredCommand = null;
-
-        if (!ResetCommand())
-        {
-            _prepare = StartCoroutine(_currentCommand.Prepare(this));
-            _waitOfExecute = StartCoroutine(_currentCommand.WaitOfExecute());
-        }
+        _currentCommand = null;
+        CommandChanged?.Invoke(_currentCommand);
     }
 
-    public bool ResetCommand()
+    public void ResetAbilityOnReward()
     {
-        if (_currentCommand is not IUnmissable && _deferredCommand == null)
+        if (_abilityCommandToReset != null)
         {
-            _currentCommand = null;
-            return true;
+            _abilityCommandToReset.Ability.ResetAbility();
+            AbilityReseted?.Invoke();
         }
 
-        return false;
+        _currentCommand = null;
     }
 
-    public void ResetDeferredCommand() => _deferredCommand = null;
+    public void SetTurn(Turn turn) => _turn = turn;
 
-    private IEnumerator SwitchCurrentCommand(Command command)
+    private bool CanSwith()
     {
-        if (command == _currentCommand)
-            yield break;
-
         if (_currentCommand != null && _currentCommand.IsExecuting)
-            yield break;
+            return false;
 
-        if (_currentCommand is IDeferredCommand)
-            _deferredCommand = _currentCommand;
-
-        if (_prepare != null)
-        {
-            StopCoroutine(_prepare);
-            _prepare = null;
-        }
-
-        if (_waitOfExecute != null)
-        {
-            StopCoroutine(_waitOfExecute);
-            _waitOfExecute = null;
-        }
-
-        NextCommand = command;
-        _currentCommand?.Cancel(this);
-        _currentCommand = command;
-
-        _prepare = StartCoroutine(_currentCommand.Prepare(this));
-        yield return _prepare;
-
-        _waitOfExecute = StartCoroutine(_currentCommand.WaitOfExecute());
-        yield return _waitOfExecute;
-
-        if (_deferredCommand != null)
-        {
-            _switchCommand = StartCoroutine(SwitchCurrentCommand(_deferredCommand));
-            _deferredCommand = null;
-        }
+        return true;
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027bcda9a791a6649b4f3ca8839afbe6, type: 3}
+  m_Name: Cathedral-Medium
+  m_EditorClassIdentifier: 
+  _name: Cathedral-Medium
+  _unlockedPreview: {fileID: 21300000, guid: 1e7fdd6b4ae22b9479923bd21186f60a, type: 3}
+  _lockedPreview: {fileID: 21300000, guid: fca1f7c96bae2fa47b66dab4231e459f, type: 3}
+  _isOpen: 1
+  _isCompleted: 0

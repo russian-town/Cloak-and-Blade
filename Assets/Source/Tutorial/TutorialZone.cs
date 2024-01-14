@@ -1,48 +1,104 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class TutorialZone : InteractiveObject
 {
-    [SerializeField] private Canvas _view;
-    [SerializeField] private Canvas _playerUI;
-    [SerializeField] private Button _closeButton;
+    [SerializeField] private List<TutorialText> _referenceTexts;
+    [SerializeField] private List<TutorialText> _congratTexts;
+    [SerializeField] private DialogueHandler _dialogueHandler;
+    [SerializeField] private bool _isInteractedOnStart;
+    [SerializeField] private BaseTutorialElement _tutorialElement;
+    [SerializeField] private TutorialZone _nextTutorialZone;
+    [SerializeField] private ParticleSystem _tutorialEffectTemplate;
 
-    private bool _isZonePassed;
+    private List<ParticleSystem> _effects = new List<ParticleSystem>();
+    private bool _isExecuted;
+    private int _currentIndexText = 0;
+    private int _currentIndexCongratText = -1;
 
-    public event UnityAction ZonePassed;
+    public BaseTutorialElement Element => _tutorialElement;
+
+    private void OnEnable()
+    {
+        _tutorialElement.TutorialZoneComplete += OnTutorialZoneComplete;
+    }
 
     private void Start()
     {
-        _view.gameObject.SetActive(false);
-        _closeButton.onClick.AddListener(() => Interact());
-    }
-
-    private void OnDisable()
-    {
-        _closeButton.onClick.RemoveListener(() => Interact());
-    }
-
-    public override void Prepare()
-    {
-        if (!CheckInteractionPossibility() || _isZonePassed)
-            return;
-
-        _view.gameObject.SetActive(true);
-        _playerUI.gameObject.SetActive(false);
-        _isZonePassed = true;
+        if (_isInteractedOnStart)
+            Interact();
     }
 
     public override void Interact()
     {
-        _view.gameObject.SetActive(false);
-        _playerUI.gameObject.SetActive(true);
-        _closeButton.onClick.RemoveListener(() => Interact());
-        ZonePassed?.Invoke();
+        _dialogueHandler.WriteDialogue(this);
+        HideTutorialZoneCells();
+        _isExecuted = true;
     }
 
-    protected override void Disable()
+    public TutorialText GetText()
     {
+        return _referenceTexts[_currentIndexText];
+    }
 
+    public TutorialText GetNextText()
+    {
+        _currentIndexText++;
+
+        if (_currentIndexText > _referenceTexts.Count - 1)
+            return null;
+
+        return _referenceTexts[_currentIndexText];
+    }
+
+    public TutorialText GetNextCongratText()
+    {
+        _currentIndexCongratText++;
+
+        if (_currentIndexCongratText > _congratTexts.Count - 1)
+            return null;
+
+        return _congratTexts[_currentIndexCongratText];
+    }
+
+    public override void Prepare()
+    {
+        if (!_isExecuted)
+            if (CheckInteractionPossibility())
+                Interact();
+    }
+
+    public void ShowTutorialZoneCells()
+    {
+        foreach (var cell in CellsInInteractibleRange)
+        {
+            ParticleSystem effect = Instantiate(_tutorialEffectTemplate, cell.transform.position, cell.transform.rotation);
+            effect.Play();
+            _effects.Add(effect);
+        }
+    }
+
+    public void HideTutorialZoneCells()
+    {
+        if(_effects.Count == 0)
+            return;
+
+        foreach (var effect in _effects)
+            effect.Stop();
+    }
+
+    protected override void Disable() { }
+
+    private void OnTutorialZoneComplete()
+    {
+        _tutorialElement.TutorialZoneComplete -= OnTutorialZoneComplete;
+
+        if(_nextTutorialZone != null)
+            _nextTutorialZone.ShowTutorialZoneCells();
+
+        _dialogueHandler.WriteCongratDialogue();
     }
 }

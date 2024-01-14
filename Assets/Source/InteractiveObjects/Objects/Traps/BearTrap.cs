@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class BearTrap : InteractiveObject
 {
+    [SerializeField] private AudioSource _source;
+
     private Animator _animator;
 
     private Cell TrappedCell => CellsInInteractibleRange[0];
@@ -17,6 +19,7 @@ public class BearTrap : InteractiveObject
     public override void Interact()
     {
         Player.Die();
+        _source.Play();
     }
 
     public override void Prepare()

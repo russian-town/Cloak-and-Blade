@@ -1,52 +1,40 @@
 using System.Collections;
-using UnityEngine;
 
 public class AbilityCommand : Command
 {
-    private readonly Ability _ability;
+    private Ability _ability;
 
-    private Gameboard _gameboard;
-    private Camera _camera;
-    private Player _player;
-    private Navigator _navigator;
-    private Coroutine _executeCoroutine;
+    public Ability Ability { get { return _ability; } }
+    
+    public bool IsUsed => _ability.CanUse() == false;
 
-    public AbilityCommand(Ability ability, Gameboard gameboard, Player player, Navigator navigator)
+    public AbilityCommand(Ability ability, CommandExecuter executer) : base(executer)
     {
         _ability = ability;
-        _gameboard = gameboard;
-        _camera = Camera.main;
-        _player = player;
-        _navigator = navigator;
+    }
+
+    protected override IEnumerator WaitOfExecute()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override IEnumerator ExecuteAction()
+    {
+        throw new System.NotImplementedException();
     }
 
     protected override IEnumerator PrepareAction()
     {
-        _ability.Prepare();
-        yield return null;
+        throw new System.NotImplementedException();
     }
 
-    public override void Cancel(MonoBehaviour context)
+    protected override void OnCommandChanged(Command command)
     {
-        _ability.Cancel();
-
-        if(_executeCoroutine != null) 
-        {
-            _player.StopCoroutine(_executeCoroutine);
-            _executeCoroutine = null;
-        }
+        Cancel();
     }
 
-    protected override IEnumerator ExecuteAction(Cell clickedCell)
+    protected override void Cancel()
     {
-        yield return new WaitUntil(() => _ability.Cast(clickedCell));
-    }
-
-    public override IEnumerator WaitOfExecute()
-    {
-        WaitOfClickedCell waitOfClickedCell = new WaitOfClickedCell(_gameboard, _camera, _navigator);
-        yield return waitOfClickedCell;
-        _executeCoroutine = _player.StartCoroutine(Execute(waitOfClickedCell.Cell, _player));
-        yield return _executeCoroutine;
+        base.Cancel();
     }
 }

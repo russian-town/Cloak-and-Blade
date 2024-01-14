@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +8,16 @@ public class Treasure : InteractiveObject
     [SerializeField] private Key _key;
     [SerializeField] private Image _lockedImage;
     [SerializeField] private Image _unLockedImage;
+    [SerializeField] private AudioSource _chestSource;
+    [SerializeField] private AudioSource _lockSource;
+    [SerializeField] private AudioSource _closeSource;
+    [SerializeField] private ParticleSystem _particle;
+
     private Animator _animator;
     private bool _treasureAccquired;
+    private bool _closed = true;
+
+    public event Action Opened;
 
     public override void Initialize(Player player)
     {
@@ -22,19 +31,22 @@ public class Treasure : InteractiveObject
     {
         if (!Player.ItemsInHold.FindItemInList(_key))
         {
-            print("Requires key");
             return;
         }
 
         _view.InteractButton.onClick.RemoveListener(Interact);
         _view.Hide();
+        _lockSource.Play();
+        _chestSource.Play();
+        _particle.Stop();
         Open();
+        _closed = false;
         _treasureAccquired = true;
     }
 
     public override void Prepare()
     {
-        if (CheckInteractionPossibility())
+        if (CheckInteractionPossibility() && !Player.ItemsInHold.FindItemInList(this))
         {
             _view.Show();
 
@@ -53,6 +65,11 @@ public class Treasure : InteractiveObject
         else if (_treasureAccquired)
         {
             _animator.SetTrigger(Constants.CloseParameter);
+
+            if (!_closed)
+                _closeSource.Play();
+
+            _closed = true;
         }
         else if (_view.isActiveAndEnabled)
         {
@@ -64,7 +81,8 @@ public class Treasure : InteractiveObject
     private void Open()
     {
         _animator.SetTrigger(Constants.OpenParameter);
-        Player.ItemsInHold.AddObjectToItemList(gameObject.GetComponent<Treasure>());
+        Player.ItemsInHold.AddObjectToItemList(this);
+        Opened?.Invoke();
     }
 
     protected override void Disable()

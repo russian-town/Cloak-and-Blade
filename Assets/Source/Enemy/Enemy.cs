@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemySightHandler), typeof(EnemyMover), typeof(EnemyAnimationHandler))]
@@ -8,8 +7,12 @@ public class Enemy : Ghost, IPauseHandler
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private Transform _transform;
-    [SerializeField] private EnemyPhrasePlayer _phrasePlayer;
     [SerializeField] private ParticleSystem _freezeEffect;
+    [SerializeField] private Transform _announcer;
+    [SerializeField] private ParticleSystem _announcerNorth;
+    [SerializeField] private ParticleSystem _announcerSouth;
+    [SerializeField] private ParticleSystem _announcerEast;
+    [SerializeField] private ParticleSystem _announcerWest;
 
     private EnemySightHandler _sightHandler;
     private EnemyZoneDrawer _zoneDrawer;
@@ -17,12 +20,14 @@ public class Enemy : Ghost, IPauseHandler
     private Cell _startCell;
     private Cell _nextCell;
     private Cell _previousCell;
+    private Cell _nextDeclaredCell;
+    private Cell _previousDestination;
     private Player _player;
     private EnemyAnimationHandler _animationHandler;
     private Gameboard _gameBoard;
     private Cell _currentDestination;
     private Cell[] _destinations;
-    private int _currentIndex;
+    private ParticleSystem _previousAnnouncer;
     private int _currentDestinationIndex;
     private int _north = 0;
     private int _fakeNorth = 360;
@@ -47,6 +52,7 @@ public class Enemy : Ghost, IPauseHandler
         _gameBoard = gameboard;
         _zoneDrawer = enemyZoneDrawer;
         _sightHandler.Initialize(_zoneDrawer);
+        AnnouncerDerection();
     }
 
     public void SetPause(bool isPause)
@@ -57,6 +63,12 @@ public class Enemy : Ghost, IPauseHandler
             _animationHandler.StopAnimation();
         else
             _animationHandler.StartAnimation();
+    }
+
+    public Cell DeclareNextCell()
+    {
+        CalculatePath();
+        return _nextDeclaredCell;
     }
 
     public void Freeze()
@@ -76,19 +88,50 @@ public class Enemy : Ghost, IPauseHandler
         return StartCoroutine(PerformMove());
     }
 
+    public void Die()
+    {
+        _sightHandler.ClearSight();
+        Destroy(gameObject);
+    }
+
     private IEnumerator PerformMove()
     {
         _sightHandler.ClearSight();
-        _previousCell = _mover.CurrentCell;
+        _nextDeclaredCell.BecomeOccupied();
 
-        if (!CalculatePath())
-            yield return new WaitUntil(() => CalculatePath());
+        if (_previousDestination != null)
+        {
+            _previousDestination.BecomeUnoccupied();
+            _previousDestination = null;
+        }
+
+        if (_previousAnnouncer != null)
+        {
+            _previousAnnouncer.Stop();
+            _previousAnnouncer.gameObject.SetActive(false);
+            _previousAnnouncer = null;
+        }
+
+        _previousCell = _mover.CurrentCell;
+        _nextCell = _nextDeclaredCell;
+
+        if (_nextCell == _player.CurrentCell && _isBlind == true)
+        {
+            DeclareNextCell();
+            _nextCell = _nextDeclaredCell;
+        }
 
         if (_nextCell == _player.CurrentCell && _isBlind == false)
         {
             yield return _mover.StartRotate(_nextCell, _rotationSpeed);
             _player.Die();
             yield break;
+        }
+
+        if (_nextDeclaredCell == _destinations[_currentDestinationIndex])
+        {
+            _nextDeclaredCell.BecomeOccupied();
+            _previousDestination = _destinations[_currentDestinationIndex];
         }
 
         yield return _mover.StartMoveTo(_nextCell, _moveSpeed, _rotationSpeed);
@@ -99,14 +142,43 @@ public class Enemy : Ghost, IPauseHandler
         if (_sightHandler.TryFindPlayer(_player) && _isBlind == false)
         {
             _player.Die();
-            _phrasePlayer.StopRightThere();
         }
 
         if (_previousCell != null)
             _previousCell.BecomeUnoccupied();
 
-        _mover.CurrentCell.BecomeOccupied();
-        _currentIndex++;
+        AnnouncerDerection();
+    }
+
+    private void AnnouncerDerection()
+    {
+        Cell cell = DeclareNextCell();
+        _announcer.rotation = Quaternion.Euler(Vector3.zero);
+
+        if (cell == _mover.CurrentCell.North)
+        {
+            _announcerNorth.gameObject.SetActive(true);
+            _announcerNorth.Play();
+            _previousAnnouncer = _announcerNorth;
+        }
+        if (cell == _mover.CurrentCell.South)
+        {
+            _announcerSouth.gameObject.SetActive(true);
+            _announcerSouth.Play();
+            _previousAnnouncer = _announcerSouth;
+        }
+        if (cell == _mover.CurrentCell.West)
+        {
+            _announcerWest.gameObject.SetActive(true);
+            _announcerWest.Play();
+            _previousAnnouncer = _announcerWest;
+        }
+        if (cell == _mover.CurrentCell.East)
+        {
+            _announcerEast.gameObject.SetActive(true);
+            _announcerEast.Play();
+            _previousAnnouncer = _announcerEast;
+        }
     }
 
     private void GenerateSight(Cell currentCell)
@@ -126,18 +198,18 @@ public class Enemy : Ghost, IPauseHandler
 
     private void ChangeDestination()
     {
-        _mover.CurrentCell.BecomeUnoccupied();
         _currentDestinationIndex++;
 
-        if(_currentDestinationIndex > _destinations.Length - 1)
+        if (_currentDestinationIndex > _destinations.Length - 1)
             _currentDestinationIndex = 0;
 
         _currentDestination = _destinations[_currentDestinationIndex];
+        DeclareNextCell();
     }
 
     public bool CalculatePath()
     {
-        if (_gameBoard.FindPath(_currentDestination, ref _nextCell, _mover.CurrentCell))
+        if (_gameBoard.FindPath(_currentDestination, ref _nextDeclaredCell, _mover.CurrentCell))
         {
             return true;
         }

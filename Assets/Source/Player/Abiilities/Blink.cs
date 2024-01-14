@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(Player), typeof(Navigator))]
@@ -9,24 +9,35 @@ public class Blink : Ability
     [SerializeField] private int _blinkRange = 4;
     [SerializeField] private ParticleSystem _prepareEffect;
     [SerializeField] private ParticleSystem _actionEffect;
+    [SerializeField] private ParticleSystem _trailEffectMain;
+    [SerializeField] private ParticleSystem _trailEffectChildren;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _prepareSound;
     [SerializeField] private AudioClip _actionSound;
 
+    private UpgradeSetter _upgradeSetter;
+    private PlayerView _playerView;
     private Player _player;
-    private List<Cell> _availableCells = new List<Cell>();
     private Navigator _navigator;
+    private bool _canUse = true;
 
-    public override void Initialize()
+    protected Navigator Navigator => _navigator;
+    protected Player Player => _player;
+    protected int BlinkRange => _blinkRange;
+
+    public override void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView)
     {
         _player = GetComponent<Player>();
         _navigator = GetComponent<Navigator>();
+        _upgradeSetter = upgradeSetter;
+        _playerView = playerView;
+        _blinkRange += _upgradeSetter.Level;
     }
 
     public override void Prepare()
     {
-        Cell currentCell = _player.CurrentCell;
-        BuildBlinkRange(currentCell);
+        _playerView.DisableAbilityButton();
+        RefillNavigatorCells();
         ShowBlinkRange();
         _source.clip = _prepareSound;
         _source.Play();
@@ -35,72 +46,57 @@ public class Blink : Ability
 
     public override void Cancel()
     {
+        _playerView.Cancel();
+        _playerView.EnableAbilityButton();
         HideBlinkRange();
         _prepareEffect.Stop();
         _source.Stop();
-        _availableCells.Clear();
     }
 
-    private void BuildBlinkRange(Cell currentCell)
+    public override bool CanUse()
     {
-        _availableCells.Clear();
-        Cell tempCellNorth = currentCell.North;
-        Cell tempCellSouth = currentCell.South;
-        Cell tempCellWest = currentCell.West;
-        Cell tempCellEast = currentCell.East;
-
-        for (int i = 0; i < _blinkRange; i++)
-        {
-            if (tempCellNorth != null)
-            {
-                _availableCells.Add(tempCellNorth);
-                tempCellNorth = tempCellNorth.North;
-            }
-
-            if (tempCellSouth != null)
-            {
-                _availableCells.Add(tempCellSouth);
-                tempCellSouth = tempCellSouth.South;
-            }
-
-            if (tempCellWest != null)
-            {
-                _availableCells.Add(tempCellWest);
-                tempCellWest = tempCellWest.West;
-            }
-
-            if (tempCellEast != null)
-            {
-                _availableCells.Add(tempCellEast);
-                tempCellEast = tempCellEast.East;
-            }
-        }
-
-        _navigator.RefillAvailableCells(_availableCells);
+        return _canUse;
     }
 
-    private void ShowBlinkRange()
+    public override void ResetAbility()
     {
-        foreach (var cell in _availableCells)
-            if (cell.Content.Type != CellContentType.Wall)
-                cell.View.PlayAbilityRangeEffect();
+        if (_canUse == true)
+            return;
+
+        _canUse = true;
     }
 
-    private void HideBlinkRange()
+    public virtual void RefillNavigatorCells()
     {
-        foreach (var cell in _availableCells)
-            cell.View.StopAbilityRangeEffect();
-
+        _navigator.RefillAvailableCells(_player.CurrentCell, _blinkRange);
     }
 
     protected override void Action(Cell cell)
     {
         if (_player.TryMoveToCell(cell, _moveSpeed, _rotationSpeed))
         {
+            _canUse = false;
             Cancel();
             _source.clip = _actionSound;
             _source.Play();
             _actionEffect.Play();
+            _trailEffectChildren.startSpeed = Vector3.Distance(cell.transform.position, _player.CurrentCell.transform.position) * 5;
+            Vector3 targetEffectRotation = cell.transform.position - _trailEffectMain.transform.position;
+            _trailEffectMain.transform.rotation = Quaternion.LookRotation(targetEffectRotation);   
+            _trailEffectMain.Play();
         }
+    }
+
+    private void ShowBlinkRange()
+    {
+        foreach (var cell in _navigator.AvailableCells)
+            if (cell.Content.Type != CellContentType.Wall)
+                cell.View.PlayAbilityRangeEffect();
+    }
+
+    private void HideBlinkRange()
+    {
+        foreach (var cell in _navigator.AvailableCells)
+            cell.View.StopAbilityRangeEffect();
     }
 }

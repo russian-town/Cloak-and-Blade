@@ -1,15 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CanvasGroup), typeof(Animator))]
-public class Hourglass : MonoBehaviour
+public class Hourglass : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private float _fadeInSpeed;
     [SerializeField] private AnimationClip _hourglassClip;
 
     private CanvasGroup _canvasGroup;
     private Animator _animator;
+    private float _pauseSpeed = 1;
 
     public float AnimationLength => _hourglassClip.length;
 
@@ -29,6 +29,8 @@ public class Hourglass : MonoBehaviour
         return StartCoroutine(Hide());
     }
 
+    public void SetPause(bool isPause) => _pauseSpeed = isPause ? 0 : 1;
+
     private IEnumerator Show()
     {
         yield return StartCoroutine(FadeIn(1));
@@ -45,7 +47,7 @@ public class Hourglass : MonoBehaviour
     {
         while (_canvasGroup.alpha != target)
         {
-            _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, target, Time.deltaTime * _fadeInSpeed);
+            _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, target, Time.deltaTime * _fadeInSpeed * _pauseSpeed);
             yield return null;
         }
     }

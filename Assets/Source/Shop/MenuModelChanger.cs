@@ -21,6 +21,9 @@ public class MenuModelChanger : MonoBehaviour
         if (_selectedMenuModel == null)
             return;
 
+        if (_selectedMenuModel == _menuModels[index])
+            return;
+
         _selectedMenuModel.Hide();
         _selectedMenuModel = null;
         SetSelectedModel(index);

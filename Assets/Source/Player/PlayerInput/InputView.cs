@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InputView : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private ParticleSystem _mouseOverCell;
     [SerializeField] private Gameboard _gameboard;
+    [SerializeField] private AudioSource _source;
 
     private bool _isInitialized;
     private Camera _camera;
@@ -24,6 +26,9 @@ public class InputView : MonoBehaviour, IPauseHandler
 
         if (cell != null && cell.Content.Type != CellContentType.Wall)
         {
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+                _source.Play();
+
             _mouseOverCell.transform.position = cell.transform.position;
             _mouseOverCell.Play();
             _lastCell = cell;
