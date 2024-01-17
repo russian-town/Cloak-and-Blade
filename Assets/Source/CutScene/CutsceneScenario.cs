@@ -1,8 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class CutsceneScenario : MonoBehaviour
+public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
 {
     [SerializeField] private float _flyingToTableWait;
     [SerializeField] private float _candleLightWait;
@@ -16,12 +16,23 @@ public class CutsceneScenario : MonoBehaviour
     [SerializeField] private float _candleIntensity;
 
     private WaitForSeconds _genericWait;
+    private bool _isTutorialCompleted;
 
-    void Start()
+    private void Start()
     {
         _candleLight.intensity = 0;
+    }
+
+    public void Initialize()
+    {
         _genericWait = new WaitForSeconds(_flyingToTableWait);
         StartCoroutine(CutsceneCoroutine());
+        Debug.Log(_isTutorialCompleted);
+    }
+
+    public void Read(PlayerData playerData)
+    {
+        _isTutorialCompleted = playerData.IsTutorialCompleted;
     }
 
     private IEnumerator CutsceneCoroutine()
@@ -38,6 +49,7 @@ public class CutsceneScenario : MonoBehaviour
             _candleLight.intensity = Mathf.MoveTowards(_candleLight.intensity, _candleIntensity, _candleLightFadeSpeed * Time.deltaTime);
             yield return null;
         }
+
         _genericWait = new WaitForSeconds(_textAppearWait);
         yield return _genericWait;
         _candleLoop.Play();
@@ -45,5 +57,10 @@ public class CutsceneScenario : MonoBehaviour
         _genericWait = new WaitForSeconds(_narratorWait);
         yield return _genericWait;
         print("narrator started speech");
+
+        if (_isTutorialCompleted)
+            SceneManager.LoadScene(Constants.MainMenu);
+        else
+            SceneManager.LoadScene(Constants.Tutorial);
     }
 }

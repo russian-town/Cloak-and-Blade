@@ -23,6 +23,11 @@ public class MainSceneLogic : MonoBehaviour
         _shop.CharacterSelected += OnCharacterSelected;
     }
 
+    private void Start()
+    {
+        StartCoroutine(Initialize());
+    }
+
     private void OnDisable()
     {
         _saver.Disable();

@@ -6,17 +6,25 @@ using UnityEngine;
 public class YandexInit : MonoBehaviour
 {
     [SerializeField] private LeanLocalization _localization;
-    [SerializeField] private MainSceneLogic _mainSceneLogic;
-    [SerializeField] private float _speed;
-    [SerializeField] private LoadingScreen _loadingScreen;
+    [SerializeField] private CutsceneScenario _cutsceneScenario;
+    
+    private Saver _saver = new Saver();
+
+    private void OnEnable()
+    {
+        _saver.Enable();
+    }
 
     private void Awake()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         YandexGamesSdk.CallbackLogging = true;
 #endif
+    }
 
-        _loadingScreen.Initialize();
+    private void OnDisable()
+    {
+        _saver.Disable();
     }
 
     private IEnumerator Start()
@@ -33,14 +41,15 @@ public class YandexInit : MonoBehaviour
         if (YandexGamesSdk.Environment.i18n.lang == "tr")
             _localization.SetCurrentLanguage(Constants.Turkish);
 #endif
-
-        StartCoroutine(_mainSceneLogic.Initialize());
-
+         
 #if UNITY_WEBGL && !UNITY_EDITOR
         YandexGamesSdk.GameReady();
 #endif
 
-        _loadingScreen.StartFade();
+        _saver.AddDataReaders(new IDataReader[] { _cutsceneScenario });
+        _saver.AddInitializable(_cutsceneScenario);
+        _saver.Initialize();
+        _saver.Load();
         yield break;
     }
 }

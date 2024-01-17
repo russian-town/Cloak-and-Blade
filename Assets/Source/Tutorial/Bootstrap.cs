@@ -3,7 +3,7 @@ using Lean.Localization;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bootstrap : MonoBehaviour
+public class Bootstrap : MonoBehaviour, IInitializable
 {
     [SerializeField] private Player _player;
     [SerializeField] private PlayerView _playerView;
@@ -30,13 +30,20 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private Battery _battery;
     [SerializeField] private LeanLocalization _localization;
+    [SerializeField] private CompleteTutorialZone _completeTutorialZone;
 
     private readonly Wallet _wallet = new Wallet();
     private readonly List<Enemy> _enemies = new List<Enemy>();
     private readonly YandexAds _yandexAds = new YandexAds();
+    private readonly Saver _saver = new Saver();
 
     private AdHandler _adHandler;
     private Pause _pause;
+
+    private void OnEnable()
+    {
+        _saver.Enable();
+    }
 
     private void OnDisable()
     {
@@ -44,11 +51,16 @@ public class Bootstrap : MonoBehaviour
         _room.Unsubscribe();
         _game.Unsubscribe();
         _player.Unsubscribe();
+        _saver.Save();
+        _saver.Disable();
     }
 
     private void Start()
     {
-        Initialize();
+        _saver.AddDataWriters(new IDataWriter[] { _completeTutorialZone});
+        _saver.AddInitializable(this);
+        _saver.Initialize();
+        _saver.Load();
     }
 
     public void Initialize()
