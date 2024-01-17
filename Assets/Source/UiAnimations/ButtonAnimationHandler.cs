@@ -37,9 +37,9 @@ public class ButtonAnimationHandler : MonoBehaviour
         _transform.DOAnchorPos(_initialPosition, _duration, false).SetEase(Ease.Flash);
     }
 
-    public void Shrink() => _transform.DOScale(_shrinkScale, _bounceDuration).SetEase(Ease.Flash);
+    public void Shrink() { }/*=> _transform.DOScale(_shrinkScale, _bounceDuration).SetEase(Ease.Flash);*/
 
-    public void ShrinkBack() => _transform.DOScale(_initialScale, _bounceDuration).SetEase(Ease.Flash);
+    public void ShrinkBack() { }/*=> _transform.DOScale(_initialScale, _bounceDuration).SetEase(Ease.Flash);*/
 
     public void BounceOnClick()
     {

@@ -5263,6 +5263,107 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4917461917481936, guid: b5b68b1042a3a3f41a3f4bffb26cfb61, type: 3}
   m_PrefabInstance: {fileID: 182039720}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &186380745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100008, guid: 75e8c5fff5a7b884ca99847e1ae08cfe, type: 3}
+  m_PrefabInstance: {fileID: 1427709793}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &186380747
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186380745}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -7202782730146613640, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 36790d201510b5b41bb0817c17d7b774, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
+  m_Pitch: 0.8
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 320
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &191033908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28168,12 +28269,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433faa8b758afed4f9295b193c697276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PixelationFactor: 0.35
+  _PixelationFactor: 0.2
   _ColorEmulationMode: 2
   _FullscreenColorDepth: {x: 256, y: 256, z: 256}
   _FullscreenDitherDepth: {x: 32, y: 32, z: 32}
   _DitheringMatrixSize: 2
-  _DitheringScale: 0.25
+  _DitheringScale: 0.2
   _InterlacingSize: 1
   _PostProcessShader: {fileID: 4800000, guid: 56d52fd5b7c6911468179e5a7359ce0e, type: 3}
   _PostProcessShaderAccurate: {fileID: 4800000, guid: 2ebed186567d3c244a87538744a62920, type: 3}
@@ -45570,6 +45671,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 75e8c5fff5a7b884ca99847e1ae08cfe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1771446672}
+    - targetCorrespondingSourceObject: {fileID: 100008, guid: 75e8c5fff5a7b884ca99847e1ae08cfe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 186380747}
   m_SourcePrefab: {fileID: 100100000, guid: 75e8c5fff5a7b884ca99847e1ae08cfe, type: 3}
 --- !u!4 &1427709794 stripped
 Transform:
@@ -59142,6 +59246,7 @@ MonoBehaviour:
   _narratorWait: 0.5
   _candle: {fileID: 1427709795}
   _candleSound: {fileID: 1771446672}
+  _candleLoop: {fileID: 186380747}
   _candleLight: {fileID: 1297009531}
   _candleLightFadeSpeed: 7
   _candleIntensity: 10

@@ -10,10 +10,10 @@ public class CutsceneScenario : MonoBehaviour
     [SerializeField] private float _narratorWait;
     [SerializeField] private GameObject _candle;
     [SerializeField] private AudioSource _candleSound;
+    [SerializeField] private AudioSource _candleLoop;
     [SerializeField] private Light _candleLight;
     [SerializeField] private float _candleLightFadeSpeed;
     [SerializeField] private float _candleIntensity;
-    [SerializeField] private AudioClip _candleLoop;
 
     private WaitForSeconds _genericWait;
 
@@ -40,8 +40,7 @@ public class CutsceneScenario : MonoBehaviour
         }
         _genericWait = new WaitForSeconds(_textAppearWait);
         yield return _genericWait;
-        _candleSound.clip = _candleLoop;
-        _candleSound.loop = true;
+        _candleLoop.Play();
         print("text started");
         _genericWait = new WaitForSeconds(_narratorWait);
         yield return _genericWait;
