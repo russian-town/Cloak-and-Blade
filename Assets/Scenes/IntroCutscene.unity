@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.03991634, g: 0.06561327, b: 0.21698111, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.5
-  m_AmbientMode: 0
+  m_AmbientIntensity: 0.96
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.049483802, g: 0.05684704, b: 0.0754717, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 538e81a3dd9acdc428c9dcefcbb6f566, type: 2}
   m_HaloStrength: 0.5
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 9e6ed9c03fb76164f94b19494fd373d2, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -14493,6 +14493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Table_01_a
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e3a9389a3394e074c97b9fc14e7e5ca0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e3a9389a3394e074c97b9fc14e7e5ca0, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -28621,9 +28625,9 @@ MonoBehaviour:
   _TextureWarpingMode: 0
   _VertexGridResolution: 100
   _VertexWobbleMode: 0
-  _UseRetroVertexLighting: 1
-  _RetroLightingNormalFactor: 1
-  _RetroLightFalloffStart: 0.9999
+  _UseRetroVertexLighting: 0
+  _RetroLightingNormalFactor: 0.5
+  _RetroLightFalloffStart: 0.5
   _FlatShadingMode: 0
   _TriangleSortMode: 3
   _DepthDebugView: 0
@@ -33259,7 +33263,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1033632549}
   - component: {fileID: 1033632547}
-  - component: {fileID: 1033632548}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -33278,20 +33281,20 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.7688679, g: 0.90370405, b: 1, a: 1}
-  m_Intensity: 1.82
+  m_Color: {r: 0.6179246, g: 0.66644204, b: 1, a: 1}
+  m_Intensity: 1.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 88.22
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_Bias: 0.212
+    m_NormalBias: 0.539
+    m_NearPlane: 0.78
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -33328,31 +33331,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
-  m_ShadowAngle: 0
---- !u!114 &1033632548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1033632546}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a333bf91a474d544a925e058d031986, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PreviewInEditor: 0
-  m_ProjectMode: 0
-  m_CloudLayers: {fileID: 11400000, guid: e14f0c312b73f474997cb31a21d11812, type: 2}
-  m_WorldSize: 88.22
-  m_RenderTextureResolution: 2048
-  m_OpacityMultiplier: 1
-  m_CoverageModifier: -0.12
-  m_SoftnessModifier: -0.4
-  m_SpeedMultiplier: 0.45
-  m_DirectionModifier: -45
-  m_HorizonAngleThreshold: 10
-  m_HorizonAngleFade: 10
+  m_ShadowAngle: 13.4
 --- !u!4 &1033632549
 Transform:
   m_ObjectHideFlags: 0
@@ -33360,14 +33339,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1033632546}
-  m_LocalRotation: {x: -0.18951364, y: -0.7669441, z: 0.26228458, w: -0.5541553}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.43807697, y: -0.20025699, z: -0.28250533, w: 0.82956403}
+  m_LocalPosition: {x: 3.64, y: 9.545, z: -8.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 715281297}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 37.76, y: -251.7, z: 0}
+  m_LocalEulerAnglesHint: {x: 37.856, y: -767.248, z: -54.673}
 --- !u!1001 &1034430821
 PrefabInstance:
   m_ObjectHideFlags: 0
