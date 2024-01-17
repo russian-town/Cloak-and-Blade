@@ -12,16 +12,16 @@ public class LoadingScreen : MonoBehaviour
         _canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public Coroutine StartFade()
+    public Coroutine StartFade(float value)
     {
-        return StartCoroutine(Fade());
+        return StartCoroutine(Fade(value));
     }
 
-    private IEnumerator Fade()
+    private IEnumerator Fade(float value)
     {
-        while (_canvasGroup.alpha > 0)
+        while (Mathf.Approximately(_canvasGroup.alpha, value) == false)
         {
-            _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, 0, Time.deltaTime * _speed);
+            _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, value, Time.deltaTime * _speed);
             yield return null;
         }
 

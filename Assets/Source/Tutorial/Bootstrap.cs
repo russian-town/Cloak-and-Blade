@@ -1,5 +1,6 @@
 using Cinemachine;
 using Lean.Localization;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -94,14 +95,13 @@ public class Bootstrap : MonoBehaviour, IInitializable
 #endif
 
         _pause = new Pause(new List<IPauseHandler> { _inputView, _playerView, _player, _hourglass });
-        //SpawnEnemy();
         _adHandler = new AdHandler(_game, _focusHandler, _audio);
         _game.Initialize(_player, _pause, _levelExit, _wallet, _adHandler);
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
         _scoreDefiner.Initialize();
-        _loadingScreen.Initialize();
-        _loadingScreen.StartFade();
+
+        StartCoroutine(StartDelay());
     }
 
     public void SpawnEnemy()
@@ -127,5 +127,12 @@ public class Bootstrap : MonoBehaviour, IInitializable
             _pause.RemoveHandler(enemy);
             enemy.Die();
         }
+    }
+
+    private IEnumerator StartDelay()
+    {
+        yield return new WaitForSeconds(.5f);
+        _loadingScreen.Initialize();
+        _loadingScreen.StartFade(0);
     }
 }

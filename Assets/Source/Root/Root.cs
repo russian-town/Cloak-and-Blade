@@ -125,7 +125,7 @@ public class Root : MonoBehaviour, IInitializable
         _stepCounter.Initialize(_player);
         _scoreDefiner.Initialize();
         _loadingScreen.Initialize();
-        _loadingScreen.StartFade();
+        _loadingScreen.StartFade(0);
     }
 
     private void OnAdOpenCallback()

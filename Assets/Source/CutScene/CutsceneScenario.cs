@@ -14,6 +14,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
     [SerializeField] private Light _candleLight;
     [SerializeField] private float _candleLightFadeSpeed;
     [SerializeField] private float _candleIntensity;
+    [SerializeField] private LoadingScreen _loadingScreen;
 
     private WaitForSeconds _genericWait;
     private bool _isTutorialCompleted;
@@ -26,6 +27,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
     public void Initialize()
     {
         _genericWait = new WaitForSeconds(_flyingToTableWait);
+        _loadingScreen.Initialize();
         StartCoroutine(CutsceneCoroutine());
         Debug.Log(_isTutorialCompleted);
     }
@@ -37,6 +39,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
 
     private IEnumerator CutsceneCoroutine()
     {
+        yield return _loadingScreen.StartFade(0);
         yield return _genericWait;
         print("im at table");
         _genericWait = new WaitForSeconds(_candleLightWait);
@@ -57,6 +60,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
         _genericWait = new WaitForSeconds(_narratorWait);
         yield return _genericWait;
         print("narrator started speech");
+        yield return _loadingScreen.StartFade(1);
 
         if (_isTutorialCompleted)
             SceneManager.LoadScene(Constants.MainMenu);
