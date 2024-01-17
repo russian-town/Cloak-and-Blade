@@ -2,19 +2,24 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: BrickWallTile
-  m_Shader: {fileID: 4800000, guid: 3ce214d92efc3de42a59ea34fe13e585, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: 7df62e33d3d17584ab47e30a7e668103, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -24,6 +29,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 349fa00df637bc44684c8c57dee473ca, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Cubemap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -43,6 +52,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissiveTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -90,6 +103,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 1ce4472db6b3fdf4ead72b55b22f5031, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ReflectionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Refraction:
         m_Texture: {fileID: 2800000, guid: bbab0a6f7bae9cf42bf057d8ee2755f6, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -118,6 +135,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AO: 0.935
     - _BulgeScale: 0.2
@@ -125,12 +143,14 @@ Material:
     - _BumpScale: 1
     - _ColorMask: 0
     - _ColorMaskInvert: 0
+    - _CustomDepthOffset: 0
     - _Cutoff: 0.5
     - _Depth: -0.08
     - _DepthRef: 0
     - _DetailNormalMapScale: 1
     - _Divisions: 0.563
     - _DstBlend: 0
+    - _FlatShading: 0
     - _Gloss: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -143,6 +163,7 @@ Material:
     - _MaskTightness: 0
     - _Metallic: 0
     - _Mode: 0
+    - _ObjectDithering: 1
     - _OcclusionStrength: 1
     - _Offset: 0.04
     - _OffsetHeight: 0.6
@@ -165,9 +186,11 @@ Material:
     m_Colors:
     - _AOColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _CubemapColor: {r: 0, g: 0, b: 0, a: 0}
     - _Diffuse: {r: 0.9117647, g: 0.8760425, b: 0.8179066, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GlowColor: {r: 1, g: 0.2391481, b: 0.1102941, a: 1}
     - _LightWrapping: {r: 0.9058824, g: 0.4941176, b: 0.4901961, a: 1}
     - _SecondaryTint: {r: 0.7058823, g: 0.7058823, b: 0.7058823, a: 1}
     - _Tint: {r: 0.74264705, g: 0.74264705, b: 0.74264705, a: 1}
+  m_BuildTextureStacks: []
