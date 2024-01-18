@@ -14521,11 +14521,11 @@ MonoBehaviour:
   _TextureWarpingMode: 0
   _VertexGridResolution: 20
   _VertexWobbleMode: 1
-  _UseRetroVertexLighting: 0
+  _UseRetroVertexLighting: 1
   _RetroLightingNormalFactor: 1
-  _RetroLightFalloffStart: 0.612
+  _RetroLightFalloffStart: 0.5
   _FlatShadingMode: 0
-  _TriangleSortMode: 3
+  _TriangleSortMode: 10
   _DepthDebugView: 0
 --- !u!114 &1009626430464440805
 MonoBehaviour:
@@ -14539,7 +14539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433faa8b758afed4f9295b193c697276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PixelationFactor: 0.35
+  _PixelationFactor: 0.4
   _ColorEmulationMode: 2
   _FullscreenColorDepth: {x: 256, y: 256, z: 256}
   _FullscreenDitherDepth: {x: 32, y: 32, z: 32}
@@ -16545,9 +16545,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 3
   m_FollowOffset: {x: 0, y: 15, z: 0}
-  m_XDamping: 2
-  m_YDamping: 2
-  m_ZDamping: 2
+  m_XDamping: 7
+  m_YDamping: 7
+  m_ZDamping: 7
   m_AngularDampingMode: 0
   m_PitchDamping: 0
   m_YawDamping: 0

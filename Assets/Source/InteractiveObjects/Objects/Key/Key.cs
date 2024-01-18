@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.Sprites;
 using UnityEngine;
 
 public class Key : InteractiveObject
