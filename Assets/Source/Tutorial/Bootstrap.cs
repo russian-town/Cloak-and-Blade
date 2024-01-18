@@ -63,6 +63,7 @@ public class Bootstrap : MonoBehaviour, IInitializable
         _saver.AddInitializable(this);
         _saver.Initialize();
         _saver.Load();
+        print(Screen.width);
     }
 
     public void Initialize()

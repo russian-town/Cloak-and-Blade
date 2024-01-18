@@ -1,3 +1,4 @@
+using PSXShaderKit;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
     [SerializeField] private float _candleLightFadeSpeed;
     [SerializeField] private float _candleIntensity;
     [SerializeField] private LoadingScreen _loadingScreen;
+    [SerializeField] private PSXPostProcessEffect _postProcessEffect;
 
     private WaitForSeconds _genericWait;
     private bool _isTutorialCompleted;
@@ -22,6 +24,9 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
     private void Start()
     {
         _candleLight.intensity = 0;
+
+        if (Screen.width > 2000)
+            _postProcessEffect._PixelationFactor = .17f;
     }
 
     public void Initialize()

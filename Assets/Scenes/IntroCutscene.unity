@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
+  m_AmbientSkyColor: {r: 0.13608047, g: 0.1522229, b: 0.20754719, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.96
@@ -59753,6 +59753,7 @@ MonoBehaviour:
   _candleLightFadeSpeed: 7
   _candleIntensity: 10
   _loadingScreen: {fileID: 128790194}
+  _postProcessEffect: {fileID: 907688684}
 --- !u!1001 &1807927396
 PrefabInstance:
   m_ObjectHideFlags: 0
