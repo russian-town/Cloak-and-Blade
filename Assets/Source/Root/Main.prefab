@@ -14518,7 +14518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18 - update available (click to update).
   sections: 01010100
-  customRes: {x: 1036, y: 583}
+  customRes: {x: 861, y: 484}
   resolutionFactor: 2
   limitFramerate: -1
   skipFrames: 0
@@ -14529,10 +14529,10 @@ MonoBehaviour:
   colorDepth: 4
   scanlines: 0
   scanlineIntensity: 5
-  ditherTexture: {fileID: 2800000, guid: 8dd5bb07501448a4e9631457f7f63a13, type: 3}
+  ditherTexture: {fileID: 0}
   dithering: 1
   ditherThreshold: 1
-  ditherIntensity: 16
+  ditherIntensity: 6
   maxDarkness: 20
   subtractFade: 0
   favorRed: 0
@@ -14546,7 +14546,7 @@ MonoBehaviour:
   camSnapping: 0
   shadowType: 0
   ditherSky: 0
-  ditherType: 2
+  ditherType: 1
 --- !u!1 &3864732369807830990
 GameObject:
   m_ObjectHideFlags: 0
