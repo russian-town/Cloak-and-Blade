@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.25222498, g: 0.30518967, b: 0.49056602, a: 1}
+  m_AmbientSkyColor: {r: 0.11685653, g: 0.14633149, b: 0.24528301, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.96
@@ -28706,17 +28706,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b416fbce5a38cc47a3a1e709f95f5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cfuStatus: PSXEffects v1.18 - update available (click to update).
+  cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 380, y: 214}
-  resolutionFactor: 5
+  customRes: {x: 465, y: 261}
+  resolutionFactor: 3
   limitFramerate: -1
   skipFrames: 0
   affineMapping: 0
   polygonalDrawDistance: 0
-  vertexInaccuracy: 100
+  vertexInaccuracy: 350
   polygonInaccuracy: 2
-  colorDepth: 4
+  colorDepth: 24
   scanlines: 0
   scanlineIntensity: 5
   ditherTexture: {fileID: 0}
@@ -28725,7 +28725,7 @@ MonoBehaviour:
   ditherIntensity: 6
   maxDarkness: 20
   subtractFade: 0
-  favorRed: 0.6
+  favorRed: 0.3
   worldSpaceSnapping: 0
   postProcessing: 1
   verticalScanlines: 1
@@ -28734,7 +28734,7 @@ MonoBehaviour:
   snapCamera: 0
   camInaccuracy: 0.05
   camSnapping: 0
-  shadowType: 0
+  shadowType: 1
   ditherSky: 0
   ditherType: 1
 --- !u!114 &907688691
@@ -46149,7 +46149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 10800000, guid: 75e8c5fff5a7b884ca99847e1ae08cfe, type: 3}
       propertyPath: m_Range
-      value: 2.36
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 10800000, guid: 75e8c5fff5a7b884ca99847e1ae08cfe, type: 3}
       propertyPath: m_Color.a
@@ -59763,7 +59763,7 @@ MonoBehaviour:
   _candleSound: {fileID: 1771446672}
   _candleLoop: {fileID: 186380747}
   _candleLight: {fileID: 1297009531}
-  _candleLightFadeSpeed: 7
+  _candleLightFadeSpeed: 4
   _candleIntensity: 5
   _loadingScreen: {fileID: 128790194}
   _postProcessEffect: {fileID: 0}

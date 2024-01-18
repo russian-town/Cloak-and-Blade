@@ -238,10 +238,10 @@ public class PSXEffects : MonoBehaviour {
 	}
 
 	public void CheckForUpdates() {
-		StartCoroutine("CheckForUpdate");
+		/*StartCoroutine("CheckForUpdate");*/
 	}
 
-	IEnumerator CheckForUpdate() {
+	/*IEnumerator CheckForUpdate() {
 		cfuStatus = "Checking for updates...";
 		UnityWebRequest www = UnityWebRequest.Get("https://ckosmic.github.io/psfxredir.html");
 		yield return www.SendWebRequest();
@@ -267,5 +267,5 @@ public class PSXEffects : MonoBehaviour {
 				}
 			}
 		}
-	}
+	}*/
 }
