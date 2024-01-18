@@ -25,7 +25,11 @@ public abstract class LevelExit : InteractiveObject, ILevelFinisher
             return;
 
         if (TryOpen())
+        {
+            _view.gameObject.SetActive(false);
+            _unLocked = true;
             Disable();
+        }
     }
 
     public override void Prepare()
@@ -66,6 +70,4 @@ public abstract class LevelExit : InteractiveObject, ILevelFinisher
     public abstract bool TryOpen();
 
     public abstract bool RequiredItemFound();
-
-    protected abstract void Action();
 }

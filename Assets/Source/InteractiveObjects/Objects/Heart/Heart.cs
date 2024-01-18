@@ -6,6 +6,7 @@ public class Heart : InteractiveObject
 {
     [SerializeField] private GameObject _linza;
     [SerializeField] private InteractiveObjectView _view;
+    [SerializeField] private AudioSource _audioSource;
 
     public bool IsActive { get; private set; }
 
@@ -16,16 +17,29 @@ public class Heart : InteractiveObject
 
         IsActive = true;
         _linza.SetActive(true);
+        _audioSource.Play();
+        _view.gameObject.SetActive(false);
     }
 
     public override void Prepare()
     {
+        if (IsActive)
+            return; 
+
         if (CheckInteractionPossibility())
+        {
             _view.Show();
+            _view.InteractButton.onClick.AddListener(Interact);
+        }
+        else if (_view.isActiveAndEnabled)
+        {
+            _view.InteractButton.onClick.RemoveListener(Interact);
+            _view.Hide();
+        }
     }
 
     protected override void Disable()
     {
-        //throw new System.NotImplementedException();
+        _view.InteractButton.onClick.RemoveListener(Interact);
     }
 }

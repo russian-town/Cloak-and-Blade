@@ -27,9 +27,4 @@ public class DefaultLevelExit : LevelExit
 
         return false;
     }
-
-    protected override void Action()
-    {
-        throw new System.NotImplementedException();
-    }
 }

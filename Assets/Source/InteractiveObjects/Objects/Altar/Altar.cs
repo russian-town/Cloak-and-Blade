@@ -5,7 +5,6 @@ using UnityEngine;
 public class Altar : LevelExit
 {
     [SerializeField] private GameObject _linza;
-    //[SerializeField] private InteractiveObjectView _view;
     [SerializeField] private Camera _camera;
     [SerializeField] private Heart _heart;
 
@@ -13,47 +12,27 @@ public class Altar : LevelExit
 
     public bool IsActive { get; private set; }
 
-    public override void Interact()
-    {
-        //if (IsActive)
-        //    return;
-
-        //IsActive = true;
-        //_linza.SetActive(true);
-    }
-
-    public override void Prepare()
-    {
-        //if (CheckInteractionPossibility())
-        //{
-        //    if(_heart.IsActive)
-        //    {
-        //        if (_startFinalCutSceneCoroutine != null)
-        //            return;
-
-        //        _startFinalCutSceneCoroutine = StartCoroutine(FinalCutsceneCoroutine());
-        //    }
-        //}
-    }
-
     public override bool RequiredItemFound()
     {
-        throw new System.NotImplementedException();
+        if(_heart.IsActive)
+            return true;
+
+        return false;
     }
 
     public override bool TryOpen()
     {
-        throw new System.NotImplementedException();
-    }
+        if (IsActive)
+            return false;
 
-    protected override void Action()
-    {
-        throw new System.NotImplementedException();
-    }
+        if (_heart.IsActive)
+        {
+            IsActive = true;
+            _linza.SetActive(true);
+            return true;
+        }
 
-    protected override void Disable()
-    {
-        //throw new System.NotImplementedException();
+        return false;
     }
 
     private IEnumerator FinalCutsceneCoroutine()
