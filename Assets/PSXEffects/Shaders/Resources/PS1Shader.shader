@@ -107,7 +107,7 @@ Shader "PSXEffects/PS1Shader"
 				float3 T : TEXCOORD5;
 				float3 B : TEXCOORD6;
 				float3 N : TEXCOORD7;
-				LIGHTING_COORDS(8, 9)
+				UNITY_LIGHTING_COORDS(8, 9)
 				UNITY_FOG_COORDS(10)
 				#if defined(LIGHTMAP_ON) || defined(DYNAMICLIGHTMAP_ON)
 					float4 uv1 : TEXCOORD11;
@@ -592,7 +592,7 @@ Shader "PSXEffects/PS1Shader"
 			#pragma multi_compile OPAQUE TRANSPARENT CUTOUT
 			#pragma multi_compile _ WORLD_SPACE_SNAPPING
 			#pragma multi_compile _ AFFINE_MAPPING
-			#pragma multi_compile _ LIGHTMAP_ON VERTEXLIGHT_ON
+			//#pragma multi_compile _ LIGHTMAP_ON VERTEXLIGHT_ON
 			#pragma shader_feature_local _LOD_TEX
 
 			#include "UnityCG.cginc"
@@ -614,7 +614,7 @@ Shader "PSXEffects/PS1Shader"
 				float4 pos : SV_POSITION;
 				float4 uv : TEXCOORD0;
 				float4 worldPos : TEXCOORD1;
-				LIGHTING_COORDS(2, 3)
+				UNITY_LIGHTING_COORDS(2, 3)
 				float3 normal : TEXCOORD4;
 				fixed4 diff : COLOR;
 				float3 T : TEXCOORD5;
