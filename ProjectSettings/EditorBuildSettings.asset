@@ -8,34 +8,34 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/IntroCutscene.unity
     guid: 89974dc1c8df8a444a51045ce6d9599c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tutorial.unity
     guid: ab8e8a2e4a7a5124dbe5b258bf025930
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 26d044f795b89494d96bba7ba50eee25
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Forest/Forest-Easy.unity
     guid: 6ea24e0f13a14a944a63e9df423146dd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Desert/Desert-Easy.unity
     guid: 286e1d6b1bef35a4f9ce82c21cf8374a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cathedral/Cathedral-Easy.unity
     guid: 0e58ac2fc58a30547b20e5c393cf209c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Desert/Desert-Medium.unity
     guid: 39e2ec6ba904b5a45971a6633829634d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cathedral/Cathedral-Medium.unity
     guid: 959160e2725117549968a7f4c66006d2
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Forest/Forest-Hard.unity
     guid: 3dbed92737cb40d4b8cae30e7eb28e81
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Desert/Desert-Hard.unity
     guid: a3691a5768b5fac4ea4f3f276ad98458
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cathedral/Finale.unity
     guid: 3f20acc7860899349951c85481a2a4dd
   m_configObjects: {}

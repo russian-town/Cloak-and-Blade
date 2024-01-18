@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.13608047, g: 0.1522229, b: 0.20754719, a: 1}
+  m_AmbientSkyColor: {r: 0.25222498, g: 0.30518967, b: 0.49056602, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.96
@@ -28578,6 +28578,7 @@ GameObject:
   - component: {fileID: 907688687}
   - component: {fileID: 907688686}
   - component: {fileID: 907688690}
+  - component: {fileID: 907688691}
   m_Layer: 0
   m_Name: CinemachineBrain
   m_TagString: MainCamera
@@ -28707,8 +28708,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18 - update available (click to update).
   sections: 01010100
-  customRes: {x: 749, y: 421}
-  resolutionFactor: 3
+  customRes: {x: 380, y: 214}
+  resolutionFactor: 5
   limitFramerate: -1
   skipFrames: 0
   affineMapping: 0
@@ -28719,7 +28720,7 @@ MonoBehaviour:
   scanlines: 0
   scanlineIntensity: 5
   ditherTexture: {fileID: 0}
-  dithering: 1
+  dithering: 0
   ditherThreshold: 1
   ditherIntensity: 6
   maxDarkness: 20
@@ -28736,6 +28737,21 @@ MonoBehaviour:
   shadowType: 0
   ditherSky: 0
   ditherType: 1
+--- !u!114 &907688691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907688683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60056235bd7c88140b464c7edc6f4a56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ditherMat: {fileID: 2100000, guid: a212e15e5fdf7e043b5e424bd7fdfb27, type: 2}
+  ditherStrength: 0.02
+  colourDepth: 4
 --- !u!1 &908712995
 GameObject:
   m_ObjectHideFlags: 3
