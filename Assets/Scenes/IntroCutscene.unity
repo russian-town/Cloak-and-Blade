@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07005922, g: 0.13938394, b: 0.1861707, a: 1}
+  m_IndirectSpecularColor: {r: 0.0718909, g: 0.14121589, b: 0.18845761, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -28577,8 +28577,7 @@ GameObject:
   - component: {fileID: 907688688}
   - component: {fileID: 907688687}
   - component: {fileID: 907688686}
-  - component: {fileID: 907688685}
-  - component: {fileID: 907688684}
+  - component: {fileID: 907688690}
   m_Layer: 0
   m_Name: CinemachineBrain
   m_TagString: MainCamera
@@ -28586,51 +28585,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!114 &907688684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907688683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 433faa8b758afed4f9295b193c697276, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _PixelationFactor: 0.2
-  _ColorEmulationMode: 2
-  _FullscreenColorDepth: {x: 256, y: 256, z: 256}
-  _FullscreenDitherDepth: {x: 32, y: 32, z: 32}
-  _DitheringMatrixSize: 2
-  _DitheringScale: 0.2
-  _InterlacingSize: 1
-  _PostProcessShader: {fileID: 4800000, guid: 56d52fd5b7c6911468179e5a7359ce0e, type: 3}
-  _PostProcessShaderAccurate: {fileID: 4800000, guid: 2ebed186567d3c244a87538744a62920, type: 3}
-  _PixelationShader: {fileID: 4800000, guid: f2da0e2a14a532548b5db043244b3df1, type: 3}
-  _InterlacingShader: {fileID: 4800000, guid: 03ebd34214b41ef459d7ee6753b062be, type: 3}
---- !u!114 &907688685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907688683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1a4c69f7a9d3ea43907b5765229dc85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _TextureWarpingFactor: 0.192
-  _TextureWarpingMode: 0
-  _VertexGridResolution: 100
-  _VertexWobbleMode: 0
-  _UseRetroVertexLighting: 0
-  _RetroLightingNormalFactor: 0.5
-  _RetroLightFalloffStart: 0.5
-  _FlatShadingMode: 0
-  _TriangleSortMode: 3
-  _DepthDebugView: 0
 --- !u!114 &907688686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28739,6 +28693,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &907688690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907688683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b416fbce5a38cc47a3a1e709f95f5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cfuStatus: PSXEffects v1.18 - update available (click to update).
+  sections: 01010100
+  customRes: {x: 545, y: 306}
+  resolutionFactor: 3
+  limitFramerate: -1
+  skipFrames: 0
+  affineMapping: 0
+  polygonalDrawDistance: 0
+  vertexInaccuracy: 100
+  polygonInaccuracy: 2
+  colorDepth: 4
+  scanlines: 0
+  scanlineIntensity: 5
+  ditherTexture: {fileID: 2800000, guid: 8dd5bb07501448a4e9631457f7f63a13, type: 3}
+  dithering: 1
+  ditherThreshold: 1
+  ditherIntensity: 16
+  maxDarkness: 20
+  subtractFade: 0
+  favorRed: 0.6
+  worldSpaceSnapping: 0
+  postProcessing: 1
+  verticalScanlines: 1
+  shadowIntensity: 0.5
+  downscale: 0
+  snapCamera: 0
+  camInaccuracy: 0.05
+  camSnapping: 0
+  shadowType: 0
+  ditherSky: 0
+  ditherType: 2
 --- !u!1 &908712995
 GameObject:
   m_ObjectHideFlags: 3
@@ -46160,7 +46157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 10800000, guid: 75e8c5fff5a7b884ca99847e1ae08cfe, type: 3}
       propertyPath: m_Intensity
-      value: 5.92
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7112558951642500667, guid: 75e8c5fff5a7b884ca99847e1ae08cfe, type: 3}
       propertyPath: m_IsActive
@@ -59751,9 +59748,9 @@ MonoBehaviour:
   _candleLoop: {fileID: 186380747}
   _candleLight: {fileID: 1297009531}
   _candleLightFadeSpeed: 7
-  _candleIntensity: 10
+  _candleIntensity: 5
   _loadingScreen: {fileID: 128790194}
-  _postProcessEffect: {fileID: 907688684}
+  _postProcessEffect: {fileID: 0}
 --- !u!1001 &1807927396
 PrefabInstance:
   m_ObjectHideFlags: 0

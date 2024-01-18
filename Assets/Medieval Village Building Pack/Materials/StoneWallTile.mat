@@ -8,16 +8,26 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: StoneWallTile
-  m_Shader: {fileID: 4800000, guid: 7df62e33d3d17584ab47e30a7e668103, type: 3}
+  m_Shader: {fileID: 4800000, guid: 94cb0d6305cd4a743b1d2ec684e277de, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_ValidKeywords:
+  - BFC
+  - DIFF_VERTEX
+  - OPAQUE
+  - SPEC_GOURAUD
+  - _EMISSION
+  m_InvalidKeywords:
+  - _DIFFMODEL_VERTEX
+  - _DRAWDIST_ON
+  - _SPECMODEL_GOURAUD
+  - _UNLIT_ON
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -25,6 +35,10 @@ Material:
     m_TexEnvs:
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 3bcf0061ca8bb564897464a2405b23aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Cube:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Cubemap:
@@ -59,11 +73,23 @@ Material:
         m_Texture: {fileID: 2800000, guid: f61a021278790ac448890c93befedf49, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LODTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 753a64773b8158d4c8e3b29a00cfdd32, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -99,6 +125,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 919e15dd125cef44f9a02719f84c6552, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecularMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TextureMask:
         m_Texture: {fileID: 2800000, guid: a59a553456ea28d438c5257b9f89715d, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -114,19 +144,25 @@ Material:
     m_Ints: []
     m_Floats:
     - _AO: 0.514
+    - _BlendOp: 0
     - _BumpScale: 1
     - _ColorMask: 0
     - _ColorMaskInvert: 0
+    - _Cul: 2
     - _CustomDepthOffset: 0
     - _Cutoff: 0.5
+    - _CutoutThreshold: 0.5
     - _Depth: -0.08
     - _DepthRef: 0
     - _DetailNormalMapScale: 1
+    - _DiffModel: 0
+    - _DrawDist: 1
     - _DstBlend: 0
     - _FlatShading: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _LODAmt: 0
     - _Mask1: 0.32
     - _Mask1Tightness: 0
     - _Mask2: 0.14
@@ -134,6 +170,7 @@ Material:
     - _MaskTightness: 0
     - _Metallic: 0
     - _Mode: 0
+    - _NormalMapDepth: 1
     - _ObjectDithering: 1
     - _OcclusionStrength: 1
     - _Offset: 0.06
@@ -142,21 +179,28 @@ Material:
     - _ProjectionMapping: 0
     - _ReliefDepth: 0.06
     - _ReliefQuality: 16
+    - _RenderMode: 0
     - _ReverseHighMap: 0
     - _Rotation: 0
     - _Roughness: 1
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
+    - _SpecModel: 0
+    - _Specular: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Test: 0
     - _UVSec: 0
     - _UVTiling: 1
     - _UVTiling_copy: 1
+    - _Unlit: 0
+    - _VertexInaccuracy: -1
     - _ZWrite: 1
     m_Colors:
     - _AOColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CubemapColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SecondaryTint: {r: 0.83823526, g: 0.80950063, b: 0.7581098, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
