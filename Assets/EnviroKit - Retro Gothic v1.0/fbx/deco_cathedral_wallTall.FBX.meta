@@ -3,7 +3,12 @@ guid: 8ae8713e4001c094197ced9339c4e429
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: atlas_retroGothic_props
+    second: {fileID: 2100000, guid: 77cf1451551255b468db116cb68971a0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

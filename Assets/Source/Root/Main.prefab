@@ -14519,13 +14519,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 374, y: 210}
-  resolutionFactor: 6
+  customRes: {x: 614, y: 345}
+  resolutionFactor: 3
   limitFramerate: -1
   skipFrames: 0
   affineMapping: 0
   polygonalDrawDistance: 0
-  vertexInaccuracy: 200
+  vertexInaccuracy: 50
   polygonInaccuracy: 2
   colorDepth: 8
   scanlines: 0

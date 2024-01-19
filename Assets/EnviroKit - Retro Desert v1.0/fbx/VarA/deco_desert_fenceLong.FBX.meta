@@ -3,7 +3,12 @@ guid: e6e8d2cfd19f47d479554abb079020d4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: t_retroDesert_props
+    second: {fileID: 2100000, guid: e346126cebdd5d04a8afeeb29b3a2664, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

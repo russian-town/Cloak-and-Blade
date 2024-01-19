@@ -30,11 +30,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Cathedral/Cathedral-Medium.unity
     guid: 959160e2725117549968a7f4c66006d2
   - enabled: 0
-    path: Assets/Scenes/Forest/Forest-Hard.unity
-    guid: 3dbed92737cb40d4b8cae30e7eb28e81
-  - enabled: 0
     path: Assets/Scenes/Desert/Desert-Hard.unity
     guid: a3691a5768b5fac4ea4f3f276ad98458
+  - enabled: 0
+    path: Assets/Scenes/Forest/Forest-Hard.unity
+    guid: 3dbed92737cb40d4b8cae30e7eb28e81
   - enabled: 0
     path: Assets/Scenes/Cathedral/Finale.unity
     guid: 3f20acc7860899349951c85481a2a4dd

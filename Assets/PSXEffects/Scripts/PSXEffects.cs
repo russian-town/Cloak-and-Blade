@@ -239,6 +239,7 @@ public class PSXEffects : MonoBehaviour {
 
     private void AdjustEffectToScreenSize()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
         if (Enumerable.Range(3000, 10000).Contains(Screen.width))
         {
 			print("big poop");
@@ -257,5 +258,6 @@ public class PSXEffects : MonoBehaviour {
             resolutionFactor = 3;
             vertexInaccuracy = 80;
         }
+#endif
     }
 }
