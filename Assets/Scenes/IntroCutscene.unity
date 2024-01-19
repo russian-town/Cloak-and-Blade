@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.11685653, g: 0.14633149, b: 0.24528301, a: 1}
+  m_AmbientSkyColor: {r: 0.30624774, g: 0.36535695, b: 0.5849056, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.96
@@ -4054,6 +4054,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 180759110342540037, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 1405974320114264792, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -28708,15 +28712,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 465, y: 261}
+  customRes: {x: 749, y: 421}
   resolutionFactor: 3
   limitFramerate: -1
   skipFrames: 0
   affineMapping: 0
   polygonalDrawDistance: 0
-  vertexInaccuracy: 350
-  polygonInaccuracy: 2
-  colorDepth: 24
+  vertexInaccuracy: 50
+  polygonInaccuracy: 0
+  colorDepth: 8
   scanlines: 0
   scanlineIntensity: 5
   ditherTexture: {fileID: 0}
@@ -28724,7 +28728,7 @@ MonoBehaviour:
   ditherThreshold: 1
   ditherIntensity: 6
   maxDarkness: 20
-  subtractFade: 0
+  subtractFade: 1
   favorRed: 0.3
   worldSpaceSnapping: 0
   postProcessing: 1
@@ -28734,7 +28738,7 @@ MonoBehaviour:
   snapCamera: 0
   camInaccuracy: 0.05
   camSnapping: 0
-  shadowType: 1
+  shadowType: 0
   ditherSky: 0
   ditherType: 1
 --- !u!114 &907688691
@@ -28750,8 +28754,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ditherMat: {fileID: 2100000, guid: a212e15e5fdf7e043b5e424bd7fdfb27, type: 2}
-  ditherStrength: 0.02
-  colourDepth: 4
+  ditherStrength: 0.03
+  colourDepth: 8
 --- !u!1 &908712995
 GameObject:
   m_ObjectHideFlags: 3

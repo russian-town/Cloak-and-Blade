@@ -173,9 +173,6 @@ public class PSXEffectsEditor : Editor {
 			if (GUILayout.Button("Triple Axis on Twitter")) {
 				Application.OpenURL("https://twitter.com/tripleaxis");
 			}
-			if (GUILayout.Button("Check for Updates")) {
-				psfx.CheckForUpdates();
-			}
 		}
 		if (GUILayout.Button(psfx.cfuStatus, tinyStyle)) {
 			if (psfx.cfuStatus.Contains("update available")) {

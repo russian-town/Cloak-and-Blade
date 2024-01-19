@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -81,14 +82,14 @@ public class PSXEffects : MonoBehaviour {
 		}
 
 		UpdateProperties();
-		CheckForUpdates();
 	}
 
 	private void Start() {
 		UpdateProperties();
-	}
+        AdjustEffectToScreenSize();
+    }
 
-	private void Update() {
+    private void Update() {
 		if (!downscale) {
 			customRes = new Vector2Int(Screen.width / resolutionFactor, Screen.height / resolutionFactor);
 		}
@@ -130,7 +131,7 @@ public class PSXEffects : MonoBehaviour {
 
 	// Updates shader properties with the properties set in PSXEffects
 	public void UpdateProperties() {
-		// Set mesh shader variables
+
 		if (affineMapping)
 			Shader.EnableKeyword("AFFINE_MAPPING");
 		else
@@ -237,35 +238,25 @@ public class PSXEffects : MonoBehaviour {
 		}
 	}
 
-	public void CheckForUpdates() {
-		/*StartCoroutine("CheckForUpdate");*/
-	}
-
-	/*IEnumerator CheckForUpdate() {
-		cfuStatus = "Checking for updates...";
-		UnityWebRequest www = UnityWebRequest.Get("https://ckosmic.github.io/psfxredir.html");
-		yield return www.SendWebRequest();
-
-		if (www.isNetworkError || www.isHttpError) {
-			Debug.Log(www.error);
-		} else {
-			www = UnityWebRequest.Get(www.downloadHandler.text);
-			yield return www.SendWebRequest();
-
-			if (www.isNetworkError || www.isHttpError) {
-				Debug.Log(www.error);
-			} else {
-				System.Version onlineVer = new System.Version(www.downloadHandler.text);
-				int comparison = onlineVer.CompareTo(version);
-
-				if (comparison < 0) {
-					cfuStatus = "PSXEffects v" + version.ToString() + " - version ahead?!";
-				} else if (comparison == 0) {
-					cfuStatus = "PSXEffects v" + version.ToString() + " - up to date.";
-				} else {
-					cfuStatus = "PSXEffects v" + version.ToString() + " - update available (click to update).";
-				}
-			}
-		}
-	}*/
+    private void AdjustEffectToScreenSize()
+    {
+        if (Enumerable.Range(3000, 10000).Contains(Screen.width))
+        {
+			print("big poop");
+            resolutionFactor = 9;
+            vertexInaccuracy = 300;
+        }
+        else if (Enumerable.Range(1500, 3000).Contains(Screen.width))
+        {
+            print("medium poop");
+            resolutionFactor = 6;
+            vertexInaccuracy = 200;
+        }
+        else if (Enumerable.Range(0, 1500).Contains(Screen.width))
+        {
+            print("small poop");
+            resolutionFactor = 3;
+            vertexInaccuracy = 80;
+        }
+    }
 }
