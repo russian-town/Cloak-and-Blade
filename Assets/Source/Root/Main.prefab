@@ -14356,6 +14356,7 @@ GameObject:
   - component: {fileID: 5318906367596094889}
   - component: {fileID: 8227058352216247663}
   - component: {fileID: 7075716175517033031}
+  - component: {fileID: 434347847189986784}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -14516,25 +14517,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b416fbce5a38cc47a3a1e709f95f5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cfuStatus: PSXEffects v1.18 - update available (click to update).
+  cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 861, y: 484}
-  resolutionFactor: 2
+  customRes: {x: 374, y: 210}
+  resolutionFactor: 6
   limitFramerate: -1
   skipFrames: 0
   affineMapping: 0
   polygonalDrawDistance: 0
-  vertexInaccuracy: 100
+  vertexInaccuracy: 200
   polygonInaccuracy: 2
-  colorDepth: 4
+  colorDepth: 8
   scanlines: 0
   scanlineIntensity: 5
   ditherTexture: {fileID: 0}
-  dithering: 1
+  dithering: 0
   ditherThreshold: 1
   ditherIntensity: 6
   maxDarkness: 20
-  subtractFade: 0
+  subtractFade: 1
   favorRed: 0
   worldSpaceSnapping: 0
   postProcessing: 1
@@ -14547,6 +14548,21 @@ MonoBehaviour:
   shadowType: 0
   ditherSky: 0
   ditherType: 1
+--- !u!114 &434347847189986784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3857856043463758888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60056235bd7c88140b464c7edc6f4a56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ditherMat: {fileID: 2100000, guid: a212e15e5fdf7e043b5e424bd7fdfb27, type: 2}
+  ditherStrength: 0.03
+  colourDepth: 8
 --- !u!1 &3864732369807830990
 GameObject:
   m_ObjectHideFlags: 0

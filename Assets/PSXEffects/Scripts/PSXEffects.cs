@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
 
 [RequireComponent(typeof(Camera))]
 [ExecuteInEditMode]
