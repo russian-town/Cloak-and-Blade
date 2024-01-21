@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using Agava.WebUtility;
 
 public enum RetroFXColoringMode {
     BitDepth, Palette, LuminosityBased, Steps
@@ -10,7 +11,9 @@ public enum RetroFXColoringMode {
 
 [ExecuteInEditMode]
 [AddComponentMenu("Scripts/RetroFX Filter")]
+[RequireComponent(typeof(DitherEffect))]
 public class RetroFXFilter : MonoBehaviour {
+    private DitherEffect _ditherEffect;
 
     static float[][] BayerMatrices = new float[3][]
     {
@@ -307,6 +310,8 @@ public class RetroFXFilter : MonoBehaviour {
 
     private void Start()
     {
+        _ditherEffect = GetComponent<DitherEffect>();
+        AdjustResScaleToScreenSize();
         blitMaterial = new Material(Shader.Find("Hidden/RetroFX Pro Filter"));
     }
 
@@ -351,5 +356,22 @@ public class RetroFXFilter : MonoBehaviour {
         }
 
         Graphics.Blit(source, destination, blitMaterial);
+    }
+
+    private void AdjustResScaleToScreenSize()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (Device.IsMobile)
+        {
+            _ditherEffect.enabled = true;
+            this.enabled = false;
+        }
+        else
+        {
+            _ditherEffect.enabled = false;
+            this.enabled = true;
+        }
+        resolutionScale = ((float)Screen.width / 1000f);
+#endif
     }
 }
