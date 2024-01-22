@@ -15,6 +15,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     [SerializeField] private LeanLocalization _lean;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _shakingChainsSound;
+    [SerializeField] private Camera _camera;
 
     private List<CharacterView> _characterViews = new List<CharacterView>();
     private Character _currentSelectedCharacter;
@@ -54,7 +55,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             CharacterView characterView = Instantiate(_characterView, _parent.transform);
             Description description = Instantiate(character.Description);
             _upgrader.Initialize(description);
-            characterView.Render(character, description, _wallet);
+            characterView.Render(character, description, _wallet, _camera);
             _characterViews.Add(characterView);
             characterView.SellButtonClicked += OnSellButtonClick;
             characterView.SelectButtonClicked += OnSelectButtonClick;

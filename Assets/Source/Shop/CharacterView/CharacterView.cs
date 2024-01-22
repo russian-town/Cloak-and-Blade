@@ -27,6 +27,7 @@ public class CharacterView : MonoBehaviour
     private Wallet _wallet;
     private WaitForSeconds _pauseBetweenChainFall = new WaitForSeconds(.3f);
     private Coroutine _chainFallCoroutine;
+    private Camera _camera;
 
     public event Action<Character, CharacterView> SellButtonClicked;
     public event Action<Character, CharacterView> SelectButtonClicked;
@@ -54,7 +55,7 @@ public class CharacterView : MonoBehaviour
     }
 
 
-    public void Render(Character character, Description description, Wallet wallet)
+    public void Render(Character character, Description description, Wallet wallet, Camera camera)
     {
         _character = character;
         _upgradeSetter = _character.UpgradeSetter;
@@ -62,6 +63,7 @@ public class CharacterView : MonoBehaviour
         _description.Hide();
         _wallet = wallet;
         _selectedImage.SetColor(_character.EffectColor);
+        _camera = camera;
     }
 
     public void UpdateView()
@@ -198,5 +200,5 @@ public class CharacterView : MonoBehaviour
 
     private void OnDescriptionButtonClicked() => ShowDescription();
 
-    private void ShowDescription() => _description.Show();
+    private void ShowDescription() => _description.Show(_camera);
 }

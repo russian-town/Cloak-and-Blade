@@ -7,9 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(DitherEffect))]
 [RequireComponent(typeof(RetroFXFilter))]
 [ExecuteInEditMode]
-public class PSXEffects : MonoBehaviour {
-
-
+public class PSXEffects : MonoBehaviour, IFader
+{
 	public System.Version version = new System.Version("1.18");
 	public string cfuStatus = "PSXEffects";
 	public bool[] sections = { true, true, true, false };
@@ -247,11 +246,6 @@ public class PSXEffects : MonoBehaviour {
 
     private void AdjustEffectToScreenSize()
     {
-        _ditherEffect.enabled = false;
-        _filter.enabled = true;
-        resolutionFactor = 1;
-        postProcessing = false;
-
 #if UNITY_WEBGL && !UNITY_EDITOR
 		if (Device.IsMobile)
 		{
@@ -274,6 +268,13 @@ public class PSXEffects : MonoBehaviour {
             vertexInaccuracy = 200;
         else if (Enumerable.Range(0, 1500).Contains(Screen.width))
             vertexInaccuracy = 40;
+#else
+        _ditherEffect.enabled = false;
+        _filter.enabled = true;
+        resolutionFactor = 1;
+        postProcessing = false;
 #endif
     }
+
+    public void SetFade(float fade) => subtractFade = Mathf.CeilToInt(fade) * 100;
 }

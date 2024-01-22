@@ -6,6 +6,7 @@ public class ResetAbilityElement : BaseTutorialElement
     [SerializeField] private Gameboard _gameboard;
     [SerializeField] private PlayerView _playerView;
     [SerializeField] private List<MainButton> _abilityButtons;
+    [SerializeField] private Battery _battery;
 
     private Player _player;
 
@@ -16,6 +17,7 @@ public class ResetAbilityElement : BaseTutorialElement
         _gameboard.Enable();
         player.AbilityCommand().Ability.ResetAbility();
         _playerView.ResetAbilityIcon();
+        _battery.Enable();
 
         foreach (var button in _abilityButtons)
         {

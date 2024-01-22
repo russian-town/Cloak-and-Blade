@@ -1,15 +1,28 @@
 using System.Collections;
 using UnityEngine;
+using Agava.WebUtility;
 
 public class LoadingScreen : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private PSXEffects _psXEffects;
+    [SerializeField] private RetroFXFilter _retroFXFilter;
 
+    private IFader _fader;
     private CanvasGroup _canvasGroup;
+    private float _currentValue = 1;
 
     public void Initialize()
     {
-        _canvasGroup = GetComponent<CanvasGroup>();
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (Device.IsMobile)
+            _fader = _psXEffects;
+        else
+            _fader = _retroFXFilter;
+#else
+        _fader = _retroFXFilter;
+#endif
+
     }
 
     public Coroutine StartFade(float value)
@@ -19,12 +32,11 @@ public class LoadingScreen : MonoBehaviour
 
     private IEnumerator Fade(float value)
     {
-        while (Mathf.Approximately(_canvasGroup.alpha, value) == false)
+        while (Mathf.Approximately(_currentValue, value) == false)
         {
-            _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, value, Time.deltaTime * _speed);
+            _currentValue = Mathf.MoveTowards(_currentValue, value, Time.deltaTime * _speed);
+            _fader.SetFade(_currentValue);
             yield return null;
         }
-
-        _canvasGroup.blocksRaycasts = false;
     }
 }

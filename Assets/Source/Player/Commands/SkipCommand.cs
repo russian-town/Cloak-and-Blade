@@ -28,7 +28,10 @@ public class SkipCommand : Command
     {
         _playerAnimationHandler.PlaySkipAnimation();
         _player.SkipTurn();
-        yield return _enemyTurnWaiter.WaitForEnemies();
+
+        if (_enemyTurnWaiter != null)
+            yield return _enemyTurnWaiter.WaitForEnemies();
+
         _playerAnimationHandler.StopSkipAnimation();
         yield break;
     }

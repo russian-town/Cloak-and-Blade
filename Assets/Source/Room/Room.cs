@@ -62,7 +62,10 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
     {
         if (_enemies.Count == 0)
         {
+            yield return _hourglass.StartShow();
+            yield return _hourglass.StartHide();
             SetPlayerTurn();
+            _startWaitForEnemies = null;
             yield break;
         }
 
