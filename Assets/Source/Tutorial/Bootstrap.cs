@@ -101,8 +101,8 @@ public class Bootstrap : MonoBehaviour, IInitializable
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
         _scoreDefiner.Initialize();
-
-        StartCoroutine(StartDelay());
+        _loadingScreen.Initialize();
+        _loadingScreen.StartFade(0);
     }
 
     public void SpawnEnemy()
@@ -128,12 +128,5 @@ public class Bootstrap : MonoBehaviour, IInitializable
             _pause.RemoveHandler(enemy);
             enemy.Die();
         }
-    }
-
-    private IEnumerator StartDelay()
-    {
-        yield return new WaitForSeconds(.5f);
-        _loadingScreen.Initialize();
-        _loadingScreen.StartFade(0);
     }
 }

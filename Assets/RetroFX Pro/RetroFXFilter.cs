@@ -11,7 +11,8 @@ public enum RetroFXColoringMode {
 
 [ExecuteInEditMode]
 [AddComponentMenu("Scripts/RetroFX Filter")]
-public class RetroFXFilter : MonoBehaviour {
+public class RetroFXFilter : MonoBehaviour, IFader
+{
     static float[][] BayerMatrices = new float[3][]
     {
         new float[64]
@@ -353,4 +354,6 @@ public class RetroFXFilter : MonoBehaviour {
 
         Graphics.Blit(source, destination, blitMaterial);
     }
+
+    public void SetFade(float fade) => Fade = fade;
 }
