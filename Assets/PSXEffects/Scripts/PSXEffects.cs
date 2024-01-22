@@ -4,10 +4,11 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
+[RequireComponent(typeof(DitherEffect))]
+[RequireComponent(typeof(RetroFXFilter))]
 [ExecuteInEditMode]
 public class PSXEffects : MonoBehaviour {
 
-	[SerializeField] private RetroFXFilter _filter;
 
 	public System.Version version = new System.Version("1.18");
 	public string cfuStatus = "PSXEffects";
@@ -43,9 +44,11 @@ public class PSXEffects : MonoBehaviour {
 	public int shadowType = 0;
 	public bool ditherSky = false;
 	public int ditherType = 1;
-	#endregion
+    #endregion
 
-	private Material postProcessingMat;
+	private RetroFXFilter _filter;
+    private DitherEffect _ditherEffect;
+    private Material postProcessingMat;
 	private RenderTexture rt;
 	private Vector2 prevCustomRes;
 	private int[] propIds;
@@ -87,7 +90,9 @@ public class PSXEffects : MonoBehaviour {
 	}
 
 	private void Start() {
-		UpdateProperties();
+        _ditherEffect = GetComponent<DitherEffect>();
+        _filter = GetComponent<RetroFXFilter>();
+        UpdateProperties();
 		AdjustEffectToScreenSize();
 	}
 
@@ -245,16 +250,20 @@ public class PSXEffects : MonoBehaviour {
 #if UNITY_WEBGL && !UNITY_EDITOR
 		if (Device.IsMobile)
 		{
-			resolutionFactor = 2;
-			postProcessing = true;
-		}
-		else
-		{
-			resolutionFactor = 1;
-			postProcessing = false;
-		}
+			_ditherEffect.enabled = true;
+            _filter.enabled = false;
+            resolutionFactor = 2;
+            postProcessing = true;
+	}
+        else
+        {
+            _ditherEffect.enabled = false;
+            _filter.enabled = true;
+            resolutionFactor = 1;
+            postProcessing = false;
+        }
 
-        if (Enumerable.Range(3000, 10000).Contains(Screen.width))
+if (Enumerable.Range(3000, 10000).Contains(Screen.width))
         {
 			print("big poop"); 
             vertexInaccuracy = 300;
@@ -270,5 +279,5 @@ public class PSXEffects : MonoBehaviour {
             vertexInaccuracy = 80;
         }
 #endif
-    }
+	}
 }
