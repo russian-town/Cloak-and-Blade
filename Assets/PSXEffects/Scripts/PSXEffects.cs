@@ -247,6 +247,11 @@ public class PSXEffects : MonoBehaviour {
 
     private void AdjustEffectToScreenSize()
     {
+        _ditherEffect.enabled = false;
+        _filter.enabled = true;
+        resolutionFactor = 1;
+        postProcessing = false;
+
 #if UNITY_WEBGL && !UNITY_EDITOR
 		if (Device.IsMobile)
 		{
@@ -263,21 +268,12 @@ public class PSXEffects : MonoBehaviour {
             postProcessing = false;
         }
 
-if (Enumerable.Range(3000, 10000).Contains(Screen.width))
-        {
-			print("big poop"); 
+		if (Enumerable.Range(3000, 10000).Contains(Screen.width))
             vertexInaccuracy = 300;
-        }
         else if (Enumerable.Range(1500, 3000).Contains(Screen.width))
-        {
-            print("medium poop");
             vertexInaccuracy = 200;
-        }
         else if (Enumerable.Range(0, 1500).Contains(Screen.width))
-        {
-            print("small poop");
-            vertexInaccuracy = 80;
-        }
+            vertexInaccuracy = 40;
 #endif
-	}
+    }
 }
