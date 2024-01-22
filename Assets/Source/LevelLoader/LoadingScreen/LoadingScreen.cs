@@ -9,8 +9,7 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private RetroFXFilter _retroFXFilter;
 
     private IFader _fader;
-    private CanvasGroup _canvasGroup;
-    private float _currentValue = 1;
+    private float _currentValue;
 
     public void Initialize()
     {
@@ -23,6 +22,7 @@ public class LoadingScreen : MonoBehaviour
         _fader = _retroFXFilter;
 #endif
 
+        _currentValue = _fader.Fade;
     }
 
     public Coroutine StartFade(float value)

@@ -52,7 +52,9 @@ public class PSXEffects : MonoBehaviour, IFader
 	private Vector2 prevCustomRes;
 	private int[] propIds;
 
-	private void Awake() {
+	public float Fade => subtractFade / 100;
+
+    private void Awake() {
 		if (Application.isPlaying) {
 			QualitySettings.vSyncCount = 0;
 		}
