@@ -93,8 +93,8 @@ public class PSXEffects : MonoBehaviour, IFader
 	private void Start() {
         _ditherEffect = GetComponent<DitherEffect>();
         _filter = GetComponent<RetroFXFilter>();
-        UpdateProperties();
 		AdjustEffectToScreenSize();
+        UpdateProperties();
 	}
 
     private void Update() {
@@ -271,12 +271,16 @@ public class PSXEffects : MonoBehaviour, IFader
         else if (Enumerable.Range(0, 1500).Contains(Screen.width))
             vertexInaccuracy = 40;
 #else
-        _ditherEffect.enabled = false;
-        _filter.enabled = true;
-        resolutionFactor = 1;
-        postProcessing = false;
+		_ditherEffect.enabled = false;
+		_filter.enabled = true;
+		resolutionFactor = 1;
+		postProcessing = false;
 #endif
-    }
+	}
 
-    public void SetFade(float fade) => subtractFade = Mathf.CeilToInt(fade) * 100;
+    public void SetFade(float fade)
+	{
+        subtractFade = Mathf.FloorToInt(fade * 100);
+		UpdateProperties();
+    }
 }

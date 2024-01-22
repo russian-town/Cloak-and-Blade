@@ -16,21 +16,13 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
     [SerializeField] private float _candleLightFadeSpeed;
     [SerializeField] private float _candleIntensity;
     [SerializeField] private LoadingScreen _loadingScreen;
-    [SerializeField] private PSXPostProcessEffect _postProcessEffect;
 
     private WaitForSeconds _genericWait;
     private bool _isTutorialCompleted;
 
-    private void Start()
-    {
-        _candleLight.intensity = 0;
-
-        if (Screen.width > 2000)
-            _postProcessEffect._PixelationFactor = .17f;
-    }
-
     public void Initialize()
     {
+        _candleLight.intensity = 0;
         _genericWait = new WaitForSeconds(_flyingToTableWait);
         _loadingScreen.Initialize();
         StartCoroutine(CutsceneCoroutine());
