@@ -249,6 +249,13 @@ public class PSXEffects : MonoBehaviour, IFader
     private void AdjustEffectToScreenSize()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
+		if (Enumerable.Range(3000, 10000).Contains(Screen.width))
+            vertexInaccuracy = 120;
+        else if (Enumerable.Range(1500, 3000).Contains(Screen.width))
+            vertexInaccuracy = 70;
+        else if (Enumerable.Range(0, 1500).Contains(Screen.width))
+            vertexInaccuracy = 30;
+
 		if (Device.IsMobile)
 		{
 			_ditherEffect.enabled = true;
@@ -263,15 +270,8 @@ public class PSXEffects : MonoBehaviour, IFader
             resolutionFactor = 1;
             postProcessing = false;
         }
-
-		if (Enumerable.Range(3000, 10000).Contains(Screen.width))
-            vertexInaccuracy = 300;
-        else if (Enumerable.Range(1500, 3000).Contains(Screen.width))
-            vertexInaccuracy = 200;
-        else if (Enumerable.Range(0, 1500).Contains(Screen.width))
-            vertexInaccuracy = 40;
 #else
-		_ditherEffect.enabled = false;
+        _ditherEffect.enabled = false;
 		_filter.enabled = true;
 		resolutionFactor = 1;
 		postProcessing = false;

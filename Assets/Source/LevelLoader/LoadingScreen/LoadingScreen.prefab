@@ -115,6 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af21b67e7c441048aa35ef0b6d6c60f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
+  _speed: 0.6
   _psXEffects: {fileID: 0}
   _retroFXFilter: {fileID: 0}

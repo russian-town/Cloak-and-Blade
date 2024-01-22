@@ -19,6 +19,7 @@ public class ThunderMaker : MonoBehaviour
     [SerializeField] private int _minThunderStreak;
     [SerializeField] private int _maxThunderStreak;
     [SerializeField] private float _fadeAwayTime;
+    [SerializeField] private bool _playOnAwake;
 
     private float _timePassed;
     private float _baseLightIntensity;
@@ -32,6 +33,10 @@ public class ThunderMaker : MonoBehaviour
     private void Start()
     {
         _baseLightIntensity = _thunderLight.intensity;
+        _possibleMaxStartDelay = 2f;
+
+        if(_playOnAwake)
+            _thunderCoroutine = StartCoroutine(ThunderCoroutine());
     }
 
     private void Update()
@@ -49,7 +54,7 @@ public class ThunderMaker : MonoBehaviour
 
     private IEnumerator ThunderCoroutine()
     {
-        _startDelay = new WaitForSeconds(Random.Range(0, _possibleMaxStartDelay));
+        _startDelay = new WaitForSeconds(Random.Range(2, _possibleMaxStartDelay));
         _soundDelay = new WaitForSeconds(Random.Range(_minSoundDelay, _maxSoundDelay));
         _thundersToStrike = Random.Range(_minThunderStreak, _maxThunderStreak);
 
