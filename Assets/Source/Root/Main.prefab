@@ -12654,7 +12654,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1281084329164618882}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 0.35
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -14520,7 +14520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 2249, y: 1265}
+  customRes: {x: 1591, y: 895}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -14556,12 +14556,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3857856043463758888}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.249
+  resolutionScale: 1.591
   subtractiveFade: 0
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -18389,7 +18389,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1281084329164618882}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 0.35
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -19482,7 +19482,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1281084329164618882}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 0.35
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -20289,7 +20289,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1281084329164618882}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 0.35
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -20869,7 +20869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 180759110342540037, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
       propertyPath: m_PlaneDistance
-      value: 1
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 1405974320114264792, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
       propertyPath: m_Pivot.x
