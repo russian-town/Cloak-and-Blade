@@ -118,7 +118,11 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
             _commandExecuter.PrepareCommand();
     }
 
-    public void SkipTurn() => StepEnded?.Invoke();
+    public void SkipTurn()
+    {
+        StepEnded?.Invoke();
+        Debug.Log("Skip turn");
+    }
 
     public bool TryMoveToCell(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
