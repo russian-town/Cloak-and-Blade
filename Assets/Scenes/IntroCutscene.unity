@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0718909, g: 0.14121589, b: 0.18845761, a: 1}
+  m_IndirectSpecularColor: {r: 0.0721012, g: 0.14117455, b: 0.18825027, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6739,7 +6739,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 219718169}
-  m_LocalRotation: {x: 0.07620347, y: -0.7029886, z: 0.07620346, w: 0.7029887}
+  m_LocalRotation: {x: 0.07620347, y: -0.7029886, z: 0.076203465, w: 0.7029887}
   m_LocalPosition: {x: 13.32, y: 11.742001, z: -1.1939993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28847,7 +28847,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907688683}
-  m_LocalRotation: {x: 0.07620347, y: -0.7029886, z: 0.07620346, w: 0.7029887}
+  m_LocalRotation: {x: 0.07620347, y: -0.7029886, z: 0.076203465, w: 0.7029887}
   m_LocalPosition: {x: 13.32, y: 11.742001, z: -1.1939993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28869,7 +28869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1806, y: 1016}
+  customRes: {x: 1921, y: 1081}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -28910,7 +28910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.203
+  resolutionScale: 1.921
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -28918,8 +28918,8 @@ MonoBehaviour:
   ditheringSize: 1
   enableColoring: 1
   colorBits: {x: 3, y: 3, z: 3}
-  colorSteps: {x: 4, y: 4, z: 4}
-  coloringMethod: 0
+  colorSteps: {x: 10, y: 10, z: 10}
+  coloringMethod: 3
   colorPalette:
   - {r: 0, g: 0, b: 0, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
