@@ -8,10 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Windows
-  m_Shader: {fileID: 4800000, guid: 85ff014d6a7d8354eae394b67aac068d, type: 3}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ALPHABLEND_ON
+  - _NORMALMAP
   m_InvalidKeywords:
   - BFC
   - DIFF_VERTEX
@@ -19,7 +21,6 @@ Material:
   - SPEC_GOURAUD
   - UNLIT
   - _
-  - _ALPHABLEND_ON
   - _CFXR_DITHERED_SHADOWS_OFF
   - _CFXR_OVERLAYBLEND_RGBA
   - _CFXR_OVERLAYTEX_OFF
@@ -27,11 +28,12 @@ Material:
   - _DRAWDIST_ON
   - _SPECMODEL_GOURAUD
   - _UNLIT_ON
-  m_LightmapFlags: 2
+  m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses:
   - FORWARDADD
   m_LockedProperties: 
@@ -154,6 +156,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecularMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -165,6 +171,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AO: 0
+    - _AmbientLightMultiplier: 0.25
     - _Amp: 0.1
     - _BacklightTransmittance: 1
     - _BlendOp: 0
@@ -175,20 +182,21 @@ Material:
     - _CFXR_OVERLAYTEX: 0
     - _Cul: 2
     - _CustomDepthOffset: 0
-    - _Cutoff: 0.5
+    - _Cutoff: 0.603
     - _CutoutThreshold: 0.5
     - _DetailNormalMapScale: 1
     - _DiffModel: 0
     - _DirLightScreenAtten: 1
     - _DirectLightingRamp: 1
+    - _DirectionalLightMultiplier: 1
     - _DirtIntensity: 0.402
-    - _DirtTightness: 0.378
+    - _DirtTightness: 0.328
     - _DissolveSmooth: 0.1
     - _Distance: -20
     - _Distort: 0.1
     - _DoubleDissolve: 0
     - _DrawDist: 1
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _Edge1step: 0.9
     - _Edge2step: 0.8
     - _EdgeFadePow: 1
@@ -200,13 +208,14 @@ Material:
     - _FresnelShadowDropoff: 0
     - _Gloss: 0.8
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _HdrBoost: 0
     - _HdrMultiply: 2
     - _Height: 0
     - _HighIntensity: 1.5
     - _IndirectLightingMix: 0.5
+    - _InvFade: 1
     - _InvertDissolveTex: 0
     - _LODAmt: 0
     - _LightScalar: 1
@@ -221,8 +230,9 @@ Material:
     - _Opacity: 0
     - _OutlineSize: 10
     - _Parallax: 0.02
+    - _PointSpotLightMultiplier: 2
     - _RampLevels: 2
-    - _Reflection: 0.581
+    - _Reflection: 0.432
     - _Refraction: 0.379
     - _RefractionIntensity: 0.496
     - _ReliefDepth: -1
@@ -236,6 +246,7 @@ Material:
     - _SecondColorSmooth: 0.2
     - _ShadowStrength: 1
     - _Shift: 1
+    - _Shininess: 0.078125
     - _SingleChannel: 0
     - _Size: 0.1
     - _Smoothness: 1
@@ -245,7 +256,7 @@ Material:
     - _SpecModel: 0
     - _Specular: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _Transparency: 1
     - _UVDistortionAdd: 0
     - _UVSec: 0
@@ -267,10 +278,10 @@ Material:
     - _UseUV2Distortion: 0
     - _UseUVDistortion: 0
     - _VertexInaccuracy: -1
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - _AOColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 0.48235294}
+    - _Color: {r: 1, g: 0, b: 0, a: 0}
     - _Color1: {r: 0, g: 0.21920681, b: 1, a: 1}
     - _Color2: {r: 0.34901965, g: 0.46536216, b: 0.9607843, a: 1}
     - _Color_copy: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
@@ -286,7 +297,9 @@ Material:
     - _OverlayTex_Scroll: {r: 0.1, g: 0.1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _WindowColor: {r: 0.07352942, g: 0.028904673, b: 0, a: 1}
+    - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _WindowColor: {r: 1, g: 1, b: 1, a: 0}
     - _colEdge1: {r: 1, g: 1, b: 1, a: 1}
     - _colEdge2: {r: 0.07, g: 0.4, b: 0.73, a: 1}
     - _colWater: {r: 0.1, g: 0.48, b: 0.87, a: 1}

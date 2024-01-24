@@ -12,24 +12,21 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - CUTOUT
   - DIFF_VERTEX
-  - OPAQUE
   - SPEC_GOURAUD
-  - UNLIT
   - _EMISSION
   m_InvalidKeywords:
   - _DIFFMODEL_VERTEX
   - _DRAWDIST_ON
   - _SPECMODEL_GOURAUD
-  - _UNLIT_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
-  disabledShaderPasses:
-  - FORWARDADD
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -210,7 +207,7 @@ Material:
     - _RefractionIntensity: 0.608
     - _ReliefDepth: 0.05
     - _ReliefQuality: 16
-    - _RenderMode: 0
+    - _RenderMode: 2
     - _ReverseHighMap: 0
     - _Rotation: 0
     - _Roughness: 1
