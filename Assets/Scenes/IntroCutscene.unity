@@ -4320,7 +4320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3138764118178130562, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
       propertyPath: _speed
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3138764118178130562, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
       propertyPath: _psXEffects
@@ -4610,7 +4610,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Version 8
+  m_text: Version 9
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -30971,7 +30971,7 @@ MonoBehaviour:
   ditherThreshold: 1
   ditherIntensity: 6
   maxDarkness: 20
-  subtractFade: 60
+  subtractFade: 100
   favorRed: 0
   worldSpaceSnapping: 0
   postProcessing: 0
@@ -30997,7 +30997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionScale: 2.249
-  subtractiveFade: 0.6
+  subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
   ditheringIntensity: 0.2
@@ -65433,7 +65433,7 @@ MonoBehaviour:
   _candleLightWait: 1
   _textAppearWait: 1
   _narratorWait: 0.5
-  _narratorSpeechWait: 1000
+  _narratorSpeechWait: 0
   _candle: {fileID: 1427709795}
   _candleSound: {fileID: 1771446672}
   _candleLoop: {fileID: 186380747}
