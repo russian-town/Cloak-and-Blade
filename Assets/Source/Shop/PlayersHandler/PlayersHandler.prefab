@@ -44,3 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdae49a536753a442bfe087d1b7d0733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerTemplates: []
+  _defaultPlayerTemplate: {fileID: 5830977947103038595, guid: da937d1744d6aa34585d65f71770df9d, type: 3}
+  _effectList: []
+  _soundList: []
+  _splineList: []
+  _animationList: []
