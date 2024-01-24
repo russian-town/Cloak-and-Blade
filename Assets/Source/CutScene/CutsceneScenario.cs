@@ -9,6 +9,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
     [SerializeField] private float _candleLightWait;
     [SerializeField] private float _textAppearWait;
     [SerializeField] private float _narratorWait;
+    [SerializeField] private float _narratorSpeechWait;
     [SerializeField] private GameObject _candle;
     [SerializeField] private AudioSource _candleSound;
     [SerializeField] private AudioSource _candleLoop;
@@ -55,8 +56,10 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
         _candleLoop.Play();
         print("text started");
         _genericWait = new WaitForSeconds(_narratorWait);
-        yield return _genericWait;
         print("narrator started speech");
+        yield return _genericWait;
+        _genericWait = new WaitForSeconds(_narratorSpeechWait);
+        yield return _genericWait;
         yield return _loadingScreen.StartFade(1);
 
         if (_isTutorialCompleted)
