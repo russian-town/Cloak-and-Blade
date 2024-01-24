@@ -169,7 +169,7 @@ Material:
     - _RenderMode: 0
     - _Rotation: 0.25
     - _Roughness: 1
-    - _Smoothness: 1
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecModel: 0
     - _Specular: 0

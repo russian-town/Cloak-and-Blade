@@ -141,9 +141,9 @@ Material:
     - _Parallax: 0.02
     - _ReliefDepth: 0.03
     - _ReliefQuality: 16
-    - _RenderMode: 2
+    - _RenderMode: 0
     - _Roughness: 1
-    - _Smoothness: 1
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecModel: 0
     - _Specular: 0

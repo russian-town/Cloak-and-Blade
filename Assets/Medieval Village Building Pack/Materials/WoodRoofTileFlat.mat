@@ -16,7 +16,6 @@ Material:
   - _DIFFMODEL_VERTEX
   - _DRAWDIST_ON
   - _SPECMODEL_GOURAUD
-  - _UNLIT_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -139,7 +138,7 @@ Material:
     - _ReliefQuality: 16
     - _RenderMode: 0
     - _Roughness: 1
-    - _Smoothness: 1
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecModel: 0
     - _Specular: 0
