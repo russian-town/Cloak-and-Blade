@@ -25,6 +25,7 @@ public class ThunderMaker : MonoBehaviour
     private float _timePassed;
     private float _baseLightIntensity;
     private int _thundersToStrike;
+    private bool _soundPlayed;
     private Coroutine _thunderCoroutine;
     private WaitForSeconds _startDelay;
     private WaitForSeconds _lightLength;
@@ -71,6 +72,13 @@ public class ThunderMaker : MonoBehaviour
             {
                 while (_thunderLight.intensity != _baseLightIntensity)
                 {
+                    if(_soundPlayed == false)
+                    {
+                        yield return _soundDelay;
+                        _source.PlayOneShot(_thunderSounds[Random.Range(0, _thunderSounds.Count)]);
+                        _soundPlayed = true;
+                    }
+
                     _thunderLight.intensity = Mathf.MoveTowards(_thunderLight.intensity, _baseLightIntensity, _fadeAwayTime * Time.deltaTime);
                     yield return null;
                 }
@@ -85,9 +93,7 @@ public class ThunderMaker : MonoBehaviour
             _lightDelay = null;
         }
 
-        yield return _soundDelay;
-
-        _source.PlayOneShot(_thunderSounds[Random.Range(0, _thunderSounds.Count)]);
+        
 
         _soundDelay = null;
         _thunderCoroutine = null;
