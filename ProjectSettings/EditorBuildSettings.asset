@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: ab8e8a2e4a7a5124dbe5b258bf025930
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 26d044f795b89494d96bba7ba50eee25
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Forest/Forest-Easy.unity
     guid: 6ea24e0f13a14a944a63e9df423146dd
   - enabled: 0
