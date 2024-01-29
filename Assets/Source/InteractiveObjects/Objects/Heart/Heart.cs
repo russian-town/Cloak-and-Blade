@@ -7,7 +7,8 @@ public class Heart : InteractiveObject
     [SerializeField] private GameObject _linza;
     [SerializeField] private ParticleSystem _effect;
     [SerializeField] private InteractiveObjectView _view;
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioSource _goreSource;
+    [SerializeField] private AudioSource _screamSource;
     [SerializeField] private WhooshScript _whoosh;
 
     public bool IsActive { get; private set; }
@@ -21,7 +22,8 @@ public class Heart : InteractiveObject
         /*_linza.SetActive(true);*/
         _effect.Play();
         _whoosh.PlayWhoosh();
-        _audioSource.Play();
+        _goreSource.Play();
+        _screamSource.Play();
         _view.gameObject.SetActive(false);
     }
 
