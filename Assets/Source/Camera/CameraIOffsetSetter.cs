@@ -13,8 +13,4 @@ public class CameraIOffsetSetter : MonoBehaviour
         _cameraOrbitalTransposer.m_FollowOffset.z = 7.5f;
 
     }
-
-/*    private void Update()
-    {
-    }*/
 }

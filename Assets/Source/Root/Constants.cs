@@ -9,6 +9,7 @@ public class Constants
     public const string IsSkippingBool = "IsSkipping";
     public const string TransformationTrigger = "Transform";
     public const string FlyTrigger = "FlyTrigger";
+    public const string FallParameter = "Fall";
     #endregion
 
     #region SceneNames

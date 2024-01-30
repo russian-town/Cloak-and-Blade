@@ -5,11 +5,9 @@ using UnityEngine;
 public class Heart : InteractiveObject
 {
     [SerializeField] private GameObject _linza;
-    [SerializeField] private ParticleSystem _effect;
     [SerializeField] private InteractiveObjectView _view;
-    [SerializeField] private AudioSource _goreSource;
-    [SerializeField] private AudioSource _screamSource;
-    [SerializeField] private WhooshScript _whoosh;
+
+    [SerializeField] private FinaleCutsceneScenario _cutscene;
 
     public bool IsActive { get; private set; }
 
@@ -19,11 +17,7 @@ public class Heart : InteractiveObject
             return;
 
         IsActive = true;
-        /*_linza.SetActive(true);*/
-        _effect.Play();
-        _whoosh.PlayWhoosh();
-        _goreSource.Play();
-        _screamSource.Play();
+        _cutscene.PlayFinalCutscene();
         _view.gameObject.SetActive(false);
     }
 
