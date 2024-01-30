@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class FinaleCutsceneScenario : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class FinaleCutsceneScenario : MonoBehaviour
     [SerializeField] private Transform _sword;
     [SerializeField] private Animator _swordAnimator;
     [SerializeField] private Image _whiteScreen;
+    [SerializeField] private TMP_Text _text;
 
     private CinemachineBasicMultiChannelPerlin _noise;
     private WaitForSeconds _genericWait;
@@ -59,6 +61,7 @@ public class FinaleCutsceneScenario : MonoBehaviour
         _genericWait = new WaitForSeconds(_screamDuration);
         yield return _genericWait;
         _whiteScreen.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.InSine);
+        _text.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.InSine);
         yield return null;  
     }
 
