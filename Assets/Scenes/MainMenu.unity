@@ -341,7 +341,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 175.00003, y: 0.000012398}
+  m_AnchoredPosition: {x: 175, y: 0.000012398}
   m_SizeDelta: {x: 97.376, y: 97.376}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &34330588
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 91.5
+  m_fontSize: 91.55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7886,7 +7886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1570, y: 883}
+  customRes: {x: 2249, y: 1265}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -7942,7 +7942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 1.57
+  resolutionScale: 2.249
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -10864,7 +10864,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 175.00003, y: 0.000012398}
+  m_AnchoredPosition: {x: 175, y: 0.000012398}
   m_SizeDelta: {x: 97.376, y: 97.376}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1164032431
@@ -15859,7 +15859,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 175.00003, y: 0.000012398}
+  m_AnchoredPosition: {x: 175, y: 0.000012398}
   m_SizeDelta: {x: 97.376, y: 97.376}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1673095588
