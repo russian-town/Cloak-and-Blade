@@ -36,6 +36,8 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
         _isTutorialCompleted = playerData.IsTutorialCompleted;
     }
 
+    public void Skip() => SceneManager.LoadScene(Constants.MainMenu);
+
     private IEnumerator CutsceneCoroutine()
     {
         yield return _loadingScreen.StartFade(0);

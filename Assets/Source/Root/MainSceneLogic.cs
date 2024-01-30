@@ -12,6 +12,7 @@ public class MainSceneLogic : MonoBehaviour
     [SerializeField] private Audio _audio;
     [SerializeField] private AudioView _audioView;
     [SerializeField] private WalletView _walletView;
+    [SerializeField] private LoadingScreen _loadingScreen;
 
     private Saver _saver = new Saver();
     private Wallet _wallet = new Wallet();
@@ -49,10 +50,12 @@ public class MainSceneLogic : MonoBehaviour
         _saver.Initialize();
         _saver.Load();
         yield return new WaitUntil(() => _saver.DataLoaded);
+        _loadingScreen.Initialize();
         _walletView.Initialize(_wallet);
         _wallet.Initialize();
         _shop.SetWallet(_wallet);
         _levelLoader.Initialize();
+        _loadingScreen.StartFade(0);
         yield return null;
     }
 
