@@ -15,7 +15,7 @@ public class FinaleCutsceneScenario : MonoBehaviour
     [SerializeField] private float _effectFadeUpSpeed;
     [SerializeField] private float _cameraFrequencyFadeSpeed;
     [SerializeField] private float _cameraAmplitudeFadeSpeed;
-    [SerializeField] private float _soundFadeSpeed;
+    [SerializeField] private float _soundFadeDuration;
     [SerializeField] private float _cameraFrequencyFinalIntensity;
     [SerializeField] private float _cameraAmplitudeFinalIntensity;
     [SerializeField] private AudioSource _goreSource;
@@ -28,11 +28,13 @@ public class FinaleCutsceneScenario : MonoBehaviour
     [SerializeField] private WhooshScript _whoosh;
     [SerializeField] private EffectChangeHandler _effectChanger;
     [SerializeField] private ParticleSystem _effect;
-    [SerializeField] private CinemachineVirtualCamera _camera;
+    [SerializeField] private CinemachineVirtualCamera _staticCamera;
+    [SerializeField] private CinemachineVirtualCamera _swordCamera;
     [SerializeField] private Transform _sword;
     [SerializeField] private Animator _swordAnimator;
     [SerializeField] private Image _whiteScreen;
     [SerializeField] private TMP_Text _text;
+    [SerializeField] private CanvasGroup _hud;
 
     private CinemachineBasicMultiChannelPerlin _noise;
     private WaitForSeconds _genericWait;
@@ -40,7 +42,7 @@ public class FinaleCutsceneScenario : MonoBehaviour
     public void Start()
     {
         _genericWait = new WaitForSeconds(_calmShotDuration);
-        _noise = _camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        _noise = _swordCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     public void PlayFinalCutscene()
@@ -50,9 +52,11 @@ public class FinaleCutsceneScenario : MonoBehaviour
 
     private IEnumerator CutsceneCoroutine()
     {
-        _camera.Priority = 3;
+        _hud.DOFade(0, .5f);
+        _staticCamera.Priority = 3;
         yield return (_genericWait);
-        _camera.LookAt = _sword.transform;
+        _swordCamera.Priority = _staticCamera.Priority + 1;
+        yield return (_genericWait);
         _swordAnimator.SetBool(Constants.FallParameter, true);
         _genericWait = new WaitForSeconds(_swordFallingDuration);
         yield return _genericWait;
@@ -65,15 +69,18 @@ public class FinaleCutsceneScenario : MonoBehaviour
         yield return _genericWait;
         _screamSource.Play();
         _whiteNoise.Play();
-        StartCoroutine(FadeSound(_music, 0));
-        StartCoroutine(FadeSound(_heartBeat, 0));
-        StartCoroutine(FadeSound(_whooshSource1, 0));
-        StartCoroutine(FadeSound(_whooshSource2, 0));
-        StartCoroutine(FadeSound(_whiteNoise, .5f));
+        _music.DOFade(0, _soundFadeDuration);
+        _heartBeat.DOFade(0, _soundFadeDuration);
+        _whooshSource1.DOFade(0, _soundFadeDuration);
+        _whooshSource2.DOFade(0, _soundFadeDuration);
+        _whiteNoise.DOFade(.2f, _soundFadeDuration).SetEase(Ease.InSine);
         _genericWait = new WaitForSeconds(_screamDuration);
         yield return _genericWait;
         _whiteScreen.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.InSine);
         _text.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.InSine);
+        _genericWait = new WaitForSeconds(_soundFadeDuration);
+        yield return _genericWait;
+        _whiteNoise.DOFade(0, _soundFadeDuration);
         yield return null;  
     }
 
@@ -83,15 +90,6 @@ public class FinaleCutsceneScenario : MonoBehaviour
         {
             _noise.m_FrequencyGain = Mathf.MoveTowards(_noise.m_FrequencyGain, frequencyTarget, _cameraFrequencyFadeSpeed * Time.deltaTime);
             _noise.m_AmplitudeGain = Mathf.MoveTowards(_noise.m_AmplitudeGain, amplitudeTarget, _cameraAmplitudeFadeSpeed * Time.deltaTime);
-            yield return null;
-        }
-    }
-
-    private IEnumerator FadeSound(AudioSource source, float target)
-    {
-        while(source.volume != target)
-        {
-            source.volume = Mathf.MoveTowards(source.volume, target, _soundFadeSpeed * Time.deltaTime);
             yield return null;
         }
     }
