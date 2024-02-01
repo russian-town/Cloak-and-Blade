@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027bcda9a791a6649b4f3ca8839afbe6, type: 3}
   m_Name: Desert-Medium
   m_EditorClassIdentifier: 
-  _name: Desert-Medium
+  _name: Red canyon
   _unlockedPreview: {fileID: 21300000, guid: 87f0c8ee0188c3b47ae230e6b32cea1a, type: 3}
   _lockedPreview: {fileID: 21300000, guid: 54812fc3b03bd9d47b6de51ceac8fd0f, type: 3}
   _isOpen: 1

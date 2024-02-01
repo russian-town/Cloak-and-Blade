@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027bcda9a791a6649b4f3ca8839afbe6, type: 3}
   m_Name: Forest-Hard
   m_EditorClassIdentifier: 
-  _name: Forest-Hard
+  _name: Twilight forest
   _unlockedPreview: {fileID: 21300000, guid: 77c1a19daf10da34a984525b3f632617, type: 3}
   _lockedPreview: {fileID: 21300000, guid: 1f5cf86e4e3b76d44afcbb1564ab0d80, type: 3}
   _isOpen: 1
