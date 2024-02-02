@@ -23808,7 +23808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 2004, y: 1127}
+  customRes: {x: 2154, y: 1212}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -23849,7 +23849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.004
+  resolutionScale: 2.154
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -51245,9 +51245,11 @@ MonoBehaviour:
   _candleSound: {fileID: 1771446672}
   _candleLoop: {fileID: 186380747}
   _narratorSpeech: {fileID: 575326182}
+  _backgroundMusic: {fileID: 259109999}
   _candleLight: {fileID: 1297009531}
-  _candleLightFadeSpeed: 0.8
   _candleIntensity: 1.5
+  _candleLightFadeSpeed: 0.8
+  _musicLowVolume: 0.05
   _loadingScreen: {fileID: 128790194}
 --- !u!1001 &1798700593
 PrefabInstance:
