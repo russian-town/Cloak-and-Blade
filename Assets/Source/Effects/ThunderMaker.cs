@@ -93,10 +93,9 @@ public class ThunderMaker : MonoBehaviour
             _lightDelay = null;
         }
 
-        
-
         _soundDelay = null;
         _thunderCoroutine = null;
+        _soundPlayed = false;
         _thundersToStrike = 0;
     }
 }

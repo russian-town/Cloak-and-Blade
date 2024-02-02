@@ -1,3 +1,4 @@
+using DG.Tweening;
 using PSXShaderKit;
 using System.Collections;
 using UnityEngine;
@@ -14,16 +15,20 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
     [SerializeField] private AudioSource _candleSound;
     [SerializeField] private AudioSource _candleLoop;
     [SerializeField] private AudioSource _narratorSpeech;
+    [SerializeField] private AudioSource _backgroundMusic;
     [SerializeField] private Light _candleLight;
-    [SerializeField] private float _candleLightFadeSpeed;
     [SerializeField] private float _candleIntensity;
+    [SerializeField] private float _candleLightFadeSpeed;
+    [SerializeField] private float _musicLowVolume;
     [SerializeField] private LoadingScreen _loadingScreen;
 
     private WaitForSeconds _genericWait;
+    private float _initialMusicVolume;
     private bool _isTutorialCompleted;
 
     public void Initialize()
     {
+        _initialMusicVolume = _backgroundMusic.volume;
         _candleLight.intensity = 0;
         _genericWait = new WaitForSeconds(_flyingToTableWait);
         _loadingScreen.Initialize();
@@ -60,6 +65,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
         print("text started");
         _genericWait = new WaitForSeconds(_narratorWait);
         print("narrator started speech");
+        _backgroundMusic.DOFade(_musicLowVolume, 1);
         yield return _genericWait;
         _genericWait = new WaitForSeconds(_narratorSpeechWait);
         _narratorSpeech.Play();
