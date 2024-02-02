@@ -14372,8 +14372,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3857856043463758888}
-  m_LocalRotation: {x: 0.3922323, y: 0.5883484, z: -0.39223224, w: 0.58834845}
-  m_LocalPosition: {x: -53.03, y: 18.001001, z: -0.38999954}
+  m_LocalRotation: {x: -0.06490613, y: 0.9278627, z: -0.19261806, w: -0.31266007}
+  m_LocalPosition: {x: -2.4, y: 7.94, z: 0.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14413,7 +14413,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 75
+  field of view: 66.6
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -14520,7 +14520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 2109, y: 1186}
+  customRes: {x: 1599, y: 899}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -14561,7 +14561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.109
+  resolutionScale: 1.599
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -15348,9 +15348,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 4
   m_FollowOffset: {x: 0, y: 15, z: -0}
-  m_XDamping: 3
-  m_YDamping: 3
-  m_ZDamping: 3
+  m_XDamping: 7
+  m_YDamping: 7
+  m_ZDamping: 7
   m_AngularDampingMode: 0
   m_PitchDamping: 0
   m_YawDamping: 0
@@ -15404,8 +15404,8 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 3
-  m_VerticalDamping: 3
+  m_HorizontalDamping: 7
+  m_VerticalDamping: 7
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_DeadZoneWidth: 0

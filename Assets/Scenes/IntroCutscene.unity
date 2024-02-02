@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.03
   m_LinearFogStart: 4.67
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.2264151, g: 0.14250143, b: 0.0993236, a: 1}
+  m_AmbientSkyColor: {r: 0.29411766, g: 0.2, b: 0.15686275, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1.12
@@ -23808,7 +23808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 2249, y: 1265}
+  customRes: {x: 2004, y: 1127}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -23849,7 +23849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.249
+  resolutionScale: 2.004
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
