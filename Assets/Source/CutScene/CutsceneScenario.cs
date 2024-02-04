@@ -21,18 +21,35 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
     [SerializeField] private float _candleLightFadeSpeed;
     [SerializeField] private float _musicLowVolume;
     [SerializeField] private LoadingScreen _loadingScreen;
+    [SerializeField] private ProgressBarFiller _progressBar;
 
     private WaitForSeconds _genericWait;
-    private float _initialMusicVolume;
     private bool _isTutorialCompleted;
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            _progressBar.ChangeFilling();
+        }
+        else if (Input.GetMouseButtonUp(0) && _progressBar.WasFilling)
+        {
+            _progressBar.ChangeFilling();
+        }
+    }
+
+    private void OnDisable()
+    {
+        _progressBar.ProgressBarFilled -= OnProgressBarFilled;
+    }
 
     public void Initialize()
     {
-        _initialMusicVolume = _backgroundMusic.volume;
         _candleLight.intensity = 0;
         _genericWait = new WaitForSeconds(_flyingToTableWait);
         _loadingScreen.Initialize();
         StartCoroutine(CutsceneCoroutine());
+        _progressBar.ProgressBarFilled += OnProgressBarFilled;
         Debug.Log(_isTutorialCompleted);
     }
 
@@ -41,7 +58,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
         _isTutorialCompleted = playerData.IsTutorialCompleted;
     }
 
-    public void Skip() => SceneManager.LoadScene(Constants.MainMenu);
+    private void OnProgressBarFilled() => SceneManager.LoadScene(Constants.MainMenu);
 
     private IEnumerator CutsceneCoroutine()
     {

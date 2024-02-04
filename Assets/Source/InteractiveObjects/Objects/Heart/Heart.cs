@@ -6,7 +6,6 @@ public class Heart : InteractiveObject
 {
     [SerializeField] private GameObject _linza;
     [SerializeField] private InteractiveObjectView _view;
-
     [SerializeField] private FinaleCutsceneScenario _cutscene;
 
     public bool IsActive { get; private set; }
