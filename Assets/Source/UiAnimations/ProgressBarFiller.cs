@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +9,10 @@ using UnityEngine.UI;
 public class ProgressBarFiller : MonoBehaviour
 {
     [SerializeField] private float _fillSpeed;
-    [SerializeField] private float _pitchChangeSpeed;
+    [SerializeField] private float _colorChangeDuration;
     [SerializeField] private AudioSource _source;
+    [SerializeField] private Color _originalColor;
+    [SerializeField] private Color _filledColor;
 
     public event Action ProgressBarFilled;
 
@@ -16,6 +20,7 @@ public class ProgressBarFiller : MonoBehaviour
     private float _minPitch = .5f;
     private Image _image;
     private Coroutine _coroutine;
+    private Color _currentColor;
 
     public bool WasFilling { get; private set; }
 
@@ -48,14 +53,19 @@ public class ProgressBarFiller : MonoBehaviour
     {
         _source.Play();
 
-        while(_image.fillAmount != value)
+        if(value == _fullProgress)
+            _image.DOColor(_filledColor, _colorChangeDuration).SetEase(Ease.InSine);
+        else
+            _image.DOColor(_originalColor, _colorChangeDuration).SetEase(Ease.Unset);
+
+        while (_image.fillAmount != value)
         {
             _image.fillAmount = Mathf.MoveTowards(_image.fillAmount, value, _fillSpeed * Time.deltaTime);
 
             if (value == _fullProgress && _source.pitch < 1)
-                _source.pitch += _pitchChangeSpeed  * Time.deltaTime;
+                _source.pitch += _fillSpeed  * Time.deltaTime;
             else if (value != _fullProgress && _source.pitch > _minPitch)
-                _source.pitch -= _pitchChangeSpeed * Time.deltaTime;
+                _source.pitch -= _fillSpeed * Time.deltaTime;
 
             if (_image.fillAmount == _fullProgress)
                 ProgressBarFilled?.Invoke();

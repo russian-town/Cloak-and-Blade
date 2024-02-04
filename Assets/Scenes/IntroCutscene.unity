@@ -22952,8 +22952,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fillSpeed: 0.4
-  _pitchChangeSpeed: 0.4
+  _colorChangeDuration: 1.5
   _source: {fileID: 870127016}
+  _originalColor: {r: 1, g: 0.7411765, b: 0, a: 1}
+  _filledColor: {r: 1, g: 0.051016767, b: 0, a: 1}
 --- !u!82 &870127016
 AudioSource:
   m_ObjectHideFlags: 0
@@ -24224,7 +24226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1370, y: 856}
+  customRes: {x: 2024, y: 1265}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -24265,7 +24267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 1.37
+  resolutionScale: 2.024
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
