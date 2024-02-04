@@ -5,8 +5,9 @@ using System;
 
 public class FocusHandler : MonoBehaviour
 {
-    [SerializeField] private Game _game;
     [SerializeField] private Audio _audio;
+
+    private IActiveScene _scene;
 
     private void OnEnable()
     {
@@ -34,15 +35,17 @@ public class FocusHandler : MonoBehaviour
             SetFocused();
     }
 
+    public void SetActiveScene(IActiveScene scene) => _scene = scene;
+
     private void SetUnFocused()
     {
         if (enabled == false)
             return;
 
-        if (_game.IsInitialize == false || _audio == null)
+        if (_scene == null || _audio == null)
             return;
 
-        _game.SetPause();
+        _scene.SetPause();
         _audio.Mute();
     }
 
@@ -51,9 +54,12 @@ public class FocusHandler : MonoBehaviour
         if (enabled == false)
             return;
 
-        if (_game.IsInitialize == false || _audio == null)
+        if (_scene == null || _audio == null)
             return;
 
         _audio.UnMute();
+
+        if (_scene is IAutoContinuer continuer)
+            continuer.Continue();
     }
 }

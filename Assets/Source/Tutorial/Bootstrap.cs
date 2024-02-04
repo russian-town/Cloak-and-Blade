@@ -98,6 +98,7 @@ public class Bootstrap : MonoBehaviour, IInitializable
         _pause = new Pause(new List<IPauseHandler> { _inputView, _playerView, _player, _hourglass });
         _adHandler = new AdHandler(_game, _focusHandler, _audio);
         _game.Initialize(_player, _pause, _levelExit, _wallet, _adHandler);
+        _focusHandler.SetActiveScene(_game);
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
         _scoreDefiner.Initialize();

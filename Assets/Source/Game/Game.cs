@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Game : MonoBehaviour, IDataWriter, IDataReader
+public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
 {
     [SerializeField] private PauseView _pauseScreen;
     [SerializeField] private PlayerView _playerView;

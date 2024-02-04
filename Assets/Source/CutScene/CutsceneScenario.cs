@@ -1,10 +1,9 @@
 using DG.Tweening;
-using PSXShaderKit;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
+public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable, IPauseHandler
 {
     [SerializeField] private float _flyingToTableWait;
     [SerializeField] private float _candleLightWait;
@@ -50,7 +49,14 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
         _loadingScreen.Initialize();
         StartCoroutine(CutsceneCoroutine());
         _progressBar.ProgressBarFilled += OnProgressBarFilled;
-        Debug.Log(_isTutorialCompleted);
+    }
+
+    public void SetPause(bool isPause)
+    {
+        if (isPause)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
     }
 
     public void Read(PlayerData playerData)
@@ -64,7 +70,6 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
     {
         yield return _loadingScreen.StartFade(0);
         yield return _genericWait;
-        print("im at table");
         _genericWait = new WaitForSeconds(_candleLightWait);
         yield return _genericWait;
         _candle.SetActive(true);
@@ -79,9 +84,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable
         _genericWait = new WaitForSeconds(_textAppearWait);
         yield return _genericWait;
         _candleLoop.Play();
-        print("text started");
         _genericWait = new WaitForSeconds(_narratorWait);
-        print("narrator started speech");
         _backgroundMusic.DOFade(_musicLowVolume, 1);
         yield return _genericWait;
         _genericWait = new WaitForSeconds(_narratorSpeechWait);

@@ -121,6 +121,7 @@ public class Root : MonoBehaviour, IInitializable
         _player.SetTargets(_enemies);
         _adHandler = new AdHandler(_game, _focusHandler, _audio);
         _game.Initialize(_player, _pause, _levelExit, _wallet, _adHandler);
+        _focusHandler.SetActiveScene(_game);
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
         _scoreDefiner.Initialize();
