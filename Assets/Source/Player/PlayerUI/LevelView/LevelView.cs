@@ -29,7 +29,8 @@ public class LevelView : MonoBehaviour
     public void Render(Level level)
     {
         _level = level;
-        _levelName.text = level.name;
+        string levelName = Lean.Localization.LeanLocalization.GetTranslationText(level.Name);
+        _levelName.text = levelName;
 
         if (_level.IsOpen)
             _preview.sprite = _level.UnlockedPreview;
