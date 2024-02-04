@@ -1,31 +1,46 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraTutorial : BaseTutorialElement
 {
-    [SerializeField] private List<MainButton> _cameraButtons;
+    [SerializeField] private TurnClockwiseButton _turnClockwiseButton;
+    [SerializeField] private TurnCounterclockwiseButton _turnCounterclockwiseButton;
+    [SerializeField] private CameraAngleChanger _cameraAngleChanger;
+
     [SerializeField] private Gameboard _gameboard;
 
     public override void Show(Player player)
     {
-        foreach (var button in _cameraButtons)
-        {
-            button.MainButtonClicked += OnMainButtonClicked;
-            button.Open();
-            button.Show();
-        }
+        _turnClockwiseButton.Show();
+        _turnClockwiseButton.Open();
+        _turnClockwiseButton.HoldComplete += OnHoldComplete;
     }
 
-    private void OnMainButtonClicked(MainButton mainButton)
+    private void OnHoldComplete()
     {
-        if(_cameraButtons.Contains(mainButton)) 
-        {
-            mainButton.MainButtonClicked -= OnMainButtonClicked;
-            _cameraButtons.Remove(mainButton);
-            mainButton.EffectHandler.StopLightEffect();
+        _turnClockwiseButton.Hide();
+        _turnClockwiseButton.EffectHandler.StopLightEffect();
+        _turnCounterclockwiseButton.Show();
+        _turnCounterclockwiseButton.Open();
+        _turnCounterclockwiseButton.HoldSecondComplete += OnHoldSecondComplete;
+        _turnClockwiseButton.HoldComplete -= OnHoldComplete;
+    }
 
-            if(_cameraButtons.Count <= 0)
-                InvokeTutorialZoneCompleteAction();
-        }
+    private void OnHoldSecondComplete()
+    {
+        _turnCounterclockwiseButton.Hide();
+        _turnCounterclockwiseButton.EffectHandler.StopLightEffect();
+        _cameraAngleChanger.Show();
+        _cameraAngleChanger.Open();
+        _cameraAngleChanger.DoubleClickComplete += OnDoubleClickComplete;
+        _turnCounterclockwiseButton.HoldSecondComplete -= OnHoldSecondComplete;
+    }
+
+    private void OnDoubleClickComplete()
+    {
+        _cameraAngleChanger.EffectHandler.StopLightEffect();
+        InvokeTutorialZoneCompleteAction();
+        _cameraAngleChanger.DoubleClickComplete -= OnDoubleClickComplete;
     }
 }
