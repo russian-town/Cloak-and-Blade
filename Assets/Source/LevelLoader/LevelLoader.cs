@@ -7,7 +7,7 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
 {
     [SerializeField] private List<Level> _levels = new List<Level>();
     [SerializeField] private LevelView _levelViewTemplate;
-    [SerializeField] private GridLayoutGroup _parent;
+    [SerializeField] private HorizontalLayoutGroup _parent;
 
     private List<LevelView> _levelViews = new List<LevelView>();
 
