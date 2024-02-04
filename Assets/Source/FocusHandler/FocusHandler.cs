@@ -42,11 +42,15 @@ public class FocusHandler : MonoBehaviour
         if (enabled == false)
             return;
 
-        if (_scene == null || _audio == null)
+        if (_audio == null)
+            return;
+
+        _audio.Mute();
+
+        if (_scene == null)
             return;
 
         _scene.SetPause();
-        _audio.Mute();
     }
 
     private void SetFocused() 
@@ -54,10 +58,13 @@ public class FocusHandler : MonoBehaviour
         if (enabled == false)
             return;
 
-        if (_scene == null || _audio == null)
+        if (_audio == null)
             return;
 
         _audio.UnMute();
+
+        if (_scene == null)
+            return;
 
         if (_scene is IAutoContinuer continuer)
             continuer.Continue();
