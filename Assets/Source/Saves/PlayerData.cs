@@ -12,9 +12,9 @@ public class PlayerData
     public List<UpgradeSetter> UpgradeSetters = new List<UpgradeSetter>();
     public List<int> Levels = new List<int>();
     public bool IsTutorialCompleted;
-    public float MasterSliderValue;
-    public float SoundSliderValue;
-    public float MusicSliderValue;
+    public float MasterSliderValue = 1;
+    public float SoundSliderValue = 1;
+    public float MusicSliderValue = 1;
     public List<string> FinishedLevelNames = new List<string>();
     public List<string> OpenedLevelNames = new List<string>();
     public List<int> FinishedLevelsStarsCount = new List<int>(); 
