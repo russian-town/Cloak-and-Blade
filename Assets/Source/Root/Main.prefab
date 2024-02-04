@@ -14546,7 +14546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1920, y: 1080}
+  customRes: {x: 2259, y: 1076}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -14587,7 +14587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 1.92
+  resolutionScale: 2.259
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1

@@ -47,7 +47,8 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
     private IEnumerator Rotate(Cell targetCell, float rotationSpeed)
     {
-        Vector3 rotationTarget = targetCell.transform.position - transform.position;
+        Vector3 targetDirection = new Vector3(targetCell.transform.position.x, 0, targetCell.transform.position.z);
+        Vector3 rotationTarget = targetDirection - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(rotationTarget, Vector3.up);
 
         while (transform.rotation != targetRotation)

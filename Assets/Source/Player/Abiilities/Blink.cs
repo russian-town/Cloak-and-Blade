@@ -91,12 +91,18 @@ public class Blink : Ability
     {
         foreach (var cell in _navigator.AvailableCells)
             if (cell.Content.Type != CellContentType.Wall)
+            {
                 cell.View.PlayAbilityRangeEffect();
+                cell.View.Show();
+            }
     }
 
     private void HideBlinkRange()
     {
         foreach (var cell in _navigator.AvailableCells)
+        {
             cell.View.StopAbilityRangeEffect();
+            cell.View.Hide();
+        }
     }
 }
