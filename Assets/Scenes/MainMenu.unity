@@ -5276,7 +5276,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 940869629}
   m_HandleRect: {fileID: 940869628}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6994,7 +6994,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.10961678, y: 0.09216269}
   m_AnchorMax: {x: 0.41966385, y: 0.241256}
-  m_AnchoredPosition: {x: -2.5, y: 2.5}
+  m_AnchoredPosition: {x: -2.5, y: 2.499939}
   m_SizeDelta: {x: 5.9799805, y: 2.9000244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &185561598
@@ -9934,7 +9934,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -3691065548320451500, guid: dfd2611e08a56a34688895b41dd487ef, type: 2}
-  m_audioClip: {fileID: 8300000, guid: af962343bbde78a4c95fae9fd66ef622, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0bfc241ac94907c40a2d37feee04bd27, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.2
   m_Pitch: 1
@@ -35389,7 +35389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 2249, y: 1265}
+  customRes: {x: 1648, y: 927}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -50924,7 +50924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.582, y: 0.09216269}
   m_AnchorMax: {x: 0.8953926, y: 0.241256}
-  m_AnchoredPosition: {x: -2.5, y: 2.5}
+  m_AnchoredPosition: {x: -2.5, y: 2.499939}
   m_SizeDelta: {x: -0.020019531, y: 2.9000244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1143813744
