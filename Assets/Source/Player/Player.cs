@@ -120,8 +120,8 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     public void SkipTurn()
     {
+        UpdateAbilityState();
         StepEnded?.Invoke();
-        Debug.Log("Skip turn");
     }
 
     public bool TryMoveToCell(Cell targetCell, float moveSpeed, float rotationSpeed)

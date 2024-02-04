@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAttacker))]
@@ -35,6 +34,7 @@ public class Transformation : Ability
         if (Prepared == true)
             return;
 
+        DecreaseLimit();
         _playerView.DisableAbilityButton();
         _model.TransformToDecoy();
         _whisperSound.Play();
@@ -44,7 +44,6 @@ public class Transformation : Ability
         _currentCell = _player.CurrentCell;
         _currentCell.Content.BecomeWall();
         _player.SkipTurn();
-        _player.StepEnded += OnStepEnded;
         _playerView.HideMoveButton();
         Prepared = true;
     }
@@ -60,7 +59,6 @@ public class Transformation : Ability
         _switchBackSound.Play();
         _currentCell.Content.BecomeEmpty();
         _attacker.Attack(AttackType.UnBlind);
-        _player.StepEnded -= OnStepEnded;
         Prepared = false;
     }
 
@@ -71,11 +69,11 @@ public class Transformation : Ability
 
     public override void ResetAbility() => _useLimit++;
 
-    protected override void Action(Cell cell)
+    private void DecreaseLimit()
     {
         _useLimit--;
         _useLimit = Mathf.Clamp(_useLimit, 0, _maxUseLimit);
     }
 
-    private void OnStepEnded() => Action(_currentCell);
+    protected override void Action(Cell cell) { }
 }
