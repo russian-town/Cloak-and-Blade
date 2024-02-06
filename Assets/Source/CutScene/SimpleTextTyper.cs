@@ -1,8 +1,11 @@
 using DG.Tweening;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
-using static Unity.VisualScripting.Member;
 
 public class SimpleTextTyper : MonoBehaviour
 {
@@ -12,16 +15,20 @@ public class SimpleTextTyper : MonoBehaviour
     [SerializeField] private float _dotDelay;
     [SerializeField] private float _commaDelay;
     [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private List<PhraseWithPause> _phrasesWithPause;
 
     private WaitForSeconds _waitDelay;
     private WaitForSeconds _dotWaitDelay;
     private WaitForSeconds _commaWaitDelay;
+    private WaitForSeconds _phraseWait;
+    private List<char> _tempCharList;
 
     private void Start()
     {
         _waitDelay = new WaitForSeconds(_delay);
         _dotWaitDelay = new WaitForSeconds(_dotDelay);
         _commaWaitDelay = new WaitForSeconds(_commaDelay);
+        _tempCharList = new List<char>();
     }
 
     public void TypeText() => StartCoroutine(WriteLine());
@@ -43,6 +50,22 @@ public class SimpleTextTyper : MonoBehaviour
             vertexColors[vertexIndex + 2] = myColor32;
             vertexColors[vertexIndex + 3] = myColor32;
             _textContainer.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
+
+            if (!char.IsWhiteSpace(_textContainer.text[i]))
+                _tempCharList.Add(_textContainer.text[i]);
+
+            foreach (var phrase in _phrasesWithPause)
+            {
+                if (phrase.Phrase == string.Concat(_tempCharList))
+                {
+                    _phraseWait = new WaitForSeconds(phrase.Pause);
+                    yield return _phraseWait;
+                    _phraseWait = null;
+                }
+            }
+
+            if (char.IsWhiteSpace(_textContainer.text[i]))
+                _tempCharList.Clear();
 
             if (i < _text.text.Length - 1)
                 if (_text.text[i] == '.' && _text.text[i + 1] != '.')
@@ -72,4 +95,14 @@ public class SimpleTextTyper : MonoBehaviour
 
         return new Color32(r, g, b, a);
     }
+}
+
+[Serializable]
+public class PhraseWithPause
+{
+    [SerializeField] private string _phrase;
+    [SerializeField] private float _pause;
+
+    public string Phrase => _phrase;
+    public float Pause => _pause;
 }
