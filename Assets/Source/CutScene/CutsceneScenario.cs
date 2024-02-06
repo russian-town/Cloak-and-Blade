@@ -22,6 +22,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable, IPau
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private ProgressBarFiller _progressBar;
     [SerializeField] private SimpleTextTyper _textTyper;
+    [SerializeField] private CanvasGroup _letter;
 
     private WaitForSeconds _genericWait;
     private bool _isTutorialCompleted;
@@ -91,6 +92,10 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable, IPau
         yield return _genericWait;
         _genericWait = new WaitForSeconds(_narratorSpeechWait);
         _narratorSpeech.Play();
+        yield return _genericWait;
+        _genericWait = new WaitForSeconds(_textAppearWait);
+        yield return _genericWait;
+        _letter.DOFade(0, 1f).SetEase(Ease.OutSine);
         yield return _genericWait;
         yield return _loadingScreen.StartFade(1);
 

@@ -2633,6 +2633,8 @@ MonoBehaviour:
     _pause: 0.4
   - _phrase: "\u0441\u043F\u0440\u0430\u0432\u0435\u0434\u043B\u0438\u0432\u043E\u0441\u0442\u0438,"
     _pause: 0.4
+  - _phrase: forte,
+    _pause: 0.2
 --- !u!1001 &84395043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24440,7 +24442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 2230, y: 1254}
+  customRes: {x: 2249, y: 1265}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -24481,7 +24483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.23
+  resolutionScale: 2.249
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -57312,7 +57314,7 @@ MonoBehaviour:
   _candleLightWait: 1
   _textAppearWait: 1
   _narratorWait: 1
-  _narratorSpeechWait: 56.3
+  _narratorSpeechWait: 54
   _candle: {fileID: 1427709795}
   _candleSound: {fileID: 1771446672}
   _candleLoop: {fileID: 186380747}
@@ -57325,6 +57327,7 @@ MonoBehaviour:
   _loadingScreen: {fileID: 128790194}
   _progressBar: {fileID: 870127015}
   _textTyper: {fileID: 82158947}
+  _letter: {fileID: 1603122907}
 --- !u!1001 &1798700593
 PrefabInstance:
   m_ObjectHideFlags: 0

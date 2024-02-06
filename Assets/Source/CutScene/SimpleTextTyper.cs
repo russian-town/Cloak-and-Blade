@@ -76,9 +76,6 @@ public class SimpleTextTyper : MonoBehaviour
 
             yield return _waitDelay;
         }
-
-        yield return _dotWaitDelay;
-        _canvasGroup.DOFade(0, 2f).SetEase(Ease.InSine);
     }
 
     private Color32 hexToColor(string hex)
