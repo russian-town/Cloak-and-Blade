@@ -21,6 +21,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable, IPau
     [SerializeField] private float _musicLowVolume;
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private ProgressBarFiller _progressBar;
+    [SerializeField] private SimpleTextTyper _textTyper;
 
     private WaitForSeconds _genericWait;
     private bool _isTutorialCompleted;
@@ -86,6 +87,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable, IPau
         _candleLoop.Play();
         _genericWait = new WaitForSeconds(_narratorWait);
         _backgroundMusic.DOFade(_musicLowVolume, 1);
+        _textTyper.TypeText();
         yield return _genericWait;
         _genericWait = new WaitForSeconds(_narratorSpeechWait);
         _narratorSpeech.Play();
