@@ -7,6 +7,7 @@ public class YandexInit : MonoBehaviour
 {
     [SerializeField] private LeanLocalization _localization;
     [SerializeField] private CutsceneScenario _cutsceneScenario;
+    [SerializeField] private Audio _audio;
     
     private Saver _saver = new Saver();
 
@@ -46,7 +47,7 @@ public class YandexInit : MonoBehaviour
         YandexGamesSdk.GameReady();
 #endif
 
-        _saver.AddDataReaders(new IDataReader[] { _cutsceneScenario });
+        _saver.AddDataReaders(new IDataReader[] { _cutsceneScenario, _audio });
         _saver.AddInitializable(_cutsceneScenario);
         _saver.Initialize();
         _saver.Load();

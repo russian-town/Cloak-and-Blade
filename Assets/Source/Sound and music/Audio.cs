@@ -17,9 +17,9 @@ public class Audio : MonoBehaviour, IDataReader
         _masterGroup.audioMixer.SetFloat(Constants.MusicVolume, Mathf.Log10(playerData.MusicSliderValue) * 20f);
     }
 
-    public void Mute() => _masterGroup.audioMixer.SetFloat(Constants.MasterVolume, Constants.MinAudioValue);
+    public void Mute() => AudioListener.pause = true;
 
-    public void UnMute() => _masterGroup.audioMixer.SetFloat(Constants.MasterVolume, _currentMasterVolume);
+    public void UnMute() => AudioListener.pause = false;
 
     public void ChangeMasterVolume(float value)
     {
