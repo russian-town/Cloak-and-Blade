@@ -329,6 +329,9 @@ MonoBehaviour:
   - {fileID: 8951049649469160915}
   - {fileID: 8276229069239144296}
   _lock: {fileID: 4970469888855259349}
+  _focusScale: 1
+  _unfocusScale: 0.9
+  _changeFocusScale: 0.1
 --- !u!1 &2854099493800846990
 GameObject:
   m_ObjectHideFlags: 0

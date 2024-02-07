@@ -11,6 +11,9 @@ public class LevelView : MonoBehaviour
     [SerializeField] private Image _preview;
     [SerializeField] private List<Image> _stars = new List<Image>();
     [SerializeField] private Image _lock;
+    [SerializeField] private float _focusScale;
+    [SerializeField] private float _unfocusScale;
+    [SerializeField] private float _changeFocusScale;
 
     private Level _level;
 
@@ -44,5 +47,15 @@ public class LevelView : MonoBehaviour
 
         for (int i = 0; i < _level.StarsCount; i++)
             _stars[i].gameObject.SetActive(true);
+    }
+
+    public void Focus()
+    {
+        transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(_focusScale, _focusScale), _changeFocusScale);
+    }
+
+    public void Unfocus()
+    {
+        transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(_unfocusScale, _unfocusScale), _changeFocusScale);
     }
 }

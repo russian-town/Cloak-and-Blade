@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(MainMenuVeiw))]
 public class MainMenu : MonoBehaviour
@@ -9,25 +8,14 @@ public class MainMenu : MonoBehaviour
 
     private MainMenuVeiw _mainMenuVeiw;
 
-    private void Awake()
+    private void OnDisable() => _mainMenuVeiw.PlayButtonClicked -= StartGame;
+
+    public void Initialize()
     {
         _mainMenuVeiw = GetComponent<MainMenuVeiw>();
+        _mainMenuVeiw.PlayButtonClicked += StartGame;
         _levelsViewScroll.Hide();
     }
 
-    private void OnEnable()
-    {
-        _mainMenuVeiw.PlayButtonClicked += StartGame;
-    }
-
-    private void OnDisable()
-    {
-        _mainMenuVeiw.PlayButtonClicked -= StartGame;
-    }
-
-    private void StartGame()
-    {
-        /*if (_levelsLoader.TryTutorialLoad() == false)*/
-            _levelsViewScroll.Show();
-    }
+    private void StartGame() => _levelsViewScroll.Show();
 }

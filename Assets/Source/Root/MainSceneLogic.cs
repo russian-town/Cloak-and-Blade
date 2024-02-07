@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MainSceneLogic : MonoBehaviour
@@ -13,6 +12,7 @@ public class MainSceneLogic : MonoBehaviour
     [SerializeField] private AudioView _audioView;
     [SerializeField] private WalletView _walletView;
     [SerializeField] private LoadingScreen _loadingScreen;
+    [SerializeField] private MainMenu _mainMenu;
 
     private Saver _saver = new Saver();
     private Wallet _wallet = new Wallet();
@@ -56,6 +56,7 @@ public class MainSceneLogic : MonoBehaviour
         _shop.SetWallet(_wallet);
         _levelLoader.Initialize();
         _loadingScreen.StartFade(0);
+        _mainMenu.Initialize();
         yield return null;
     }
 
