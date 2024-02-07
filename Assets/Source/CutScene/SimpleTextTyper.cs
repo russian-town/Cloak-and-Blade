@@ -9,7 +9,6 @@ using UnityEngine;
 
 public class SimpleTextTyper : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _text;
     [SerializeField] private TMP_Text _textContainer;
     [SerializeField] private float _delay;
     [SerializeField] private float _dotDelay;
@@ -35,11 +34,10 @@ public class SimpleTextTyper : MonoBehaviour
 
     private IEnumerator WriteLine()
     {
-        _textContainer.text = _text.text;
         _canvasGroup.DOFade(1, 1);
         yield return _dotWaitDelay;
 
-        for (int i = 0; i < _text.text.Length; i++)
+        for (int i = 0; i < _textContainer.text.Length; i++)
         {
             Color32 myColor32 = hexToColor("0D0D30");
             int meshIndex = _textContainer.textInfo.characterInfo[i].materialReferenceIndex;
@@ -67,11 +65,11 @@ public class SimpleTextTyper : MonoBehaviour
             if (char.IsWhiteSpace(_textContainer.text[i]))
                 _tempCharList.Clear();
 
-            if (i < _text.text.Length - 1)
-                if (_text.text[i] == '.' && _text.text[i + 1] != '.')
+            if (i < _textContainer.text.Length - 1)
+                if (_textContainer.text[i] == '.' && _textContainer.text[i + 1] != '.')
                     yield return _dotWaitDelay;
 
-            if(_text.text[i] == ',' || _text.text[i] == '—')
+            if(_textContainer.text[i] == ',' || _textContainer.text[i] == '—')
                 yield return _commaWaitDelay;
 
             yield return _waitDelay;
