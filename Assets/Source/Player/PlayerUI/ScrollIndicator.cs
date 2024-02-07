@@ -82,15 +82,15 @@ public class ScrollIndicator : MonoBehaviour
             {
                 Debug.LogWarning("Current Selected Level" + i);
                 transform.GetChild(i).localScale = Vector2.Lerp(transform.GetChild(i).localScale, new Vector2(1f, 1f), 0.1f);
-                _navigationButtons.GetChild(i).localScale = Vector2.Lerp(_navigationButtons.GetChild(i).localScale, new Vector2(1.2f, 1.2f), 0.1f);
+                _navigationButtons.GetChild(i).localScale = Vector2.Lerp(_navigationButtons.GetChild(i).localScale, new Vector2(1.1f, 1.1f), 0.1f);
                 _navigationButtons.GetChild(i).GetComponent<Image>().color = _focusedButtonColor;
                 for (int j = 0; j < _positions.Length; j++)
                 {
                     if (j != i)
                     {
                         _navigationButtons.GetChild(j).GetComponent<Image>().color = _defaultButtonColor;
-                        _navigationButtons.GetChild(j).localScale = Vector2.Lerp(_navigationButtons.GetChild(j).localScale, new Vector2(0.8f, 0.8f), 0.1f);
-                        transform.GetChild(j).localScale = Vector2.Lerp(transform.GetChild(j).localScale, new Vector2(0.8f, 0.8f), 0.1f);
+                        _navigationButtons.GetChild(j).localScale = Vector2.Lerp(_navigationButtons.GetChild(j).localScale, new Vector2(0.9f, 0.9f), 0.1f);
+                        transform.GetChild(j).localScale = Vector2.Lerp(transform.GetChild(j).localScale, new Vector2(0.9f, 0.9f), 0.1f);
                     }
                 }
             }
