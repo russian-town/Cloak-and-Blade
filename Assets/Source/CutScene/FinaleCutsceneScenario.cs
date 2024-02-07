@@ -12,6 +12,7 @@ public class FinaleCutsceneScenario : MonoBehaviour
     [SerializeField] private float _swordStabingDuration;
     [SerializeField] private float _screamDuration;
     [SerializeField] private float _whiteScreenFadeDuration;
+    [SerializeField] private float _whitescreenBlankDuration;
     [SerializeField] private float _effectFadeUpSpeed;
     [SerializeField] private float _cameraFrequencyFadeSpeed;
     [SerializeField] private float _cameraAmplitudeFadeSpeed;
@@ -77,7 +78,9 @@ public class FinaleCutsceneScenario : MonoBehaviour
         _genericWait = new WaitForSeconds(_screamDuration);
         yield return _genericWait;
         _whiteScreen.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.InSine);
-        _text.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.InSine);
+        _genericWait = new WaitForSeconds(_whiteScreenFadeDuration);
+        yield return _genericWait;
+        _text.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.OutSine);
         _genericWait = new WaitForSeconds(_soundFadeDuration);
         yield return _genericWait;
         _whiteNoise.DOFade(0, _soundFadeDuration);
