@@ -2,14 +2,14 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SimpleTextTyper : MonoBehaviour
 {
     [SerializeField] private TMP_Text _textContainer;
+    [SerializeField] private RectTransform _letter;
     [SerializeField] private float _delay;
     [SerializeField] private float _dotDelay;
     [SerializeField] private float _commaDelay;
@@ -34,7 +34,9 @@ public class SimpleTextTyper : MonoBehaviour
 
     private IEnumerator WriteLine()
     {
-        _canvasGroup.DOFade(1, 1);
+        _canvasGroup.DOFade(1, 1).SetEase(Ease.InOutSine);
+        _letter.DOScale(1, 1).SetEase(Ease.InOutSine);
+
         yield return _dotWaitDelay;
 
         for (int i = 0; i < _textContainer.text.Length; i++)
