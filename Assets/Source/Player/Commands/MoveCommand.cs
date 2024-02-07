@@ -62,7 +62,10 @@ public class MoveCommand : Command, ITurnHandler
     protected override IEnumerator ExecuteAction()
     {
         if (_player.TryMoveToCell(_cell, _moveSpeed, _rotationSpeed))
+        {
+            _navigator.HideAvailableCells();
             yield return _player.MoveCoroutine;
+        }
     }
 
     protected override void OnCommandChanged(Command command)

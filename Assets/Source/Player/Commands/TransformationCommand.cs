@@ -68,7 +68,10 @@ public class TransformationCommand : AbilityCommand, ITurnHandler
         yield return new WaitUntil(() => _transformation.Cast(_cell));
 
         if (_player.TryMoveToCell(_cell, _moveSpeed, _rotationSpeed))
+        {
+            _navigator.HideAvailableCells();
             yield return _player.MoveCoroutine;
+        }
     }
 
     protected override IEnumerator PrepareAction()
