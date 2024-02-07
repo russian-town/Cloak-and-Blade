@@ -9,6 +9,7 @@ public class ScrollIndicator : MonoBehaviour
     [SerializeField] private Scrollbar _scrollbar;
     [SerializeField] private RectTransform _viewPort;
     [SerializeField] private int _contentWidth;
+    [SerializeField] private float _autoScrollSpeed;
     [SerializeField] private float _scrollSpeed;
 
     private HorizontalLayoutGroup _layout;
@@ -50,7 +51,7 @@ public class ScrollIndicator : MonoBehaviour
         else
             for (int i = 0; i < _positions.Length; i++)
                 if (_currentScrollbarPosition < _positions[i] + (distance / 2) && _currentScrollbarPosition > _positions[i] - (distance / 2))
-                    _scrollbar.value = Mathf.Lerp(_scrollbar.value, _positions[i], 0.1f);
+                    _scrollbar.value = Mathf.Lerp(_scrollbar.value, _positions[i], _autoScrollSpeed);
 
         for (int i = 0; i < _positions.Length; i++)
         {
@@ -96,6 +97,6 @@ public class ScrollIndicator : MonoBehaviour
     {
         for (int i = 0; i < positions.Length; i++)
             if (_currentScrollbarPosition < positions[i] + (distance / 2) && _currentScrollbarPosition > positions[i] - (distance / 2))
-                _scrollbar.value = Mathf.Lerp(_scrollbar.value, positions[_buttonIndex], 1f * Time.deltaTime);
+                _scrollbar.value = Mathf.Lerp(_scrollbar.value, positions[_buttonIndex], _scrollSpeed * Time.deltaTime);
     }
 }
