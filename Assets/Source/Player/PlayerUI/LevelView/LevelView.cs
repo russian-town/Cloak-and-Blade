@@ -51,11 +51,11 @@ public class LevelView : MonoBehaviour
 
     public void Focus()
     {
-        transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(_focusScale, _focusScale), _changeFocusScale);
+        transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(_focusScale, _focusScale, 1), _changeFocusScale);
     }
 
     public void Unfocus()
     {
-        transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(_unfocusScale, _unfocusScale), _changeFocusScale);
+        transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(_unfocusScale, _unfocusScale, 1), _changeFocusScale);
     }
 }

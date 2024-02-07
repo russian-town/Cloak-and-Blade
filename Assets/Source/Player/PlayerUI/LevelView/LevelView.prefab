@@ -292,7 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -330,7 +330,7 @@ MonoBehaviour:
   - {fileID: 8276229069239144296}
   _lock: {fileID: 4970469888855259349}
   _focusScale: 1
-  _unfocusScale: 0.9
+  _unfocusScale: 0.8
   _changeFocusScale: 0.1
 --- !u!1 &2854099493800846990
 GameObject:
