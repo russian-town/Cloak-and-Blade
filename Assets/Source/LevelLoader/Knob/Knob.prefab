@@ -137,9 +137,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultButtonColor: {r: 0.5943396, g: 0.58592916, b: 0.58592916, a: 0.5686275}
   _focusedButtonColor: {r: 1, g: 1, b: 1, a: 1}
+  _focusImageColor: {r: 1, g: 0.77254903, b: 0, a: 1}
   _focusScale: 1.1
   _changeFocusScale: 0.9
   _unfocusSpeed: 0.1
+  _focusImage: {fileID: 8412858288153656027}
 --- !u!1 &5241058001701779730
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +178,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 56.8144, y: 56.8144}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3648767525426288212
 CanvasRenderer:
@@ -199,14 +201,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.7737833, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e51c110afc99e884682449b2e7f16523, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

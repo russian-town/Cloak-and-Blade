@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -14,6 +15,8 @@ public class LevelView : MonoBehaviour
     [SerializeField] private float _focusScale;
     [SerializeField] private float _unfocusScale;
     [SerializeField] private float _changeFocusScale;
+    [SerializeField] private Color _focusedColor;
+    [SerializeField] private Color _unFocusedColor;
 
     private Level _level;
 
@@ -52,10 +55,12 @@ public class LevelView : MonoBehaviour
     public void Focus()
     {
         transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(_focusScale, _focusScale, 1), _changeFocusScale);
+        _preview.DOColor(_focusedColor, .1f).SetEase(Ease.InSine);
     }
 
     public void Unfocus()
     {
         transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(_unfocusScale, _unfocusScale, 1), _changeFocusScale);
+        _preview.DOColor(_unFocusedColor, .1f).SetEase(Ease.InOutQuad);
     }
 }
