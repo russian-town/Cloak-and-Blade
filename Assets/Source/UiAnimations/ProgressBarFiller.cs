@@ -62,7 +62,7 @@ public class ProgressBarFiller : MonoBehaviour
         {
             _image.fillAmount = Mathf.MoveTowards(_image.fillAmount, value, _fillSpeed * Time.deltaTime);
 
-            if (value == _fullProgress && _source.pitch < 1)
+            if (value == _fullProgress && _source.pitch < .8f)
                 _source.pitch += _fillSpeed  * Time.deltaTime;
             else if (value != _fullProgress && _source.pitch > _minPitch)
                 _source.pitch -= _fillSpeed * Time.deltaTime;

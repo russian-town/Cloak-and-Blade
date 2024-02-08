@@ -15,5 +15,5 @@ MonoBehaviour:
   _name: Tutorial
   _unlockedPreview: {fileID: 21300000, guid: dd70206885ff80e4a9c7207f9dc5f8e5, type: 3}
   _lockedPreview: {fileID: 21300000, guid: dd70206885ff80e4a9c7207f9dc5f8e5, type: 3}
-  _isOpen: 1
-  _isCompleted: 1
+  _isOpen: 0
+  _isCompleted: 0

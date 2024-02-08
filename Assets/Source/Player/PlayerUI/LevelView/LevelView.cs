@@ -61,7 +61,7 @@ public class LevelView : MonoBehaviour
             return;
 
         transform.DOScale(_focusScale, _changeFocusScale);
-        _preview.DOColor(_focusedColor, .1f).SetEase(Ease.InSine);
+        _preview.DOColor(_focusedColor, .6f).SetEase(Ease.InOutSine);
         _isUnFocused = false;
         _isFocused = true;
     }
@@ -72,7 +72,7 @@ public class LevelView : MonoBehaviour
             return;
 
         transform.DOScale(_unfocusScale, _changeFocusScale);
-        _preview.DOColor(_unFocusedColor, .1f).SetEase(Ease.InOutQuad);
+        _preview.DOColor(_unFocusedColor, .6f).SetEase(Ease.InOutQuad);
         _isFocused = false;
         _isUnFocused = true;
     }

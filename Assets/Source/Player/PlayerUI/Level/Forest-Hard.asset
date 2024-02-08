@@ -15,5 +15,5 @@ MonoBehaviour:
   _name: Twilight forest
   _unlockedPreview: {fileID: 21300000, guid: 77c1a19daf10da34a984525b3f632617, type: 3}
   _lockedPreview: {fileID: 21300000, guid: 1f5cf86e4e3b76d44afcbb1564ab0d80, type: 3}
-  _isOpen: 1
-  _isCompleted: 1
+  _isOpen: 0
+  _isCompleted: 0
