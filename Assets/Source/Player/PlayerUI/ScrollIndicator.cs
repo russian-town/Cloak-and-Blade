@@ -102,24 +102,8 @@ public class ScrollIndicator : MonoBehaviour
         _previousScrollbarPosition = _scrollbar.value;
 
         for (int i = 0; i < _positions.Length; i++)
-        {
             if (_levelViews[i].IsPointInsideImage(_screenPos))
-            {
-                if (_lastFocusedLevelView != null && _lastFocusedKnob != null)
-                {
-                    if (_lastFocusedLevelView != _levelViews[i] && _lastFocusedKnob != _knobs[i])
-                    {
-                        _lastFocusedLevelView.Unfocus();
-                        _lastFocusedKnob.Unfocus();
-                    }
-                }
-
-                _lastFocusedLevelView = _levelViews[i];
-                _lastFocusedKnob = _knobs[i];
-                _levelViews[i].Focus();
-                _knobs[i].Focus();
-            }
-        }
+                SetLastFocusedObject(i);
     }
 
     public void SetLastOpenedLevelIndex(int index)
@@ -134,20 +118,27 @@ public class ScrollIndicator : MonoBehaviour
                 _scrollbar.value = Mathf.Lerp(_scrollbar.value, _positions[i], _scrollSpeed * Time.deltaTime);
     }
 
+    private void SetLastFocusedObject(int index)
+    {
+        if (_lastFocusedLevelView != null && _lastFocusedKnob != null)
+        {
+            if (_lastFocusedLevelView != _levelViews[index] && _lastFocusedKnob != _knobs[index])
+            {
+                _lastFocusedLevelView.Unfocus();
+                _lastFocusedKnob.Unfocus();
+            }
+        }
+
+        _lastFocusedLevelView = _levelViews[index];
+        _lastFocusedKnob = _knobs[index];
+        _lastFocusedLevelView.Focus();
+        _lastFocusedKnob.Focus();
+    }
+
     private IEnumerator WaitToSetScrollbar()
     {
         yield return new WaitForSeconds(.6f);
-
-        if (_lastFocusedLevelView != null && _lastFocusedKnob != null)
-        {
-            _lastFocusedLevelView.Unfocus();
-            _lastFocusedKnob.Unfocus();
-        }
-
+        SetLastFocusedObject(_lastOpenedLevelIndex);
         _scrollbar.value = _positions[_lastOpenedLevelIndex];
-        _levelViews[_lastOpenedLevelIndex].Focus();
-        _knobs[_lastOpenedLevelIndex].Focus();
-        _lastFocusedLevelView = _levelViews[_lastOpenedLevelIndex];
-        _lastFocusedKnob = _knobs[_lastOpenedLevelIndex];
     }
 }
