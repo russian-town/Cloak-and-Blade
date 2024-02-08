@@ -19,7 +19,9 @@ public class LevelView : MonoBehaviour
     [SerializeField] private Color _unFocusedColor;
 
     private Level _level;
-    private Vector2 _screenPos;
+    private bool _isFocused;
+    private bool _isUnFocused;
+    private Camera _camera;
 
     public event Action<Level> OpenLevelButtonClicked;
 
@@ -51,31 +53,42 @@ public class LevelView : MonoBehaviour
 
         for (int i = 0; i < _level.StarsCount; i++)
             _stars[i].gameObject.SetActive(true);
-
-        _screenPos = new Vector2(Screen.width / 2, Screen.height / 2);
     }
 
     public void Focus()
     {
-        transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(_focusScale, _focusScale, 1), _changeFocusScale);
+        if (_isFocused)
+            return;
+
+        transform.DOScale(_focusScale, _changeFocusScale);
         _preview.DOColor(_focusedColor, .1f).SetEase(Ease.InSine);
+        _isUnFocused = false;
+        _isFocused = true;
     }
 
     public void Unfocus()
     {
-        transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(_unfocusScale, _unfocusScale, 1), _changeFocusScale);
+        if (_isUnFocused)
+            return;
+
+        transform.DOScale(_unfocusScale, _changeFocusScale);
         _preview.DOColor(_unFocusedColor, .1f).SetEase(Ease.InOutQuad);
+        _isFocused = false;
+        _isUnFocused = true;
     }
 
-    private bool IsPointInsideImage()
+    public bool IsPointInsideImage(Vector2 screenPos)
     {
         if (_preview != null)
         {
             RectTransform rectTransform = _preview.rectTransform;
             Vector2 localPoint;
 
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, _screenPos, null, out localPoint))
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenPos, Camera.main, out localPoint))
+            {
+                print("Picture in focus");
                 return rectTransform.rect.Contains(localPoint);
+            }
         }
 
         return false;

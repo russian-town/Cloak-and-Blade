@@ -331,7 +331,7 @@ MonoBehaviour:
   _lock: {fileID: 4970469888855259349}
   _focusScale: 1
   _unfocusScale: 0.8
-  _changeFocusScale: 0.1
+  _changeFocusScale: 0.25
   _focusedColor: {r: 1, g: 1, b: 1, a: 1}
   _unFocusedColor: {r: 0.44313726, g: 0.44313726, b: 0.44313726, a: 1}
 --- !u!1 &2854099493800846990

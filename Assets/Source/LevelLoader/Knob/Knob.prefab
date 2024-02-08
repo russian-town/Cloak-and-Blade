@@ -139,9 +139,9 @@ MonoBehaviour:
   _defaultButtonColor: {r: 0.5943396, g: 0.58592916, b: 0.58592916, a: 0.5686275}
   _focusedButtonColor: {r: 1, g: 1, b: 1, a: 1}
   _focusImageColor: {r: 1, g: 0.77254903, b: 0, a: 1}
-  _focusScale: 1.1
-  _changeFocusScale: 0.9
-  _changeFocusSpeed: 0
+  _focusScale: 1.05
+  _unFocusScale: 0.95
+  _changeFocusDuration: 0.25
   _focusImage: {fileID: 8412858288153656027}
   _clip: {fileID: 8300000, guid: 4130bc2cce8740743bcd2a5869a2723f, type: 3}
 --- !u!1 &5241058001701779730

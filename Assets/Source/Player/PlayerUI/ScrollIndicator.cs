@@ -21,6 +21,7 @@ public class ScrollIndicator : MonoBehaviour
     private bool _isInitialized;
     private float _time;
     private float _distance;
+    private Vector2 _screenPos;
 
     private readonly List<Knob> _knobs = new List<Knob>();
     private readonly List<LevelView> _levelViews = new List<LevelView>();
@@ -56,6 +57,8 @@ public class ScrollIndicator : MonoBehaviour
 
     public void Initialize(List<LevelView> levelViews, List<Knob> knobs)
     {
+        _screenPos = new Vector2(Screen.width / 2, Screen.height / 2);
+        print(_screenPos);
         _layout = GetComponent<HorizontalLayoutGroup>();
         _levelViews.AddRange(levelViews);
         _layout.padding.left = (_viewPort.rect.width / 2).ToInt() - _contentWidth;
@@ -72,20 +75,19 @@ public class ScrollIndicator : MonoBehaviour
 
     public void KnobClicked(Knob knob)
     {
-        if(_knobs.Contains(knob))
+        if (_knobs.Contains(knob))
         {
             _currentPositionIndex = _knobs.IndexOf(knob);
             _time = 0;
             _isScrolling = true;
         }
     }
-    
+
     public void OnScrollbarValueChanged(float value)
     {
-
         for (int i = 0; i < _positions.Length; i++)
         {
-            if (_scrollbar.value < _positions[i] + (_distance / 2) && _scrollbar.value > _positions[i] - (_distance / 2))
+            if (_levelViews[i].IsPointInsideImage(_screenPos))
             {
                 _levelViews[i].Focus();
                 _knobs[i].Focus();
@@ -104,6 +106,4 @@ public class ScrollIndicator : MonoBehaviour
             if (_scrollbar.value < _positions[i] + (_distance / 2) && _scrollbar.value > _positions[i] - (_distance / 2))
                 _scrollbar.value = Mathf.Lerp(_scrollbar.value, _positions[i], _scrollSpeed * Time.deltaTime);
     }
-
-    
 }
