@@ -21,7 +21,10 @@ public class ScrollIndicator : MonoBehaviour
     private bool _isInitialized;
     private float _time;
     private float _distance;
+    private float _previousScrollbarPosition;
     private Vector2 _screenPos;
+    private LevelView _lastFocusedLevelView;
+    private Knob _lastFocusedKnob;
 
     private readonly List<Knob> _knobs = new List<Knob>();
     private readonly List<LevelView> _levelViews = new List<LevelView>();
@@ -71,6 +74,12 @@ public class ScrollIndicator : MonoBehaviour
 
         for (int i = 0; i < _positions.Length; i++)
             _positions[i] = _distance * i;
+
+        for (int i = 0; i < _positions.Length; i++)
+        {
+            _levelViews[i].Unfocus();
+            _knobs[i].Unfocus();
+        }
     }
 
     public void KnobClicked(Knob knob)
@@ -85,17 +94,28 @@ public class ScrollIndicator : MonoBehaviour
 
     public void OnScrollbarValueChanged(float value)
     {
+        if (Mathf.Abs(_scrollbar.value - _previousScrollbarPosition) < _focusThreshHold)
+            return;
+
+        _previousScrollbarPosition = _scrollbar.value;
+
         for (int i = 0; i < _positions.Length; i++)
         {
             if (_levelViews[i].IsPointInsideImage(_screenPos))
             {
+                if (_lastFocusedLevelView != null && _lastFocusedKnob != null)
+                {
+                    if (_lastFocusedLevelView != _levelViews[i] && _lastFocusedKnob != _knobs[i])
+                    {
+                        _lastFocusedLevelView.Unfocus();
+                        _lastFocusedKnob.Unfocus();
+                    }
+                }
+
+                _lastFocusedLevelView = _levelViews[i];
+                _lastFocusedKnob = _knobs[i];
                 _levelViews[i].Focus();
                 _knobs[i].Focus();
-            }
-            else
-            {
-                _levelViews[i].Unfocus();
-                _knobs[i].Unfocus();
             }
         }
     }

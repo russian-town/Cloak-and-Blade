@@ -48,6 +48,7 @@ public class Knob : MonoBehaviour
 
     public void Unfocus()
     {
+        print("Yura ya tebya lublu :3");
         if (_isUnFocused)
             return;
 

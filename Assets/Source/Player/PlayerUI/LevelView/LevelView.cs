@@ -85,10 +85,7 @@ public class LevelView : MonoBehaviour
             Vector2 localPoint;
 
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenPos, Camera.main, out localPoint))
-            {
-                print("Picture in focus");
                 return rectTransform.rect.Contains(localPoint);
-            }
         }
 
         return false;
