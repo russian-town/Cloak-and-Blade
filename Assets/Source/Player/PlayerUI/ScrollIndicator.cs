@@ -1,7 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using Tayx.Graphy.Utils.NumString;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(HorizontalLayoutGroup))]
@@ -16,6 +16,7 @@ public class ScrollIndicator : MonoBehaviour
 
     private HorizontalLayoutGroup _layout;
     private int _currentPositionIndex;
+    private int _lastOpenedLevelIndex;
     private float[] _positions;
     private bool _isScrolling;
     private bool _isInitialized;
@@ -61,7 +62,6 @@ public class ScrollIndicator : MonoBehaviour
     public void Initialize(List<LevelView> levelViews, List<Knob> knobs)
     {
         _screenPos = new Vector2(Screen.width / 2, Screen.height / 2);
-        print(_screenPos);
         _layout = GetComponent<HorizontalLayoutGroup>();
         _levelViews.AddRange(levelViews);
         _layout.padding.left = (_viewPort.rect.width / 2).ToInt() - _contentWidth;
@@ -70,7 +70,6 @@ public class ScrollIndicator : MonoBehaviour
         _isInitialized = true;
         _positions = new float[transform.childCount];
         _distance = 1f / (_positions.Length - 1);
-        _scrollbar.onValueChanged.AddListener(OnScrollbarValueChanged);
 
         for (int i = 0; i < _positions.Length; i++)
             _positions[i] = _distance * i;
@@ -80,6 +79,9 @@ public class ScrollIndicator : MonoBehaviour
             _levelViews[i].Unfocus();
             _knobs[i].Unfocus();
         }
+
+        StartCoroutine(WaitToSetScrollbar());
+        _scrollbar.onValueChanged.AddListener(OnScrollbarValueChanged);
     }
 
     public void KnobClicked(Knob knob)
@@ -120,10 +122,32 @@ public class ScrollIndicator : MonoBehaviour
         }
     }
 
+    public void SetLastOpenedLevelIndex(int index)
+    {
+        _lastOpenedLevelIndex = index;
+    }
+
     private void DragViewToClosestPosition()
     {
         for (int i = 0; i < _positions.Length; i++)
             if (_scrollbar.value < _positions[i] + (_distance / 2) && _scrollbar.value > _positions[i] - (_distance / 2))
                 _scrollbar.value = Mathf.Lerp(_scrollbar.value, _positions[i], _scrollSpeed * Time.deltaTime);
+    }
+
+    private IEnumerator WaitToSetScrollbar()
+    {
+        yield return new WaitForSeconds(.6f);
+
+        if (_lastFocusedLevelView != null && _lastFocusedKnob != null)
+        {
+            _lastFocusedLevelView.Unfocus();
+            _lastFocusedKnob.Unfocus();
+        }
+
+        _scrollbar.value = _positions[_lastOpenedLevelIndex];
+        _levelViews[_lastOpenedLevelIndex].Focus();
+        _knobs[_lastOpenedLevelIndex].Focus();
+        _lastFocusedLevelView = _levelViews[_lastOpenedLevelIndex];
+        _lastFocusedKnob = _knobs[_lastOpenedLevelIndex];
     }
 }
