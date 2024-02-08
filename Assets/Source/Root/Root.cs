@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Agava.YandexGames;
 using UnityEngine;
 
-public class Root : MonoBehaviour, IInitializable
+public class Root : MonoBehaviour, IInitializable, IDataReader
 {
     [SerializeField] private PlayerView _playerView;
     [SerializeField] private InputView _inputView;
@@ -41,6 +41,7 @@ public class Root : MonoBehaviour, IInitializable
     private AdHandler _adHandler;
     private Player _player;
     private Pause _pause;
+    private string _currentLanguage;
 
     public Saver Saver => _saver;
 
@@ -48,7 +49,6 @@ public class Root : MonoBehaviour, IInitializable
 
     private void OnDisable()
     {
-        _saver.Save();
         _saver.Disable();
         _playerView.Unsubscribe();
         _room.Unsubscribe();
@@ -60,9 +60,14 @@ public class Root : MonoBehaviour, IInitializable
         _yandexAds.CloseCallback -= OnAdRewardedCloseCallback;
     }
 
+    private void OnDestroy()
+    {
+        _saver.Save();
+    }
+
     private void Start()
     {
-        _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet, _audio, _game });
+        _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet, _audio, _game, this });
         _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet, _game });
         _saver.AddInitializable(this);
         _saver.AddInitializable(_wallet);
@@ -96,14 +101,21 @@ public class Root : MonoBehaviour, IInitializable
             interactiveObject.Initialize(_player);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        if (YandexGamesSdk.Environment.i18n.lang == "en")
-            _localization.SetCurrentLanguage(Constants.English);
+        if (string.IsNullOrEmpty(_currentLanguage) == false)
+        {
+            _localization.SetCurrentLanguage(_currentLanguage);
+        } 
+        else
+        {
+            if (YandexGamesSdk.Environment.i18n.lang == "en")
+                _localization.SetCurrentLanguage(Constants.English);
 
-        if (YandexGamesSdk.Environment.i18n.lang == "ru")
-            _localization.SetCurrentLanguage(Constants.Russian);
+            if (YandexGamesSdk.Environment.i18n.lang == "ru")
+                _localization.SetCurrentLanguage(Constants.Russian);
 
-        if (YandexGamesSdk.Environment.i18n.lang == "tr")
-            _localization.SetCurrentLanguage(Constants.Turkish);
+            if (YandexGamesSdk.Environment.i18n.lang == "tr")
+                _localization.SetCurrentLanguage(Constants.Turkish);
+        }
 #endif
 
         _pause = new Pause(new List<IPauseHandler> { _inputView, _playerView, _player, _hourglass });
@@ -128,6 +140,8 @@ public class Root : MonoBehaviour, IInitializable
         _loadingScreen.Initialize();
         _loadingScreen.StartFade(0);
     }
+
+    public void Read(PlayerData playerData) => _currentLanguage = playerData.CurrentLanguague;
 
     private void OnAdOpenCallback()
     {

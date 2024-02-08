@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Agava.YandexGames;
 
-public class Bootstrap : MonoBehaviour, IInitializable
+public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
 {
     [SerializeField] private Player _player;
     [SerializeField] private PlayerView _playerView;
@@ -41,6 +41,7 @@ public class Bootstrap : MonoBehaviour, IInitializable
 
     private AdHandler _adHandler;
     private Pause _pause;
+    private string _currentLanguage;
 
     private void OnEnable()
     {
@@ -53,8 +54,12 @@ public class Bootstrap : MonoBehaviour, IInitializable
         _room.Unsubscribe();
         _game.Unsubscribe();
         _player.Unsubscribe();
-        _saver.Save();
         _saver.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        _saver.Save();
     }
 
     private void Start()
@@ -85,14 +90,21 @@ public class Bootstrap : MonoBehaviour, IInitializable
             interactiveObject.Initialize(_player);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        if (YandexGamesSdk.Environment.i18n.lang == "en")
-            _localization.SetCurrentLanguage(Constants.English);
+        if (string.IsNullOrEmpty(_currentLanguage) == false)
+        {
+            _localization.SetCurrentLanguage(_currentLanguage);
+        } 
+        else
+        {
+            if (YandexGamesSdk.Environment.i18n.lang == "en")
+                _localization.SetCurrentLanguage(Constants.English);
 
-        if (YandexGamesSdk.Environment.i18n.lang == "ru")
-            _localization.SetCurrentLanguage(Constants.Russian);
+            if (YandexGamesSdk.Environment.i18n.lang == "ru")
+                _localization.SetCurrentLanguage(Constants.Russian);
 
-        if (YandexGamesSdk.Environment.i18n.lang == "tr")
-            _localization.SetCurrentLanguage(Constants.Turkish);
+            if (YandexGamesSdk.Environment.i18n.lang == "tr")
+                _localization.SetCurrentLanguage(Constants.Turkish);
+        }
 #endif
 
         _pause = new Pause(new List<IPauseHandler> { _inputView, _playerView, _player, _hourglass });
@@ -130,4 +142,6 @@ public class Bootstrap : MonoBehaviour, IInitializable
             enemy.Die();
         }
     }
+
+    public void Read(PlayerData playerData) => _currentLanguage = playerData.CurrentLanguague;
 }

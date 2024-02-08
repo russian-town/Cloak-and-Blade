@@ -106,10 +106,7 @@ public class ScrollIndicator : MonoBehaviour
                 SetLastFocusedObject(i);
     }
 
-    public void SetLastOpenedLevelIndex(int index)
-    {
-        _lastOpenedLevelIndex = index;
-    }
+    public void SetLastOpenedLevelIndex(int index) => _lastOpenedLevelIndex = index;
 
     private void DragViewToClosestPosition()
     {

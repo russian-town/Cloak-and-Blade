@@ -15,5 +15,5 @@ MonoBehaviour:
   _name: Great gorge
   _unlockedPreview: {fileID: 21300000, guid: 250a477b23b2e5a4aa8703ab6484805c, type: 3}
   _lockedPreview: {fileID: 21300000, guid: 017de9c461360a04ca72f55e7a7b8921, type: 3}
-  _isOpen: 1
-  _isCompleted: 1
+  _isOpen: 0
+  _isCompleted: 0

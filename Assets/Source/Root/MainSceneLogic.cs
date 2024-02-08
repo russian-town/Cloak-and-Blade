@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class MainSceneLogic : MonoBehaviour
+public class MainSceneLogic : MonoBehaviour, IDataReader
 {
     [SerializeField] private Shop _shop;
     [SerializeField] private PlayersHandler _playersHandler;
@@ -16,6 +16,7 @@ public class MainSceneLogic : MonoBehaviour
 
     private Saver _saver = new Saver();
     private Wallet _wallet = new Wallet();
+    private string _currentLanguage;
 
     private void OnEnable()
     {
@@ -29,12 +30,16 @@ public class MainSceneLogic : MonoBehaviour
         StartCoroutine(Initialize());
     }
 
+    private void OnDestroy()
+    {
+        _saver.Save();
+    }
+
     private void OnDisable()
     {
         _saver.Disable();
         _shop.CharacterSold -= OnCharacterSold;
         _shop.CharacterSelected -= OnCharacterSelected;
-        _saver.Save();
     }
 
     public IEnumerator Initialize()
@@ -50,6 +55,25 @@ public class MainSceneLogic : MonoBehaviour
         _saver.Initialize();
         _saver.Load();
         yield return new WaitUntil(() => _saver.DataLoaded);
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (string.IsNullOrEmpty(_currentLanguage) == false)
+        {
+            _localization.SetCurrentLanguage(_currentLanguage);
+        } 
+        else
+        {
+            if (YandexGamesSdk.Environment.i18n.lang == "en")
+                _localization.SetCurrentLanguage(Constants.English);
+
+            if (YandexGamesSdk.Environment.i18n.lang == "ru")
+                _localization.SetCurrentLanguage(Constants.Russian);
+
+            if (YandexGamesSdk.Environment.i18n.lang == "tr")
+                _localization.SetCurrentLanguage(Constants.Turkish);
+        }
+#endif
+
         _loadingScreen.Initialize();
         _walletView.Initialize(_wallet);
         _wallet.Initialize();
@@ -63,4 +87,6 @@ public class MainSceneLogic : MonoBehaviour
     private void OnCharacterSold() => _saver.Save();
 
     private void OnCharacterSelected() => _saver.Save();
+
+    public void Read(PlayerData playerData) => _currentLanguage = playerData.CurrentLanguague;
 }

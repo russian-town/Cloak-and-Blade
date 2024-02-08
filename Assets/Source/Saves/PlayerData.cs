@@ -17,5 +17,6 @@ public class PlayerData
     public float MusicSliderValue = 1;
     public List<string> FinishedLevelNames = new List<string>();
     public List<string> OpenedLevelNames = new List<string>();
-    public List<int> FinishedLevelsStarsCount = new List<int>(); 
+    public List<int> FinishedLevelsStarsCount = new List<int>();
+    public string CurrentLanguague;
 }
