@@ -143,6 +143,7 @@ MonoBehaviour:
   _changeFocusScale: 0.9
   _changeFocusSpeed: 0
   _focusImage: {fileID: 8412858288153656027}
+  _clip: {fileID: 8300000, guid: 4130bc2cce8740743bcd2a5869a2723f, type: 3}
 --- !u!1 &5241058001701779730
 GameObject:
   m_ObjectHideFlags: 0

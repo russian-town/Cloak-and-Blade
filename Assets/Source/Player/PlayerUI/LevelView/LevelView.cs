@@ -19,6 +19,7 @@ public class LevelView : MonoBehaviour
     [SerializeField] private Color _unFocusedColor;
 
     private Level _level;
+    private Vector2 _screenPos;
 
     public event Action<Level> OpenLevelButtonClicked;
 
@@ -50,6 +51,8 @@ public class LevelView : MonoBehaviour
 
         for (int i = 0; i < _level.StarsCount; i++)
             _stars[i].gameObject.SetActive(true);
+
+        _screenPos = new Vector2(Screen.width / 2, Screen.height / 2);
     }
 
     public void Focus()
@@ -62,5 +65,19 @@ public class LevelView : MonoBehaviour
     {
         transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(_unfocusScale, _unfocusScale, 1), _changeFocusScale);
         _preview.DOColor(_unFocusedColor, .1f).SetEase(Ease.InOutQuad);
+    }
+
+    private bool IsPointInsideImage()
+    {
+        if (_preview != null)
+        {
+            RectTransform rectTransform = _preview.rectTransform;
+            Vector2 localPoint;
+
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, _screenPos, null, out localPoint))
+                return rectTransform.rect.Contains(localPoint);
+        }
+
+        return false;
     }
 }
