@@ -1,3 +1,5 @@
+using Agava.YandexGames;
+using Lean.Localization;
 using System.Collections;
 using UnityEngine;
 
@@ -13,6 +15,7 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
     [SerializeField] private WalletView _walletView;
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private MainMenu _mainMenu;
+    [SerializeField] private LeanLocalization _localization;
 
     private Saver _saver = new Saver();
     private Wallet _wallet = new Wallet();

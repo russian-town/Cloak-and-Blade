@@ -3010,6 +3010,7 @@ MonoBehaviour:
   _walletView: {fileID: 8066421}
   _loadingScreen: {fileID: 7439968534128431256}
   _mainMenu: {fileID: 1011744820}
+  _localization: {fileID: 1686767398}
 --- !u!4 &85342024
 Transform:
   m_ObjectHideFlags: 0
@@ -58738,7 +58739,6 @@ MonoBehaviour:
   _levelViewScrollSource: {fileID: 1288627451}
   _knobParent: {fileID: 1223014450}
   _scrollIndicator: {fileID: 1275082324}
-  _bar: {fileID: 1771127566}
   _firstLevelIndex: 1
 --- !u!4 &1365407904
 Transform:
