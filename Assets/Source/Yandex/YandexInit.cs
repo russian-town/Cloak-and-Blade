@@ -3,13 +3,14 @@ using Lean.Localization;
 using System.Collections;
 using UnityEngine;
 
-public class YandexInit : MonoBehaviour
+public class YandexInit : MonoBehaviour, IDataWriter
 {
     [SerializeField] private LeanLocalization _localization;
     [SerializeField] private CutsceneScenario _cutsceneScenario;
     [SerializeField] private Audio _audio;
     
     private Saver _saver = new Saver();
+    private string _currentLanguague;
 
     private void OnEnable()
     {
@@ -34,23 +35,29 @@ public class YandexInit : MonoBehaviour
         yield return YandexGamesSdk.Initialize();
 
         if (YandexGamesSdk.Environment.i18n.lang == "en")
-            _localization.SetCurrentLanguage(Constants.English);
+            _currentLanguague = Constants.English;
 
         if (YandexGamesSdk.Environment.i18n.lang == "ru")
-            _localization.SetCurrentLanguage(Constants.Russian);
+            _currentLanguague = Constants.Russian;
 
         if (YandexGamesSdk.Environment.i18n.lang == "tr")
-            _localization.SetCurrentLanguage(Constants.Turkish);
+            _currentLanguague = Constants.Turkish;
+
+        _localization.SetCurrentLanguage(_currentLanguague);
 #endif
-         
+
 #if UNITY_WEBGL && !UNITY_EDITOR
         YandexGamesSdk.GameReady();
 #endif
 
         _saver.AddDataReaders(new IDataReader[] { _cutsceneScenario, _audio });
+        _saver.AddDataWriters(new IDataWriter[] { this });
         _saver.AddInitializable(_cutsceneScenario);
         _saver.Initialize();
         _saver.Load();
+        _saver.Save();
         yield break;
     }
+
+    public void Write(PlayerData playerData) => playerData.CurrentLanguague = _currentLanguague;
 }

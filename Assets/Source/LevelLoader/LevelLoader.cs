@@ -12,7 +12,7 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
     [SerializeField] private AudioSource _levelViewScrollSource;
     [SerializeField] private HorizontalLayoutGroup _knobParent;
     [SerializeField] private ScrollIndicator _scrollIndicator;
-    [SerializeField] private Scrollbar _bar;
+    [SerializeField] private int _firstLevelIndex;
 
     private List<LevelView> _levelViews = new List<LevelView>();
     private List<Knob> _knobs = new List<Knob>();
@@ -42,7 +42,7 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
     {
         for (int i = 0; i < _levels.Count; i++)
         {
-            if (i == 0)
+            if (i == _firstLevelIndex)
                 _levels[i].Open();
 
             if (i < _levels.Count - 1)
@@ -63,7 +63,6 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
             _knobs.Add(knob);
         }
 
-        _bar.value = 0;
         _scrollIndicator.Initialize(_levelViews, _knobs);
     }
 
