@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,20 +13,16 @@ public class ProgressBarFiller : MonoBehaviour
     [SerializeField] private Color _originalColor;
     [SerializeField] private Color _filledColor;
 
-    public event Action ProgressBarFilled;
-
     private float _fullProgress = 1;
     private float _minPitch = .5f;
     private Image _image;
     private Coroutine _coroutine;
-    private Color _currentColor;
 
     public bool WasFilling { get; private set; }
 
-    private void Start()
-    {
-        _image = GetComponent<Image>();
-    }
+    public event Action ProgressBarFilled;
+
+    public void Initialize() => _image = GetComponent<Image>();
 
     public void ChangeFilling()
     {

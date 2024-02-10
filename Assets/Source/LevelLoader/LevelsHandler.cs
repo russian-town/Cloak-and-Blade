@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelsHandler : MonoBehaviour
+public class LevelsHandler : MonoBehaviour, IDataReader
 {
     [SerializeField] private List<Level> _levels = new List<Level>();
+
+    private bool _tutorialCompleted;
 
     public IReadOnlyList<Level> Levels => _levels;
 
@@ -21,8 +23,6 @@ public class LevelsHandler : MonoBehaviour
 
     public Level GetNextLevel()
     {
-        Debug.Log("Get next level");
-
         for (int i = 0; i < _levels.Count; i++)
             if (_levels[i].Name == SceneManager.GetActiveScene().name)
                 if (i + 1 < _levels.Count)
@@ -32,4 +32,20 @@ public class LevelsHandler : MonoBehaviour
 
         return null;
     }
+
+    public bool TryLoadTutorial()
+    {
+        if (_tutorialCompleted == false)
+        {
+            SceneManager.LoadScene(Constants.Tutorial);
+            return true;
+        }
+        else
+        {
+            SceneManager.LoadScene(Constants.MainMenu);
+            return false;
+        }
+    }
+
+    public void Read(PlayerData playerData) => _tutorialCompleted = playerData.IsTutorialCompleted;
 }

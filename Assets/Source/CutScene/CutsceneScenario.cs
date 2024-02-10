@@ -1,9 +1,8 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable, IPauseHandler
+public class CutsceneScenario : MonoBehaviour, IInitializable, IPauseHandler
 {
     [SerializeField] private float _flyingToTableWait;
     [SerializeField] private float _candleLightWait;
@@ -23,20 +22,20 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable, IPau
     [SerializeField] private ProgressBarFiller _progressBar;
     [SerializeField] private SimpleTextTyper _textTyper;
     [SerializeField] private CanvasGroup _letter;
+    [SerializeField] private LevelsHandler _levelsHandler;
 
     private WaitForSeconds _genericWait;
-    private bool _isTutorialCompleted;
+    private bool _isInitialized;
 
     private void Update()
     {
+        if (_isInitialized == false)
+            return;
+
         if (Input.GetMouseButtonDown(0))
-        {
             _progressBar.ChangeFilling();
-        }
         else if (Input.GetMouseButtonUp(0) && _progressBar.WasFilling)
-        {
             _progressBar.ChangeFilling();
-        }
     }
 
     private void OnDisable()
@@ -50,7 +49,9 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable, IPau
         _genericWait = new WaitForSeconds(_flyingToTableWait);
         _loadingScreen.Initialize();
         StartCoroutine(CutsceneCoroutine());
+        _progressBar.Initialize();
         _progressBar.ProgressBarFilled += OnProgressBarFilled;
+        _isInitialized = true;
     }
 
     public void SetPause(bool isPause)
@@ -61,12 +62,7 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable, IPau
             Time.timeScale = 1;
     }
 
-    public void Read(PlayerData playerData)
-    {
-        _isTutorialCompleted = playerData.IsTutorialCompleted;
-    }
-
-    private void OnProgressBarFilled() => SceneManager.LoadScene(Constants.MainMenu);
+    private void OnProgressBarFilled() => _levelsHandler.TryLoadTutorial();
 
     private IEnumerator CutsceneCoroutine()
     {
@@ -98,10 +94,6 @@ public class CutsceneScenario : MonoBehaviour, IDataReader, IInitializable, IPau
         _letter.DOFade(0, 1f).SetEase(Ease.OutSine);
         yield return _genericWait;
         yield return _loadingScreen.StartFade(1);
-
-        if (_isTutorialCompleted)
-            SceneManager.LoadScene(Constants.MainMenu);
-        else
-            SceneManager.LoadScene(Constants.Tutorial);
+        _levelsHandler.TryLoadTutorial();
     }
 }

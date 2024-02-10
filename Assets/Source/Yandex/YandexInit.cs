@@ -8,6 +8,7 @@ public class YandexInit : MonoBehaviour, IDataWriter
     [SerializeField] private LeanLocalization _localization;
     [SerializeField] private CutsceneScenario _cutsceneScenario;
     [SerializeField] private Audio _audio;
+    [SerializeField] private LevelsHandler _levelsHandler;
     
     private Saver _saver = new Saver();
     private string _currentLanguague;
@@ -50,7 +51,7 @@ public class YandexInit : MonoBehaviour, IDataWriter
         YandexGamesSdk.GameReady();
 #endif
 
-        _saver.AddDataReaders(new IDataReader[] { _cutsceneScenario, _audio });
+        _saver.AddDataReaders(new IDataReader[] { _levelsHandler, _audio });
         _saver.AddDataWriters(new IDataWriter[] { this });
         _saver.AddInitializable(_cutsceneScenario);
         _saver.Initialize();

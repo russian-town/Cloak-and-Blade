@@ -16,7 +16,6 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
 
     private List<LevelView> _levelViews = new List<LevelView>();
     private List<Knob> _knobs = new List<Knob>();
-    private bool _tutorialCompleted;
 
     private void OnDisable()
     {
@@ -26,8 +25,6 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
 
     public void Read(PlayerData playerData)
     {
-        _tutorialCompleted = playerData.IsTutorialCompleted;
-
         foreach (var level in _levels)
             level.Read(playerData);
     }
@@ -64,17 +61,6 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
         }
 
         _scrollIndicator.Initialize(_levelViews, _knobs);
-    }
-
-    public bool TryTutorialLoad()
-    {
-        if (_tutorialCompleted == false)
-        {
-            SceneManager.LoadScene(Constants.Tutorial);
-            return true;
-        }
-
-        return false;
     }
 
     public void OnOpenLevelButtonClicked(Level level) => TryOpenLevel(level);

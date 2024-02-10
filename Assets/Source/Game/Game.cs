@@ -11,6 +11,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
     [SerializeField] private ScoreDefiner _scoreDefiner;
     [SerializeField] private LevelFinishScreen _levelFinishScreen;
     [SerializeField] private LevelsHandler _levelsHandler;
+    [SerializeField] private Gameboard _gameboard;
 
     private Wallet _wallet;
     private Player _player;
@@ -110,6 +111,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
     private void OnLevelPassed()
     {
         _levelPassed = true;
+        _gameboard.gameObject.SetActive(false);
         _playerView.Hide();
         _levelFinishScreen.Show();
         _scoreDefiner.RecieveStars(_stepCounter.CurrentStepCount);
@@ -150,6 +152,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
     private void GameOver() 
     {
         _gameOver = true;
+        _gameboard.gameObject.SetActive(false);
         _playerView.Hide();
         _gameOverView.Show();
     }
