@@ -11771,7 +11771,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controls: {fileID: 5627702862252865602}
-  _timeToHold: 0
 --- !u!225 &3606707114979459342
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -12594,7 +12593,7 @@ MonoBehaviour:
   _angledCamera: {fileID: 1782701938699315192}
   _straightCamera: {fileID: 4953753627277555929}
   _rotationSpeed: 40
-  _angledCameraValue: 10
+  _angledCameraValue: 7
   _mobileFOV: 40
   _desktopFOV: 60
 --- !u!1 &3007438053192749326
@@ -13099,7 +13098,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412\u044B\u0445\u043E\u0434"
+  m_text: Exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41ee7723a43895444a8bf4d80a6d76a1, type: 2}
   m_sharedMaterial: {fileID: -3595107127703264355, guid: 41ee7723a43895444a8bf4d80a6d76a1, type: 2}
@@ -14381,8 +14380,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3857856043463758888}
-  m_LocalRotation: {x: 0.47185794, y: 0.000000020587255, z: -0.000000011017967, w: 0.88167465}
-  m_LocalPosition: {x: -13.500001, y: 15, z: -9.5}
+  m_LocalRotation: {x: 0.3922323, y: 0.5883484, z: -0.39223224, w: 0.58834845}
+  m_LocalPosition: {x: -53.03, y: 18.001001, z: -0.38999954}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14422,7 +14421,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -14529,7 +14528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 2052, y: 1154}
+  customRes: {x: 2560, y: 1440}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -14570,7 +14569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.052
+  resolutionScale: 2.56
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -15235,7 +15234,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C"
+  m_text: Continue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41ee7723a43895444a8bf4d80a6d76a1, type: 2}
   m_sharedMaterial: {fileID: -3595107127703264355, guid: 41ee7723a43895444a8bf4d80a6d76a1, type: 2}
@@ -15262,7 +15261,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 73.5
+  m_fontSize: 87
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -15855,7 +15854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C \u043F\u0440\u043E\u0439\u0434\u0435\u043D!"
+  m_text: Level passed!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41ee7723a43895444a8bf4d80a6d76a1, type: 2}
   m_sharedMaterial: {fileID: -3595107127703264355, guid: 41ee7723a43895444a8bf4d80a6d76a1, type: 2}
@@ -15882,7 +15881,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 126.9
+  m_fontSize: 126.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -18157,7 +18156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controls: {fileID: 5627702862252865602}
-  _timeToHold: 0
 --- !u!225 &8811532685241953868
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -20704,7 +20702,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -112.50975}
+  m_AnchoredPosition: {x: 0, y: -112.509766}
   m_SizeDelta: {x: 0, y: -225.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9180083760512271100
