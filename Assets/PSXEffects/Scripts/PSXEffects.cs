@@ -250,11 +250,11 @@ public class PSXEffects : MonoBehaviour, IFader
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
 		if (Enumerable.Range(3000, 10000).Contains(Screen.width))
-            vertexInaccuracy = 80;
+            vertexInaccuracy = 150;
         else if (Enumerable.Range(1500, 3000).Contains(Screen.width))
-            vertexInaccuracy = 50;
+            vertexInaccuracy = 100;
         else if (Enumerable.Range(0, 1500).Contains(Screen.width))
-            vertexInaccuracy = 25;
+            vertexInaccuracy = 50;
 
 		if (Device.IsMobile)
 		{

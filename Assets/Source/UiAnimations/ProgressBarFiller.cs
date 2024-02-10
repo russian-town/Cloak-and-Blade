@@ -68,7 +68,10 @@ public class ProgressBarFiller : MonoBehaviour
                 _source.pitch -= _fillSpeed * Time.deltaTime;
 
             if (_image.fillAmount == _fullProgress)
+            {
+                _source.Stop();
                 ProgressBarFilled?.Invoke();
+            }
 
             yield return null;
         }
