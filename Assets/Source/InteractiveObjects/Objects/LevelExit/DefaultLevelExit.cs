@@ -14,6 +14,9 @@ public class DefaultLevelExit : LevelExit
 
     public override bool TryOpen()
     {
+        InvokeLevelPassed();
+        return true;
+
         if (Player.ItemsInHold.FindItemInList(_treasure))
         {
             print("level passed");

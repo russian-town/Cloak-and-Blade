@@ -11,6 +11,7 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
     [SerializeField] private Knob _knobTemplate;
     [SerializeField] private AudioSource _levelViewScrollSource;
     [SerializeField] private HorizontalLayoutGroup _knobParent;
+    [SerializeField] private CanvasGroup _levelViewScroll;
     [SerializeField] private ScrollIndicator _scrollIndicator;
     [SerializeField] private int _firstLevelIndex;
 
@@ -56,7 +57,7 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
             _levelViews.Add(levelView);
             levelView.OpenLevelButtonClicked += OnOpenLevelButtonClicked;
             Knob knob = Instantiate(_knobTemplate, _knobParent.transform);
-            knob.Initialize(_scrollIndicator, _levelViewScrollSource);
+            knob.Initialize(_scrollIndicator, _levelViewScrollSource, _levelViewScroll);
             _knobs.Add(knob);
         }
 

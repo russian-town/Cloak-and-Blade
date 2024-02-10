@@ -65,6 +65,7 @@ public class ProgressBarFiller : MonoBehaviour
             if (_image.fillAmount == _fullProgress)
             {
                 _source.Stop();
+                _image.enabled = false;
                 ProgressBarFilled?.Invoke();
             }
 

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CameraTutorial : BaseTutorialElement
 {
-    [SerializeField] private TurnClockwiseButton _turnClockwiseButton;
-    [SerializeField] private TurnCounterclockwiseButton _turnCounterclockwiseButton;
-    [SerializeField] private CameraAngleChanger _cameraAngleChanger;
+    [SerializeField] private TurnClockwiseButtonTutorial _turnClockwiseButton;
+    [SerializeField] private TurnCounterClockwiseButtonTutorial _turnCounterclockwiseButton;
+    [SerializeField] private ChangeCameraAngleButtonTutorial _cameraAngleChanger;
 
     [SerializeField] private Gameboard _gameboard;
 
@@ -14,7 +14,7 @@ public class CameraTutorial : BaseTutorialElement
     {
         _turnClockwiseButton.Show();
         _turnClockwiseButton.Open();
-        _turnClockwiseButton.HoldComplete += OnHoldComplete;
+        _turnClockwiseButton.ProgressBarFiller.ProgressBarFilled += OnHoldComplete;
     }
 
     private void OnHoldComplete()
@@ -23,8 +23,8 @@ public class CameraTutorial : BaseTutorialElement
         _turnClockwiseButton.EffectHandler.StopLightEffect();
         _turnCounterclockwiseButton.Show();
         _turnCounterclockwiseButton.Open();
-        _turnCounterclockwiseButton.HoldSecondComplete += OnHoldSecondComplete;
-        _turnClockwiseButton.HoldComplete -= OnHoldComplete;
+        _turnCounterclockwiseButton.ProgressBarFiller.ProgressBarFilled += OnHoldSecondComplete;
+        _turnClockwiseButton.ProgressBarFiller.ProgressBarFilled -= OnHoldComplete;
     }
 
     private void OnHoldSecondComplete()
@@ -34,7 +34,7 @@ public class CameraTutorial : BaseTutorialElement
         _cameraAngleChanger.Show();
         _cameraAngleChanger.Open();
         _cameraAngleChanger.DoubleClickComplete += OnDoubleClickComplete;
-        _turnCounterclockwiseButton.HoldSecondComplete -= OnHoldSecondComplete;
+        _turnCounterclockwiseButton.ProgressBarFiller.ProgressBarFilled -= OnHoldSecondComplete;
     }
 
     private void OnDoubleClickComplete()

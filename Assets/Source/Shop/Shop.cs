@@ -21,6 +21,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     private Character _currentSelectedCharacter;
     private CharacterView _currentCharacterView;
     private Wallet _wallet;
+    private bool _isInitialized;
 
     public event UnityAction CharacterSelected;
     public event UnityAction CharacterSold;
@@ -38,6 +39,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
         _wallet = wallet;
         _upgrader.SetWallet(_wallet);
         AddCharacterView();
+        _isInitialized = true;
     }
 
     public void CloseDescriptions()
@@ -143,7 +145,9 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             _currentSelectedCharacter = character;
             _currentCharacterView = characterView;
             _currentCharacterView.UpdateView();
-            characterView.SoundHandler.PlayPositive();
+
+            if (_isInitialized)
+                characterView.SoundHandler.PlayPositive();
 
             if (_characterViews.Contains(characterView))
                 _menuModelChanger.TryChange(_characterViews.IndexOf(characterView));
