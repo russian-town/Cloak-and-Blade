@@ -12,16 +12,20 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - DIFF_VERTEX
+  - OPAQUE
+  - SPEC_GOURAUD
   - _EMISSION
   m_InvalidKeywords:
   - _DIFFMODEL_VERTEX
   - _DRAWDIST_ON
   - _SPECMODEL_GOURAUD
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -99,7 +103,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _LODAmt: 0
-    - _Metallic: 0
+    - _Metallic: 1
     - _Mode: 0
     - _NormalMapDepth: 1
     - _OcclusionStrength: 1
@@ -118,6 +122,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Emission: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
