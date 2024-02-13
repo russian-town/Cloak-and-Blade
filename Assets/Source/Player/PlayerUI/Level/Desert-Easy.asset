@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Desert-Easy
   m_EditorClassIdentifier: 
   _name: Silver desert
-  _unlockedPreview: {fileID: 21300000, guid: 0dcf04b1a503aab49afe2c2740bc8254, type: 3}
-  _lockedPreview: {fileID: 21300000, guid: b025bfc03320c7148a7d0ed786fc6450, type: 3}
+  _unlockedPreview: {fileID: 21300000, guid: 33f182f740a363049a2529b9dabdd004, type: 3}
+  _lockedPreview: {fileID: 21300000, guid: c7cb775d4d9a40648b5c40ac8765fbcd, type: 3}
   _isOpen: 0
   _isCompleted: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cathedral-Medium
   m_EditorClassIdentifier: 
   _name: Cemetery
-  _unlockedPreview: {fileID: 21300000, guid: 1e7fdd6b4ae22b9479923bd21186f60a, type: 3}
-  _lockedPreview: {fileID: 21300000, guid: fca1f7c96bae2fa47b66dab4231e459f, type: 3}
+  _unlockedPreview: {fileID: 21300000, guid: 4ae46f2646f1a1b4da9384c066170712, type: 3}
+  _lockedPreview: {fileID: 21300000, guid: 5d89bcfd48d17f44fae92197c611b9c5, type: 3}
   _isOpen: 0
   _isCompleted: 0

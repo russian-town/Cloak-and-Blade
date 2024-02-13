@@ -19,13 +19,8 @@ public class DefaultLevelExit : LevelExit
 
         if (Player.ItemsInHold.FindItemInList(_treasure))
         {
-            print("level passed");
             InvokeLevelPassed();
             return true;
-        }
-        else
-        {
-            print("level not passed");
         }
 
         return false;

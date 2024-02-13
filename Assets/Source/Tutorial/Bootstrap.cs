@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Agava.YandexGames;
+using UnityEngine.UI;
 
 public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
 {
@@ -26,6 +27,7 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
     [SerializeField] private ScoreDefiner _scoreDefiner;
     [SerializeField] private LevelExit _levelExit;
     [SerializeField] private PlayersHandler _playersHandler;
+    [SerializeField] private LevelsHandler _levelHandler;
     [SerializeField] private Audio _audio;
     [SerializeField] private FocusHandler _focusHandler;
     [SerializeField] private RewardedAdHandler _rewardAdHandler;
@@ -33,6 +35,7 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
     [SerializeField] private Battery _battery;
     [SerializeField] private LeanLocalization _localization;
     [SerializeField] private CompleteTutorialZone _completeTutorialZone;
+    [SerializeField] private Button _exitButton;
 
     private readonly Wallet _wallet = new Wallet();
     private readonly List<Enemy> _enemies = new List<Enemy>();
@@ -46,6 +49,7 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
     private void OnEnable()
     {
         _saver.Enable();
+        _levelExit.LevelPassed += OnLevelComplete;
     }
 
     private void OnDisable()
@@ -55,16 +59,13 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
         _game.Unsubscribe();
         _player.Unsubscribe();
         _saver.Disable();
-    }
-
-    private void OnDestroy()
-    {
-        _saver.Save();
+        _levelExit.LevelPassed -= OnLevelComplete;
     }
 
     private void Start()
     {
-        _saver.AddDataWriters(new IDataWriter[] { _completeTutorialZone});
+        _saver.AddDataWriters(new IDataWriter[] {_completeTutorialZone, _levelHandler});
+        _saver.AddDataReaders(new IDataReader[] {this, _levelHandler});
         _saver.AddInitializable(this);
         _saver.Initialize();
         _saver.Load();
@@ -143,5 +144,15 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
         }
     }
 
-    public void Read(PlayerData playerData) => _currentLanguage = playerData.CurrentLanguague;
+    public void Read(PlayerData playerData)
+    {
+        if (playerData.IsTutorialCompleted)
+            _exitButton.gameObject.SetActive(true);
+        else
+            _exitButton.gameObject.SetActive(false);
+
+        _currentLanguage = playerData.CurrentLanguague;
+    }
+
+    private void OnLevelComplete() => _saver.Save();
 }

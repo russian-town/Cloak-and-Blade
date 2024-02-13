@@ -41,10 +41,7 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
         }
             
         if(CanSwith() == false)
-        {
-            print("Cant switch");
             return false;
-        }
 
         _currentCommand = command;
         CommandChanged?.Invoke(command);

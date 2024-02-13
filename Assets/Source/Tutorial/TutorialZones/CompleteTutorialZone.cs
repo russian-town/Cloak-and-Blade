@@ -11,7 +11,6 @@ public class CompleteTutorialZone : MonoBehaviour, IDataWriter
         _levelExit.LevelPassed += OnLevelPassed;
     }
 
-
     private void OnDisable()
     {
         _levelExit.LevelPassed -= OnLevelPassed;
@@ -24,7 +23,6 @@ public class CompleteTutorialZone : MonoBehaviour, IDataWriter
 
     private void OnLevelPassed()
     {
-        Debug.Log("Saved");
         _isTutorialCompleted = true;
     }
 }

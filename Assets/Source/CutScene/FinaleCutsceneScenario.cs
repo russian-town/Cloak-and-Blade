@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class FinaleCutsceneScenario : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class FinaleCutsceneScenario : MonoBehaviour
     [SerializeField] private Image _whiteScreen;
     [SerializeField] private TMP_Text _text;
     [SerializeField] private CanvasGroup _hud;
+    [SerializeField] private ParticleSystem[] _mists;
+    [SerializeField] private Gameboard _gameboard;
 
     private CinemachineBasicMultiChannelPerlin _noise;
     private WaitForSeconds _genericWait;
@@ -53,6 +56,11 @@ public class FinaleCutsceneScenario : MonoBehaviour
 
     private IEnumerator CutsceneCoroutine()
     {
+        _gameboard.Disable();
+
+        foreach (var particle in _mists)
+            particle.Stop();
+
         _hud.DOFade(0, .5f);
         _staticCamera.Priority = 3;
         yield return (_genericWait);
@@ -82,9 +90,10 @@ public class FinaleCutsceneScenario : MonoBehaviour
         yield return _genericWait;
         _text.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.OutSine);
         _genericWait = new WaitForSeconds(_soundFadeDuration);
+        _whiteNoise.DOFade(0, _cameraAmplitudeFadeSpeed);
         yield return _genericWait;
-        _whiteNoise.DOFade(0, _soundFadeDuration);
-        yield return null;  
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(Constants.MainMenu);
     }
 
     private IEnumerator ShakeCameraWithFade(float frequencyTarget, float amplitudeTarget)

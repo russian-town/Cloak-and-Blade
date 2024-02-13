@@ -35,7 +35,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     private Battery _battery;
 
     public CommandExecuter CommandExecuter => _commandExecuter;
-    public bool IsDied { get; private set; }
+    public bool IsDead { get; private set; }
     public Sprite AbilityIcon => _abilityIcon;
     public Coroutine MoveCoroutine { get; private set; }
     public Cell CurrentCell => _mover.CurrentCell;
@@ -139,7 +139,13 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         return false;
     }
 
-    public void Die() => StartCoroutine(MakeDeath());
+    public void Die()
+    {
+        if (IsDead)
+            return;
+
+        StartCoroutine(MakeDeath());
+    }
 
     public void SetPause(bool isPause)
     {
@@ -166,7 +172,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     private IEnumerator MakeDeath()
     {
-        IsDied = true;
+        IsDead = true;
         _commandExecuter.ResetCommand();
         _deathSoundSource.Play();
 

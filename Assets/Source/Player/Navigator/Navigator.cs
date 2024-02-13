@@ -24,7 +24,7 @@ public class Navigator : MonoBehaviour, ITurnHandler
 
     public bool CanMoveToCell(ref Cell cell)
     {
-        if (_turn == Turn.Enemy || _player.IsDied)
+        if (_turn == Turn.Enemy || _player.IsDead)
             return false;
 
         if (TryFindCellHasTrap(_availableNorthCells, cell, out Cell findNorthCell))

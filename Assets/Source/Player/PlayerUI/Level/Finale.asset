@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Finale
   m_EditorClassIdentifier: 
   _name: Finale
-  _unlockedPreview: {fileID: 21300000, guid: c99bc6169c122d1449157a73c3bb8fc7, type: 3}
-  _lockedPreview: {fileID: 21300000, guid: 64a5b851d97f3f1439c40a3e06f38909, type: 3}
+  _unlockedPreview: {fileID: 21300000, guid: de42a77e7a60ba947bdad01bb5cfdd46, type: 3}
+  _lockedPreview: {fileID: 21300000, guid: ddf80f4070d032b448ac812176c4385f, type: 3}
   _isOpen: 0
   _isCompleted: 0

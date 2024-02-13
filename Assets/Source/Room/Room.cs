@@ -29,7 +29,7 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
         _turn = Turn.Player;
         _player.SetTurn(_turn);
         _view.Subscribe();
-        _view.ShowInteravtiveButton();
+        _view.ShowInteractiveButton();
         WaitForEnemies();
     }
 
@@ -97,7 +97,7 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
     {
         _turn = Turn.Player;
         _view.Subscribe();
-        _view.ShowInteravtiveButton();
+        _view.ShowInteractiveButton();
         _player.SetTurn(_turn);
     }
 }

@@ -63,7 +63,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
             icon.Initialize();
 
         _abilityIcon.ChangeSprite(_player.AbilityIcon);
-        ShowInteravtiveButton();
+        ShowInteractiveButton();
     }
 
     public void HideMoveButton()
@@ -87,7 +87,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _canvasGroup.blocksRaycasts = false;
     }
 
-    public void ShowInteravtiveButton()
+    public void ShowInteractiveButton()
     {
         _isAbilityInteractable = true;
         _isMoveInteractable = true;

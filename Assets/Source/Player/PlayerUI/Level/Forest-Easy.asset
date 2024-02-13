@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Forest-Easy
   m_EditorClassIdentifier: 
   _name: Forest edge
-  _unlockedPreview: {fileID: 21300000, guid: d0a6f0d02e9957b44a90350d8044eb10, type: 3}
-  _lockedPreview: {fileID: 21300000, guid: 50bd45c7771db55409df774a8916fd13, type: 3}
+  _unlockedPreview: {fileID: 21300000, guid: 538f4a48038d7844ab66cb3e07af59c1, type: 3}
+  _lockedPreview: {fileID: 21300000, guid: 8dc85aee4c532ca41ab8847f0ed4c60e, type: 3}
   _isOpen: 0
   _isCompleted: 0

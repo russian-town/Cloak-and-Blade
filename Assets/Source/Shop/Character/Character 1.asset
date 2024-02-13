@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Character 1
   m_EditorClassIdentifier: 
   _type: 0
-  _price: 15
+  _price: 5
   _unlockedIcon: {fileID: 21300000, guid: 11778157c8ec118468c77bd5f4a1d49d, type: 3}
   _lockedIcon: {fileID: 21300000, guid: 6133aa4f808f54a4c9ade9a490849906, type: 3}
   _player: {fileID: 8387496975907236927, guid: 5e34add410b20064583d11f9970347ec, type: 3}

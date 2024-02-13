@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelsHandler : MonoBehaviour, IDataReader
+public class LevelsHandler : MonoBehaviour, IDataReader, IDataWriter
 {
     [SerializeField] private List<Level> _levels = new List<Level>();
 
@@ -47,5 +47,15 @@ public class LevelsHandler : MonoBehaviour, IDataReader
         }
     }
 
-    public void Read(PlayerData playerData) => _tutorialCompleted = playerData.IsTutorialCompleted;
+    public void Read(PlayerData playerData)
+    {
+        foreach (var level in _levels)
+            level.Read(playerData);
+    }
+
+    public void Write(PlayerData playerData)
+    {
+        foreach (var level in _levels)
+            level.Write(playerData);
+    }
 }

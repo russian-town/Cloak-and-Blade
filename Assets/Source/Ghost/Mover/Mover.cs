@@ -6,6 +6,8 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
     private GhostAnimationHandler _animationHandler;
     private Cell _startCell;
     private float _pauseSpeed = 1;
+    private Coroutine _movingCoroutine;
+    private Coroutine _rotatingCoroutine;
 
     public Cell CurrentCell { get; private set; }
 
@@ -20,12 +22,18 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
     public Coroutine StartRotate(Cell targetCell, float rotationSpeed)
     {
-        return StartCoroutine(Rotate(targetCell, rotationSpeed));
+        if (_rotatingCoroutine != null)
+            StopCoroutine(_rotatingCoroutine);
+
+        return _rotatingCoroutine = StartCoroutine(Rotate(targetCell, rotationSpeed));
     }
 
     public Coroutine StartMoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
     {
-        return StartCoroutine(MoveTo(targetCell, moveSpeed, rotationSpeed));
+        if (_movingCoroutine != null)
+            StopCoroutine(_movingCoroutine);
+
+        return _movingCoroutine =StartCoroutine(MoveTo(targetCell, moveSpeed, rotationSpeed));
     }
 
     protected virtual IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
@@ -43,6 +51,7 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
         CurrentCell = targetCell;
         _startCell = targetCell;
+        _movingCoroutine = null;
     }
 
     private IEnumerator Rotate(Cell targetCell, float rotationSpeed)
@@ -56,5 +65,7 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * _pauseSpeed * Time.deltaTime);
             yield return null;
         }
+
+        _rotatingCoroutine = null;
     }
 }
