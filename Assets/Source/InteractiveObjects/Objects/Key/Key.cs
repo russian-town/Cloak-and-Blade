@@ -1,13 +1,14 @@
 using System;
 using UnityEngine;
 
-public class Key : InteractiveObject
+public class Key : InteractiveObject, ICompassTarget
 {
     [SerializeField] private InteractiveObjectView _view;
     [SerializeField] private AudioSource _source;
     [SerializeField] private GameObject _model;
 
     public event Action PickedUp;
+    public event Action Disabled;
 
     public override void Interact()
     {
@@ -16,6 +17,7 @@ public class Key : InteractiveObject
         _view.gameObject.SetActive(false);
         _model.gameObject.SetActive(false);
         PickedUp?.Invoke();
+        Disabled?.Invoke();
     }
 
     public override void Prepare()

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Treasure : InteractiveObject
+public class Treasure : InteractiveObject, ICompassTarget
 {
     [SerializeField] private InteractiveObjectView _view;
     [SerializeField] private Key _key;
@@ -18,6 +18,7 @@ public class Treasure : InteractiveObject
     private bool _closed = true;
 
     public event Action Opened;
+    public event Action Disabled;
 
     public override void Initialize(Player player)
     {
@@ -42,6 +43,7 @@ public class Treasure : InteractiveObject
         Open();
         _closed = false;
         _treasureAccquired = true;
+        Disabled?.Invoke();
     }
 
     public override void Prepare()

@@ -20046,13 +20046,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _compassTransform: {fileID: 2113086970508972623}
-  _keyIconRectTransform: {fileID: 8708010244994993817}
-  _chestIconRectTransform: {fileID: 0}
-  _exitIconRectTransform: {fileID: 0}
-  _keyTransform: {fileID: 0}
-  _chestTransform: {fileID: 0}
-  _exitTransform: {fileID: 0}
+  _compassTargetIcons: []
+  _compassTargetTransform: []
   _cameraObjectiveTransform: {fileID: 5397417777842653799}
+  _key: {fileID: 0}
+  _treasure: {fileID: 0}
+  _levelExit: {fileID: 0}
 --- !u!1 &8510072394181872407
 GameObject:
   m_ObjectHideFlags: 0

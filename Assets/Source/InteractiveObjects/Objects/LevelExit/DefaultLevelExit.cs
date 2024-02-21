@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
-public class DefaultLevelExit : LevelExit
+public class DefaultLevelExit : LevelExit, ICompassTarget
 {
     [SerializeField] private Treasure _treasure;
+
+    public event Action Disabled;
 
     public override bool RequiredItemFound()
     {
