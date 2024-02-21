@@ -43,8 +43,6 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
     private Pause _pause;
     private string _currentLanguage;
 
-    public Saver Saver => _saver;
-
     public void OnEnable() => _saver.Enable();
 
     private void OnDisable()

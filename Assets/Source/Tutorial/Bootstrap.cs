@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Agava.YandexGames;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
 {
@@ -27,7 +28,6 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
     [SerializeField] private ScoreDefiner _scoreDefiner;
     [SerializeField] private LevelExit _levelExit;
     [SerializeField] private PlayersHandler _playersHandler;
-    [SerializeField] private LevelsHandler _levelHandler;
     [SerializeField] private Audio _audio;
     [SerializeField] private FocusHandler _focusHandler;
     [SerializeField] private RewardedAdHandler _rewardAdHandler;
@@ -54,18 +54,23 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
 
     private void OnDisable()
     {
+        _saver.Disable();
         _playerView.Unsubscribe();
         _room.Unsubscribe();
         _game.Unsubscribe();
         _player.Unsubscribe();
-        _saver.Disable();
         _levelExit.LevelPassed -= OnLevelComplete;
+    }
+
+    private void OnDestroy()
+    {
+        _saver.Save();
     }
 
     private void Start()
     {
-        _saver.AddDataWriters(new IDataWriter[] {_completeTutorialZone, _levelHandler});
-        _saver.AddDataReaders(new IDataReader[] {this, _levelHandler});
+        _saver.AddDataReaders(new IDataReader[] {_wallet, _completeTutorialZone, this, _game});
+        _saver.AddDataWriters(new IDataWriter[] {_wallet, _completeTutorialZone, _game});
         _saver.AddInitializable(this);
         _saver.Initialize();
         _saver.Load();
@@ -154,5 +159,5 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
         _currentLanguage = playerData.CurrentLanguague;
     }
 
-    private void OnLevelComplete() => _saver.Save();
+    private void OnLevelComplete() { }/*=> _saver.Save()*//*;*/
 }

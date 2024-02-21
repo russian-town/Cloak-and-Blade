@@ -11,11 +11,16 @@ public class ArrowPointer : MonoBehaviour
     private Player _player;
     private bool _isInitialize;
 
-    public void Initialize(Player player)
+    private void Awake()
+    {
+        Initialize();
+    }
+
+    public void Initialize(/*Player player*/)
     {
         _rectTransform = GetComponent<RectTransform>();
         _camera = Camera.main;
-        _player = player;
+       /* _player = player;*/
         _isInitialize = true;
     }
 
@@ -24,11 +29,11 @@ public class ArrowPointer : MonoBehaviour
         if (_isInitialize == false)
             return;
 
-        Vector3 to = _target.position;
+        /*Vector3 to = _target.position;
         Vector3 from = _player.transform.position;
         Vector3 direction = (to - from).normalized;
         float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg % 360f;
-        _rectTransform.localEulerAngles = new Vector3(0f, 0f, angle);
+        _rectTransform.localEulerAngles = new Vector3(0f, 0f, angle);*/
         Vector3 screenPoint = _camera.WorldToScreenPoint(new Vector3(_target.position.x, 0f, _target.position.z));
 
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvas, screenPoint, null, out Vector2 localPoint))

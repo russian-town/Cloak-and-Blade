@@ -28,12 +28,20 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
     {
         foreach (var level in _levels)
             level.Read(playerData);
+
+        if (playerData.FinishedLevelNames.Contains("Chapel"))
+            print("FinishedLevels contains chapel");
+        else
+            print("No bueno");
+
+        if (Constants.Tutorial == _levels[0].Name)
+            print("_levels Contains the tutorial name");
     }
 
     public void Write(PlayerData playerData)
     {
-        foreach (var level in _levels)
-            level.Write(playerData);
+        /*foreach (var level in _levels)
+            level.Write(playerData);*/
     }
 
     public void Initialize()

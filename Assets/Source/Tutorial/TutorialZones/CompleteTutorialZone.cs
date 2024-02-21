@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CompleteTutorialZone : MonoBehaviour, IDataWriter
+public class CompleteTutorialZone : MonoBehaviour, IDataWriter, IDataReader
 {
     [SerializeField] private LevelExit _levelExit;
 
@@ -19,6 +19,11 @@ public class CompleteTutorialZone : MonoBehaviour, IDataWriter
     public void Write(PlayerData playerData)
     {
         playerData.IsTutorialCompleted = _isTutorialCompleted;
+    }
+
+    public void Read(PlayerData playerData)
+    {
+        _isTutorialCompleted = playerData.IsTutorialCompleted;
     }
 
     private void OnLevelPassed()
