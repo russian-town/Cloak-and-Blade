@@ -6,7 +6,7 @@ using UnityEngine;
 public class YandexInit : MonoBehaviour, IDataWriter
 {
     [SerializeField] private LeanLocalization _localization;
-    [SerializeField] private CutsceneScenario _cutsceneScenario;
+    [SerializeField] private StarterScreen _starterScreen;
     [SerializeField] private Audio _audio;
     [SerializeField] private LevelsHandler _levelsHandler;
     
@@ -53,7 +53,7 @@ public class YandexInit : MonoBehaviour, IDataWriter
 
         _saver.AddDataReaders(new IDataReader[] { _levelsHandler, _audio });
         _saver.AddDataWriters(new IDataWriter[] { this });
-        _saver.AddInitializable(_cutsceneScenario);
+        _saver.AddInitializable(_starterScreen);
         _saver.Initialize();
         _saver.Load();
         _saver.Save();

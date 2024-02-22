@@ -1,8 +1,9 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Splines;
 
-public class CutsceneScenario : MonoBehaviour, IInitializable, IPauseHandler
+public class CutsceneScenario : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private float _flyingToTableWait;
     [SerializeField] private float _candleLightWait;
@@ -14,6 +15,7 @@ public class CutsceneScenario : MonoBehaviour, IInitializable, IPauseHandler
     [SerializeField] private AudioSource _candleLoop;
     [SerializeField] private AudioSource _narratorSpeech;
     [SerializeField] private AudioSource _backgroundMusic;
+    [SerializeField] private AudioSource _rainMusic;
     [SerializeField] private Light _candleLight;
     [SerializeField] private float _candleIntensity;
     [SerializeField] private float _candleLightFadeSpeed;
@@ -23,9 +25,12 @@ public class CutsceneScenario : MonoBehaviour, IInitializable, IPauseHandler
     [SerializeField] private SimpleTextTyper _textTyper;
     [SerializeField] private CanvasGroup _letter;
     [SerializeField] private LevelsHandler _levelsHandler;
+    [SerializeField] private SplineAnimate _cameraSpline;
+    [SerializeField] private ThunderMaker _thunderMaker;
 
     private WaitForSeconds _genericWait;
     private bool _isInitialized;
+    private Coroutine _cutSceneCoroutine;
 
     private void Update()
     {
@@ -43,17 +48,6 @@ public class CutsceneScenario : MonoBehaviour, IInitializable, IPauseHandler
         _progressBar.ProgressBarFilled -= OnProgressBarFilled;
     }
 
-    public void Initialize()
-    {
-        _candleLight.intensity = 0;
-        _genericWait = new WaitForSeconds(_flyingToTableWait);
-        _loadingScreen.Initialize();
-        StartCoroutine(CutsceneCoroutine());
-        _progressBar.Initialize();
-        _progressBar.ProgressBarFilled += OnProgressBarFilled;
-        _isInitialized = true;
-    }
-
     public void SetPause(bool isPause)
     {
         if (isPause)
@@ -62,10 +56,28 @@ public class CutsceneScenario : MonoBehaviour, IInitializable, IPauseHandler
             Time.timeScale = 1;
     }
 
+    public void StartCutscene()
+    {
+        if (_cutSceneCoroutine != null)
+            StopCoroutine(_cutSceneCoroutine);
+
+        _cutSceneCoroutine = StartCoroutine(CutsceneCoroutine());
+    }
+
     private void OnProgressBarFilled() => _levelsHandler.TryLoadTutorial();
 
     private IEnumerator CutsceneCoroutine()
     {
+        _cameraSpline.Play();
+        _backgroundMusic.Play();
+        _rainMusic.Play();
+        _thunderMaker.enabled = true;
+        _candleLight.intensity = 0;
+        _genericWait = new WaitForSeconds(_flyingToTableWait);
+        _loadingScreen.Initialize();
+        _progressBar.Initialize();
+        _progressBar.ProgressBarFilled += OnProgressBarFilled;
+        _isInitialized = true;
         yield return _loadingScreen.StartFade(0);
         yield return _genericWait;
         _genericWait = new WaitForSeconds(_candleLightWait);
@@ -94,6 +106,7 @@ public class CutsceneScenario : MonoBehaviour, IInitializable, IPauseHandler
         _letter.DOFade(0, 1f).SetEase(Ease.OutSine);
         yield return _genericWait;
         yield return _loadingScreen.StartFade(1);
+        _cutSceneCoroutine = null;
         _levelsHandler.TryLoadTutorial();
     }
 }
