@@ -1,6 +1,7 @@
 using Agava.YandexGames;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class YandexAds
 {
@@ -15,6 +16,9 @@ public class YandexAds
 
     public void ShowRewardedVideo()
     {
+        if (SceneManager.GetActiveScene().name == Constants.Tutorial)
+            return;
+
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (YandexGamesSdk.IsInitialized == true)
             VideoAd.Show(OpenCallback, RewardedCallback, CloseCallback, ErrorCallback);
