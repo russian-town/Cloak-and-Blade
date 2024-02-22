@@ -1,6 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 using Agava.WebUtility;
+using UnityEngine.Events;
 
 public class CameraControls : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class CameraControls : MonoBehaviour
     private int _minRotation = -180;
     private int _maxRotation = 180;
     private bool _cameraIsStraight;
+
+    public event UnityAction AngleChanged;
 
     private void Awake()
     {
@@ -39,6 +42,8 @@ public class CameraControls : MonoBehaviour
 
     public void ChangeCameraAngle()
     {
+        AngleChanged?.Invoke();
+
         if (!_cameraIsStraight)
         {
             _angledCamera.Priority = 0;

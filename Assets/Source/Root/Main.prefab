@@ -20052,6 +20052,9 @@ MonoBehaviour:
   _key: {fileID: 0}
   _treasure: {fileID: 0}
   _levelExit: {fileID: 0}
+  _cameraControls: {fileID: 0}
+  _threshHold: 0
+  _fadeDuration: 0
 --- !u!1 &8510072394181872407
 GameObject:
   m_ObjectHideFlags: 0
