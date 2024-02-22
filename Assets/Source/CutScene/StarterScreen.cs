@@ -18,6 +18,10 @@ public class StarterScreen : MonoBehaviour, IInitializable
     [SerializeField] private float _pressAnywhereFadeDuration;
     [SerializeField] private AudioSource _startScreenAmbient;
     [SerializeField] private ParticleSystem _particle;
+    [SerializeField] private float _minParticleStrengthX;
+    [SerializeField] private float _maxParticleStrengthX;
+    [SerializeField] private float _minParticleStrengthY;
+    [SerializeField] private float _maxParticleStrengthY;
 
     private AudioSource _audioSource;
     private CanvasGroup _canvasGroup;
@@ -28,6 +32,9 @@ public class StarterScreen : MonoBehaviour, IInitializable
         _canvasGroup = GetComponent<CanvasGroup>();
         _audioSource = GetComponent<AudioSource>();
         _pressAnyWhere.enabled = true;
+        var particleNoise = _particle.noise;
+        particleNoise.strengthX = Random.Range(_minParticleStrengthX, _maxParticleStrengthX);
+        particleNoise.strengthY = Random.Range(_minParticleStrengthY, _maxParticleStrengthY);
         StartCoroutine(StartScreenFade());
     }
 
