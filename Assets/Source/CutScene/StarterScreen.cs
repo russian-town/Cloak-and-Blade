@@ -17,6 +17,7 @@ public class StarterScreen : MonoBehaviour, IInitializable
     [SerializeField] private RectTransform _titleTransform;
     [SerializeField] private float _pressAnywhereFadeDuration;
     [SerializeField] private AudioSource _startScreenAmbient;
+    [SerializeField] private ParticleSystem _particle;
 
     private AudioSource _audioSource;
     private CanvasGroup _canvasGroup;
@@ -32,6 +33,7 @@ public class StarterScreen : MonoBehaviour, IInitializable
 
     private void OnButtonClick()
     {
+        _particle.Stop();
         _startScreenAmbient.DOFade(0, _pressAnywhereFadeDuration);
         _startScreenAmbient.Stop();
         _loadingScreen.SetFade(1);
@@ -45,6 +47,7 @@ public class StarterScreen : MonoBehaviour, IInitializable
     {
         yield return _loadingScreen.StartFade(0);
         _startScreenAmbient.Play();
+        _particle.Play();
         _title.DOFade(1, _titleFadeDuration).SetEase(Ease.InOutSine);
         _titleTransform.DOScale(1, _titleFadeDuration).SetEase(Ease.InOutSine);
         yield return new WaitForSeconds(_titleFadeDuration);
