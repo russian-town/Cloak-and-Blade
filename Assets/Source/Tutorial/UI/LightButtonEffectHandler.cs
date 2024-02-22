@@ -30,8 +30,7 @@ public class LightButtonEffectHandler : MonoBehaviour
         _pulsatingSequence = DOTween.Sequence();
         _pulsatingSequence
             .Append(_effectImage.DOColor(_secondColor, _fadeDuration))
-            .Append(_effectImage.DOColor(_startColor, _fadeDuration))
-            .SetLoops(-1);
+            .SetLoops(-1, LoopType.Yoyo);
     }
 
     public void StopLightEffect()

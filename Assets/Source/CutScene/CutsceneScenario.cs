@@ -74,7 +74,6 @@ public class CutsceneScenario : MonoBehaviour, IPauseHandler
         _thunderMaker.enabled = true;
         _candleLight.intensity = 0;
         _genericWait = new WaitForSeconds(_flyingToTableWait);
-        _loadingScreen.Initialize();
         _progressBar.Initialize();
         _progressBar.ProgressBarFilled += OnProgressBarFilled;
         _isInitialized = true;

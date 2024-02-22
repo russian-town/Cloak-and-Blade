@@ -21,8 +21,6 @@ public class LoadingScreen : MonoBehaviour
 #else
         _fader = _retroFXFilter;
 #endif
-
-        _currentValue = _fader.Fade;
     }
 
     public Coroutine StartFade(float value)
@@ -30,8 +28,15 @@ public class LoadingScreen : MonoBehaviour
         return StartCoroutine(Fade(value));
     }
 
+    public void SetFade(float value)
+    {
+        _fader.SetFade(value);
+    }
+
     private IEnumerator Fade(float value)
     {
+        _currentValue = _fader.Fade;
+
         while (Mathf.Approximately(_currentValue, value) == false)
         {
             _currentValue = Mathf.MoveTowards(_currentValue, value, Time.deltaTime * _speed);

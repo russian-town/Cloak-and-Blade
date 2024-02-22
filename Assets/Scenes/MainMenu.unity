@@ -2564,7 +2564,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 91.55
+  m_fontSize: 80.6
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3718,7 +3718,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.8
+  m_fontSize: 89.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -21334,7 +21334,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.8
+  m_fontSize: 89.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -21993,7 +21993,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 82
+  m_fontSize: 80.6
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -35816,7 +35816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 2560, y: 1440}
+  customRes: {x: 2259, y: 1076}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -35872,7 +35872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.56
+  resolutionScale: 2.259
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -40510,10 +40510,10 @@ MonoBehaviour:
     Text: Phantom Veil
     Object: {fileID: 0}
   - Language: Russian
-    Text: "\u041F\u0440\u0438\u0437\u0440\u0430\u0447\u043D\u0430\u044F \u0412\u0443\u0430\u043B\u044C"
+    Text: Phantom Veil
     Object: {fileID: 0}
   - Language: Turkish
-    Text: "Hayalet Pe\xE7e"
+    Text: Phantom Veil
     Object: {fileID: 0}
 --- !u!1001 &966554327
 PrefabInstance:
@@ -56632,7 +56632,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 67.05
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -70718,7 +70718,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u0440\u0438\u0437\u0440\u0430\u0447\u043D\u0430\u044F \u0412\u0443\u0430\u043B\u044C"
+  m_text: Phantom Veil
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b89f13cab493dab42a0a688ceaa203c3, type: 2}
   m_sharedMaterial: {fileID: -3595107127703264355, guid: b89f13cab493dab42a0a688ceaa203c3, type: 2}
@@ -70745,7 +70745,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 134.75
+  m_fontSize: 150.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -79296,7 +79296,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 834427892}
   m_HandleRect: {fileID: 834427891}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -81438,7 +81438,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99.8
+  m_fontSize: 89.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
