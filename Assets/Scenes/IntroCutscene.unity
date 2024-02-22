@@ -16548,9 +16548,9 @@ MonoBehaviour:
   _pressAnywhereFadeDuration: 1
   _startScreenAmbient: {fileID: 1140902207}
   _particle: {fileID: 1509343893}
-  _minParticleStrengthX: -40
+  _minParticleStrengthX: 10
   _maxParticleStrengthX: 40
-  _minParticleStrengthY: -1
+  _minParticleStrengthY: 1
   _maxParticleStrengthY: 1
 --- !u!114 &554112198
 MonoBehaviour:
@@ -25869,7 +25869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1923, y: 916}
+  customRes: {x: 2031, y: 967}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -25910,7 +25910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 1.923
+  resolutionScale: 2.031
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -49653,13 +49653,13 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 2
-      minColor: {r: 0.24528301, g: 0, b: 0, a: 0.39215687}
-      maxColor: {r: 0.49056602, g: 0.038475767, b: 0, a: 0.39215687}
+      minMaxState: 1
+      minColor: {r: 0.24705882, g: 0.021071399, b: 0, a: 0.39215687}
+      maxColor: {r: 0.9254902, g: 0.008885947, b: 0, a: 0.39215687}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key0: {r: 0.17590779, g: 0.21375525, b: 0.5566038, a: 0.3137255}
+        key1: {r: 0.06396447, g: 0, b: 0.18039216, a: 0.5882353}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -49683,7 +49683,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -52227,7 +52227,7 @@ ParticleSystem:
     strengthZ:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -52506,23 +52506,41 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
+          time: 0.001360544
+          value: 0.00097620115
+          inSlope: 4.0813346
+          outSlope: 4.0813346
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.24613926
           value: 1
-          inSlope: 0
-          outSlope: 0
+          inSlope: -0.0000075101893
+          outSlope: -0.0000075101893
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
+          outWeight: 0.057804503
+        - serializedVersion: 3
+          time: 0.7923101
+          value: 1
+          inSlope: 0.0053520943
+          outSlope: 0.0053520943
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.03631122
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
+          value: 0.00000029802322
+          inSlope: -4.8148694
+          outSlope: -4.8148694
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
