@@ -15586,7 +15586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 2259, y: 1076}
+  customRes: {x: 1636, y: 779}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -15627,7 +15627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.259
+  resolutionScale: 1.636
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -18884,6 +18884,7 @@ MonoBehaviour:
   _levelFinishScreen: {fileID: 7138661318906112904}
   _levelsHandler: {fileID: 351233329210072784}
   _gameboard: {fileID: 0}
+  _doubleStarsButton: {fileID: 7401797625404008772}
 --- !u!1 &6231249609109286749
 GameObject:
   m_ObjectHideFlags: 0

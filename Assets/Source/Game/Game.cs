@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
 {
@@ -12,6 +13,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
     [SerializeField] private LevelFinishScreen _levelFinishScreen;
     [SerializeField] private LevelsHandler _levelsHandler;
     [SerializeField] private Gameboard _gameboard;
+    [SerializeField] private Button _doubleStarsButton;
 
     private Wallet _wallet;
     private Player _player;
@@ -137,6 +139,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
     {
         AddStarsOnReward();
         _levelFinishScreen.Unsubscribe();
+        _doubleStarsButton.gameObject.SetActive(false);
     }
 
     private void OnRewardedCloseClallback() => _adHandler.CloseAd();
