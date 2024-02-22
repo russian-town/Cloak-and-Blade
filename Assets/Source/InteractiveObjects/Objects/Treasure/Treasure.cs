@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,10 @@ public class Treasure : InteractiveObject, ICompassTarget
     [SerializeField] private AudioSource _chestSource;
     [SerializeField] private AudioSource _lockSource;
     [SerializeField] private AudioSource _closeSource;
+    [SerializeField] private AudioSource _soulSource;
     [SerializeField] private ParticleSystem _particle;
+    [SerializeField] private ParticleSystem _soul;
+    [SerializeField] private Animator _soulAnimator;
 
     private Animator _animator;
     private bool _treasureAccquired;
@@ -78,6 +82,17 @@ public class Treasure : InteractiveObject, ICompassTarget
             _view.InteractButton.onClick.RemoveListener(Interact);
             _view.Hide();
         }
+    }
+
+    public void ReleaseSoul()
+    {
+        _soulAnimator.SetTrigger(Constants.ReleaseTrigger);
+        _soulSource.Play();
+    }
+
+    public void StopSoul()
+    {
+        _soul.Stop();
     }
 
     private void Open()

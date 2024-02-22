@@ -18,7 +18,6 @@ public class LightButtonEffectHandler : MonoBehaviour
     private void Start()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
-        PlayLightEffect();
     }
     
     public void PlayLightEffect()

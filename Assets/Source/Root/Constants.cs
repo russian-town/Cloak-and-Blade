@@ -10,6 +10,7 @@ public class Constants
     public const string TransformationTrigger = "Transform";
     public const string FlyTrigger = "FlyTrigger";
     public const string FallParameter = "Fall";
+    public const string ReleaseTrigger = "Release";
     #endregion
 
     #region SceneNames
