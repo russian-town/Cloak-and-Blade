@@ -16550,8 +16550,8 @@ MonoBehaviour:
   _particle: {fileID: 1509343893}
   _minParticleStrengthX: 10
   _maxParticleStrengthX: 40
-  _minParticleStrengthY: 1
-  _maxParticleStrengthY: 1
+  _minParticleStrengthY: 0.5
+  _maxParticleStrengthY: 0.5
 --- !u!114 &554112198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25869,7 +25869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 2031, y: 967}
+  customRes: {x: 1742, y: 830}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -25910,7 +25910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.031
+  resolutionScale: 2.259
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -49658,7 +49658,7 @@ ParticleSystem:
       maxColor: {r: 0.9254902, g: 0.008885947, b: 0, a: 0.39215687}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.17590779, g: 0.21375525, b: 0.5566038, a: 0.3137255}
+        key0: {r: 0.17590779, g: 0.21375525, b: 0.5566038, a: 0.39215687}
         key1: {r: 0.06396447, g: 0, b: 0.18039216, a: 0.5882353}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -50302,7 +50302,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 150
       minScalar: 10
       maxCurve:
         serializedVersion: 2
