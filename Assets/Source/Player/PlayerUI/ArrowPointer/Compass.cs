@@ -72,17 +72,13 @@ public class Compass : MonoBehaviour
 
     private void OnCameraAngleChanged()
     {
-        print("poop");
-
         if (_cameraIsAngled)
         {
-            print("poop angled");
             _canvasGroup.DOFade(0, _fadeDuration);
             _cameraIsAngled = false;
         }
         else
         {
-            print("poop straight");
             _canvasGroup.DOFade(1, _fadeDuration);
             _cameraIsAngled = true;
         }
