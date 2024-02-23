@@ -50,7 +50,6 @@ public class SimpleTextTyper : MonoBehaviour
 
     private IEnumerator WriteLine()
     {
-        /*_textContainer.color = new Color32(13, 13, 48, 100);*/
         _canvasGroup.DOFade(1, 1).SetEase(Ease.InOutSine);
         _letter.DOScale(1, 1).SetEase(Ease.InOutSine);
 
@@ -58,7 +57,6 @@ public class SimpleTextTyper : MonoBehaviour
 
         for (int i = 0; i < _initialText.Count; i++)
         {
-            /*print(_textContainer.text[i + 16]);*/
             var text = _initialText.ToList();
             text.InsertRange(i, _colorOpenTag.ToCharArray());
             text.AddRange(_colorCloseTag.ToCharArray());

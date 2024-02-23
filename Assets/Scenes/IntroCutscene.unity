@@ -26035,7 +26035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1886, y: 898}
+  customRes: {x: 1731, y: 824}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -26076,7 +26076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 1.886
+  resolutionScale: 2.259
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -31100,7 +31100,7 @@ Light:
     m_Resolution: 3
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0
+    m_Bias: 0.12
     m_NormalBias: 0.59
     m_NearPlane: 0.78
     m_CullingMatrixOverride:
@@ -50032,7 +50032,7 @@ ParticleSystem:
       maxColor: {r: 0.9254902, g: 0.008885947, b: 0, a: 0.39215687}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.18845673, g: 0.18845673, b: 0.5188679, a: 0.5882353}
+        key0: {r: 0.44312534, g: 0.31719473, b: 0.6792453, a: 0.5882353}
         key1: {r: 0.06396447, g: 0, b: 0.18039216, a: 0.5882353}
         key2: {r: 0, g: 0, b: 0, a: 0.5882353}
         key3: {r: 0, g: 0, b: 0, a: 0}
