@@ -56,37 +56,45 @@ public class SimpleTextTyper : MonoBehaviour
 
         yield return _commaWaitDelay;
 
-        for (int i = 0; i < _textContainer.text.Length; i++)
+        for (int i = 0; i < _initialText.Count; i++)
         {
-            print(_textContainer.text[i + 16]);
+            /*print(_textContainer.text[i + 16]);*/
             var text = _initialText.ToList();
             text.InsertRange(i, _colorOpenTag.ToCharArray());
             text.AddRange(_colorCloseTag.ToCharArray());
 
             _textContainer.text = string.Join("", text);
 
-            if (!char.IsWhiteSpace(_textContainer.text[i + 16]))
-                _tempCharPhraseList.Add(_textContainer.text[i + 16]);
+            print(_initialText[i]);
 
-            foreach (var phrase in _phrasesWithPause)
+            if(i > 0)
             {
-                if (phrase.Phrase == string.Concat(_tempCharPhraseList))
+                if (!char.IsWhiteSpace(_initialText[i - 1]))
+                    _tempCharPhraseList.Add(_initialText[i - 1]);
+
+                foreach (var phrase in _phrasesWithPause)
                 {
-                    _phraseWait = new WaitForSeconds(phrase.Pause);
-                    yield return _phraseWait;
-                    _phraseWait = null;
+                    if (phrase.Phrase == string.Concat(_tempCharPhraseList))
+                    {
+                        _phraseWait = new WaitForSeconds(phrase.Pause);
+                        yield return _phraseWait;
+                        _phraseWait = null;
+                    }
                 }
+
+                if (char.IsWhiteSpace(_initialText[i - 1]))
+                {
+                    print(_tempCharPhraseList.ToString());
+                    _tempCharPhraseList.Clear();
+                }
+
+                if (i < _initialText.Count)
+                    if (_initialText[i - 1] == '.' && _initialText[i] != '.')
+                        yield return _dotWaitDelay;
+
+                if (_initialText[i - 1] == ',' || _initialText[i - 1] == '—')
+                    yield return _commaWaitDelay;
             }
-
-            if (char.IsWhiteSpace(_textContainer.text[i + 16]))
-                _tempCharPhraseList.Clear();
-
-            if (i < _textContainer.text.Length - 1)
-                if (_textContainer.text[i + 16] == '.' && _textContainer.text[i + 17] != '.')
-                    yield return _dotWaitDelay;
-
-            if(_textContainer.text[i + 16] == ',' || _textContainer.text[i + 16] == '—')
-                yield return _commaWaitDelay;
 
             yield return _waitDelay;
         }

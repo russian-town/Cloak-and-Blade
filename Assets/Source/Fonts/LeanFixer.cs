@@ -1,11 +1,12 @@
 using UnityEngine;
 using Agava.YandexGames;
+using UnityEngine.UI;
 
 public class LeanFixer : MonoBehaviour
 {
-    [SerializeField] private string _englishText;
-    [SerializeField] private string _russianText;
-    [SerializeField] private string _turkishText;
+    [SerializeField] private Text _englishText;
+    [SerializeField] private Text _russianText;
+    [SerializeField] private Text _turkishText;
     [SerializeField] private string _key;
 
     public string GetLocalisedText()
@@ -17,15 +18,15 @@ public class LeanFixer : MonoBehaviour
         switch (_key)
         {
             case (Constants.En):
-                return _englishText;
+                return _englishText.text;
 
             case (Constants.Ru):
-                return _russianText;
+                return _russianText.text;
 
             case (Constants.Tr):
-                return _turkishText;
+                return _turkishText.text;
 
-            default: return _englishText;
+            default: return _englishText.text;
         }
     }
 }
