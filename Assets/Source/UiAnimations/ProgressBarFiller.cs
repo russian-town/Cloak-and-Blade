@@ -61,8 +61,6 @@ public class ProgressBarFiller : MonoBehaviour
 
     private void OnFocusChanged(bool isFocused)
     {
-        print(isFocused);
-
         if (isFocused == false && _coroutine != null)
         {
             StopCoroutine(_coroutine);

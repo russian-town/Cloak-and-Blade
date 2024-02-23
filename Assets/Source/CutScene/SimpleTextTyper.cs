@@ -2,9 +2,12 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 public class SimpleTextTyper : MonoBehaviour
 {
@@ -15,32 +18,39 @@ public class SimpleTextTyper : MonoBehaviour
     [SerializeField] private float _commaDelay;
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private List<PhraseWithPause> _phrasesWithPause;
+    [SerializeField] private FocusHandler _focusHandler;
+    [SerializeField] private String _colorOpenTag;
+    [SerializeField] private String _colorCloseTag;
+    [SerializeField] private LeanFixer _fixer;
 
     private WaitForSeconds _waitDelay;
     private WaitForSeconds _dotWaitDelay;
     private WaitForSeconds _commaWaitDelay;
     private WaitForSeconds _phraseWait;
-    private List<char> _tempCharList;
-    private List<char> _poop;
-
-    private void OnEnable()
-    {
-        /*_textContainer.color = new Color32(13, 13, 48, 0);*/
-    }
+    private List<char> _tempCharPhraseList;
+    private List<char> _tempCharTextList;
+    private List<char> _initialText;
+    private int _writtenChars;
 
     private void Start()
     {
         _waitDelay = new WaitForSeconds(_delay);
         _dotWaitDelay = new WaitForSeconds(_dotDelay);
         _commaWaitDelay = new WaitForSeconds(_commaDelay);
-        _tempCharList = new List<char>();
+        _tempCharPhraseList = new List<char>();
+        _textContainer.text = _fixer.GetLocalisedText();
+        _initialText = _textContainer.text.ToList();
+        _tempCharTextList = _initialText.ToList();
+        _tempCharTextList.InsertRange(0, _colorOpenTag);
+        _tempCharTextList.AddRange(_colorCloseTag);
+        _textContainer.text = string.Join("", _tempCharTextList);
     }
 
     public void TypeText() => StartCoroutine(WriteLine());
 
     private IEnumerator WriteLine()
     {
-        _textContainer.color = new Color32(13, 13, 48, 0);
+        /*_textContainer.color = new Color32(13, 13, 48, 100);*/
         _canvasGroup.DOFade(1, 1).SetEase(Ease.InOutSine);
         _letter.DOScale(1, 1).SetEase(Ease.InOutSine);
 
@@ -48,23 +58,19 @@ public class SimpleTextTyper : MonoBehaviour
 
         for (int i = 0; i < _textContainer.text.Length; i++)
         {
-            _textContainer.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
-            Color32 myColor32 = hexToColor("0D0D30");
-            int meshIndex = _textContainer.textInfo.characterInfo[i].materialReferenceIndex;
-            int vertexIndex = _textContainer.textInfo.characterInfo[i].vertexIndex;
-            Color32[] vertexColors = _textContainer.textInfo.meshInfo[meshIndex].colors32;
-            vertexColors[vertexIndex + 0] = myColor32;
-            vertexColors[vertexIndex + 1] = myColor32;
-            vertexColors[vertexIndex + 2] = myColor32;
-            vertexColors[vertexIndex + 3] = myColor32;
-            _textContainer.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
+            print(_textContainer.text[i + 16]);
+            var text = _initialText.ToList();
+            text.InsertRange(i, _colorOpenTag.ToCharArray());
+            text.AddRange(_colorCloseTag.ToCharArray());
 
-            if (!char.IsWhiteSpace(_textContainer.text[i]))
-                _tempCharList.Add(_textContainer.text[i]);
+            _textContainer.text = string.Join("", text);
+
+            if (!char.IsWhiteSpace(_textContainer.text[i + 16]))
+                _tempCharPhraseList.Add(_textContainer.text[i + 16]);
 
             foreach (var phrase in _phrasesWithPause)
             {
-                if (phrase.Phrase == string.Concat(_tempCharList))
+                if (phrase.Phrase == string.Concat(_tempCharPhraseList))
                 {
                     _phraseWait = new WaitForSeconds(phrase.Pause);
                     yield return _phraseWait;
@@ -72,33 +78,18 @@ public class SimpleTextTyper : MonoBehaviour
                 }
             }
 
-            if (char.IsWhiteSpace(_textContainer.text[i]))
-                _tempCharList.Clear();
+            if (char.IsWhiteSpace(_textContainer.text[i + 16]))
+                _tempCharPhraseList.Clear();
 
             if (i < _textContainer.text.Length - 1)
-                if (_textContainer.text[i] == '.' && _textContainer.text[i + 1] != '.')
+                if (_textContainer.text[i + 16] == '.' && _textContainer.text[i + 17] != '.')
                     yield return _dotWaitDelay;
 
-            if(_textContainer.text[i] == ',' || _textContainer.text[i] == '—')
+            if(_textContainer.text[i + 16] == ',' || _textContainer.text[i + 16] == '—')
                 yield return _commaWaitDelay;
 
             yield return _waitDelay;
         }
-    }
-
-    private Color32 hexToColor(string hex)
-    {
-        hex = hex.Replace("0x", "");
-        hex = hex.Replace("#", "");
-        byte a = 255;
-        byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
-        byte g = byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
-        byte b = byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
-
-        if (hex.Length == 8)
-            a = byte.Parse(hex.Substring(6, 2), System.Globalization.NumberStyles.HexNumber);
-
-        return new Color32(r, g, b, a);
     }
 }
 

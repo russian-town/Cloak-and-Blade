@@ -28,6 +28,9 @@ public class Constants
     public const string English = "English";
     public const string Russian = "Russian";
     public const string Turkish = "Turkish";
+    public const string En = "en";
+    public const string Ru = "ru";
+    public const string Tr = "tr";
     #endregion
 
     #region Sound

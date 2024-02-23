@@ -2488,6 +2488,7 @@ GameObject:
   - component: {fileID: 82158945}
   - component: {fileID: 82158947}
   - component: {fileID: 82158948}
+  - component: {fileID: 82158949}
   m_Layer: 5
   m_Name: IntroTextContainer
   m_TagString: Untagged
@@ -2566,7 +2567,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281339149
-  m_fontColor: {r: 0.052449573, g: 0.05098039, b: 0.1882353, a: 1}
+  m_fontColor: {r: 0.050980393, g: 0.050980393, b: 0.1882353, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2579,7 +2580,7 @@ MonoBehaviour:
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 1
+  m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
@@ -2670,6 +2671,10 @@ MonoBehaviour:
     _pause: 0.4
   - _phrase: estiriyor.
     _pause: 0.5
+  _focusHandler: {fileID: 1282903976}
+  _colorOpenTag: <color=#0D0D3000>
+  _colorCloseTag: </color>
+  _fixer: {fileID: 82158949}
 --- !u!114 &82158948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2677,7 +2682,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82158943}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
   m_Name: 
@@ -2711,6 +2716,66 @@ MonoBehaviour:
     \u0432 \u0442\u0430\u0432\u0435\u0440\u043D\u0435 \xAB\u041F\u043E\u0434 \u0432\u043E\u043B\u043E\u0441\u0430\u0442\u044B\u043C
     \u043F\u043E\u043D\u0438\xBB, \u0438 \u043F\u0443\u0441\u0442\u044C \u0442\u0435\u043D\u0438
     \u0443\u043A\u0430\u0436\u0443\u0442 \u0432\u0430\u043C \u043F\u0443\u0442\u044C."
+--- !u!114 &82158949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82158943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b7fe9cc377662438e691cd75a1d9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _englishText: Darkness looms over our city... Arphail, the Sovereign of Blood,
+    terrorizes our lands. Our feeble army is in despair, and when the noble power
+    of men is helpless, the ghosts of Phantom Veil must step out of the shadows.
+    Battling in the light of righteousness may not be our forte, but darkness is
+    where we thrive. We must locate and destroy seven fragments of the tyrant's soul.
+    Once he is weakened, we shall break into his domain and strike. The fate of our
+    homeland hangs in the balance, within our spectral grasp. Meet me at the tavern
+    "Under the Hairy Pony", and let the shadows guide your path.
+  _russianText: "\u0422\u044C\u043C\u0430 \u043D\u0430\u0432\u0438\u0441\u043B\u0430
+    \u043D\u0430\u0434 \u043D\u0430\u0448\u0438\u043C \u0433\u043E\u0440\u043E\u0434\u043E\u043C...
+    \u0410\u0440\u0444\u0430\u0438\u043B, \u041F\u043E\u0432\u0435\u043B\u0438\u0442\u0435\u043B\u044C
+    \u041A\u0440\u043E\u0432\u0438, \u0442\u0435\u0440\u0440\u043E\u0440\u0438\u0437\u0438\u0440\u0443\u0435\u0442
+    \u043D\u0430\u0448\u0438 \u0437\u0435\u043C\u043B\u0438. \u041D\u0430\u0448\u0430
+    \u0430\u0440\u043C\u0438\u044F \u0432 \u043E\u0442\u0447\u0430\u044F\u043D\u0438\u0438,
+    \u0430 \u043A\u043E\u0433\u0434\u0430 \u0431\u043B\u0430\u0433\u043E\u0440\u043E\u0434\u0441\u0442\u0432\u043E
+    \u043B\u044E\u0434\u0435\u0439 \u0431\u0435\u0441\u0441\u0438\u043B\u044C\u043D\u043E,
+    \u0434\u0443\u0445\u0438 \u041F\u0440\u0438\u0437\u0440\u0430\u0447\u043D\u043E\u0439
+    \u0412\u0443\u0430\u043B\u0438 \u0434\u043E\u043B\u0436\u043D\u044B \u0432\u044B\u0439\u0442\u0438
+    \u0438\u0437 \u0442\u0435\u043D\u0435\u0439. \u041C\u044B \u043D\u0435 \u043C\u043E\u0436\u0435\u043C
+    \u0441\u0440\u0430\u0436\u0430\u0442\u044C\u0441\u044F \u0432 \u0441\u0432\u0435\u0442\u0435
+    \u0441\u043F\u0440\u0430\u0432\u0435\u0434\u043B\u0438\u0432\u043E\u0441\u0442\u0438,
+    \u043D\u043E \u043C\u044B \u0446\u0432\u0435\u0442\u0435\u043C \u0432\u043E \u0442\u044C\u043C\u0435.
+    \u041D\u0430\u0448\u0430 \u0437\u0430\u0434\u0430\u0447\u0430 \u2014 \u043D\u0430\u0439\u0442\u0438
+    \u0438 \u0443\u043D\u0438\u0447\u0442\u043E\u0436\u0438\u0442\u044C \u0441\u0435\u043C\u044C
+    \u0444\u0440\u0430\u0433\u043C\u0435\u043D\u0442\u043E\u0432 \u0434\u0443\u0448\u0438
+    \u0442\u0438\u0440\u0430\u043D\u0430. \u041A\u0430\u043A \u0442\u043E\u043B\u044C\u043A\u043E
+    \u043E\u043D \u0431\u0443\u0434\u0435\u0442 \u043E\u0441\u043B\u0430\u0431\u043B\u0435\u043D,
+    \u043C\u044B \u0432\u043E\u0440\u0432\u0435\u043C\u0441\u044F \u0432 \u0435\u0433\u043E
+    \u0432\u043B\u0430\u0434\u0435\u043D\u0438\u044F \u0438 \u043D\u0430\u043D\u0435\u0441\u0435\u043C
+    \u0443\u0434\u0430\u0440. \u041D\u0430 \u043A\u043E\u043D\u0443 \u0441\u0442\u043E\u0438\u0442
+    \u0441\u0443\u0434\u044C\u0431\u0430 \u043C\u0438\u0440\u0430, \u0438 \u0442\u043E\u043B\u044C\u043A\u043E
+    \u043C\u044B \u043C\u043E\u0436\u0435\u043C \u0441\u043F\u0430\u0441\u0442\u0438
+    \u0435\u0433\u043E. \u0416\u0434\u0438\u0442\u0435 \u043C\u0435\u043D\u044F \u0432
+    \u0442\u0430\u0432\u0435\u0440\u043D\u0435 \xAB\u041F\u043E\u0434 \u0432\u043E\u043B\u043E\u0441\u0430\u0442\u044B\u043C
+    \u043F\u043E\u043D\u0438\xBB, \u0438 \u043F\u0443\u0441\u0442\u044C \u0442\u0435\u043D\u0438
+    \u0443\u043A\u0430\u0436\u0443\u0442 \u0432\u0430\u043C \u043F\u0443\u0442\u044C."
+  _turkishText: "Karanl\u0131k \u015Fehrimize \xE7\xF6k\xFCyor... Kan H\xFCk\xFCmdar\u0131
+    Arphail topraklar\u0131m\u0131zda ter\xF6r estiriyor. Zay\u0131f ordumuz umutsuzluk
+    i\xE7inde ve insanlar\u0131n asil g\xFCc\xFC \xE7aresiz kald\u0131\u011F\u0131nda
+    Phantom Veil'in hayaletleri g\xF6lgelerden \xE7\u0131kmak zorunda kal\u0131yor.
+    Do\u011Frulu\u011Fun \u0131\u015F\u0131\u011F\u0131nda sava\u015Fmak bizim g\xFCc\xFCm\xFCz
+    olmayabilir, ancak karanl\u0131k bizim ba\u015Far\u0131l\u0131 oldu\u011Fumuz
+    yerdir. Zalimin ruhunun yedi par\xE7as\u0131n\u0131 bulup yok etmeliyiz. Zay\u0131flad\u0131\u011F\u0131nda
+    onun b\xF6lgesine girip sald\u0131raca\u011F\u0131z. Anavatan\u0131m\u0131z\u0131n
+    kaderi, hayali kavray\u0131\u015F\u0131m\u0131z\u0131n i\xE7inde dengede duruyor.
+    Benimle \"T\xFCyl\xFC Midillinin Alt\u0131nda\" meyhanesinde bulu\u015Fun ve
+    b\u0131rak\u0131n g\xF6lgeler yolunuzu g\xF6stersin."
+  _key: ru
 --- !u!1001 &84395043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4046,7 +4111,7 @@ PrefabInstance:
       objectReference: {fileID: 907688688}
     - target: {fileID: 180759110342540037, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
       propertyPath: m_RenderMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 180759110342540037, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
       propertyPath: m_PlaneDistance
@@ -24495,6 +24560,7 @@ MonoBehaviour:
   _source: {fileID: 870127016}
   _originalColor: {r: 1, g: 0.7411765, b: 0, a: 1}
   _filledColor: {r: 1, g: 0.051016767, b: 0, a: 1}
+  _focusHandler: {fileID: 1282903976}
 --- !u!82 &870127016
 AudioSource:
   m_ObjectHideFlags: 0
@@ -25875,7 +25941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1938, y: 923}
+  customRes: {x: 1196, y: 570}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -25916,7 +25982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 1.938
+  resolutionScale: 1.196
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -57800,8 +57866,8 @@ CanvasGroup:
   m_GameObject: {fileID: 1603122903}
   m_Enabled: 1
   m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1001 &1609922344
 PrefabInstance:

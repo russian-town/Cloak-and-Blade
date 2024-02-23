@@ -15,11 +15,13 @@ public class FocusHandler : MonoBehaviour
     private void OnEnable()
     {
         WebApplication.InBackgroundChangeEvent += OnBackgroundChangeEvent;
+        Application.focusChanged += OnFocus;
     }
 
     private void OnDisable()
     {
         WebApplication.InBackgroundChangeEvent -= OnBackgroundChangeEvent;
+        Application.focusChanged -= OnFocus;
     }
 
     private void OnBackgroundChangeEvent(bool poop)
@@ -32,7 +34,7 @@ public class FocusHandler : MonoBehaviour
             SetFocused();
     }
 
-    private void OnApplicationFocus(bool focus)
+    private void OnFocus(bool focus)
     {
         FocusChaned?.Invoke(focus);
 
