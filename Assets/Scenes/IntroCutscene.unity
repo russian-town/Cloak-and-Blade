@@ -25875,7 +25875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1073, y: 604}
+  customRes: {x: 2259, y: 1076}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -25916,7 +25916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.084
+  resolutionScale: 2.259
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -49664,7 +49664,7 @@ ParticleSystem:
       maxColor: {r: 0.9254902, g: 0.008885947, b: 0, a: 0.39215687}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.17590779, g: 0.21375525, b: 0.5566038, a: 0.39215687}
+        key0: {r: 0.18845673, g: 0.18845673, b: 0.5188679, a: 0.39215687}
         key1: {r: 0.06396447, g: 0, b: 0.18039216, a: 0.5882353}
         key2: {r: 0, g: 0, b: 0, a: 0.5882353}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -49725,7 +49725,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 10
+      scalar: 7
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -50308,7 +50308,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 150
+      scalar: 200
       minScalar: 10
       maxCurve:
         serializedVersion: 2

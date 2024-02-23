@@ -38,7 +38,7 @@ public class SimpleTextTyper : MonoBehaviour
         _canvasGroup.DOFade(1, 1).SetEase(Ease.InOutSine);
         _letter.DOScale(1, 1).SetEase(Ease.InOutSine);
 
-        yield return _dotWaitDelay;
+        yield return _commaWaitDelay;
 
         for (int i = 0; i < _textContainer.text.Length; i++)
         {
