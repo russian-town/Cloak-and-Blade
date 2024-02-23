@@ -2,12 +2,15 @@ using UnityEngine;
 using Agava.YandexGames;
 using Agava.WebUtility;
 using System;
+using UnityEngine.Events;
 
 public class FocusHandler : MonoBehaviour
 {
     [SerializeField] private Audio _audio;
 
     private IActiveScene _scene;
+
+    public event Action<bool> FocusChaned;
 
     private void OnEnable()
     {
@@ -21,6 +24,8 @@ public class FocusHandler : MonoBehaviour
 
     private void OnBackgroundChangeEvent(bool poop)
     {
+        FocusChaned?.Invoke(poop == false);
+
         if (poop)
             SetUnFocused();
         else
@@ -29,6 +34,8 @@ public class FocusHandler : MonoBehaviour
 
     private void OnApplicationFocus(bool focus)
     {
+        FocusChaned?.Invoke(focus);
+
         if (focus == false)
             SetUnFocused();
         else

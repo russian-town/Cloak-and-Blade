@@ -12,11 +12,13 @@ public class ProgressBarFiller : MonoBehaviour
     [SerializeField] private AudioSource _source;
     [SerializeField] private Color _originalColor;
     [SerializeField] private Color _filledColor;
+    [SerializeField] private FocusHandler _focusHandler;
 
     private float _fullProgress = 1;
     private float _minPitch = .5f;
     private Image _image;
     private Coroutine _coroutine;
+    private bool _canFill = true;
 
     public bool WasFilling { get; private set; }
 
@@ -24,8 +26,21 @@ public class ProgressBarFiller : MonoBehaviour
 
     public void Initialize() => _image = GetComponent<Image>();
 
+    private void OnEnable()
+    {
+        _focusHandler.FocusChaned += OnFocusChanged;
+    }
+
+    private void OnDisable()
+    {
+        _focusHandler.FocusChaned -= OnFocusChanged;
+    }
+
     public void ChangeFilling()
     {
+        if (!_canFill)
+            return;
+
         if (_coroutine != null)
         {
             StopCoroutine(_coroutine);
@@ -42,6 +57,21 @@ public class ProgressBarFiller : MonoBehaviour
             _coroutine = StartCoroutine(FillImage(_fullProgress));
             WasFilling = true;
         }
+    }
+
+    private void OnFocusChanged(bool isFocused)
+    {
+        print(isFocused);
+
+        if (isFocused == false && _coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+            _source.Stop();
+            _image.fillAmount = 0;
+            WasFilling = false;
+        }
+
+        _canFill = isFocused;
     }
 
     private IEnumerator FillImage(float value)

@@ -2589,7 +2589,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 36.5
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -25875,7 +25875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 2259, y: 1076}
+  customRes: {x: 1938, y: 923}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -25916,7 +25916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.259
+  resolutionScale: 1.938
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1

@@ -21,6 +21,12 @@ public class SimpleTextTyper : MonoBehaviour
     private WaitForSeconds _commaWaitDelay;
     private WaitForSeconds _phraseWait;
     private List<char> _tempCharList;
+    private List<char> _poop;
+
+    private void OnEnable()
+    {
+        /*_textContainer.color = new Color32(13, 13, 48, 0);*/
+    }
 
     private void Start()
     {
@@ -28,13 +34,13 @@ public class SimpleTextTyper : MonoBehaviour
         _dotWaitDelay = new WaitForSeconds(_dotDelay);
         _commaWaitDelay = new WaitForSeconds(_commaDelay);
         _tempCharList = new List<char>();
-        _textContainer.color = new Color32(13, 13, 48, 0);
     }
 
     public void TypeText() => StartCoroutine(WriteLine());
 
     private IEnumerator WriteLine()
     {
+        _textContainer.color = new Color32(13, 13, 48, 0);
         _canvasGroup.DOFade(1, 1).SetEase(Ease.InOutSine);
         _letter.DOScale(1, 1).SetEase(Ease.InOutSine);
 
@@ -42,6 +48,7 @@ public class SimpleTextTyper : MonoBehaviour
 
         for (int i = 0; i < _textContainer.text.Length; i++)
         {
+            _textContainer.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
             Color32 myColor32 = hexToColor("0D0D30");
             int meshIndex = _textContainer.textInfo.characterInfo[i].materialReferenceIndex;
             int vertexIndex = _textContainer.textInfo.characterInfo[i].vertexIndex;
