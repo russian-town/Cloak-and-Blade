@@ -2535,34 +2535,28 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0422\u044C\u043C\u0430 \u043D\u0430\u0432\u0438\u0441\u043B\u0430 \u043D\u0430\u0434
-    \u043D\u0430\u0448\u0438\u043C \u0433\u043E\u0440\u043E\u0434\u043E\u043C...\r\n\u0410\u0440\u0444\u0430\u0438\u043B,
-    \u041F\u043E\u0432\u0435\u043B\u0438\u0442\u0435\u043B\u044C \u041A\u0440\u043E\u0432\u0438,
-    \u0442\u0435\u0440\u0440\u043E\u0440\u0438\u0437\u0438\u0440\u0443\u0435\u0442
-    \u043D\u0430\u0448\u0438 \u0437\u0435\u043C\u043B\u0438.\r\n\u041D\u0430\u0448\u0430
-    \u0430\u0440\u043C\u0438\u044F \u0432 \u043E\u0442\u0447\u0430\u044F\u043D\u0438\u0438,
-    \u0430 \u043A\u043E\u0433\u0434\u0430 \u0431\u043B\u0430\u0433\u043E\u0440\u043E\u0434\u0441\u0442\u0432\u043E
-    \u043B\u044E\u0434\u0435\u0439 \u0431\u0435\u0441\u0441\u0438\u043B\u044C\u043D\u043E,
-    \u0434\u0443\u0445\u0438 \u041F\u0440\u0438\u0437\u0440\u0430\u0447\u043D\u043E\u0439
-    \u0412\u0443\u0430\u043B\u0438 \u0434\u043E\u043B\u0436\u043D\u044B \u0432\u044B\u0439\u0442\u0438
-    \u0438\u0437 \u0442\u0435\u043D\u0435\u0439.\r\n\u041C\u044B \u043D\u0435 \u043C\u043E\u0436\u0435\u043C
-    \u0441\u0440\u0430\u0436\u0430\u0442\u044C\u0441\u044F \u0432 \u0441\u0432\u0435\u0442\u0435
-    \u0441\u043F\u0440\u0430\u0432\u0435\u0434\u043B\u0438\u0432\u043E\u0441\u0442\u0438,
-    \u043D\u043E \u043C\u044B \u0446\u0432\u0435\u0442\u0435\u043C \u0432\u043E \u0442\u044C\u043C\u0435.\r\n\u041D\u0430\u0448\u0430
-    \u0437\u0430\u0434\u0430\u0447\u0430 \u2014 \u043D\u0430\u0439\u0442\u0438 \u0438
-    \u0443\u043D\u0438\u0447\u0442\u043E\u0436\u0438\u0442\u044C \u0441\u0435\u043C\u044C
-    \u0444\u0440\u0430\u0433\u043C\u0435\u043D\u0442\u043E\u0432 \u0434\u0443\u0448\u0438
-    \u0442\u0438\u0440\u0430\u043D\u0430.\r\n\u041A\u0430\u043A \u0442\u043E\u043B\u044C\u043A\u043E
-    \u043E\u043D \u0431\u0443\u0434\u0435\u0442 \u043E\u0441\u043B\u0430\u0431\u043B\u0435\u043D,
-    \u043C\u044B \u0432\u043E\u0440\u0432\u0435\u043C\u0441\u044F \u0432 \u0435\u0433\u043E
-    \u0432\u043B\u0430\u0434\u0435\u043D\u0438\u044F \u0438 \u043D\u0430\u043D\u0435\u0441\u0435\u043C
-    \u0443\u0434\u0430\u0440.\r\n\u041D\u0430 \u043A\u043E\u043D\u0443 \u0441\u0442\u043E\u0438\u0442
-    \u0441\u0443\u0434\u044C\u0431\u0430 \u043C\u0438\u0440\u0430, \u0438 \u0442\u043E\u043B\u044C\u043A\u043E
-    \u043C\u044B \u043C\u043E\u0436\u0435\u043C \u0441\u043F\u0430\u0441\u0442\u0438
-    \u0435\u0433\u043E.\r\n\u0416\u0434\u0438\u0442\u0435 \u043C\u0435\u043D\u044F
-    \u0432 \u0442\u0430\u0432\u0435\u0440\u043D\u0435 \xAB\u041F\u043E\u0434 \u0432\u043E\u043B\u043E\u0441\u0430\u0442\u044B\u043C
-    \u043F\u043E\u043D\u0438\xBB, \u0438 \u043F\u0443\u0441\u0442\u044C \u0442\u0435\u043D\u0438
-    \u0443\u043A\u0430\u0436\u0443\u0442 \u0432\u0430\u043C \u043F\u0443\u0442\u044C."
+  m_text: 'Darkness looms over our city...
+
+    Arphail, the Sovereign of Blood,
+    terrorizes our lands.
+
+    Our feeble army is in despair, and when the noble
+    power of men is helpless, the ghosts of Phantom Veil must step out of the shadows.
+
+    Battling
+    in the light of righteousness may not be our forte, but darkness is where we
+    thrive.
+
+    We must locate and destroy seven fragments of the tyrant''s soul.
+
+    Once
+    he is weakened, we shall break into his domain and strike.
+
+    The fate of our
+    homeland hangs in the balance, within our spectral grasp.
+
+    Meet me at the
+    tavern "Under the Hairy Pony", and let the shadows guide your path.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 06cdd2d2dc2e77649a28645d3ae9bada, type: 2}
   m_sharedMaterial: {fileID: -3595107127703264355, guid: 06cdd2d2dc2e77649a28645d3ae9bada, type: 2}
@@ -2571,8 +2565,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3149069
-  m_fontColor: {r: 0.052449573, g: 0.05098039, b: 0.1882353, a: 0}
+    rgba: 4281339149
+  m_fontColor: {r: 0.052449573, g: 0.05098039, b: 0.1882353, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2592,10 +2586,10 @@ MonoBehaviour:
   m_fontSize: 36.5
   m_fontSizeBase: 36.5
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 54
-  m_fontStyle: 2
+  m_fontSizeMax: 36.5
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -4165,6 +4159,18 @@ PrefabInstance:
     - target: {fileID: 6580180956377273763, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262485640087388437, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262485640087388437, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262485640087388437, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 8664981289202282063, guid: 00c9e7eac08616e4da5a900dfff86552, type: 3}
       propertyPath: m_Alpha
@@ -25869,7 +25875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1742, y: 830}
+  customRes: {x: 1073, y: 604}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -25910,7 +25916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.259
+  resolutionScale: 2.084
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -30297,7 +30303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806f0696300aeac44a0e17efee222854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLanguage: Russian
+  currentLanguage: English
   detectLanguage: 0
   defaultLanguage: 
   saveLoad: 0
@@ -49660,7 +49666,7 @@ ParticleSystem:
         serializedVersion: 2
         key0: {r: 0.17590779, g: 0.21375525, b: 0.5566038, a: 0.39215687}
         key1: {r: 0.06396447, g: 0, b: 0.18039216, a: 0.5882353}
-        key2: {r: 0, g: 0, b: 0, a: 0}
+        key2: {r: 0, g: 0, b: 0, a: 0.5882353}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -49676,7 +49682,7 @@ ParticleSystem:
         ctime7: 0
         atime0: 0
         atime1: 65535
-        atime2: 0
+        atime2: 65535
         atime3: 0
         atime4: 0
         atime5: 0
@@ -56111,8 +56117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u043D\u0430\u0436\u043C\u0438\u0442\u0435, \u0447\u0442\u043E\u0431\u044B
-    \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C"
+  m_text: press anywhere
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41ee7723a43895444a8bf4d80a6d76a1, type: 2}
   m_sharedMaterial: {fileID: -3595107127703264355, guid: 41ee7723a43895444a8bf4d80a6d76a1, type: 2}
@@ -57745,8 +57750,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.000030518}
-  m_SizeDelta: {x: 722.602, y: 963.4695}
+  m_AnchoredPosition: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 773.602, y: 1028.4695}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1603122905
 MonoBehaviour:

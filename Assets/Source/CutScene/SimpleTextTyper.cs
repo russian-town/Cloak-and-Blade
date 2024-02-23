@@ -28,6 +28,7 @@ public class SimpleTextTyper : MonoBehaviour
         _dotWaitDelay = new WaitForSeconds(_dotDelay);
         _commaWaitDelay = new WaitForSeconds(_commaDelay);
         _tempCharList = new List<char>();
+        _textContainer.color = new Color32(13, 13, 48, 0);
     }
 
     public void TypeText() => StartCoroutine(WriteLine());
