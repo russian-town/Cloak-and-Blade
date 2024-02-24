@@ -16708,9 +16708,9 @@ MonoBehaviour:
   _title: {fileID: 495251942}
   _startClickClip: {fileID: 8300000, guid: ec68bcc47d66b8c40ad3c298d8b96bec, type: 3}
   _loadingScreen: {fileID: 128790194}
-  _titleFadeDuration: 4
+  _titleFadeDuration: 8
   _titleTransform: {fileID: 495251944}
-  _pressAnywhereFadeDuration: 1
+  _pressAnywhereFadeDuration: 2
   _startScreenAmbient: {fileID: 1140902207}
   _particle: {fileID: 1509343893}
   _minParticleStrengthX: 10
@@ -26035,7 +26035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1731, y: 824}
+  customRes: {x: 1823, y: 868}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -26076,7 +26076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.259
+  resolutionScale: 1.823
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -50029,11 +50029,11 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 1
       minColor: {r: 0.24705882, g: 0.021071399, b: 0, a: 0.39215687}
-      maxColor: {r: 0.9254902, g: 0.008885947, b: 0, a: 0.39215687}
+      maxColor: {r: 0.289263, g: 0.16620682, b: 0.4245283, a: 0.39215687}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.44312534, g: 0.31719473, b: 0.6792453, a: 0.5882353}
-        key1: {r: 0.06396447, g: 0, b: 0.18039216, a: 0.5882353}
+        key0: {r: 0.4910866, g: 0.3537736, b: 1, a: 0.39215687}
+        key1: {r: 0.11745522, g: 0.08050018, b: 0.254717, a: 0.5882353}
         key2: {r: 0, g: 0, b: 0, a: 0.5882353}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -50093,8 +50093,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 7
-      minScalar: 5
+      scalar: 10
+      minScalar: 8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -50676,7 +50676,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 200
+      scalar: 100
       minScalar: 10
       maxCurve:
         serializedVersion: 2
