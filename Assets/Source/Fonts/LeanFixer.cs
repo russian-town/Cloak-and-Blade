@@ -12,7 +12,7 @@ public class LeanFixer : MonoBehaviour
     public string GetLocalisedText()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
-            _key = YandexGamesSdk.Environment.i18n.ToString();
+            _key = YandexGamesSdk.Environment.i18n.lang;
 #endif
 
         switch (_key)

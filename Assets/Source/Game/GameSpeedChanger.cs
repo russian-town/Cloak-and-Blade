@@ -6,6 +6,11 @@ public class GameSpeedChanger : MonoBehaviour
 
     private bool _isSpeedUp;
 
+    private void OnDisable()
+    {
+        Time.timeScale = 1;
+    }
+
     public void ChangeGameSpeed()
     {
         if (_isSpeedUp)

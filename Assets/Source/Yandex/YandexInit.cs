@@ -9,6 +9,7 @@ public class YandexInit : MonoBehaviour, IDataWriter
     [SerializeField] private StarterScreen _starterScreen;
     [SerializeField] private Audio _audio;
     [SerializeField] private LevelsHandler _levelsHandler;
+    [SerializeField] private SimpleTextTyper _simpleTextTyper;
     
     private Saver _saver = new Saver();
     private string _currentLanguague;
@@ -57,6 +58,7 @@ public class YandexInit : MonoBehaviour, IDataWriter
         _saver.Initialize();
         _saver.Load();
         _saver.Save();
+        _simpleTextTyper.Initialize();
         yield break;
     }
 

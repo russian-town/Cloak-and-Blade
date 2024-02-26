@@ -28,7 +28,7 @@ public class SimpleTextTyper : MonoBehaviour
     private List<char> _tempCharTextList;
     private List<char> _initialText;
 
-    private void Start()
+    public void Initialize()
     {
         _waitDelay = new WaitForSeconds(_delay);
         _dotWaitDelay = new WaitForSeconds(_dotDelay);
