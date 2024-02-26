@@ -3,10 +3,12 @@ using Agava.YandexGames;
 using Agava.WebUtility;
 using System;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class FocusHandler : MonoBehaviour
 {
     [SerializeField] private Audio _audio;
+    [SerializeField] private List<TimecodeTracker> _trackers;
 
     private IActiveScene _scene;
 
@@ -54,6 +56,9 @@ public class FocusHandler : MonoBehaviour
         if (_audio == null)
             return;
 
+        foreach (var tracker in _trackers)
+            tracker.CashTimecode();
+
         _audio.Mute();
 
         if (_scene == null)
@@ -69,6 +74,9 @@ public class FocusHandler : MonoBehaviour
 
         if (_audio == null)
             return;
+
+        foreach (var tracker in _trackers)
+            tracker.SetTimecode();
 
         _audio.UnMute();
 

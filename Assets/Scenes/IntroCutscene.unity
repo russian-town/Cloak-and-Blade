@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.083235614, g: 0.1647985, b: 0.22024143, a: 1}
+  m_IndirectSpecularColor: {r: 0.08588991, g: 0.16731676, b: 0.22294143, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5453,10 +5453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279990259e2d5b74badfc0e26911c4fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timecodeTrackers:
-  - {fileID: 1140902209}
-  - {fileID: 259110001}
-  - {fileID: 575326184}
   _scenario: {fileID: 1797428872}
   _focusHandler: {fileID: 1282903976}
 --- !u!4 &164343288
@@ -26065,7 +26061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1920, y: 1080}
+  customRes: {x: 2259, y: 1076}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -26106,7 +26102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 1.92
+  resolutionScale: 2.259
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -43449,6 +43445,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audio: {fileID: 1296019799}
+  _trackers:
+  - {fileID: 259110001}
+  - {fileID: 575326184}
+  - {fileID: 1140902209}
 --- !u!4 &1282903977
 Transform:
   m_ObjectHideFlags: 0

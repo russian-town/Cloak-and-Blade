@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent (typeof(AudioSource))]
-public class TimecodeTracker : MonoBehaviour, IPauseHandler
+public class TimecodeTracker : MonoBehaviour
 {
     private AudioSource _audioSource;
     private float _timecode;
@@ -16,7 +16,7 @@ public class TimecodeTracker : MonoBehaviour, IPauseHandler
             SetTimecode();
     }
 
-    private void CashTimecode() => _timecode = _audioSource.time;
+    public void CashTimecode() => _timecode = _audioSource.time;
 
-    private void SetTimecode() => _audioSource.time = _timecode;
+    public void SetTimecode() => _audioSource.time = _timecode;
 }
