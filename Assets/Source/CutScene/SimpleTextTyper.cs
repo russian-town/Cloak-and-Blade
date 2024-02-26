@@ -2,12 +2,9 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 public class SimpleTextTyper : MonoBehaviour
 {
@@ -19,8 +16,8 @@ public class SimpleTextTyper : MonoBehaviour
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private List<PhraseWithPause> _phrasesWithPause;
     [SerializeField] private FocusHandler _focusHandler;
-    [SerializeField] private String _colorOpenTag;
-    [SerializeField] private String _colorCloseTag;
+    [SerializeField] private string _colorOpenTag;
+    [SerializeField] private string _colorCloseTag;
     [SerializeField] private LeanFixer _fixer;
 
     private WaitForSeconds _waitDelay;
@@ -30,7 +27,6 @@ public class SimpleTextTyper : MonoBehaviour
     private List<char> _tempCharPhraseList;
     private List<char> _tempCharTextList;
     private List<char> _initialText;
-    private int _writtenChars;
 
     private void Start()
     {
@@ -63,8 +59,6 @@ public class SimpleTextTyper : MonoBehaviour
 
             _textContainer.text = string.Join("", text);
 
-            print(_initialText[i]);
-
             if(i > 0)
             {
                 if (!char.IsWhiteSpace(_initialText[i - 1]))
@@ -81,10 +75,7 @@ public class SimpleTextTyper : MonoBehaviour
                 }
 
                 if (char.IsWhiteSpace(_initialText[i - 1]))
-                {
-                    print(_tempCharPhraseList.ToString());
                     _tempCharPhraseList.Clear();
-                }
 
                 if (i < _initialText.Count)
                     if (_initialText[i - 1] == '.' && _initialText[i] != '.')
