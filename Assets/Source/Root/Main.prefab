@@ -15438,8 +15438,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3857856043463758888}
-  m_LocalRotation: {x: 0.07404881, y: -0.703269, z: 0.074059494, w: 0.7031676}
-  m_LocalPosition: {x: 22.208, y: 13.494, z: -1.19}
+  m_LocalRotation: {x: -0.06490613, y: 0.9278627, z: -0.19261806, w: -0.31266007}
+  m_LocalPosition: {x: -2.4, y: 7.94, z: 0.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15479,7 +15479,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 66.6
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -15586,7 +15586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1575, y: 1265}
+  customRes: {x: 2259, y: 1076}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -15627,7 +15627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.084
+  resolutionScale: 2.259
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
@@ -20113,7 +20113,7 @@ Canvas:
   m_GameObject: {fileID: 7397847961430772258}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 1281084329164618882}
   m_PlaneDistance: 0.35
   m_PixelPerfect: 0
