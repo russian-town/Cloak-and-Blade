@@ -35,6 +35,8 @@ public class ScrollIndicator : MonoBehaviour
         if (_isInitialized == false)
             return;
 
+        _screenPos = new Vector2(Screen.width / 2, Screen.height / 2);
+
         if (_isScrolling)
         {
             _time += Time.deltaTime;
@@ -61,7 +63,6 @@ public class ScrollIndicator : MonoBehaviour
 
     public void Initialize(List<LevelView> levelViews, List<Knob> knobs)
     {
-        _screenPos = new Vector2(Screen.width / 2, Screen.height / 2);
         _layout = GetComponent<HorizontalLayoutGroup>();
         _levelViews.AddRange(levelViews);
         _layout.padding.left = (_viewPort.rect.width / 2).ToInt() - _contentWidth;
