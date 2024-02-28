@@ -17,9 +17,7 @@ public class LocalSave : ISaveLoadService
             return;
 
         foreach (var writer in _dataWriters)
-        {
             writer.Write(playerData);
-        }
 
         string saveData = JsonUtility.ToJson(playerData);
         PlayerPrefs.SetString(Constants.PlayerProgress, saveData);
@@ -42,8 +40,6 @@ public class LocalSave : ISaveLoadService
             return;
 
         foreach (var dataReader in _dataReaders)
-        {
             dataReader.Read(playerData);
-        }
     }
 }

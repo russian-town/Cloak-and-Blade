@@ -16679,7 +16679,7 @@ MonoBehaviour:
   _title: {fileID: 495251942}
   _startClickClip: {fileID: 8300000, guid: ec68bcc47d66b8c40ad3c298d8b96bec, type: 3}
   _loadingScreen: {fileID: 128790194}
-  _titleFadeDuration: 8
+  _titleFadeDuration: 6
   _titleTransform: {fileID: 495251944}
   _pressAnywhereFadeDuration: 2
   _startScreenAmbient: {fileID: 1140902207}
@@ -26019,7 +26019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1888, y: 1062}
+  customRes: {x: 1894, y: 1149}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -26060,7 +26060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 1.888
+  resolutionScale: 1.894
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1

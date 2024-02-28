@@ -35,7 +35,7 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
 
     private void OnDestroy()
     {
-        _saver.Save();
+        /*_saver.Save();*/
     }
 
     private void OnDisable()
@@ -87,9 +87,9 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
         yield return null;
     }
 
-    private void OnCharacterSold() { }/* => _saver.Save()*//*;*/
+    private void OnCharacterSold() => _saver.Save();
 
-    private void OnCharacterSelected() { }/*=> _saver.Save();*/
+    private void OnCharacterSelected() => _saver.Save();
 
     public void Read(PlayerData playerData) => _currentLanguage = playerData.CurrentLanguague;
 }

@@ -120,11 +120,11 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             _wallet.DicreaseStars(character.Price);
             character.Buy();
             characterView.SellButtonClicked -= OnSellButtonClick;
-            CharacterSold?.Invoke();
             characterView.RemoveChains();
             characterView.SoundHandler.PlayUnlock();
             characterView.UnlockCharacter();
             TrySelectCaracter(character, characterView);
+            CharacterSold?.Invoke();
         }
         else
         {

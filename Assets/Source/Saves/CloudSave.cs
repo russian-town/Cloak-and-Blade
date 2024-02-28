@@ -24,9 +24,7 @@ public class CloudSave : ISaveLoadService
             return;
 
         foreach (var writer in _dataWriters)
-        {
             writer.Write(data);
-        }
 
         string saveData = JsonUtility.ToJson(data);
 
