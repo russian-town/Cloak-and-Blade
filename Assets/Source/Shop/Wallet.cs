@@ -11,7 +11,6 @@ public class Wallet : IDataReader, IDataWriter, IInitializable
 
     public void Initialize()
     {
-        _stars = 100;
         StarsChanged?.Invoke(_stars);
     }
 

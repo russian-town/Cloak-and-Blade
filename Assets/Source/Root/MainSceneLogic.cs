@@ -35,7 +35,7 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
 
     private void OnDestroy()
     {
-        /*_saver.Save();*/
+        _saver.Save();
     }
 
     private void OnDisable()
