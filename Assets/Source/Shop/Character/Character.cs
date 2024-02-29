@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Character", menuName = "New character", order = 51)]
@@ -31,27 +33,31 @@ public class Character : ScriptableObject, IDataReader, IDataWriter
 
     public void Write(PlayerData playerData)
     {
-        if (playerData.Characters.Contains(this))
+        for (int i = 0; i < playerData.Characters.Count; i++)
         {
-            int index = playerData.Characters.IndexOf(this);
-            playerData.IsBought[index] = _isBought;
-            playerData.IsSelect[index] = _isSelect;
+            if (playerData.Characters[i] == name)
+            {
+                playerData.IsBought[i] = _isBought;
+                playerData.IsSelect[i] = _isSelect;
+                return;
+            }
         }
-        else
-        {
-            playerData.Characters.Add(this);
-            playerData.IsBought.Add(_isBought);
-            playerData.IsSelect.Add(_isSelect);
-        }
+
+        playerData.Characters.Add(name);
+        playerData.IsBought.Add(_isBought);
+        playerData.IsSelect.Add(_isSelect);
     }
 
     public void Read(PlayerData playerData)
     {
-        if (playerData.Characters.Contains(this))
+        for (int i = 0; i < playerData.Characters.Count; i++)
         {
-            int index = playerData.Characters.IndexOf(this);
-            _isBought = playerData.IsBought[index];
-            _isSelect = playerData.IsSelect[index];
+            if (playerData.Characters[i] == name)
+            {
+                _isBought = playerData.IsBought[i];
+                _isSelect = playerData.IsSelect[i];
+                return;
+            }
         }
     }
 

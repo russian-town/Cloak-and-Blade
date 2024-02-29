@@ -35,6 +35,7 @@ public class YandexInit : MonoBehaviour, IDataWriter
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         yield return YandexGamesSdk.Initialize();
+        YandexGamesSdk.CallbackLogging = true;
 
         if (YandexGamesSdk.Environment.i18n.lang == "en")
             _currentLanguague = Constants.English;
@@ -57,6 +58,7 @@ public class YandexInit : MonoBehaviour, IDataWriter
         _saver.AddInitializable(_starterScreen);
         _saver.Initialize();
         _saver.Load();
+        yield return new WaitUntil(() => _saver.DataLoaded);
         _saver.Save();
         _simpleTextTyper.Initialize();
         yield break;

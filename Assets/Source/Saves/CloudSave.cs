@@ -28,6 +28,8 @@ public class CloudSave : ISaveLoadService
 
         string saveData = JsonUtility.ToJson(data);
 
+        Debug.Log(saveData);
+
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (PlayerAccount.IsAuthorized)
             PlayerAccount.SetCloudSaveData(saveData, null, ErrorSaveCallback);

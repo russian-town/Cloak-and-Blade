@@ -6,7 +6,7 @@ public class PlayerData
     public int Stars;
     public Character CurrentSelectedCharacter;
     public Player CurrentPlayer;
-    public List<Character> Characters = new List<Character>();
+    public List<string> Characters = new List<string>();
     public List<bool> IsBought = new List<bool>();
     public List<bool> IsSelect = new List<bool>();
     public List<UpgradeSetter> UpgradeSetters = new List<UpgradeSetter>();

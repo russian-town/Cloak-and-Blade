@@ -17,6 +17,9 @@ public class DefaultLevelExit : LevelExit, ICompassTarget
 
     public override bool TryOpen()
     {
+        InvokeLevelPassed();
+        return true;
+
         if (Player.ItemsInHold.FindItemInList(_treasure))
         {
             InvokeLevelPassed();
