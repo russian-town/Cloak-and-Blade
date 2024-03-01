@@ -26,6 +26,10 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
         _saver.Enable();
         _shop.CharacterSold += OnCharacterSold;
         _shop.CharacterSelected += OnCharacterSelected;
+        _audio.AudioValueChanged += OnAudioValueChanged;
+
+        foreach(var setter in _upgradeSetters)
+            setter.Upgraded += OnUpgrade;
     }
 
     private void Start()
@@ -33,26 +37,25 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
         StartCoroutine(Initialize());
     }
 
-    private void OnDestroy()
-    {
-        _saver.Save();
-    }
-
     private void OnDisable()
     {
         _saver.Disable();
         _shop.CharacterSold -= OnCharacterSold;
         _shop.CharacterSelected -= OnCharacterSelected;
+        _audio.AudioValueChanged -= OnAudioValueChanged;
+
+        foreach (var setter in _upgradeSetters)
+            setter.Upgraded -= OnUpgrade;
     }
 
     public IEnumerator Initialize()
     {
         _saver.AddInitializable(_shop);
         _saver.AddInitializable(_wallet);
-        _saver.AddDataReaders(new IDataReader[] {_shop, _playersHandler, _wallet, _levelLoader, _audioView, _audio});
+        _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet, _levelLoader, _audioView, _audio });
         _saver.AddDataReaders(_characters);
         _saver.AddDataReaders(_upgradeSetters);
-        _saver.AddDataWriters(new IDataWriter[] { _shop, _playersHandler, _wallet, _levelLoader, _audioView });
+        _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet, _levelLoader, _audioView });
         _saver.AddDataWriters(_characters);
         _saver.AddDataWriters(_upgradeSetters);
         _saver.Initialize();
@@ -90,6 +93,10 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
     private void OnCharacterSold() => _saver.Save();
 
     private void OnCharacterSelected() => _saver.Save();
+
+    private void OnUpgrade() => _saver.Save();
+
+    private void OnAudioValueChanged() => _saver.Save();
 
     public void Read(PlayerData playerData) => _currentLanguage = playerData.CurrentLanguague;
 }

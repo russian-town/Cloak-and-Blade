@@ -49,7 +49,7 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
     private void OnEnable()
     {
         _saver.Enable();
-        _levelExit.LevelPassed += OnLevelComplete;
+        _game.LevelPassed += OnLevelComplete;
     }
 
     private void OnDisable()
@@ -59,12 +59,7 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
         _room.Unsubscribe();
         _game.Unsubscribe();
         _player.Unsubscribe();
-        _levelExit.LevelPassed -= OnLevelComplete;
-    }
-
-    private void OnDestroy()
-    {
-        _saver.Save();
+        _game.LevelPassed -= OnLevelComplete;
     }
 
     private void Start()
@@ -159,5 +154,5 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
         _currentLanguage = playerData.CurrentLanguague;
     }
 
-    private void OnLevelComplete() { }/*=> _saver.Save()*//*;*/
+    private void OnLevelComplete() => _saver.Save();
 }

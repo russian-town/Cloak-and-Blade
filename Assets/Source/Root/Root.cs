@@ -43,7 +43,11 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
     private Pause _pause;
     private string _currentLanguage;
 
-    public void OnEnable() => _saver.Enable();
+    public void OnEnable()
+    {
+        _saver.Enable();
+        _game.LevelPassed += OnLevelPassed;
+    }
 
     private void OnDisable()
     {
@@ -56,11 +60,7 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
         _yandexAds.CloseInterstitialCallback -= OnInterstetialClose;
         _yandexAds.OpenCallback -= OnAdOpenCallback;
         _yandexAds.CloseCallback -= OnAdRewardedCloseCallback;
-    }
-
-    private void OnDestroy()
-    {
-        _saver.Save();
+        _game.LevelPassed -= OnLevelPassed;
     }
 
     private void Start()
@@ -159,6 +159,8 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
         _audio.UnMute();
         _focusHandler.enabled = true;
     }
+
+    private void OnLevelPassed() => _saver.Save();
 }
 
 [Serializable]

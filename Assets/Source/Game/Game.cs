@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,6 +28,8 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
     private List<int> _finishedLevelStarsCount = new List<int>();
 
     public bool IsInitialize { get; private set; }
+
+    public event Action LevelPassed;
 
     public void Unsubscribe()
     {
@@ -131,6 +134,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
 
         _finishedLevelNames.Add(SceneManager.GetActiveScene().name);
         _finishedLevelStarsCount.Add(_scoreDefiner.StarsCount);
+        LevelPassed?.Invoke();
     }
 
     private void OnRewardedOpenClallback() => _adHandler.OpenAd();

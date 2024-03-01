@@ -4,13 +4,12 @@ using System.Collections.Generic;
 public class PlayerData
 {
     public int Stars;
-    public Character CurrentSelectedCharacter;
     public Player CurrentPlayer;
     public List<string> Characters = new List<string>();
     public List<bool> IsBought = new List<bool>();
     public List<bool> IsSelect = new List<bool>();
-    public List<UpgradeSetter> UpgradeSetters = new List<UpgradeSetter>();
-    public List<int> Levels = new List<int>();
+    public List<string> UpgradeSetters = new List<string>();
+    public List<int> UpgradeLevels = new List<int>();
     public bool IsTutorialCompleted;
     public float MasterSliderValue = 1;
     public float SoundSliderValue = 1;

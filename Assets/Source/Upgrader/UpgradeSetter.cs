@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,32 +11,42 @@ public class UpgradeSetter : ScriptableObject, IDataWriter, IDataReader
     public int Level => _level;
     public IReadOnlyList<int> Prices => _prices;
 
+    public event Action Upgraded;
+
     public void Upgrade()
     {
         _level++;
         _level = Mathf.Clamp(_level, 0, Constants.MaxLevel);
+        Upgraded?.Invoke();
     }
 
     public void Write(PlayerData playerData)
     {
-        if (playerData.UpgradeSetters.Contains(this))
+        for (int i = 0; i < playerData.UpgradeSetters.Count; i++)
         {
-            int index = playerData.UpgradeSetters.IndexOf(this);
-            playerData.Levels[index] = _level;
+            if (playerData.UpgradeSetters[i] == name)
+            {
+                playerData.UpgradeLevels[i] = _level;
+                return;
+            }
         }
-        else
-        {
-            playerData.UpgradeSetters.Add(this);
-            playerData.Levels.Add(_level);
-        }
+
+        playerData.UpgradeSetters.Add(name);
+        playerData.UpgradeLevels.Add(_level);
     }
 
     public void Read(PlayerData playerData)
     {
-        if (playerData.UpgradeSetters.Contains(this))
+        if (playerData.UpgradeSetters.Count == 0)
+            return;
+
+        for (int i = 0; i < playerData.UpgradeSetters.Count; i++)
         {
-            int index = playerData.UpgradeSetters.IndexOf(this);
-            _level = playerData.Levels[index];
+            if (playerData.UpgradeSetters[i] == name)
+            {
+                _level = playerData.UpgradeLevels[i];
+                return;
+            }
         }
     }
 }

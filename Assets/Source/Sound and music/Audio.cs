@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -8,6 +9,8 @@ public class Audio : MonoBehaviour, IDataReader
     [SerializeField] private AudioMixerGroup _musicGroup;
 
     private float _currentMasterVolume;
+
+    public event Action AudioValueChanged;
 
     public void Read(PlayerData playerData)
     {
@@ -24,15 +27,18 @@ public class Audio : MonoBehaviour, IDataReader
     public void ChangeMasterVolume(float value)
     {
         _masterGroup.audioMixer.SetFloat(Constants.MasterVolume, Mathf.Log10(value) * 20f);
+        AudioValueChanged?.Invoke();
     }
 
     public void ChangeSoundVolume(float value)
     {
         _soundGroup.audioMixer.SetFloat(Constants.SoundVolume, Mathf.Log10(value) * 20f);
+        AudioValueChanged?.Invoke();
     }
 
     public void ChangeMusicVolume(float value)
     {
         _musicGroup.audioMixer.SetFloat(Constants.MusicVolume, Mathf.Log10(value) * 20f);
+        AudioValueChanged?.Invoke();
     }
 }

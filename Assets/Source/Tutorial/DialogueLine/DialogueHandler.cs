@@ -157,8 +157,8 @@ public class DialogueHandler : MonoBehaviour
         {
             if (_dialogueCoroutine != null)
             {
-                _waitDelay = new WaitForSeconds(_fastDelay);
                 _source.volume = 0f;
+                _waitDelay = new WaitForSeconds(_fastDelay);
                 return true;
             }
         }

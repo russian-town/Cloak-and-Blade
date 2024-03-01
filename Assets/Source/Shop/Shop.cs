@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
+public class Shop : MonoBehaviour, IInitializable
 {
     [SerializeField] private HorizontalLayoutGroup _parent;
     [SerializeField] private List<Character> _characters = new List<Character>();
@@ -22,6 +22,8 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     private CharacterView _currentCharacterView;
     private Wallet _wallet;
     private bool _isInitialized;
+    private Character _defaultCharacter;
+    private CharacterView _defaultCharacterView;
 
     public event UnityAction CharacterSelected;
     public event UnityAction CharacterSold;
@@ -29,9 +31,7 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
     private void OnDisable()
     {
         foreach (var characterView in _characterViews)
-        {
             characterView.SelectButtonClicked -= OnSelectButtonClick;
-        }
     }
 
     public void SetWallet(Wallet wallet)
@@ -65,17 +65,14 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
 
             if (character.Type == Type.Default)
             {
+                _defaultCharacter = character;
+                _defaultCharacterView = characterView;
                 character.Buy();
-
-                if (_currentSelectedCharacter == null)
-                {
-                    SetCurrentCharacter(character, characterView);
-                    _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(characterView));
-                }
             }
 
-            if (_currentSelectedCharacter == character)
+            if (character.IsSelect)
             {
+                _currentSelectedCharacter = character;
                 SetCurrentCharacter(character, characterView);
                 _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(characterView));
             }
@@ -84,16 +81,12 @@ public class Shop : MonoBehaviour, IDataReader, IDataWriter, IInitializable
             characterView.TryHideChains();
             characterView.DisableButtons(Constants.MaxLevel);
         }
-    }
 
-    public void Read(PlayerData playerData)
-    {
-        _currentSelectedCharacter = playerData.CurrentSelectedCharacter;
-    }
-
-    public void Write(PlayerData playerData)
-    {
-        playerData.CurrentSelectedCharacter = _currentSelectedCharacter;
+        if (_currentSelectedCharacter == null)
+        {
+            SetCurrentCharacter(_defaultCharacter, _defaultCharacterView);
+            _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(_defaultCharacterView));
+        }
     }
 
     private void SetCurrentCharacter(Character character, CharacterView characterView)

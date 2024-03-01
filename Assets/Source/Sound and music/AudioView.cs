@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,6 @@ public class AudioView : MonoBehaviour, IDataReader, IDataWriter
     [SerializeField] private Slider _soundSlider;
     [SerializeField] private Slider _musicSlider;
     [SerializeField] private Audio _audio;
-
 
     private void OnEnable()
     {

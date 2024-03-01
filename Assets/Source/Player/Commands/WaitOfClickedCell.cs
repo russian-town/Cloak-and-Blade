@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class WaitOfClickedCell : CustomYieldInstruction
 {
@@ -20,7 +21,7 @@ public class WaitOfClickedCell : CustomYieldInstruction
     {
         get
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 Cell targetCell = _gameboard.GetCell(TouchRay);
 
