@@ -38,10 +38,10 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
 
     public void AddSceneEffectsToChange(List<EffectChangeHandler> effects, List<SoundChangeHandler> sounds, List<SplineChangeHandler> splines, List<AnimationChangeHandler> animations)
     {
-            _effectsList.AddRange(effects);
-            _soundList.AddRange(sounds);
-            _splineList.AddRange(splines);
-            _animationList.AddRange(animations);
+        _effectsList.AddRange(effects);
+        _soundList.AddRange(sounds);
+        _splineList.AddRange(splines);
+        _animationList.AddRange(animations);
     }
 
     public override void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView)

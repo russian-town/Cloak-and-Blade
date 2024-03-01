@@ -25056,7 +25056,6 @@ MonoBehaviour:
   _effectSpeedUpDuration: 0.6
   _burstActionEffect: {fileID: 2707862494078988581}
   _effectsList:
-  - {fileID: 0}
   - {fileID: 5094311554335794142}
   - {fileID: 5771314502959007927}
   - {fileID: 4042222205524366680}
