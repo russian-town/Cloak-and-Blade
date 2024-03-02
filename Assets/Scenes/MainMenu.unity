@@ -2564,7 +2564,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 85.9
+  m_fontSize: 91.55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3718,7 +3718,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90.75
+  m_fontSize: 99.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -35830,7 +35830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: PSXEffects v1.18
   sections: 01010100
-  customRes: {x: 1761, y: 1215}
+  customRes: {x: 1755, y: 987}
   resolutionFactor: 1
   limitFramerate: -1
   skipFrames: 0
@@ -35886,7 +35886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f88427c625b974eaad64849b1982f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionScale: 2.068
+  resolutionScale: 1.755
   subtractiveFade: 1
   enableDithering: 1
   adjustDitheringByLuminosity: 1
