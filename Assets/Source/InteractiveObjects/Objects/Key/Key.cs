@@ -8,6 +8,7 @@ public class Key : InteractiveObject, ICompassTarget
     [SerializeField] private GameObject _model;
 
     public event Action PickedUp;
+
     public event Action Disabled;
 
     public override void Interact()
@@ -35,7 +36,5 @@ public class Key : InteractiveObject, ICompassTarget
     }
 
     protected override void Disable()
-    {
-        _view.InteractButton.onClick.RemoveListener(Interact);
-    }
+        => _view.InteractButton.onClick.RemoveListener(Interact);
 }

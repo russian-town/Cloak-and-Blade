@@ -2,18 +2,17 @@ using System.Collections.Generic;
 
 public class Pause
 {
-    private List<IPauseHandler> _handlers = new List<IPauseHandler>();
+    private List<IPauseHandler> _handlers = new();
 
-    public Pause(List<IPauseHandler> pauseHandlers) 
-    {
-        _handlers.AddRange(pauseHandlers);
-    }
+    public Pause(List<IPauseHandler> pauseHandlers)
+        => _handlers.AddRange(pauseHandlers);
 
-    public void AddHandler(IPauseHandler pauseHandler) => _handlers.Add(pauseHandler);
+    public void AddHandler(IPauseHandler pauseHandler)
+        => _handlers.Add(pauseHandler);
 
     public void RemoveHandler(IPauseHandler pauseHandler)
     {
-        if(_handlers.Contains(pauseHandler))
+        if (_handlers.Contains(pauseHandler))
             _handlers.Remove(pauseHandler);
     }
 
@@ -23,9 +22,7 @@ public class Pause
             return;
 
         foreach (IPauseHandler handler in _handlers)
-        {
             handler.SetPause(true);
-        }
     }
 
     public void Disable()
@@ -34,8 +31,6 @@ public class Pause
             return;
 
         foreach (IPauseHandler handler in _handlers)
-        {
             handler.SetPause(false);
-        }
     }
 }

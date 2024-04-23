@@ -24,12 +24,12 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
     private bool _levelPassed;
     private bool _gameOver;
     private AdHandler _adHandler;
-    private List<string> _finishedLevelNames = new List<string>();
-    private List<int> _finishedLevelStarsCount = new List<int>();
-
-    public bool IsInitialize { get; private set; }
+    private List<string> _finishedLevelNames = new();
+    private List<int> _finishedLevelStarsCount = new();
 
     public event Action LevelPassed;
+
+    public bool IsInitialize { get; private set; }
 
     public void Unsubscribe()
     {
@@ -109,9 +109,7 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
     }
 
     private void AddStarsOnReward()
-    {
-        _wallet.AddStars(_scoreDefiner.StarsCount);
-    }
+        => _wallet.AddStars(_scoreDefiner.StarsCount);
 
     private void OnLevelPassed()
     {
@@ -137,7 +135,8 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
         LevelPassed?.Invoke();
     }
 
-    private void OnRewardedOpenClallback() => _adHandler.OpenAd();
+    private void OnRewardedOpenClallback()
+        => _adHandler.OpenAd();
     
     private void OnRewardedClallback()
     {
@@ -146,15 +145,20 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
         _doubleStarsButton.gameObject.SetActive(false);
     }
 
-    private void OnRewardedCloseClallback() => _adHandler.CloseAd();
+    private void OnRewardedCloseClallback()
+        => _adHandler.CloseAd();
 
-    private void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    private void Restart()
+        => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-    private void Exit() => SceneManager.LoadScene(Constants.MainMenu);
+    private void Exit()
+        => SceneManager.LoadScene(Constants.MainMenu);
 
-    private void OnPlayerDead() => GameOver();
+    private void OnPlayerDead()
+        => GameOver();
 
-    private void OnNextLevelButtonClicked() => SceneManager.LoadScene(_levelsHandler.GetNextLevel().Name);
+    private void OnNextLevelButtonClicked()
+        => SceneManager.LoadScene(_levelsHandler.GetNextLevel().Name);
 
     private void GameOver() 
     {

@@ -14,6 +14,12 @@ public class Enemy : Ghost, IPauseHandler
     [SerializeField] private ParticleSystem _announcerEast;
     [SerializeField] private ParticleSystem _announcerWest;
 
+    private readonly int _north = 0;
+    private readonly int _fakeNorth = 360;
+    private readonly int _east = 90;
+    private readonly int _south = 180;
+    private readonly int _west = 270;
+
     private EnemySightHandler _sightHandler;
     private EnemyZoneDrawer _zoneDrawer;
     private EnemyMover _mover;
@@ -29,14 +35,9 @@ public class Enemy : Ghost, IPauseHandler
     private Cell[] _destinations;
     private ParticleSystem _previousAnnouncer;
     private int _currentDestinationIndex;
-    private int _north = 0;
-    private int _fakeNorth = 360;
-    private int _east = 90;
-    private int _south = 180;
-    private int _west = 270;
     private bool _isBlind;
 
-    public bool IsFreeze { get; private set; }
+    public bool IsFrozen { get; private set; }
 
     public void Initialize(Cell[] destinations, Player player, Gameboard gameboard, EnemyZoneDrawer enemyZoneDrawer)
     {
@@ -73,15 +74,18 @@ public class Enemy : Ghost, IPauseHandler
 
     public void Freeze()
     {
-        IsFreeze = true;
+        IsFrozen = true;
         _freezeEffect.Play();
     }
 
-    public void UnFreeze() => IsFreeze = false;
+    public void UnFreeze()
+        => IsFrozen = false;
 
-    public void Blind() => _isBlind = true;
+    public void Blind()
+        => _isBlind = true;
 
-    public void UnBlind() => _isBlind = false;
+    public void UnBlind()
+        => _isBlind = false;
 
     public Coroutine StartPerformMove()
     {
@@ -92,6 +96,19 @@ public class Enemy : Ghost, IPauseHandler
     {
         _sightHandler.ClearSight();
         Destroy(gameObject);
+    }
+
+    private bool CalculatePath()
+    {
+        if (_gameBoard.FindPath(_currentDestination, ref _nextDeclaredCell, _mover.CurrentCell))
+        {
+            return true;
+        }
+        else
+        {
+            ChangeDestination();
+            return false;
+        }
     }
 
     private IEnumerator PerformMove()
@@ -140,9 +157,7 @@ public class Enemy : Ghost, IPauseHandler
             GenerateSight(_nextCell);
 
         if (_sightHandler.TryFindPlayer(_player) && _isBlind == false)
-        {
             _player.Die();
-        }
 
         if (_previousCell != null)
             _previousCell.BecomeUnoccupied();
@@ -161,18 +176,21 @@ public class Enemy : Ghost, IPauseHandler
             _announcerNorth.Play();
             _previousAnnouncer = _announcerNorth;
         }
+
         if (cell == _mover.CurrentCell.South)
         {
             _announcerSouth.gameObject.SetActive(true);
             _announcerSouth.Play();
             _previousAnnouncer = _announcerSouth;
         }
+
         if (cell == _mover.CurrentCell.West)
         {
             _announcerWest.gameObject.SetActive(true);
             _announcerWest.Play();
             _previousAnnouncer = _announcerWest;
         }
+
         if (cell == _mover.CurrentCell.East)
         {
             _announcerEast.gameObject.SetActive(true);
@@ -185,13 +203,10 @@ public class Enemy : Ghost, IPauseHandler
     {
         if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _north || (int)Mathf.Round(transform.rotation.eulerAngles.y) == _fakeNorth)
             _sightHandler.GenerateSight(currentCell, Constants.North);
-
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _east)
             _sightHandler.GenerateSight(currentCell, Constants.East);
-
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _south)
             _sightHandler.GenerateSight(currentCell, Constants.South);
-
         else if ((int)Mathf.Round(transform.rotation.eulerAngles.y) == _west)
             _sightHandler.GenerateSight(currentCell, Constants.West);
     }
@@ -205,18 +220,5 @@ public class Enemy : Ghost, IPauseHandler
 
         _currentDestination = _destinations[_currentDestinationIndex];
         DeclareNextCell();
-    }
-
-    public bool CalculatePath()
-    {
-        if (_gameBoard.FindPath(_currentDestination, ref _nextDeclaredCell, _mover.CurrentCell))
-        {
-            return true;
-        }
-        else
-        {
-            ChangeDestination();
-            return false;
-        }
     }
 }

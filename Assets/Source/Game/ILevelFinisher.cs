@@ -1,6 +1,6 @@
-using UnityEngine.Events;
+using System;
 
 public interface ILevelFinisher
 {
-    public event UnityAction LevelPassed;
+    public event Action LevelPassed;
 }

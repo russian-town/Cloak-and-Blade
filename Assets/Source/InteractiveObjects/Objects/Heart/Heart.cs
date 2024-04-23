@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Heart : InteractiveObject
@@ -23,7 +21,7 @@ public class Heart : InteractiveObject
     public override void Prepare()
     {
         if (IsActive)
-            return; 
+            return;
 
         if (CheckInteractionPossibility())
         {
@@ -38,7 +36,5 @@ public class Heart : InteractiveObject
     }
 
     protected override void Disable()
-    {
-        _view.InteractButton.onClick.RemoveListener(Interact);
-    }
+        => _view.InteractButton.onClick.RemoveListener(Interact);
 }

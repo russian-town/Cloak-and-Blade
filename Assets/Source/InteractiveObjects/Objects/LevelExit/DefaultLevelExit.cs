@@ -9,9 +9,9 @@ public class DefaultLevelExit : LevelExit, ICompassTarget
 
     public override bool RequiredItemFound()
     {
-        if(Player.ItemsInHold.FindItemInList(_treasure))
+        if (Player.ItemsInHold.FindItemInList(_treasure))
             return true;
-        
+
         return false;
     }
 

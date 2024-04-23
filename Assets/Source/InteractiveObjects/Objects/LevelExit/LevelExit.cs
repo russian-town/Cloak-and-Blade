@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public abstract class LevelExit : InteractiveObject, ILevelFinisher
@@ -10,7 +10,7 @@ public abstract class LevelExit : InteractiveObject, ILevelFinisher
 
     private bool _unLocked = false;
 
-    public event UnityAction LevelPassed;
+    public event Action LevelPassed;
 
     public override void Initialize(Player player)
     {
@@ -60,14 +60,13 @@ public abstract class LevelExit : InteractiveObject, ILevelFinisher
         }
     }
 
-    protected void InvokeLevelPassed() => LevelPassed?.Invoke();
-
-    protected override void Disable()
-    {
-        _view.InteractButton.onClick.RemoveListener(Interact);
-    }
-
     public abstract bool TryOpen();
 
     public abstract bool RequiredItemFound();
+
+    protected void InvokeLevelPassed()
+        => LevelPassed?.Invoke();
+
+    protected override void Disable()
+        => _view.InteractButton.onClick.RemoveListener(Interact);
 }

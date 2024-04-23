@@ -1,6 +1,6 @@
-using UnityEngine;
-using DG.Tweening;
 using System.Collections;
+using DG.Tweening;
+using UnityEngine;
 
 public class PlantAnimationHandler : MonoBehaviour
 {
@@ -13,6 +13,9 @@ public class PlantAnimationHandler : MonoBehaviour
     [SerializeField] private bool _initializeOnStart;
     [SerializeField] private Ease _ease;
     [SerializeField] private Ease _easeBack;
+
+    private readonly int _moveRatio = 4;
+    private readonly float _delayRatio = 1000f;
 
     private Vector3 _initialRotation;
     private bool _isInitialized;
@@ -44,26 +47,26 @@ public class PlantAnimationHandler : MonoBehaviour
     private IEnumerator StartLocalTween()
     {
         int startDelay = _random.Next(_maxStartDelay);
-        yield return new WaitForSeconds(startDelay / 1000f);
+        yield return new WaitForSeconds(startDelay / _delayRatio);
         sequence = DOTween.Sequence();
         sequence.Pause();
 
         sequence.Append(_targetTransform
-            .DOLocalRotate(_axis * -_maxAngle, _period / 4)
+            .DOLocalRotate(_axis * -_maxAngle, _period / _moveRatio)
             .SetEase(_ease));
         sequence.AppendInterval(_delay);
 
         sequence.Append(_targetTransform
-            .DOLocalRotate(_initialRotation, _period / 4)
+            .DOLocalRotate(_initialRotation, _period / _moveRatio)
             .SetEase(_easeBack));
 
         sequence.Append(_targetTransform
-            .DOLocalRotate(_axis * _maxAngle, _period / 4)
+            .DOLocalRotate(_axis * _maxAngle, _period / _moveRatio)
             .SetEase(_ease));
         sequence.AppendInterval(_delay);
 
         sequence.Append(_targetTransform
-            .DOLocalRotate(_initialRotation, _period / 4)
+            .DOLocalRotate(_initialRotation, _period / _moveRatio)
             .SetEase(_easeBack));
 
         sequence.SetLoops(-1, LoopType.Restart);

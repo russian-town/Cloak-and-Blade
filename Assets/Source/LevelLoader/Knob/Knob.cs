@@ -1,6 +1,6 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 [RequireComponent(typeof(Image), typeof(Button))]
 public class Knob : MonoBehaviour
@@ -22,7 +22,8 @@ public class Knob : MonoBehaviour
     private Button _button;
     private ScrollIndicator _scrollIndicator;
 
-    private void OnDisable() => _button.onClick.RemoveListener(OnButtonClicked);
+    private void OnDisable()
+        => _button.onClick.RemoveListener(OnButtonClicked);
 
     public void Initialize(ScrollIndicator scrollIndicator, AudioSource source, CanvasGroup canvasGroup)
     {
@@ -62,5 +63,6 @@ public class Knob : MonoBehaviour
         _isFocused = false;
     }
 
-    private void OnButtonClicked() => _scrollIndicator.KnobClicked(this);
+    private void OnButtonClicked()
+        => _scrollIndicator.KnobClicked(this);
 }

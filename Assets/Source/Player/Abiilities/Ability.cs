@@ -11,12 +11,12 @@ public abstract class Ability : MonoBehaviour
         Action(cell);
         return true;
     }
-
-    protected abstract void Action(Cell cell);
-
+    
     public abstract void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView);
 
     public abstract void Prepare();
 
     public abstract void Cancel();
+
+    protected abstract void Action(Cell cell);
 }

@@ -4,13 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class EnemyZoneDrawer : MonoBehaviour
 {
+    private readonly int _angleCount = 4;
+    private readonly int _verticiesRatio = 6;
+    private readonly float _offSet = 0.5f;
+
     private Mesh _mesh;
     private MeshFilter _meshFilter;
     private Vector3[] _vertices;
     private int[] _triangles;
-
-    private readonly int _angleCount = 4;
-    private readonly float _offSet = 0.5f;
 
     private void Awake()
     {
@@ -23,24 +24,28 @@ public class EnemyZoneDrawer : MonoBehaviour
         if (cellsInSight.Count == 0)
             return;
 
-        _vertices = new Vector3[cellsInSight.Count * 4 + 1];
+        _vertices = new Vector3[cellsInSight.Count * _angleCount + 1];
 
         for (int j = 0; j < _vertices.Length; j++)
         {
             for (int i = 0; i < cellsInSight.Count; i++)
             {
-                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x + _offSet, 0f, cellsInSight[i].transform.localPosition.z - _offSet);
+                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x + _offSet,
+                    0f, cellsInSight[i].transform.localPosition.z - _offSet);
                 j++;
-                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x - _offSet, 0f, cellsInSight[i].transform.localPosition.z + _offSet);
+                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x - _offSet,
+                    0f, cellsInSight[i].transform.localPosition.z + _offSet);
                 j++;
-                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x - _offSet, 0f, cellsInSight[i].transform.localPosition.z - _offSet);
+                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x - _offSet,
+                    0f, cellsInSight[i].transform.localPosition.z - _offSet);
                 j++;
-                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x + _offSet, 0f, cellsInSight[i].transform.localPosition.z + _offSet);
+                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x + _offSet,
+                    0f, cellsInSight[i].transform.localPosition.z + _offSet);
                 j++;
             }
         }
 
-        _triangles = new int[(cellsInSight.Count * _angleCount + 1) * 6];
+        _triangles = new int[(cellsInSight.Count * _angleCount + 1) * _verticiesRatio];
 
         int indexOfVertice = 0;
         int indexOfTriangle = 0;
@@ -70,7 +75,8 @@ public class EnemyZoneDrawer : MonoBehaviour
         AssignMesh();
     }
 
-    public void ClearMesh() => _mesh?.Clear();
+    public void ClearMesh()
+        => _mesh?.Clear();
 
     private void AssignMesh()
     {

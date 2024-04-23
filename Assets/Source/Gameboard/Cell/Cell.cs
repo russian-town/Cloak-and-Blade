@@ -18,14 +18,23 @@ public class Cell : MonoBehaviour
     private Quaternion _westRotation = Quaternion.Euler(90f, 270f, 0f);
 
     public Cell North => _north;
+
     public Cell South => _south;
+
     public Cell East => _east;
+
     public Cell West => _west;
+
     public Cell NextOnPath => _nextOnPath;
+
     public CellView View => _view;
+
     public bool HasPath => _distance != int.MaxValue;
+
     public bool IsAlternative { get; set; }
+
     public bool IsOccupied { get; private set; }
+
     public bool HasTrap { get; private set; }
 
     public CellContent Content
@@ -35,22 +44,11 @@ public class Cell : MonoBehaviour
         set
         {
             if (_content != null) 
-            {
                 _content.Recycle();
-            }
 
             _content = value;
             _content.transform.localPosition = Vector3.zero;
         }
-    }
-
-    public void BecomeOccupied() => IsOccupied = true;
-
-    public void BecomeUnoccupied() => IsOccupied = false;
-
-    public void AddView()
-    {
-        _view = GetComponentInChildren<CellView>();
     }
 
     public static void MakeEastWestNeighbors(Cell east, Cell west)
@@ -65,6 +63,15 @@ public class Cell : MonoBehaviour
         south._north = north;
     }
 
+    public void BecomeOccupied()
+        => IsOccupied = true;
+
+    public void BecomeUnoccupied()
+        => IsOccupied = false;
+
+    public void AddView()
+        => _view = GetComponentInChildren<CellView>();
+
     public void ClearPath()
     {
         _distance = int.MaxValue;
@@ -77,32 +84,36 @@ public class Cell : MonoBehaviour
         _nextOnPath = null;
     }
 
-    public void BecomeTrap() => HasTrap = true;
+    public void BecomeTrap()
+        => HasTrap = true;
 
     public Cell GrowPathTo(Cell neighbor)
     {
-        if(!HasPath || neighbor == null || neighbor.HasPath)
-        {
+        if (!HasPath || neighbor == null || neighbor.HasPath)
             return null;
-        }
 
         neighbor._distance = _distance + 1;
         neighbor._nextOnPath = this;
         return neighbor.Content.Type != CellContentType.Wall ? neighbor : null;
     }
 
-    public Cell GrowPathNorth() => GrowPathTo(_north);
-    public Cell GrowPathEast() => GrowPathTo(_east);
-    public Cell GrowPahtSouth() => GrowPathTo(_south);
-    public Cell GrowPathWest() => GrowPathTo(_west);
+    public Cell GrowPathNorth()
+        => GrowPathTo(_north);
+
+    public Cell GrowPathEast()
+        => GrowPathTo(_east);
+
+    public Cell GrowPahtSouth()
+        => GrowPathTo(_south);
+
+    public Cell GrowPathWest()
+        => GrowPathTo(_west);
 
     public void ShowPath()
     {
-        if(_distance == 0)
-        {
+        if (_distance == 0)
             return;
-        }
-
+        
         _view.transform.localRotation = _nextOnPath == _north ? _northRotation : _nextOnPath == _east ? _eastRotation : _nextOnPath == _south ? _southRotation : _westRotation;
     }
 }

@@ -8,6 +8,7 @@ public abstract class InteractiveObject : MonoBehaviour
     private Player _player;
 
     public Player Player => _player;
+
     protected IReadOnlyList<Cell> CellsInInteractibleRange => _cellsInInteractibleRange;
 
     private void OnDisable()
@@ -37,7 +38,5 @@ public abstract class InteractiveObject : MonoBehaviour
     }
 
     private void OnStepEnded()
-    {
-        Prepare();
-    }
+        => Prepare();
 }

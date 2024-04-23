@@ -55,7 +55,7 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
         _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet, _levelLoader, _audioView, _audio });
         _saver.AddDataReaders(_characters);
         _saver.AddDataReaders(_upgradeSetters);
-        _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet, _levelLoader, _audioView });
+        _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet, _audioView });
         _saver.AddDataWriters(_characters);
         _saver.AddDataWriters(_upgradeSetters);
         _saver.Initialize();

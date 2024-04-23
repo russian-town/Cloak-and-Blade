@@ -74,7 +74,7 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
 
         foreach (Enemy enemy in _enemies)
         {
-            if (enemy.IsFreeze)
+            if (enemy.IsFrozen)
                 continue;
 
             if (_enemies.IndexOf(enemy) == _enemies.Count)

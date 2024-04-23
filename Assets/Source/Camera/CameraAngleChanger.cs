@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,6 @@ public class CameraAngleChanger : MainButton
     [SerializeField] private Button _changeAngleButton;
 
     protected Button ChangeAngleButton => _changeAngleButton;
-
     protected CameraControls Controls => _controls;
 
     private void OnEnable()
@@ -20,5 +18,4 @@ public class CameraAngleChanger : MainButton
     {
         _changeAngleButton.onClick?.RemoveListener(_controls.ChangeCameraAngle);
     }
-
 }

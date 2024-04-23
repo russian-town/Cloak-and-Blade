@@ -27,7 +27,7 @@ public class TurnCounterClockwiseButtonTutorial : TurnCounterclockwiseButton, IP
         if (!_isFilled)
             _barFiller.ChangeFilling();
 
-        _isRotating = true;
+        ToggleRotating();
     }
 
     public new void OnPointerUp(PointerEventData eventData)
@@ -35,7 +35,7 @@ public class TurnCounterClockwiseButtonTutorial : TurnCounterclockwiseButton, IP
         if (!_isFilled)
             _barFiller.ChangeFilling();
 
-        _isRotating = false;
+        ToggleRotating();
     }
 
     private void OnBarFilled() => _isFilled = true;

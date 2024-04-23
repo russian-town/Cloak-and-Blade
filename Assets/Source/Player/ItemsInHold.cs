@@ -5,7 +5,8 @@ public class ItemsInHold : MonoBehaviour
 {
     private readonly List<InteractiveObject> _itemsInHold =  new List<InteractiveObject>();
 
-    public void AddObjectToItemList(InteractiveObject interactiveObject) => _itemsInHold.Add(interactiveObject);
+    public void AddObjectToItemList(InteractiveObject interactiveObject)
+        => _itemsInHold.Add(interactiveObject);
     
     public bool FindItemInList(InteractiveObject neededItem)
     {

@@ -1,6 +1,5 @@
-using EntroPi;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using EntroPi;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMover))]
@@ -53,14 +52,14 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
         _maxStepCount += _upgradeSetter.Level;
     }
 
-    public override void Cancel() { }
+    public override void Cancel()
+    {}
 
-    public override void Prepare() => _playerView.DisableAbilityButton();
+    public override void Prepare()
+        => _playerView.DisableAbilityButton();
 
     public override bool CanUse()
-    {
-        return _canUse;
-    }
+        => _canUse;
 
     public override void ResetAbility()
     {

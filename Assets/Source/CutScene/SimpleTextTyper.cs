@@ -1,8 +1,8 @@
-using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -39,10 +39,11 @@ public class SimpleTextTyper : MonoBehaviour
         _tempCharTextList = _initialText.ToList();
         _tempCharTextList.InsertRange(0, _colorOpenTag);
         _tempCharTextList.AddRange(_colorCloseTag);
-        _textContainer.text = string.Join("", _tempCharTextList);
+        _textContainer.text = string.Join(String.Empty, _tempCharTextList);
     }
 
-    public void TypeText() => StartCoroutine(WriteLine());
+    public void TypeText()
+        => StartCoroutine(WriteLine());
 
     private IEnumerator WriteLine()
     {
@@ -57,9 +58,9 @@ public class SimpleTextTyper : MonoBehaviour
             text.InsertRange(i, _colorOpenTag.ToCharArray());
             text.AddRange(_colorCloseTag.ToCharArray());
 
-            _textContainer.text = string.Join("", text);
+            _textContainer.text = string.Join(String.Empty, text);
 
-            if(i > 0)
+            if (i > 0)
             {
                 if (!char.IsWhiteSpace(_initialText[i - 1]))
                     _tempCharPhraseList.Add(_initialText[i - 1]);
@@ -78,24 +79,18 @@ public class SimpleTextTyper : MonoBehaviour
                     _tempCharPhraseList.Clear();
 
                 if (i < _initialText.Count)
-                    if (_initialText[i - 1] == '.' && _initialText[i] != '.')
+                {
+                    if (_initialText[i - 1] == Constants.Dot && _initialText[i] != Constants.Dot)
+                    {
                         yield return _dotWaitDelay;
+                    }
+                }
 
-                if (_initialText[i - 1] == ',' || _initialText[i - 1] == '—')
+                if (_initialText[i - 1] == Constants.Comma || _initialText[i - 1] == Constants.Dash)
                     yield return _commaWaitDelay;
             }
 
             yield return _waitDelay;
         }
     }
-}
-
-[Serializable]
-public class PhraseWithPause
-{
-    [SerializeField] private string _phrase;
-    [SerializeField] private float _pause;
-
-    public string Phrase => _phrase;
-    public float Pause => _pause;
 }

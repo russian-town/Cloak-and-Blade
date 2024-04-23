@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class CommandExecuter : MonoBehaviour, ITurnHandler
 {
@@ -9,9 +9,9 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
 
     public Command CurrentCommand => _currentCommand;
 
-    public event UnityAction<Command> CommandChanged;
-    public event UnityAction AbilityUseFail;
-    public event UnityAction AbilityReseted;
+    public event Action<Command> CommandChanged;
+    public event Action AbilityUseFail;
+    public event Action AbilityReseted;
 
     public bool TrySwitchCommand(Command command)
     {
@@ -76,7 +76,8 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
         _currentCommand = null;
     }
 
-    public void SetTurn(Turn turn) => _turn = turn;
+    public void SetTurn(Turn turn)
+        => _turn = turn;
 
     private bool CanSwith()
     {

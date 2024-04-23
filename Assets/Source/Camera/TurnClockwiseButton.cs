@@ -6,7 +6,7 @@ public class TurnClockwiseButton : MainButton, IPointerDownHandler, IPointerUpHa
 {
     [SerializeField] private CameraControls _controls;
 
-    protected bool _isRotating;
+    private bool _isRotating;
 
     public event Action HoldComplete;
 
@@ -17,12 +17,16 @@ public class TurnClockwiseButton : MainButton, IPointerDownHandler, IPointerUpHa
     }
 
     public void OnPointerDown(PointerEventData eventData)
-    {
-        _isRotating = true;
-    }
+        => ToggleRotating();
 
     public void OnPointerUp(PointerEventData eventData)
+        => ToggleRotating();
+
+    public void ToggleRotating()
     {
-        _isRotating = false;
+        if (_isRotating)
+            _isRotating = false;
+        else
+            _isRotating = true;
     }
 }

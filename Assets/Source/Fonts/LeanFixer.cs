@@ -1,5 +1,5 @@
-using UnityEngine;
 using Agava.YandexGames;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class LeanFixer : MonoBehaviour

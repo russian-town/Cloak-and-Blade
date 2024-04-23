@@ -13,14 +13,10 @@ public class CellView : MonoBehaviour
     }
 
     public void Hide()
-    {
-        _meshRenderer.enabled = false;
-    }
+        => _meshRenderer.enabled = false;
 
     public void Show()
-    {
-        _meshRenderer.enabled = true;
-    }
+        => _meshRenderer.enabled = true;
 
     public void PlayAbilityRangeEffect()
     {

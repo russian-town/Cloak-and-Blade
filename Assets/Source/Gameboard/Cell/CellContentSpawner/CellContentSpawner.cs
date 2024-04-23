@@ -8,9 +8,7 @@ public class CellContentSpawner : MonoBehaviour
     [SerializeField] private CellContent _emptyTemplate;
 
     public void Reclaim(CellContent content)
-    {
-        Destroy(content.gameObject);
-    }
+        => Destroy(content.gameObject);
 
     public CellContent Get(CellContentType type, Transform parent)
     {

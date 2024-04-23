@@ -1,6 +1,6 @@
+using Agava.WebUtility;
 using Cinemachine;
 using UnityEngine;
-using Agava.WebUtility;
 using UnityEngine.Events;
 
 public class CameraControls : MonoBehaviour
@@ -10,18 +10,20 @@ public class CameraControls : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _angledCameraValue;
     [SerializeField] private int _mobileFOV = 40;
-    [SerializeField] private int _desktopFOV = 60; 
+    [SerializeField] private int _desktopFOV = 60;
+
+    private readonly int _maxRotation = 180;
+    private readonly int _minRotation = -180;
 
     private CinemachineOrbitalTransposer _angledCameraOrbitalTransposer;
-    private int _minRotation = -180;
-    private int _maxRotation = 180;
     private bool _cameraIsStraight;
 
     public event UnityAction AngleChanged;
 
     private void Awake()
     {
-        _angledCameraOrbitalTransposer = _angledCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>();
+        _angledCameraOrbitalTransposer =
+            _angledCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>();
     }
 
     private void Start()

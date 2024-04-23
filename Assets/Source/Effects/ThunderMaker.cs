@@ -36,7 +36,7 @@ public class ThunderMaker : MonoBehaviour
     {
         _baseLightIntensity = _thunderLight.intensity;
 
-        if(_playOnAwake)
+        if (_playOnAwake)
             _thunderCoroutine = StartCoroutine(ThunderCoroutine());
     }
 
@@ -44,11 +44,11 @@ public class ThunderMaker : MonoBehaviour
     {
         _timePassed += Time.deltaTime;
 
-        if ( _timePassed >= _pauseBetweenThunder)
+        if (_timePassed >= _pauseBetweenThunder)
         {
             _timePassed = 0;
 
-            if(_thunderCoroutine == null)
+            if (_thunderCoroutine == null)
                 _thunderCoroutine = StartCoroutine(ThunderCoroutine());
         }
     }

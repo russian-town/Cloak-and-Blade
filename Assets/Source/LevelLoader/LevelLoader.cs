@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
+public class LevelLoader : MonoBehaviour, IDataReader
 {
-    [SerializeField] private List<Level> _levels = new List<Level>();
+    [SerializeField] private List<Level> _levels = new();
     [SerializeField] private LevelView _levelViewTemplate;
     [SerializeField] private HorizontalLayoutGroup _levelViewParent;
     [SerializeField] private Knob _knobTemplate;
@@ -15,8 +15,8 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
     [SerializeField] private ScrollIndicator _scrollIndicator;
     [SerializeField] private int _firstLevelIndex;
 
-    private List<LevelView> _levelViews = new List<LevelView>();
-    private List<Knob> _knobs = new List<Knob>();
+    private readonly List<LevelView> _levelViews = new();
+    private readonly List<Knob> _knobs = new();
 
     private void OnDisable()
     {
@@ -28,20 +28,6 @@ public class LevelLoader : MonoBehaviour, IDataReader, IDataWriter
     {
         foreach (var level in _levels)
             level.Read(playerData);
-
-        if (playerData.FinishedLevelNames.Contains("Chapel"))
-            print("FinishedLevels contains chapel");
-        else
-            print("No bueno");
-
-        if (Constants.Tutorial == _levels[0].Name)
-            print("_levels Contains the tutorial name");
-    }
-
-    public void Write(PlayerData playerData)
-    {
-        /*foreach (var level in _levels)
-            level.Write(playerData);*/
     }
 
     public void Initialize()

@@ -1,10 +1,10 @@
-using Cinemachine;
 using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
+using Cinemachine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class FinaleCutsceneScenario : MonoBehaviour
 {
@@ -50,9 +50,7 @@ public class FinaleCutsceneScenario : MonoBehaviour
     }
 
     public void PlayFinalCutscene()
-    {
-        StartCoroutine(CutsceneCoroutine());
-    }
+        => StartCoroutine(CutsceneCoroutine());
 
     private IEnumerator CutsceneCoroutine()
     {
@@ -63,9 +61,9 @@ public class FinaleCutsceneScenario : MonoBehaviour
 
         _hud.DOFade(0, .5f);
         _staticCamera.Priority = 3;
-        yield return (_genericWait);
+        yield return _genericWait;
         _swordCamera.Priority = _staticCamera.Priority + 1;
-        yield return (_genericWait);
+        yield return _genericWait;
         _swordAnimator.SetBool(Constants.FallParameter, true);
         _genericWait = new WaitForSeconds(_swordFallingDuration);
         yield return _genericWait;
@@ -98,10 +96,20 @@ public class FinaleCutsceneScenario : MonoBehaviour
 
     private IEnumerator ShakeCameraWithFade(float frequencyTarget, float amplitudeTarget)
     {
-        while(_noise.m_FrequencyGain != frequencyTarget)
+        while (_noise.m_FrequencyGain != frequencyTarget)
         {
-            _noise.m_FrequencyGain = Mathf.MoveTowards(_noise.m_FrequencyGain, frequencyTarget, _cameraFrequencyFadeSpeed * Time.deltaTime);
-            _noise.m_AmplitudeGain = Mathf.MoveTowards(_noise.m_AmplitudeGain, amplitudeTarget, _cameraAmplitudeFadeSpeed * Time.deltaTime);
+            _noise.m_FrequencyGain = Mathf.MoveTowards
+                (
+                _noise.m_FrequencyGain,
+                frequencyTarget,
+                _cameraFrequencyFadeSpeed * Time.deltaTime
+                );
+            _noise.m_AmplitudeGain = Mathf.MoveTowards
+                (
+                _noise.m_AmplitudeGain,
+                amplitudeTarget,
+                _cameraAmplitudeFadeSpeed * Time.deltaTime
+                );
             yield return null;
         }
     }

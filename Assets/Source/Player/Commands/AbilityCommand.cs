@@ -2,39 +2,33 @@ using System.Collections;
 
 public class AbilityCommand : Command
 {
-    private Ability _ability;
+    private readonly Ability _ability;
 
     public Ability Ability { get { return _ability; } }
     
     public bool IsUsed => _ability.CanUse() == false;
 
     public AbilityCommand(Ability ability, CommandExecuter executer) : base(executer)
-    {
-        _ability = ability;
-    }
+        => _ability = ability;
 
     protected override IEnumerator WaitOfExecute()
     {
-        throw new System.NotImplementedException();
+        yield return null;
     }
 
     protected override IEnumerator ExecuteAction()
     {
-        throw new System.NotImplementedException();
+        yield return null;
     }
 
     protected override IEnumerator PrepareAction()
     {
-        throw new System.NotImplementedException();
+        yield return null;
     }
 
     protected override void OnCommandChanged(Command command)
-    {
-        Cancel();
-    }
+        => Cancel();
 
     protected override void Cancel()
-    {
-        base.Cancel();
-    }
+        => base.Cancel();
 }

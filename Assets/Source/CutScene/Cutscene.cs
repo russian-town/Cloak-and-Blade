@@ -11,12 +11,14 @@ public class Cutscene : MonoBehaviour, IActiveScene, IAutoContinuer
     private void Start()
     {
         _focusHandler.SetActiveScene(this);
-        List<IPauseHandler> pauseHandlers = new List<IPauseHandler>();
+        List<IPauseHandler> pauseHandlers = new();
         pauseHandlers.Add(_scenario);
         _pause = new Pause(pauseHandlers);
     }
 
-    public void SetPause() => _pause.Enable();
+    public void SetPause()
+        => _pause.Enable();
 
-    public void Continue() => _pause.Disable();
+    public void Continue()
+        => _pause.Disable();
 }

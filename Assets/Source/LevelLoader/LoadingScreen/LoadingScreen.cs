@@ -1,6 +1,6 @@
 using System.Collections;
-using UnityEngine;
 using Agava.WebUtility;
+using UnityEngine;
 
 public class LoadingScreen : MonoBehaviour
 {
@@ -29,9 +29,7 @@ public class LoadingScreen : MonoBehaviour
     }
 
     public void SetFade(float value)
-    {
-        _fader.SetFade(value);
-    }
+        => _fader.SetFade(value);
 
     private IEnumerator Fade(float value)
     {

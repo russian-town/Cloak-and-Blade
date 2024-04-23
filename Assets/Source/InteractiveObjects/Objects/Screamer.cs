@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Screamer : InteractiveObject
 {
     [SerializeField] private AudioSource _source;
 
-    bool _interactable = true;
+    private bool _interactable = true;
 
     public override void Interact()
     {
@@ -16,12 +14,10 @@ public class Screamer : InteractiveObject
 
     public override void Prepare()
     {
-        if(CheckInteractionPossibility() && _interactable)
+        if (CheckInteractionPossibility() && _interactable)
             Interact();
     }
 
     protected override void Disable()
-    {
-        
-    }
+    {}
 }

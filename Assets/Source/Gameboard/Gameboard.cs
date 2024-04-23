@@ -8,66 +8,26 @@ public class Gameboard : MonoBehaviour
     [SerializeField] private Cell _cellTemplate;
     [SerializeField] private Vector2Int _size;
     [SerializeField] private List<Cell> _cells;
-    [SerializeField] private Queue<Cell> _searchFrontier = new Queue<Cell>();
+    [SerializeField] private Queue<Cell> _searchFrontier = new();
 
     public IReadOnlyList<Cell> Cells => _cells;
 
-    [ContextMenu("Generate map")]
-    private void GenerateMap()
-    {
-        _ground.localScale = new Vector3(_size.x, _size.y, 1f);
+    public void Enable()
+        => gameObject.SetActive(true);
 
-        Vector2 offSet = new Vector2((_size.x - 1f) * 0.5f, (_size.y - 1f) * 0.5f);
-        _cells = new Cell[_size.x * _size.y].ToList();
-
-        for (int i = 0, y = 0; y < _size.y; y++)
-        {
-            for (int x = 0; x < _size.x; x++, i++)
-            {
-                Cell cell = _cells[i] = Instantiate(_cellTemplate);
-                cell.transform.SetParent(transform, false);
-                cell.transform.localPosition = new Vector3(x - offSet.x, 0f, y - offSet.y);
-
-                if (x > 0)
-                {
-                    Cell.MakeEastWestNeighbors(cell, _cells[i - 1]);
-                }
-
-                if (y > 0)
-                {
-                    Cell.MakeNorthSouthNeighbors(cell, _cells[i - _size.x]);
-                }
-
-                cell.IsAlternative = (x & 1) == 0;
-
-                if ((y & 1) == 0)
-                {
-                    cell.IsAlternative = !cell.IsAlternative;
-                }
-
-                cell.Content.BecomeEmpty();
-            }
-        }
-    }
-
-    public void Enable() => gameObject.SetActive(true);
-
-    public void Disable() => gameObject.SetActive(false);
+    public void Disable()
+        => gameObject.SetActive(false);
 
     public void HideGrid()
     {
         foreach (var cell in _cells)
-        {
             cell.View.Hide();
-        }
     }
 
     public void ShowGrid()
     {
         foreach (var cell in _cells)
-        {
             cell.View.Show();
-        }
     }
 
     public bool FindPath(Cell destination, ref Cell nextCell, Cell startCell)
@@ -103,7 +63,6 @@ public class Gameboard : MonoBehaviour
             return false;
         }
 
-
         while (_searchFrontier.Count > 0)
         {
             Cell cell = _searchFrontier.Dequeue();
@@ -128,9 +87,7 @@ public class Gameboard : MonoBehaviour
         }
 
         foreach (var cell in _cells)
-        {
             cell.ShowPath();
-        }
 
         nextCell = startCell.NextOnPath;
 
@@ -154,5 +111,37 @@ public class Gameboard : MonoBehaviour
         }
 
         return null;
+    }
+
+    [ContextMenu("Generate map")]
+    private void GenerateMap()
+    {
+        _ground.localScale = new Vector3(_size.x, _size.y, 1f);
+
+        Vector2 offSet = new Vector2((_size.x - 1f) * 0.5f, (_size.y - 1f) * 0.5f);
+        _cells = new Cell[_size.x * _size.y].ToList();
+
+        for (int i = 0, y = 0; y < _size.y; y++)
+        {
+            for (int x = 0; x < _size.x; x++, i++)
+            {
+                Cell cell = _cells[i] = Instantiate(_cellTemplate);
+                cell.transform.SetParent(transform, false);
+                cell.transform.localPosition = new Vector3(x - offSet.x, 0f, y - offSet.y);
+
+                if (x > 0)
+                    Cell.MakeEastWestNeighbors(cell, _cells[i - 1]);
+
+                if (y > 0)
+                    Cell.MakeNorthSouthNeighbors(cell, _cells[i - _size.x]);
+
+                cell.IsAlternative = (x & 1) == 0;
+
+                if ((y & 1) == 0)
+                    cell.IsAlternative = !cell.IsAlternative;
+
+                cell.Content.BecomeEmpty();
+            }
+        }
     }
 }

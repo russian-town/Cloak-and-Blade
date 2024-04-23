@@ -54,9 +54,7 @@ public class Blink : Ability
     }
 
     public override bool CanUse()
-    {
-        return _canUse;
-    }
+        => _canUse;
 
     public override void ResetAbility()
     {

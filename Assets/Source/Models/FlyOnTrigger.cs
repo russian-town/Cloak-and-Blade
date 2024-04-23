@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Splines;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(MoveAlongSpline))]
@@ -42,5 +41,5 @@ public class FlyOnTrigger : InteractiveObject
     }
 
     protected override void Disable()
-    { }
+    {}
 }

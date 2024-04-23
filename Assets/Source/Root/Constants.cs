@@ -48,5 +48,8 @@ public class Constants
     public const string East = "East";
     public const string PlayerProgress = "PlayerProgress";
     public const string LeaderBoardName = "Leaderboard";
+    public const char Dot = '.';
+    public const char Comma = ',';
+    public const char Dash = '-';
     #endregion
 }

@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class BlinkCommand : AbilityCommand
 {
-    private Blink _blink;
-    private Gameboard _gameboard;
-    private Camera _camera;
-    private Navigator _navigator;
+    private readonly Blink _blink;
+    private readonly Gameboard _gameboard;
+    private readonly Camera _camera;
+    private readonly Navigator _navigator;
+    private readonly CommandExecuter _executer;
+
     private Coroutine _executeCoroutine;
-    private CommandExecuter _executer;
     private Cell _cell;
 
     public BlinkCommand(Blink blink, Gameboard gameboard, Navigator navigator, CommandExecuter executer) : base(blink, executer)

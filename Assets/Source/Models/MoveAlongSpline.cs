@@ -3,20 +3,20 @@ using UnityEngine.Splines;
 
 public class MoveAlongSpline : MonoBehaviour
 {
-    public float Speed = 1f;
+    [SerializeField] private float _speed = 1f;
     [SerializeField] private SplineContainer _spline;
     [SerializeField] private float _rotationSpeed = 5f;
     [SerializeField] private bool _playOnAwake;
 
     private float _currentDistance = 0f;
 
-    void Update()
+    private void Update()
     {
         if (_playOnAwake)
         {
             Vector3 targetPosition = _spline.EvaluatePosition(_currentDistance);
 
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, Speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, _speed * Time.deltaTime);
 
             Vector3 targetDirection = _spline.EvaluateTangent(_currentDistance);
 
@@ -33,11 +33,12 @@ public class MoveAlongSpline : MonoBehaviour
             else
             {
                 float splineLength = _spline.CalculateLength();
-                float movement = Speed * Time.deltaTime / splineLength;
+                float movement = _speed * Time.deltaTime / splineLength;
                 _currentDistance += movement;
             }
         }
     }
 
-    public void Play() => _playOnAwake = true;
+    public void Play()
+        => _playOnAwake = true;
 }

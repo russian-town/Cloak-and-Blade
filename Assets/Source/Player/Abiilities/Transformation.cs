@@ -63,9 +63,7 @@ public class Transformation : Ability
     }
 
     public override bool CanUse()
-    {
-        return _useLimit > 0;
-    }
+        => _useLimit > 0;
 
     public override void ResetAbility() => _useLimit++;
 
@@ -75,5 +73,6 @@ public class Transformation : Ability
         _useLimit = Mathf.Clamp(_useLimit, 0, _maxUseLimit);
     }
 
-    protected override void Action(Cell cell) { }
+    protected override void Action(Cell cell)
+    {}
 }

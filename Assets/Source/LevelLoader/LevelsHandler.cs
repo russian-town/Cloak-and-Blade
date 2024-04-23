@@ -4,32 +4,23 @@ using UnityEngine.SceneManagement;
 
 public class LevelsHandler : MonoBehaviour, IDataReader
 {
-    [SerializeField] private List<Level> _levels = new List<Level>();
+    [SerializeField] private List<Level> _levels = new();
 
     private bool _tutorialCompleted;
-
-    public IReadOnlyList<Level> Levels => _levels;
-
-    public string GetFirstLevel() => _levels[0].Name;
-
-    public Level GetCurrentLevel()
-    {
-        for (int i = 0; i < _levels.Count; i++)
-            if (_levels[i].Name == SceneManager.GetActiveScene().name)
-                return _levels[i];
-
-        return null;
-    }
 
     public Level GetNextLevel()
     {
         for (int i = 0; i < _levels.Count; i++)
+        {
             if (_levels[i].Name == SceneManager.GetActiveScene().name)
+            {
                 if (i + 1 < _levels.Count)
                     return _levels[i + 1];
                 else
                     return _levels[0];
-
+            }
+        }
+        
         return null;
     }
 
@@ -48,7 +39,5 @@ public class LevelsHandler : MonoBehaviour, IDataReader
     }
 
     public void Read(PlayerData playerData)
-    {
-        _tutorialCompleted = playerData.IsTutorialCompleted;
-    }
+        => _tutorialCompleted = playerData.IsTutorialCompleted;
 }

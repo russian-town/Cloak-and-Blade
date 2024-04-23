@@ -9,8 +9,8 @@ public class CameraIOffsetSetter : MonoBehaviour
 
     private void Awake()
     {
-        _cameraOrbitalTransposer = _camera.GetCinemachineComponent<CinemachineOrbitalTransposer>();
+        _cameraOrbitalTransposer =
+            _camera.GetCinemachineComponent<CinemachineOrbitalTransposer>();
         _cameraOrbitalTransposer.m_FollowOffset.z = 7.5f;
-
     }
 }

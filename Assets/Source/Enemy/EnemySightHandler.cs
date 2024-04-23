@@ -66,6 +66,7 @@ public class EnemySightHandler : MonoBehaviour
 
                     _cellsInSight.AddRange(temp);
                 }
+
                 break;
 
             case Constants.South:
@@ -113,6 +114,7 @@ public class EnemySightHandler : MonoBehaviour
 
                     _cellsInSight.AddRange(temp);
                 }
+
                 break;
 
             case Constants.West:
@@ -160,6 +162,7 @@ public class EnemySightHandler : MonoBehaviour
 
                     _cellsInSight.AddRange(temp);
                 }
+
                 break;
 
             case Constants.East:
@@ -207,6 +210,7 @@ public class EnemySightHandler : MonoBehaviour
 
                     _cellsInSight.AddRange(temp);
                 }
+
                 break;
         }
 

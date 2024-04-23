@@ -10,17 +10,11 @@ public class InteractiveObjectView : MonoBehaviour
     public Button InteractButton => _interactButton;
 
     private void Start()
-    {
-        Hide();
-    }
+        => Hide();
 
     public void Show()
-    {
-        gameObject.SetActive(true);
-    }
+        => gameObject.SetActive(true);
 
     public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
+        => gameObject.SetActive(false);
 }

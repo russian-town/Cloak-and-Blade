@@ -22,6 +22,7 @@ public class Treasure : InteractiveObject, ICompassTarget
     private bool _closed = true;
 
     public event Action Opened;
+
     public event Action Disabled;
 
     public override void Initialize(Player player)
@@ -35,9 +36,7 @@ public class Treasure : InteractiveObject, ICompassTarget
     public override void Interact()
     {
         if (!Player.ItemsInHold.FindItemInList(_key))
-        {
             return;
-        }
 
         _view.InteractButton.onClick.RemoveListener(Interact);
         _view.Hide();
@@ -91,19 +90,15 @@ public class Treasure : InteractiveObject, ICompassTarget
     }
 
     public void StopSoul()
-    {
-        _soul.Stop();
-    }
+        => _soul.Stop();
+
+    protected override void Disable()
+        => _view.InteractButton.onClick.RemoveListener(Interact);
 
     private void Open()
     {
         _animator.SetTrigger(Constants.OpenParameter);
         Player.ItemsInHold.AddObjectToItemList(this);
         Opened?.Invoke();
-    }
-
-    protected override void Disable()
-    {
-        _view.InteractButton.onClick.RemoveListener(Interact);
     }
 }

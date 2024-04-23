@@ -1,5 +1,5 @@
-using DG.Tweening;
 using System.Collections;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -60,7 +60,9 @@ public class StarterScreen : MonoBehaviour, IInitializable
         yield return new WaitForSeconds(_titleFadeDuration);
         _startText.DOFade(1, _pressAnywhereFadeDuration);
         yield return new WaitForSeconds(_pressAnywhereFadeDuration);
-        _startText.DOFade(.7f, _pressAnywhereFadeDuration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+        _startText.DOFade(.7f, _pressAnywhereFadeDuration)
+            .SetEase(Ease.InOutSine)
+            .SetLoops(-1, LoopType.Yoyo);
         _pressAnyWhere.onClick.AddListener(OnButtonClick);
     }
 }

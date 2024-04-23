@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(ParticleSystem))]  
+[RequireComponent(typeof(ParticleSystem))]
 public class EffectChangeHandler : MonoBehaviour
 {
     private ParticleSystem _system;
@@ -27,7 +27,7 @@ public class EffectChangeHandler : MonoBehaviour
 
     private IEnumerator ChangeEffectSpeedOverTime(float value, float duration)
     {
-        while(_main.simulationSpeed != value)
+        while (_main.simulationSpeed != value)
         {
             _main.simulationSpeed = Mathf.MoveTowards(_main.simulationSpeed, value, duration * Time.deltaTime);
             yield return null;

@@ -1,9 +1,9 @@
-using UnityEngine;
+using System;
+using System.Collections.Generic;
 using Agava.YandexGames;
 using Agava.WebUtility;
-using System;
+using UnityEngine;
 using UnityEngine.Events;
-using System.Collections.Generic;
 
 public class FocusHandler : MonoBehaviour
 {
@@ -46,8 +46,6 @@ public class FocusHandler : MonoBehaviour
             SetFocused();
     }
 
-    public void SetActiveScene(IActiveScene scene) => _scene = scene;
-
     private void SetUnFocused()
     {
         if (enabled == false)
@@ -67,7 +65,7 @@ public class FocusHandler : MonoBehaviour
         _scene.SetPause();
     }
 
-    private void SetFocused() 
+    private void SetFocused()
     {
         if (enabled == false)
             return;
@@ -86,4 +84,7 @@ public class FocusHandler : MonoBehaviour
         if (_scene is IAutoContinuer continuer)
             continuer.Continue();
     }
+    
+    public void SetActiveScene(IActiveScene scene)
+        => _scene = scene;
 }

@@ -18,7 +18,8 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
         _animationHandler = animationHandler;
     }
 
-    public void SetPause(bool isPause) => _pauseSpeed = isPause ? 0 : 1;
+    public void SetPause(bool isPause)
+        => _pauseSpeed = isPause ? 0 : 1;
 
     public Coroutine StartRotate(Cell targetCell, float rotationSpeed)
     {
@@ -43,12 +44,16 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
         while (transform.localPosition != targetCell.transform.localPosition)
         {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetCell.transform.localPosition, Time.deltaTime * _pauseSpeed * moveSpeed);
+            transform.localPosition = Vector3.MoveTowards
+                (
+                transform.localPosition,
+                targetCell.transform.localPosition,
+                Time.deltaTime * _pauseSpeed * moveSpeed
+                );
             yield return null;
         }
 
         _animationHandler.StopFlyAnimation();
-
         CurrentCell = targetCell;
         _startCell = targetCell;
         _movingCoroutine = null;
@@ -62,7 +67,12 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
         while (transform.rotation != targetRotation)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * _pauseSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards
+                (
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * _pauseSpeed * Time.deltaTime
+                );
             yield return null;
         }
 
