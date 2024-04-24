@@ -26,10 +26,19 @@ public class Navigator : MonoBehaviour, ITurnHandler
     public void SetTurn(Turn turn)
         => _turn = turn;
 
-    public bool CanMoveToCell()
+    public bool CanMoveToCell(ref Cell targetCell)
     {
         if (_turn == Turn.Enemy || _player.IsDead)
             return false;
+
+        foreach(var cell in _availableCells)
+        {
+            if(cell == targetCell)
+            {
+                targetCell = cell;
+                return true;
+            }
+        }
 
         return true;
     }
@@ -46,34 +55,6 @@ public class Navigator : MonoBehaviour, ITurnHandler
             cell.View.Hide();
 
         _tempCells.Clear();
-    }
-
-    public void RefillNorthAvailableCells(Cell currentCell, int range)
-    {
-        ClearAllCells();
-        Cell tempCellNorth = currentCell.North;
-
-        for (int i = 0; i < range; i++)
-        {
-            if (TryAddCell(tempCellNorth, _availableNorthCells, false))
-            {
-                tempCellNorth = tempCellNorth.North;
-            }
-        }
-    }
-
-    public void RefillSouthAvailableCells(Cell currentCell, int range)
-    {
-        ClearAllCells();
-        Cell tempCellSouth = currentCell.South;
-
-        for (int i = 0; i < range; i++)
-        {
-            if (TryAddCell(tempCellSouth, _availableSouthCells, false))
-            {
-                tempCellSouth = tempCellSouth.South;
-            }
-        }
     }
 
     public void RefillEastAvailableCells(Cell currentCell, int range)

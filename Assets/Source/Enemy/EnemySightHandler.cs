@@ -21,74 +21,22 @@ public class EnemySightHandler : MonoBehaviour
         switch (direction)
         {
             case Constants.North:
-
-                for (int i = 0; i < _sightRange; i++)
-                {
-                    if (currentCell.North == null || currentCell.North.Content.Type == CellContentType.Wall)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        _cellsInSight.Add(currentCell.North);
-                        currentCell = currentCell.North;
-                    }
-                }
-
+                DrawSightZone(currentCell, direction);
                 BuildVerticalSide();
                 break;
 
             case Constants.South:
-
-                for (int i = 0; i < _sightRange; i++)
-                {
-                    if (currentCell.South == null || currentCell.South.Content.Type == CellContentType.Wall)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        _cellsInSight.Add(currentCell.South);
-                        currentCell = currentCell.South;
-                    }
-                }
-
+                DrawSightZone(currentCell, direction);
                 BuildVerticalSide();
                 break;
 
             case Constants.West:
-
-                for (int i = 0; i < _sightRange; i++)
-                {
-                    if (currentCell.West == null || currentCell.West.Content.Type == CellContentType.Wall)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        _cellsInSight.Add(currentCell.West);
-                        currentCell = currentCell.West;
-                    }
-                }
-
+                DrawSightZone(currentCell, direction);
                 BuildHorizontalSide();
                 break;
 
             case Constants.East:
-
-                for (int i = 0; i < _sightRange; i++)
-                {
-                    if (currentCell.East == null || currentCell.East.Content.Type == CellContentType.Wall)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        _cellsInSight.Add(currentCell.East);
-                        currentCell = currentCell.East;
-                    }
-                }
-
+                DrawSightZone(currentCell, direction);
                 BuildHorizontalSide();
                 break;
         }
@@ -116,25 +64,21 @@ public class EnemySightHandler : MonoBehaviour
         }
     }
 
-    /*private void DrawSightZone(Cell startingCell, Cell neighborCell)
+    private void DrawSightZone(Cell currentCell, string direction)
     {
-        Cell currentCell;
-
         for (int i = 0; i < _sightRange; i++)
         {
-            if (neighborCell == null || neighborCell.Content.Type == CellContentType.Wall)
+            if (currentCell.GetCellInADirection(direction) == null || currentCell.GetCellInADirection(direction).Content.Type == CellContentType.Wall)
             {
                 break;
             }
             else
             {
-                _cellsInSight.Add(startingCell.North);
-                currentCell = startingCell.North;
+                _cellsInSight.Add(currentCell.North);
+                currentCell = currentCell.GetCellInADirection(direction);
             }
         }
-
-        
-    }*/
+    }
 
     private void BuildVerticalSide()
     {
@@ -143,7 +87,6 @@ public class EnemySightHandler : MonoBehaviour
             List<Cell> temp = new ();
             int maxWest = 0;
             int maxEast = 0;
-
             bool isWestWallHit = false;
             bool isEastWallHit = false;
 

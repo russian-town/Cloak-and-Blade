@@ -163,7 +163,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         if (_turn == Turn.Enemy)
             return false;
 
-        if (_navigator.CanMoveToCell()
+        if (_navigator.CanMoveToCell(ref targetCell)
             && targetCell.IsOccupied == false
             && targetCell.Content.Type != CellContentType.Wall)
         {

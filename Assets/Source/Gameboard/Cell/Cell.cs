@@ -128,4 +128,24 @@ public class Cell : MonoBehaviour
 
     public void SetCellAsNotAlternative()
         => IsAlternative = false;
+
+    public Cell GetCellInADirection(string direction)
+    {
+        switch (direction)
+        {
+            case Constants.North:
+                return North;
+
+            case Constants.South:
+                return South;
+
+            case Constants.West:
+                return West;
+
+            case Constants.East:
+                return East;
+        }
+
+        return null;
+    }
 }

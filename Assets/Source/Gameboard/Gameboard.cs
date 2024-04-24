@@ -38,10 +38,7 @@ public class Gameboard : MonoBehaviour
         foreach (Cell cell in _cells)
         {
             if (cell != destination)
-            {
                 cell.ClearPath();
-                break;
-            }
             
             if (destination.Content.Type == CellContentType.Wall)
             {
