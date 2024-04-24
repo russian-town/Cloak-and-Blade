@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public class FinaleCutsceneScenario : MonoBehaviour
 {
+    private readonly float _hudFadeRation = .5f;
+    private readonly float _whiteNoiseFadeStep = .2f;
+    private readonly int _staticCameraPriority = 3;
+
     [SerializeField] private float _calmShotDuration;
     [SerializeField] private float _swordFallingDuration;
     [SerializeField] private float _swordStabingDuration;
@@ -20,13 +24,13 @@ public class FinaleCutsceneScenario : MonoBehaviour
     [SerializeField] private float _soundFadeDuration;
     [SerializeField] private float _cameraFrequencyFinalIntensity;
     [SerializeField] private float _cameraAmplitudeFinalIntensity;
-    [SerializeField] private AudioSource _goreSource;
-    [SerializeField] private AudioSource _screamSource;
+    [SerializeField] private AudioSource _gore;
+    [SerializeField] private AudioSource _scream;
     [SerializeField] private AudioSource _music;
     [SerializeField] private AudioSource _whiteNoise;
     [SerializeField] private AudioSource _heartBeat;
-    [SerializeField] private AudioSource _whooshSource1;
-    [SerializeField] private AudioSource _whooshSource2;
+    [SerializeField] private AudioSource _leftWhoosh;
+    [SerializeField] private AudioSource _rifghtWhoosh;
     [SerializeField] private WhooshScript _whoosh;
     [SerializeField] private EffectChangeHandler _effectChanger;
     [SerializeField] private ParticleSystem _effect;
@@ -35,21 +39,18 @@ public class FinaleCutsceneScenario : MonoBehaviour
     [SerializeField] private Transform _sword;
     [SerializeField] private Animator _swordAnimator;
     [SerializeField] private Image _whiteScreen;
-    [SerializeField] private TMP_Text _text;
+    [SerializeField] private TMP_Text _finaleCredits;
     [SerializeField] private CanvasGroup _hud;
-    [SerializeField] private ParticleSystem[] _mists;
+    [SerializeField] private ParticleSystem[] _mistParticles;
     [SerializeField] private Gameboard _gameboard;
 
-    private CinemachineBasicMultiChannelPerlin _noise;
+    private CinemachineBasicMultiChannelPerlin _cameraShakeNoise;
     private WaitForSeconds _genericWait;
-    private float _hudFadeRation = .5f;
-    private float _whiteNoiseFadeStep = .2f;
-    private int _staticCameraPriority = 3;
 
     public void Start()
     {
         _genericWait = new WaitForSeconds(_calmShotDuration);
-        _noise = _swordCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        _cameraShakeNoise = _swordCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     public void PlayFinalCutscene()
@@ -59,7 +60,7 @@ public class FinaleCutsceneScenario : MonoBehaviour
     {
         _gameboard.Disable();
 
-        foreach (var particle in _mists)
+        foreach (var particle in _mistParticles)
             particle.Stop();
 
         _hud.DOFade(0, _hudFadeRation);
@@ -71,25 +72,25 @@ public class FinaleCutsceneScenario : MonoBehaviour
         _genericWait = new WaitForSeconds(_swordFallingDuration);
         yield return _genericWait;
         _effect.Play();
-        _goreSource.Play();
+        _gore.Play();
         _whoosh.PlayWhoosh();
         _effectChanger.ChangeEffectSpeed(1, _effectFadeUpSpeed);
         StartCoroutine(ShakeCameraWithFade(_cameraFrequencyFinalIntensity, _cameraAmplitudeFinalIntensity));
         _genericWait = new WaitForSeconds(_swordStabingDuration);
         yield return _genericWait;
-        _screamSource.Play();
+        _scream.Play();
         _whiteNoise.Play();
         _music.DOFade(0, _soundFadeDuration);
         _heartBeat.DOFade(0, _soundFadeDuration);
-        _whooshSource1.DOFade(0, _soundFadeDuration);
-        _whooshSource2.DOFade(0, _soundFadeDuration);
+        _leftWhoosh.DOFade(0, _soundFadeDuration);
+        _rifghtWhoosh.DOFade(0, _soundFadeDuration);
         _whiteNoise.DOFade(_whiteNoiseFadeStep, _soundFadeDuration).SetEase(Ease.InSine);
         _genericWait = new WaitForSeconds(_screamDuration);
         yield return _genericWait;
         _whiteScreen.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.InSine);
         _genericWait = new WaitForSeconds(_whiteScreenFadeDuration);
         yield return _genericWait;
-        _text.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.OutSine);
+        _finaleCredits.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.OutSine);
         _genericWait = new WaitForSeconds(_soundFadeDuration);
         _whiteNoise.DOFade(0, _cameraAmplitudeFadeSpeed);
         yield return _genericWait;
@@ -99,20 +100,16 @@ public class FinaleCutsceneScenario : MonoBehaviour
 
     private IEnumerator ShakeCameraWithFade(float frequencyTarget, float amplitudeTarget)
     {
-        while (_noise.m_FrequencyGain != frequencyTarget)
+        while (_cameraShakeNoise.m_FrequencyGain != frequencyTarget)
         {
-            _noise.m_FrequencyGain = Mathf.MoveTowards
-                (
-                _noise.m_FrequencyGain,
+            _cameraShakeNoise.m_FrequencyGain = Mathf.MoveTowards(
+                _cameraShakeNoise.m_FrequencyGain,
                 frequencyTarget,
-                _cameraFrequencyFadeSpeed * Time.deltaTime
-                );
-            _noise.m_AmplitudeGain = Mathf.MoveTowards
-                (
-                _noise.m_AmplitudeGain,
+                _cameraFrequencyFadeSpeed * Time.deltaTime);
+            _cameraShakeNoise.m_AmplitudeGain = Mathf.MoveTowards(
+                _cameraShakeNoise.m_AmplitudeGain,
                 amplitudeTarget,
-                _cameraAmplitudeFadeSpeed * Time.deltaTime
-                );
+                _cameraAmplitudeFadeSpeed * Time.deltaTime);
             yield return null;
         }
     }

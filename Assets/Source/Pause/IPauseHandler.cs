@@ -1,4 +1,6 @@
 public interface IPauseHandler
 {
-    public void SetPause(bool isPause);
+    public void Unpause();
+
+    public void Pause();
 }

@@ -8,5 +8,6 @@ public class PhraseWithPause : MonoBehaviour
     [SerializeField] private float _pause;
 
     public string Phrase => _phrase;
+
     public float Pause => _pause;
 }

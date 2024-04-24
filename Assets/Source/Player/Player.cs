@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMover), typeof(PlayerAttacker), typeof(CommandExecuter))]
 [RequireComponent (typeof(Navigator))]
@@ -36,11 +35,11 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     private WaitForSeconds _delayWaitForSeconds;
     private WaitUntil _waitUntilParticleDie;
 
-    public event UnityAction StepEnded;
+    public event Action StepEnded;
 
-    public event UnityAction AbilityUsed;
+    public event Action AbilityUsed;
 
-    public event UnityAction Died;
+    public event Action Died;
 
     public CommandExecuter CommandExecuter => _commandExecuter;
 
@@ -77,7 +76,14 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _commandExecuter.AbilityReseted -= OnAbilityReseted;
     }
 
-    public virtual void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler, PlayerView playerView, Battery battery)
+    public virtual void Initialize(
+        Cell startCell,
+        Hourglass hourglass,
+        IEnemyTurnWaiter enemyTurnHandler,
+        Gameboard gameboard,
+        RewardedAdHandler adHandler,
+        PlayerView playerView,
+        Battery battery)
     {
         _startCell = startCell;
         _mover = GetComponent<PlayerMover>();
@@ -94,7 +100,15 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _gameboard = gameboard;
         _adHandler = adHandler;
         _battery = battery;
-        _moveCommand = new MoveCommand(this, _mover, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter, _moveRange);
+        _moveCommand = new MoveCommand(
+            this,
+            _mover,
+            _navigator,
+            _moveSpeed,
+            _rotationSpeed,
+            _gameboard,
+            _commandExecuter,
+            _moveRange);
         _skipCommand = new SkipCommand(this, _enemyTurnWaiter, _animationHandler, _commandExecuter);
         _delayWaitForSeconds = new WaitForSeconds(_delay);
         _waitUntilParticleDie = new WaitUntil(() => !_diedParticle.isPlaying);
@@ -108,13 +122,13 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     public bool TryPrepareAbility()
     {
-        if (!_commandExecuter.TrySwitchCommand(AbilityCommand()))
+        if (!_commandExecuter.TrySwitchCommand(GetAbilityCommand()))
             return false;
 
-        if (AbilityCommand().IsExecuting)
+        if (GetAbilityCommand().IsExecuting)
             return false;
 
-        if (AbilityCommand().IsUsed)
+        if (GetAbilityCommand().IsUsed)
             return false;
 
         PrepareAbility();
@@ -149,7 +163,9 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         if (_turn == Turn.Enemy)
             return false;
 
-        if (_navigator.CanMoveToCell(ref targetCell) && targetCell.IsOccupied == false && targetCell.Content.Type != CellContentType.Wall)
+        if (_navigator.CanMoveToCell(ref targetCell)
+            && targetCell.IsOccupied == false
+            && targetCell.Content.Type != CellContentType.Wall)
         {
             MoveCoroutine = _mover.StartMoveTo(targetCell, moveSpeed, rotationSpeed);
             _startCell = _mover.CurrentCell;
@@ -167,16 +183,6 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         StartCoroutine(MakeDeath());
     }
 
-    public void SetPause(bool isPause)
-    {
-        _mover.SetPause(isPause);
-
-        if (isPause == true)
-            _animationHandler.StopAnimation();
-        else
-            _animationHandler.StartAnimation();
-    }
-
     public void SetTurn(Turn turn)
     {
         _turn = turn;
@@ -186,7 +192,19 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         TurnChanged(turn);
     }
 
-    public abstract AbilityCommand AbilityCommand();
+    public void Unpause()
+    {
+        _mover.Unpause();
+        _animationHandler.StartAnimation();
+    }
+
+    public void Pause()
+    {
+        _mover.Pause();
+        _animationHandler.StopAnimation();
+    }
+
+    public abstract AbilityCommand GetAbilityCommand();
 
     protected virtual void TurnChanged(Turn turn)
     { }
@@ -223,7 +241,7 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     private void UpdateAbilityState()
     {
-        if (AbilityCommand().IsUsed)
+        if (GetAbilityCommand().IsUsed)
         {
             _battery.Disable();
             AbilityUsed?.Invoke();

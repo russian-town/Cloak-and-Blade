@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class LevelFinishScreen : MonoBehaviour
@@ -11,9 +11,9 @@ public class LevelFinishScreen : MonoBehaviour
 
     private YandexAds _yandexAds;
 
-    public event UnityAction ExitButtonClicked;
+    public event Action ExitButtonClicked;
 
-    public event UnityAction NextLevelButtonClicked;
+    public event Action NextLevelButtonClicked;
 
     private void OnEnable()
     {

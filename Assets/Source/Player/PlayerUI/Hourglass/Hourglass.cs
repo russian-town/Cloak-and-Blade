@@ -29,7 +29,11 @@ public class Hourglass : MonoBehaviour, IPauseHandler
         return StartCoroutine(Hide());
     }
 
-    public void SetPause(bool isPause) => _pauseSpeed = isPause ? 0 : 1;
+    public void Unpause()
+        => _pauseSpeed = 1;
+
+    public void Pause()
+        => _pauseSpeed = 0;
 
     private IEnumerator Show()
     {

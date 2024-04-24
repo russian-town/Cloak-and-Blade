@@ -41,8 +41,9 @@ public class InputView : MonoBehaviour, IPauseHandler
         _isInitialized = true;
     }
 
-    public void SetPause(bool isPause)
-    {
-        _isPause = isPause;
-    }
+    public void Unpause()
+        => _isPause = false;
+
+    public void Pause()
+        => _isPause = true;
 }

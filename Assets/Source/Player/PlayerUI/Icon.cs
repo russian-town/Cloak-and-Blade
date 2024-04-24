@@ -33,7 +33,12 @@ public class Icon : MonoBehaviour
             return;
 
         _shakingSequence = DOTween.Sequence();
-        _shakingSequence.Append(_rectTransform.DOShakeAnchorPos(_shakingDuration, _shakingStrength, _shakingVibrato, _shakingRandomness)).AppendInterval(_shakingDelay).SetLoops(-1);
+        _shakingSequence.Append(
+            _rectTransform.DOShakeAnchorPos(
+            _shakingDuration,
+            _shakingStrength,
+            _shakingVibrato,
+            _shakingRandomness)).AppendInterval(_shakingDelay).SetLoops(-1);
     }
 
     public void StopShaking()
@@ -44,7 +49,9 @@ public class Icon : MonoBehaviour
         _shakingSequence = null;
     }
 
-    public void ChangeSprite(Sprite sprite) => _image.sprite = sprite;
+    public void ChangeSprite(Sprite sprite)
+        => _image.sprite = sprite;
 
-    public void Interactable(bool isInteractable) => _image.color = isInteractable == true ? _startColor : _disableColor;
+    public void Interactable(bool isInteractable)
+        => _image.color = isInteractable == true ? _startColor : _disableColor;
 }

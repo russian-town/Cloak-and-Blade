@@ -14,7 +14,15 @@ public class MoveCommand : Command, ITurnHandler
     private readonly CommandExecuter _executer;
     private Cell _cell;
 
-    public MoveCommand(Player player, PlayerMover playerMover, Navigator navigator, float moveSpeed, float rotationSpeed, Gameboard gameboard, CommandExecuter executer, int range)
+    public MoveCommand(
+        Player player,
+        PlayerMover playerMover,
+        Navigator navigator,
+        float moveSpeed,
+        float rotationSpeed,
+        Gameboard gameboard,
+        CommandExecuter executer,
+        int range)
         : base(executer)
     {
         _player = player;

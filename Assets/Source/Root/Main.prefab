@@ -256,7 +256,7 @@ MonoBehaviour:
   _firstStarContainer: {fileID: 630818702198685997}
   _secondStarContainer: {fileID: 7773264057380314169}
   _thirdStarContainer: {fileID: 7073279087779422807}
-  _duration: 1
+  _starSpawnDelay: 0
 --- !u!114 &5715900506087772183
 MonoBehaviour:
   m_ObjectHideFlags: 0

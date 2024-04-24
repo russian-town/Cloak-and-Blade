@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Lean.Localization;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Shop : MonoBehaviour, IInitializable
@@ -25,9 +25,9 @@ public class Shop : MonoBehaviour, IInitializable
     private Character _defaultCharacter;
     private CharacterView _defaultCharacterView;
 
-    public event UnityAction CharacterSelected;
+    public event Action CharacterSelected;
 
-    public event UnityAction CharacterSold;
+    public event Action CharacterSold;
 
     private void OnDisable()
     {

@@ -18,9 +18,6 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
         _animationHandler = animationHandler;
     }
 
-    public void SetPause(bool isPause)
-        => _pauseSpeed = isPause ? 0 : 1;
-
     public Coroutine StartRotate(Cell targetCell, float rotationSpeed)
     {
         if (_rotatingCoroutine != null)
@@ -36,6 +33,12 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
         return _movingCoroutine =StartCoroutine(MoveTo(targetCell, moveSpeed, rotationSpeed));
     }
+
+    public void Unpause()
+        => _pauseSpeed = 1;
+
+    public void Pause()
+        => _pauseSpeed = 0;
 
     protected virtual IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
     {

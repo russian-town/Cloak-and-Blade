@@ -137,10 +137,20 @@ public class Gameboard : MonoBehaviour
                 if (y > 0)
                     Cell.MakeNorthSouthNeighbors(cell, _cells[i - _size.x]);
 
-                cell.IsAlternative = (x & 1) == 0;
+                if ((x & 1) == 0)
+                    cell.SetCellAsAlternative();
 
                 if ((y & 1) == 0)
-                    cell.IsAlternative = !cell.IsAlternative;
+                {
+                    if (cell.IsAlternative)
+                    {
+                        cell.SetCellAsNotAlternative();
+                    }
+                    else
+                    {
+                        cell.SetCellAsAlternative();
+                    }
+                }
 
                 cell.Content.BecomeEmpty();
             }

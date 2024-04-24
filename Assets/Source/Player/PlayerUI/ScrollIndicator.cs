@@ -7,6 +7,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(HorizontalLayoutGroup))]
 public class ScrollIndicator : MonoBehaviour
 {
+    private readonly float _startDelay = .6f;
+    private readonly int _defaultDivider = 2;
+    private readonly List<Knob> _knobs = new();
+    private readonly List<LevelView> _levelViews = new();
+
     [SerializeField] private Scrollbar _scrollbar;
     [SerializeField] private RectTransform _viewPort;
     [SerializeField] private int _contentWidth;
@@ -27,18 +32,13 @@ public class ScrollIndicator : MonoBehaviour
     private LevelView _lastFocusedLevelView;
     private Knob _lastFocusedKnob;
     private WaitForSeconds _startDelayWaitForSeconds;
-    private float _startDelay = .6f;
-
-    private readonly List<Knob> _knobs = new ();
-
-    private readonly List<LevelView> _levelViews = new ();
 
     private void Update()
     {
         if (_isInitialized == false)
             return;
 
-        _screenPos = new Vector2(Screen.width / 2, Screen.height / 2);
+        _screenPos = new Vector2(Screen.width / _defaultDivider, Screen.height / _defaultDivider);
 
         if (_isScrolling)
         {
@@ -68,7 +68,7 @@ public class ScrollIndicator : MonoBehaviour
     {
         _layout = GetComponent<HorizontalLayoutGroup>();
         _levelViews.AddRange(levelViews);
-        _layout.padding.left = (_viewPort.rect.width / 2).ToInt() - _contentWidth;
+        _layout.padding.left = (_viewPort.rect.width / _defaultDivider).ToInt() - _contentWidth;
         _layout.padding.right = _layout.padding.left;
         _knobs.AddRange(knobs);
         _isInitialized = true;
@@ -121,7 +121,7 @@ public class ScrollIndicator : MonoBehaviour
     {
         for (int i = 0; i < _positions.Length; i++)
         {
-            if (_scrollbar.value < _positions[i] + (_distance / 2) && _scrollbar.value > _positions[i] - (_distance / 2))
+            if (_scrollbar.value < _positions[i] + (_distance / _defaultDivider) && _scrollbar.value > _positions[i] - (_distance / _defaultDivider))
             {
                 _scrollbar.value = Mathf.Lerp(_scrollbar.value, _positions[i], _scrollSpeed * Time.deltaTime);
             }

@@ -34,7 +34,11 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
         _player.StepEnded -= OnStepEnded;
     }
 
-    public void AddSceneEffectsToChange(List<EffectChangeHandler> effects, List<SoundChangeHandler> sounds, List<SplineChangeHandler> splines, List<AnimationChangeHandler> animations)
+    public void AddSceneEffectsToChange(
+        List<EffectChangeHandler> effects,
+        List<SoundChangeHandler> sounds,
+        List<SplineChangeHandler> splines,
+        List<AnimationChangeHandler> animations)
     {
         _effectsList.AddRange(effects);
         _soundList.AddRange(sounds);

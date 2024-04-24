@@ -3,13 +3,15 @@ using UnityEngine;
 
 public class ChainDOTanimation : MonoBehaviour
 {
+    private readonly float _outOfScreenPosition = -300;
+    private readonly float _shakeLength = 2f;
+    private readonly float _fadeLength = 2f;
+    private readonly float _shakeStrength = 3;
+    private readonly int _shakeVibrato = 8;
+
     [SerializeField] private RectTransform _rectTransform;
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private float _animationLength;
-
-    private float _outOfScreenPosition = -300;
-    private float _shakeLength = 2f;
-    private float _fadeLength = 2f;
 
     public void PlayFallAnimation()
     {
@@ -21,6 +23,6 @@ public class ChainDOTanimation : MonoBehaviour
 
     public void PlayShakeAnimation()
     {
-        _rectTransform.DOShakeAnchorPos(_shakeLength, 3, 8, 0);
+        _rectTransform.DOShakeAnchorPos(_shakeLength, _shakeStrength, _shakeVibrato, 0);
     }
 }

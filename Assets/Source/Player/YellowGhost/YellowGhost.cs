@@ -18,14 +18,25 @@ public class YellowGhost : Player, ISceneParticlesInfluencer
 
     public IReadOnlyList<AnimationChangeHandler> SceneAnimations => _animationList;
 
-    public override void Initialize(Cell startCell, Hourglass hourglass, IEnemyTurnWaiter enemyTurnHandler, Gameboard gameboard, RewardedAdHandler adHandler, PlayerView playerView, Battery battery)
+    public override void Initialize(
+        Cell startCell,
+        Hourglass hourglass,
+        IEnemyTurnWaiter enemyTurnHandler,
+        Gameboard gameboard,
+        RewardedAdHandler adHandler,
+        PlayerView playerView,
+        Battery battery)
     {
         base.Initialize(startCell, hourglass, enemyTurnHandler, gameboard, adHandler, playerView, battery);
         _theWorld = GetComponent<TheWorld>();
         _theWorld.Initialize(UpgradeSetter, playerView);
     }
 
-    public void AddSceneEffectsToChange(List<EffectChangeHandler> effects, List<SoundChangeHandler> sounds, List<SplineChangeHandler> splines, List<AnimationChangeHandler> animations)
+    public void AddSceneEffectsToChange(
+        List<EffectChangeHandler> effects,
+        List<SoundChangeHandler> sounds,
+        List<SplineChangeHandler> splines,
+        List<AnimationChangeHandler> animations)
     {
         _effects.AddRange(effects);
         _soundList.AddRange(sounds);
@@ -33,7 +44,7 @@ public class YellowGhost : Player, ISceneParticlesInfluencer
         _animationList.AddRange(animations);
     }
 
-    public override AbilityCommand AbilityCommand()
+    public override AbilityCommand GetAbilityCommand()
     {
         return new TheWorldCommand(_theWorld, CommandExecuter, this);
     }

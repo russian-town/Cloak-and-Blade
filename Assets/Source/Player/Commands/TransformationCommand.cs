@@ -16,7 +16,16 @@ public class TransformationCommand : AbilityCommand, ITurnHandler
 
     private Cell _cell;
 
-    public TransformationCommand(Transformation transformation, Gameboard gameboard, Navigator navigator, CommandExecuter executer, Player player, PlayerMover playerMover, float moveSpeed, float rotationSpeed, int range)
+    public TransformationCommand(
+        Transformation transformation,
+        Gameboard gameboard,
+        Navigator navigator,
+        CommandExecuter executer,
+        Player player,
+        PlayerMover playerMover,
+        float moveSpeed,
+        float rotationSpeed,
+        int range)
         : base(transformation, executer)
     {
         _transformation = transformation;

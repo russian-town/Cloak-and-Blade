@@ -132,14 +132,6 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         }
     }
 
-    public void SetPause(bool isPause)
-    {
-        if (isPause == true)
-            Unsubscribe();
-        else
-            Subscribe();
-    }
-
     public void Cancel()
     {
         _canSwitchAbilityInteractable = true;
@@ -164,6 +156,12 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _ability.interactable = false;
         _abilityIcon.Interactable(false);
     }
+
+    public void Unpause()
+        => Subscribe();
+
+    public void Pause()
+        => Unsubscribe();
 
     private void OnAbilityUsed()
     {

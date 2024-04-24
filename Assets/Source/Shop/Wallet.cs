@@ -1,11 +1,11 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Wallet : IDataReader, IDataWriter, IInitializable
 {
     [SerializeField] private int _stars;
 
-    public event UnityAction<int> StarsChanged;
+    public event Action<int> StarsChanged;
 
     public int Stars => _stars;
 

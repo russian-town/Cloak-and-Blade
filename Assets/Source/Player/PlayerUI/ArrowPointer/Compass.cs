@@ -5,9 +5,11 @@ using DG.Tweening;
 [RequireComponent(typeof(CanvasGroup))]
 public class Compass : MonoBehaviour
 {
+    private readonly int _defaultDivider = 2;
+
     [SerializeField] private RectTransform _compassTransform;
-    [SerializeField] private List<RectTransform> _compassTargetIcons = new List<RectTransform>();
-    [SerializeField] private List<Transform> _compassTargetTransform = new List<Transform>();
+    [SerializeField] private List<RectTransform> _compassTargetIcons = new ();
+    [SerializeField] private List<Transform> _compassTargetTransform = new ();
     [SerializeField] private Transform _cameraObjectiveTransform;
     [SerializeField] private Key _key;
     [SerializeField] private Treasure _treasure;
@@ -65,9 +67,13 @@ public class Compass : MonoBehaviour
     private void SetMarkerPosition(RectTransform markerTransform, Vector3 worldPosition)
     {
         Vector3 directionToTarget = worldPosition - _cameraObjectiveTransform.position;
-        float angle = Vector2.SignedAngle(new Vector2(directionToTarget.x, directionToTarget.z), new Vector2(_cameraObjectiveTransform.transform.forward.x, _cameraObjectiveTransform.transform.forward.z));
-        float compassPositionX = Mathf.Clamp(2 * angle / Camera.main.fieldOfView, -1, 1);
-        markerTransform.anchoredPosition = new Vector2(((_compassTransform.rect.width / 2) - _threshHold) * compassPositionX, 0);
+        float angle = Vector2.SignedAngle(
+            new Vector2(directionToTarget.x, directionToTarget.z),
+            new Vector2(_cameraObjectiveTransform.transform.forward.x,
+            _cameraObjectiveTransform.transform.forward.z));
+        float compassPositionX = Mathf.Clamp(_defaultDivider * angle / Camera.main.fieldOfView, -1, 1);
+        float compassPositionMultiplier = (_compassTransform.rect.width / _defaultDivider) - _threshHold;
+        markerTransform.anchoredPosition = new Vector2(compassPositionMultiplier * compassPositionX, 0);
     }
 
     private void OnCameraAngleChanged()

@@ -31,7 +31,7 @@ public class Cell : MonoBehaviour
 
     public bool HasPath => _distance != int.MaxValue;
 
-    public bool IsAlternative { get; set; }
+    public bool IsAlternative { get; private set; }
 
     public bool IsOccupied { get; private set; }
 
@@ -114,6 +114,18 @@ public class Cell : MonoBehaviour
         if (_distance == 0)
             return;
         
-        _view.transform.localRotation = _nextOnPath == _north ? _northRotation : _nextOnPath == _east ? _eastRotation : _nextOnPath == _south ? _southRotation : _westRotation;
+        _view.transform.localRotation = _nextOnPath == _north
+            ? _northRotation
+            : _nextOnPath == _east
+            ? _eastRotation
+            : _nextOnPath == _south
+            ? _southRotation
+            : _westRotation;
     }
+
+    public void SetCellAsAlternative()
+        => IsAlternative = true;
+
+    public void SetCellAsNotAlternative()
+        => IsAlternative = false;
 }

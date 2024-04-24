@@ -44,17 +44,7 @@ public class CutsceneScenario : MonoBehaviour, IPauseHandler
     }
 
     private void OnDisable()
-    {
-        _progressBar.ProgressBarFilled -= OnProgressBarFilled;
-    }
-
-    public void SetPause(bool isPause)
-    {
-        if (isPause)
-            Time.timeScale = 0;
-        else
-            Time.timeScale = 1;
-    }
+        => _progressBar.ProgressBarFilled -= OnProgressBarFilled;
 
     public void StartCutscene()
     {
@@ -64,7 +54,14 @@ public class CutsceneScenario : MonoBehaviour, IPauseHandler
         _cutSceneCoroutine = StartCoroutine(CutsceneCoroutine());
     }
 
-    private void OnProgressBarFilled() => _levelsHandler.TryLoadTutorial();
+    public void Unpause()
+        => Time.timeScale = 1;
+
+    public void Pause()
+        => Time.timeScale = 0;
+
+    private void OnProgressBarFilled()
+        => _levelsHandler.TryLoadTutorial();
 
     private IEnumerator CutsceneCoroutine()
     {

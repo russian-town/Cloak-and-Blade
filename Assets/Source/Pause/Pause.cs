@@ -22,7 +22,7 @@ public class Pause
             return;
 
         foreach (IPauseHandler handler in _handlers)
-            handler.SetPause(true);
+            handler.Pause();
     }
 
     public void Disable()
@@ -31,6 +31,6 @@ public class Pause
             return;
 
         foreach (IPauseHandler handler in _handlers)
-            handler.SetPause(false);
+            handler.Unpause();
     }
 }

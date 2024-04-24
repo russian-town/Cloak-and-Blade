@@ -15,7 +15,7 @@ public class ResetAbilityElement : BaseTutorialElement
         _player = player;
         _player.Mover.MoveEnded += OnMoveEnded;
         _gameboard.Enable();
-        player.AbilityCommand().Ability.ResetAbility();
+        player.GetAbilityCommand().Ability.ResetAbility();
         _playerView.ResetAbilityIcon();
         _battery.Enable();
 

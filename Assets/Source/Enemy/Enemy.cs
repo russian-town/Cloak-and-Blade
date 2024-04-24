@@ -56,16 +56,6 @@ public class Enemy : Ghost, IPauseHandler
         AnnouncerDerection();
     }
 
-    public void SetPause(bool isPause)
-    {
-        _mover.SetPause(isPause);
-
-        if (isPause == true)
-            _animationHandler.StopAnimation();
-        else
-            _animationHandler.StartAnimation();
-    }
-
     public Cell DeclareNextCell()
     {
         CalculatePath();
@@ -96,6 +86,18 @@ public class Enemy : Ghost, IPauseHandler
     {
         _sightHandler.ClearSight();
         Destroy(gameObject);
+    }
+
+    public void Unpause()
+    {
+        _mover.Unpause();
+        _animationHandler.StartAnimation();
+    }
+
+    public void Pause()
+    {
+        _mover.Pause();
+        _animationHandler.StopAnimation();
     }
 
     private bool CalculatePath()

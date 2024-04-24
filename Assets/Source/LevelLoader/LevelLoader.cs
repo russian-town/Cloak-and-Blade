@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour, IDataReader
 {
-    [SerializeField] private List<Level> _levels = new();
+    [SerializeField] private List<Level> _levels = new ();
     [SerializeField] private LevelView _levelViewTemplate;
     [SerializeField] private HorizontalLayoutGroup _levelViewParent;
     [SerializeField] private Knob _knobTemplate;
@@ -15,8 +15,8 @@ public class LevelLoader : MonoBehaviour, IDataReader
     [SerializeField] private ScrollIndicator _scrollIndicator;
     [SerializeField] private int _firstLevelIndex;
 
-    private readonly List<LevelView> _levelViews = new();
-    private readonly List<Knob> _knobs = new();
+    private readonly List<LevelView> _levelViews = new ();
+    private readonly List<Knob> _knobs = new ();
 
     private void OnDisable()
     {
