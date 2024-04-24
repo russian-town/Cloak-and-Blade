@@ -8,12 +8,12 @@ public class CompleteTutorialZone : MonoBehaviour, IDataWriter, IDataReader
 
     private void OnEnable()
     {
-        _levelExit.LevelPassed += OnLevelPassed;
+        _levelExit.ExitOpened += OnLevelPassed;
     }
 
     private void OnDisable()
     {
-        _levelExit.LevelPassed -= OnLevelPassed;
+        _levelExit.ExitOpened -= OnLevelPassed;
     }
 
     public void Write(PlayerData playerData)

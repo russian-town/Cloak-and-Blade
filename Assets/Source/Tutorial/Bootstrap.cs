@@ -1,18 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using Agava.YandexGames;
 using Cinemachine;
 using Lean.Localization;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
 {
-    private readonly Wallet _wallet = new Wallet();
-    private readonly List<Enemy> _enemies = new List<Enemy>();
-    private readonly YandexAds _yandexAds = new YandexAds();
-    private readonly Saver _saver = new Saver();
+    private readonly Wallet _wallet = new ();
+    private readonly List<Enemy> _enemies = new ();
+    private readonly YandexAds _yandexAds = new ();
+    private readonly Saver _saver = new ();
 
     [SerializeField] private Player _player;
     [SerializeField] private PlayerView _playerView;
@@ -41,6 +39,8 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
     [SerializeField] private LeanLocalization _localization;
     [SerializeField] private CompleteTutorialZone _completeTutorialZone;
     [SerializeField] private Button _exitButton;
+    [SerializeField] private LevelLoader _levelLoader;
+    [SerializeField] private LevelFinisher _levelFinisher;
 
     private AdHandler _adHandler;
     private Pause _pause;
@@ -49,7 +49,7 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
     private void OnEnable()
     {
         _saver.Enable();
-        _game.LevelPassed += OnLevelComplete;
+        _levelExit.ExitOpened += OnLevelComplete;
     }
 
     private void OnDisable()
@@ -59,13 +59,13 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
         _room.Unsubscribe();
         _game.Unsubscribe();
         _player.Unsubscribe();
-        _game.LevelPassed -= OnLevelComplete;
+        _levelExit.ExitOpened -= OnLevelComplete;
     }
 
     private void Start()
     {
-        _saver.AddDataReaders(new IDataReader[] { _wallet, _completeTutorialZone, this, _game });
-        _saver.AddDataWriters(new IDataWriter[] { _wallet, _completeTutorialZone, _game });
+        _saver.AddDataReaders(new IDataReader[] { _wallet, _completeTutorialZone, this, _levelFinisher });
+        _saver.AddDataWriters(new IDataWriter[] { _wallet, _completeTutorialZone, _levelFinisher });
         _saver.AddInitializable(this);
         _saver.Initialize();
         _saver.Load();
@@ -75,7 +75,7 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
     {
         _player = _spawner.Get(_playerSpawnCell, _player) as Player;
         _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard, _rewardAdHandler, _playerView, _battery);
-        _playerView.Initialize(_player, _player.CommandExecuter);
+        _playerView.Initialize(_player, _player.CommandExecuter, _levelFinisher, _pause);
         _room.Initialize(_player, _playerView, _hourglass);
         _inputView.Initialize();
         _rewardAdHandler.Initialize(_player, _yandexAds);
@@ -117,7 +117,7 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
 
         _pause = new Pause(new List<IPauseHandler> { _inputView, _playerView, _player, _hourglass });
         _adHandler = new AdHandler(_game, _focusHandler, _audio);
-        _game.Initialize(_player, _pause, _levelExit, _wallet, _adHandler);
+        _game.Initialize(_pause, _levelFinisher, _wallet, _adHandler, _levelLoader);
         _focusHandler.SetActiveScene(_game);
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
@@ -161,5 +161,6 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
         _currentLanguage = playerData.CurrentLanguague;
     }
 
-    private void OnLevelComplete() => _saver.Save();
+    private void OnLevelComplete()
+        => _saver.Save();
 }

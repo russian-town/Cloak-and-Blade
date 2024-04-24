@@ -19,7 +19,7 @@ public class DefaultLevelExit : LevelExit, ICompassTarget
     {
         if (Player.ItemsInHold.FindItemInList(_treasure))
         {
-            InvokeLevelPassed();
+            InvokeExitOpened();
             return true;
         }
 

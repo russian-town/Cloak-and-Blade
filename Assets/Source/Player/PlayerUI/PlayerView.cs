@@ -9,7 +9,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     [SerializeField] private Button _move;
     [SerializeField] private Button _ability;
     [SerializeField] private Button _skip;
-    [SerializeField] private Button _pause;
+    [SerializeField] private Button _pauseButton;
     [SerializeField] private Button _leftRotationCameraButton;
     [SerializeField] private Button _rightRotationCameraButton;
     [SerializeField] private Button _perspectiveCameraButton;
@@ -25,6 +25,8 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     private bool _canSwitchAbilityInteractable = true;
     private bool _canSwitchMoveInteractable = true;
     private bool _isAbilityInteractable;
+    private ILevelFinisher _levelFinisher;
+    private Pause _pause;
 
     public event Action PauseButtonClicked;
 
@@ -32,6 +34,8 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     {
         _player.AbilityUsed -= OnAbilityUsed;
         _commandExecuter.AbilityReseted -= OnAbilityReseted;
+        _levelFinisher.LevelPassed -= OnLevelPassed;
+        _levelFinisher.LevelFailed -= OnLevelFailed;
     }
 
     public void Subscribe()
@@ -39,7 +43,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _move.onClick.AddListener(OnMoveClick);
         _ability.onClick.AddListener(OnAbilityClick);
         _skip.onClick.AddListener(OnSkipClick);
-        _pause.onClick.AddListener(() => PauseButtonClicked?.Invoke());
+        _pauseButton.onClick.AddListener(() => PauseButtonClicked?.Invoke());
     }
 
     public void Unsubscribe()
@@ -47,15 +51,24 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _move.onClick.RemoveListener(OnMoveClick);
         _ability.onClick.RemoveListener(OnAbilityClick);
         _skip.onClick.RemoveListener(OnSkipClick);
-        _pause.onClick.RemoveListener(() => PauseButtonClicked?.Invoke());
+        _pauseButton.onClick.RemoveListener(() => PauseButtonClicked?.Invoke());
     }
 
-    public void Initialize(Player player, CommandExecuter commandExecuter)
+    public void Initialize(
+        Player player,
+        CommandExecuter commandExecuter,
+        ILevelFinisher levelFinisher,
+        Pause pause)
     {
         _player = player;
         _commandExecuter = commandExecuter;
+        _levelFinisher = levelFinisher;
         _player.AbilityUsed += OnAbilityUsed;
         _commandExecuter.AbilityReseted += OnAbilityReseted;
+        _levelFinisher.LevelPassed += OnLevelPassed;
+        _levelFinisher.LevelFailed += OnLevelFailed;
+        _pause.Enabled += OnEnabled;
+        _pause.Disabled += OnDisabled;
         _canvasGroup = GetComponent<CanvasGroup>();
 
         foreach (var icon in _icons)
@@ -163,6 +176,12 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     public void Pause()
         => Unsubscribe();
 
+    private void OnLevelPassed()
+        => Hide();
+
+    private void OnLevelFailed()
+        => Hide();
+
     private void OnAbilityUsed()
     {
         _abilityIcon.ChangeSprite(_rewardedImage);
@@ -183,4 +202,10 @@ public class PlayerView : MonoBehaviour, IPauseHandler
         _player.PrepareSkip();
         _tickTockSound.Play();
     }
+
+    private void OnEnabled()
+        => Hide();
+
+    private void OnDisabled()
+        => Show();
 }

@@ -10,6 +10,7 @@ public class LevelFinishScreen : MonoBehaviour
     [SerializeField] private ScreenAnimationHandler _animationHandler;
 
     private YandexAds _yandexAds;
+    private ILevelFinisher _levelFinisher;
 
     public event Action ExitButtonClicked;
 
@@ -20,6 +21,7 @@ public class LevelFinishScreen : MonoBehaviour
         _exitButton.onClick.AddListener(() => ExitButtonClicked?.Invoke());
         _doubleStarsForAdButton.onClick.AddListener(OnRewardedButtonClick);
         _nextLevelButton.onClick.AddListener(() =>  NextLevelButtonClicked?.Invoke());
+        _yandexAds.RewardedCallback += Unsubscribe;
     }
 
     private void OnDisable()
@@ -27,12 +29,19 @@ public class LevelFinishScreen : MonoBehaviour
         _exitButton.onClick.RemoveListener(() => ExitButtonClicked?.Invoke());
         _doubleStarsForAdButton.onClick.RemoveListener(OnRewardedButtonClick);
         _nextLevelButton.onClick.RemoveListener(() => NextLevelButtonClicked?.Invoke());
+        _yandexAds.RewardedCallback -= Unsubscribe;
     }
 
-    public void Initialize(YandexAds yandexAds)
+    private void OnDestroy()
+        => _levelFinisher.LevelPassed -= OnLevelPassed;
+
+    public void Initialize(YandexAds yandexAds, ILevelFinisher levelFinisher)
     {
         _yandexAds = yandexAds;
         gameObject.SetActive(true);
+        _levelFinisher = levelFinisher;
+        _levelFinisher.LevelPassed += OnLevelPassed;
+        Hide();
     }
 
     public void Unsubscribe()
@@ -53,5 +62,10 @@ public class LevelFinishScreen : MonoBehaviour
     private void OnRewardedButtonClick()
     {
         _yandexAds.ShowRewardedVideo();
+    }
+
+    private void OnLevelPassed()
+    {
+        Show();
     }
 }

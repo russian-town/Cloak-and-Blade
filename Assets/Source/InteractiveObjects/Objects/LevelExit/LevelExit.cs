@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class LevelExit : InteractiveObject, ILevelFinisher
+public abstract class LevelExit : InteractiveObject
 {
     [SerializeField] private InteractiveObjectView _view;
     [SerializeField] private Image _lockedImage;
@@ -10,7 +10,7 @@ public abstract class LevelExit : InteractiveObject, ILevelFinisher
 
     private bool _unLocked = false;
 
-    public event Action LevelPassed;
+    public event Action ExitOpened;
 
     public override void Initialize(Player player)
     {
@@ -64,8 +64,8 @@ public abstract class LevelExit : InteractiveObject, ILevelFinisher
 
     public abstract bool RequiredItemFound();
 
-    protected void InvokeLevelPassed()
-        => LevelPassed?.Invoke();
+    protected void InvokeExitOpened()
+        => ExitOpened?.Invoke();
 
     protected override void Disable()
         => _view.InteractButton.onClick.RemoveListener(Interact);

@@ -6,17 +6,34 @@ public class PauseView : ViewPanel
 {
     [SerializeField] private Button _continueButton;
 
+    private Pause _pause;
+
     public event Action ContionueButtonClicked;
 
-    public override void Initialize()
+    public void Initialize(Pause pause)
     {
-        base.Initialize();
+        _pause = pause;
+        _pause.Enabled += OnEnabled;
+        _pause.Disabled += OnDisabled;
+    }
+
+    public override void Subscribe()
+    {
+        base.Subscribe();
         _continueButton.onClick.AddListener(() => ContionueButtonClicked?.Invoke());
     }
 
-    protected override void Dismiss()
+    protected override void Unsubscribe()
     {
-        base.Dismiss();
+        base.Unsubscribe();
         _continueButton.onClick.RemoveListener(() => ContionueButtonClicked?.Invoke());
+        _pause.Enabled -= OnEnabled;
+        _pause.Disabled -= OnDisabled;
     }
+
+    private void OnDisabled()
+        => Hide();
+
+    private void OnEnabled()
+        => Show();
 }

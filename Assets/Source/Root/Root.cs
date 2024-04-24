@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Agava.YandexGames;
 using Cinemachine;
@@ -7,10 +6,10 @@ using UnityEngine;
 
 public class Root : MonoBehaviour, IInitializable, IDataReader
 {
-    private readonly Saver _saver = new Saver();
-    private readonly Wallet _wallet = new Wallet();
-    private readonly List<Enemy> _enemies = new List<Enemy>();
-    private readonly YandexAds _yandexAds = new YandexAds();
+    private readonly Saver _saver = new ();
+    private readonly Wallet _wallet = new ();
+    private readonly List<Enemy> _enemies = new ();
+    private readonly YandexAds _yandexAds = new ();
 
     [SerializeField] private PlayerView _playerView;
     [SerializeField] private InputView _inputView;
@@ -37,6 +36,8 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private Battery _battery;
     [SerializeField] private LeanLocalization _localization;
+    [SerializeField] private LevelLoader _levelLoader;
+    [SerializeField] private LevelFinisher _levelFinisher;
 
     private AdHandler _adHandler;
     private Player _player;
@@ -46,7 +47,7 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
     public void OnEnable()
     {
         _saver.Enable();
-        _game.LevelPassed += OnLevelPassed;
+        _levelExit.ExitOpened += OnLevelPassed;
     }
 
     private void OnDisable()
@@ -54,19 +55,20 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
         _saver.Disable();
         _playerView.Unsubscribe();
         _room.Unsubscribe();
+        _levelFinisher.Unsubscribe();
         _game.Unsubscribe();
         _player.Unsubscribe();
         _yandexAds.OpenInterstitialCallback -= OnAdOpenCallback;
         _yandexAds.CloseInterstitialCallback -= OnInterstetialClose;
         _yandexAds.OpenCallback -= OnAdOpenCallback;
         _yandexAds.CloseCallback -= OnAdRewardedCloseCallback;
-        _game.LevelPassed -= OnLevelPassed;
+        _levelExit.ExitOpened -= OnLevelPassed;
     }
 
     private void Start()
     {
-        _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet, _audio, _game, this });
-        _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet, _game });
+        _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet, _audio, _levelFinisher, this });
+        _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet, _levelFinisher });
         _saver.AddInitializable(this);
         _saver.AddInitializable(_wallet);
         _saver.Initialize();
@@ -82,10 +84,10 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
         _yandexAds.ShowInterstitial();
         _player = _playersHandler.GetPlayer(_spawner, _playerSpawnCell);
         _player.Initialize(_playerSpawnCell, _hourglass, _room, _gameboard, _rewardAdHandler, _playerView, _battery);
-        _playerView.Initialize(_player, _player.CommandExecuter);
+        _playerView.Initialize(_player, _player.CommandExecuter, _levelFinisher, _pause);
         _room.Initialize(_player, _playerView, _hourglass);
         _inputView.Initialize();
-        _rewardAdHandler.Initialize(_player, _yandexAds);
+        _rewardAdHandler.Initialize(_player, _yandexAds, _wallet, _adHandler);
         _walletView.Initialize(_wallet);
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;
@@ -105,14 +107,21 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
         } 
         else
         {
-            if (YandexGamesSdk.Environment.i18n.lang == "en")
-                _localization.SetCurrentLanguage(Constants.English);
-
-            if (YandexGamesSdk.Environment.i18n.lang == "ru")
-                _localization.SetCurrentLanguage(Constants.Russian);
-
-            if (YandexGamesSdk.Environment.i18n.lang == "tr")
-                _localization.SetCurrentLanguage(Constants.Turkish);
+            switch (YandexGamesSdk.Environment.i18n.lang)
+            {
+                case Constants.En:
+                    _localization.SetCurrentLanguage(Constants.English);
+                    break;
+                case Constants.Ru:
+                    _localization.SetCurrentLanguage(Constants.Russian);
+                    break;
+                case Constants.Tr:
+                    _localization.SetCurrentLanguage(Constants.Turkish);
+                    break;
+                default:
+                    _localization.SetCurrentLanguage(Constants.English);
+                    break;
+            }
         }
 #endif
 
@@ -130,7 +139,8 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
 
         _player.SetTargets(_enemies);
         _adHandler = new AdHandler(_game, _focusHandler, _audio);
-        _game.Initialize(_player, _pause, _levelExit, _wallet, _adHandler);
+        _levelFinisher.Initialize(_levelExit, _player);
+        _game.Initialize(_pause, _levelFinisher, _levelLoader);
         _focusHandler.SetActiveScene(_game);
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);
@@ -139,7 +149,8 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
         _loadingScreen.StartFade(0);
     }
 
-    public void Read(PlayerData playerData) => _currentLanguage = playerData.CurrentLanguague;
+    public void Read(PlayerData playerData)
+        => _currentLanguage = playerData.CurrentLanguague;
 
     private void OnAdOpenCallback()
     {
@@ -160,5 +171,6 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
         _focusHandler.enabled = true;
     }
 
-    private void OnLevelPassed() => _saver.Save();
+    private void OnLevelPassed()
+        => _saver.Save();
 }

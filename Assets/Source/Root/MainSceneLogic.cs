@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class MainSceneLogic : MonoBehaviour, IDataReader
 {
+    private readonly Saver _saver = new ();
+    private readonly Wallet _wallet = new ();
+
     [SerializeField] private Shop _shop;
     [SerializeField] private PlayersHandler _playersHandler;
     [SerializeField] private Character[] _characters;
@@ -16,9 +19,8 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private LeanLocalization _localization;
+    [SerializeField] private LevelsHandler _levelsHandler;
 
-    private Saver _saver = new Saver();
-    private Wallet _wallet = new Wallet();
     private string _currentLanguage;
 
     private void OnEnable()
@@ -91,7 +93,7 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
         _walletView.Initialize(_wallet);
         _wallet.Initialize();
         _shop.SetWallet(_wallet);
-        _levelLoader.Initialize();
+        _levelLoader.Initialize(_levelsHandler);
         _loadingScreen.StartFade(0);
         _mainMenu.Initialize();
         yield return null;

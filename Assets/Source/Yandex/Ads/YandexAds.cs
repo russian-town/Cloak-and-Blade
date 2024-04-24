@@ -1,6 +1,5 @@
 using System;
 using Agava.YandexGames;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class YandexAds

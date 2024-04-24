@@ -1,8 +1,8 @@
 public class AdHandler
 {
-    private Game _game;
-    private FocusHandler _focusHandler;
-    private Audio _audio;
+    private readonly Game _game;
+    private readonly FocusHandler _focusHandler;
+    private readonly Audio _audio;
 
     public AdHandler(Game game, FocusHandler focusHandler, Audio audio)
     {

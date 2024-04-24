@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour, IDataReader
 {
+    private readonly List<LevelView> _levelViews = new();
+    private readonly List<Knob> _knobs = new();
+
     [SerializeField] private List<Level> _levels = new ();
     [SerializeField] private LevelView _levelViewTemplate;
     [SerializeField] private HorizontalLayoutGroup _levelViewParent;
@@ -15,8 +18,7 @@ public class LevelLoader : MonoBehaviour, IDataReader
     [SerializeField] private ScrollIndicator _scrollIndicator;
     [SerializeField] private int _firstLevelIndex;
 
-    private readonly List<LevelView> _levelViews = new ();
-    private readonly List<Knob> _knobs = new ();
+    private LevelsHandler _levelsHandler;
 
     private void OnDisable()
     {
@@ -30,7 +32,7 @@ public class LevelLoader : MonoBehaviour, IDataReader
             level.Read(playerData);
     }
 
-    public void Initialize()
+    public void Initialize(LevelsHandler levelsHandler)
     {
         for (int i = 0; i < _levels.Count; i++)
         {
@@ -46,6 +48,7 @@ public class LevelLoader : MonoBehaviour, IDataReader
                 }
             }
 
+            _levelsHandler = levelsHandler;
             LevelView levelView = Instantiate(_levelViewTemplate, _levelViewParent.transform);
             levelView.Render(_levels[i]);
             _levelViews.Add(levelView);
@@ -60,6 +63,21 @@ public class LevelLoader : MonoBehaviour, IDataReader
 
     public void OnOpenLevelButtonClicked(Level level)
         => OpenUnlockedLevel(level);
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(_levelsHandler.GetNextLevel().Name);
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(Constants.MainMenu);
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     private void OpenUnlockedLevel(Level level)
     {

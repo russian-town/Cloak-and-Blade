@@ -1,39 +1,21 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
+public class Game : MonoBehaviour, IActiveScene
 {
     [SerializeField] private PauseView _pauseScreen;
     [SerializeField] private PlayerView _playerView;
     [SerializeField] private GameOverView _gameOverView;
     [SerializeField] private StepCounter _stepCounter;
-    [SerializeField] private ScoreDefiner _scoreDefiner;
     [SerializeField] private LevelFinishScreen _levelFinishScreen;
     [SerializeField] private LevelsHandler _levelsHandler;
     [SerializeField] private Gameboard _gameboard;
-    [SerializeField] private Button _doubleStarsButton;
 
-    private Wallet _wallet;
-    private Player _player;
     private Pause _pause;
-    private YandexAds _yandexAds;
     private ILevelFinisher _levelFinisher;
-    private bool _levelPassed;
-    private bool _gameOver;
-    private AdHandler _adHandler;
-    private List<string> _finishedLevelNames = new();
-    private List<int> _finishedLevelStarsCount = new();
-
-    public event Action LevelPassed;
-
-    public bool IsInitialize { get; private set; }
+    private LevelLoader _levelLoader;
 
     public void Unsubscribe()
     {
-        _player.Died -= OnPlayerDead;
         _playerView.PauseButtonClicked -= SetPause;
         _pauseScreen.ContionueButtonClicked -= Continue;
         _pauseScreen.RestartButtonClicked -= Restart;
@@ -42,129 +24,43 @@ public class Game : MonoBehaviour, IDataWriter, IDataReader, IActiveScene
         _gameOverView.ExitButtonClicked -= Exit;
         _levelFinishScreen.ExitButtonClicked -= Exit;
         _levelFinishScreen.NextLevelButtonClicked -= OnNextLevelButtonClicked;
-        _levelFinisher.LevelPassed -= OnLevelPassed;
-        _yandexAds.OpenCallback -= OnRewardedOpenClallback;
-        _yandexAds.RewardedCallback -= OnRewardedClallback;
-        _yandexAds.CloseCallback -= OnRewardedCloseClallback;
     }
 
-    public void Initialize(Player player, Pause pause, ILevelFinisher levelFinisher, Wallet wallet, AdHandler adHandler)
+    public void Initialize(
+        Pause pause,
+        ILevelFinisher levelFinisher,
+        LevelLoader levelLoader,
+        YandexAds yandexAds)
     {
-        _wallet = wallet;
-        _player = player;
-        _yandexAds = new YandexAds();
-        _adHandler = adHandler;
-        _yandexAds.OpenCallback += OnRewardedOpenClallback;
-        _yandexAds.RewardedCallback += OnRewardedClallback;
-        _yandexAds.CloseCallback += OnRewardedCloseClallback;
-        _player.Died += OnPlayerDead;
         _pause = pause;
-        _pauseScreen.Initialize();
-        _gameOverView.Initialize();
+        _pauseScreen.Subscribe();
+        _gameOverView.Subscribe();
         _levelFinisher = levelFinisher;
+        _pauseScreen.Initialize(_pause);
         _playerView.PauseButtonClicked += SetPause;
         _pauseScreen.ContionueButtonClicked += Continue;
         _pauseScreen.RestartButtonClicked += Restart;
         _pauseScreen.ExitButtonClicked += Exit;
         _gameOverView.RestartButtonClicked += Restart;
         _gameOverView.ExitButtonClicked += Exit;
-        _levelFinisher.LevelPassed += OnLevelPassed;
         _levelFinishScreen.ExitButtonClicked += Exit;
         _levelFinishScreen.NextLevelButtonClicked += OnNextLevelButtonClicked;
-        _levelFinishScreen.Hide();
-        _levelFinishScreen.Initialize(_yandexAds);
-        IsInitialize = true;
+        _levelFinishScreen.Initialize(yandexAds, _levelFinisher);
+        _levelLoader = levelLoader;
     }
 
     public void SetPause()
-    {
-        if (!_levelPassed && !_gameOver)
-            _pauseScreen.Show();
-
-        _playerView.Hide();
-        _pause.Enable();
-    }
+        => _pause.Disable();
 
     public void Continue()
-    {
-        if (!_levelPassed && !_gameOver)
-        {
-            _pauseScreen.Hide();
-            _playerView.Show();
-        }
-
-        _pause.Disable();
-    }
-
-    public void Write(PlayerData playerData)
-    {
-        playerData.FinishedLevelNames = _finishedLevelNames;
-        playerData.FinishedLevelsStarsCount = _finishedLevelStarsCount;
-    }
-
-    public void Read(PlayerData playerData)
-    {
-        _finishedLevelNames = playerData.FinishedLevelNames;
-        _finishedLevelStarsCount = playerData.FinishedLevelsStarsCount;
-    }
-
-    private void AddStarsOnReward()
-        => _wallet.AddStars(_scoreDefiner.StarsCount);
-
-    private void OnLevelPassed()
-    {
-        _levelPassed = true;
-        _gameboard.gameObject.SetActive(false);
-        _playerView.Hide();
-        _levelFinishScreen.Show();
-        _scoreDefiner.RecieveStars(_stepCounter.CurrentStepCount);
-        _wallet.AddStars(_scoreDefiner.StarsCount);
-
-        if (_finishedLevelNames.Contains(SceneManager.GetActiveScene().name))
-        {
-            int index = _finishedLevelNames.IndexOf(SceneManager.GetActiveScene().name);
-
-            if (_scoreDefiner.StarsCount > _finishedLevelStarsCount[index])
-                _finishedLevelStarsCount[index] = _scoreDefiner.StarsCount;
-
-            return;
-        }
-
-        _finishedLevelNames.Add(SceneManager.GetActiveScene().name);
-        _finishedLevelStarsCount.Add(_scoreDefiner.StarsCount);
-        LevelPassed?.Invoke();
-    }
-
-    private void OnRewardedOpenClallback()
-        => _adHandler.OpenAd();
-    
-    private void OnRewardedClallback()
-    {
-        AddStarsOnReward();
-        _levelFinishScreen.Unsubscribe();
-        _doubleStarsButton.gameObject.SetActive(false);
-    }
-
-    private void OnRewardedCloseClallback()
-        => _adHandler.CloseAd();
+        => _pause.Disable();
 
     private void Restart()
-        => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        => _levelLoader.RestartLevel();
 
     private void Exit()
-        => SceneManager.LoadScene(Constants.MainMenu);
-
-    private void OnPlayerDead()
-        => GameOver();
+        => _levelLoader.BackToMainMenu();
 
     private void OnNextLevelButtonClicked()
-        => SceneManager.LoadScene(_levelsHandler.GetNextLevel().Name);
-
-    private void GameOver() 
-    {
-        _gameOver = true;
-        _gameboard.gameObject.SetActive(false);
-        _playerView.Hide();
-        _gameOverView.Show();
-    }
+        => _levelLoader.LoadNextLevel();
 }

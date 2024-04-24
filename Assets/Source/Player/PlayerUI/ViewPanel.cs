@@ -12,7 +12,7 @@ public abstract class ViewPanel : MonoBehaviour
 
     public event Action ExitButtonClicked;
 
-    private void OnDisable() => Dismiss();
+    private void OnDisable() => Unsubscribe();
 
     public virtual void Show()
     {
@@ -24,14 +24,14 @@ public abstract class ViewPanel : MonoBehaviour
         _animationHandler.FadeOut();
     }
 
-    public virtual void Initialize()
+    public virtual void Subscribe()
     {
         _restartButton.onClick.AddListener(() => RestartButtonClicked?.Invoke());
         _exitButton.onClick.AddListener(() => ExitButtonClicked?.Invoke());
         gameObject.SetActive(true);
     }
 
-    protected virtual void Dismiss()
+    protected virtual void Unsubscribe()
     {
         _restartButton.onClick.RemoveListener(() => RestartButtonClicked?.Invoke());
         _exitButton.onClick.RemoveListener(() => ExitButtonClicked?.Invoke());
