@@ -140,7 +140,7 @@ public class EnemySightHandler : MonoBehaviour
     {
         if (_cellsInSight.Count > 0)
         {
-            List<Cell> temp = new();
+            List<Cell> temp = new ();
             int maxWest = 0;
             int maxEast = 0;
 
@@ -175,7 +175,7 @@ public class EnemySightHandler : MonoBehaviour
     {
         if (_cellsInSight.Count > 0)
         {
-            List<Cell> temp = new List<Cell>();
+            List<Cell> temp = new ();
             int maxNorth = 0;
             int maxSouth = 0;
             bool isNorthWallHit = false;
