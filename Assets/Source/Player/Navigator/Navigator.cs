@@ -26,33 +26,12 @@ public class Navigator : MonoBehaviour, ITurnHandler
     public void SetTurn(Turn turn)
         => _turn = turn;
 
-    public bool CanMoveToCell(ref Cell cell)
+    public bool CanMoveToCell()
     {
         if (_turn == Turn.Enemy || _player.IsDead)
             return false;
 
-        if (TryFindCellHasTrap(_availableNorthCells, cell, out Cell findNorthCell))
-        {
-            cell = findNorthCell;
-            return true;
-        }
-        else if (TryFindCellHasTrap(_availableSouthCells, cell, out Cell findSouthCell))
-        {
-            cell = findSouthCell;
-            return true;
-        }
-        else if (TryFindCellHasTrap(_availableEastCells, cell, out Cell findEastCell))
-        {
-            cell = findEastCell;
-            return true;
-        }
-        else if (TryFindCellHasTrap(_availableWestCells, cell, out Cell findWestCell))
-        {
-            cell = findWestCell;
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     public void ShowAvailableCells()
@@ -175,33 +154,6 @@ public class Navigator : MonoBehaviour, ITurnHandler
         _availableEastCells.Clear();
         _availableWestCells.Clear();
         _availableCells.Clear();
-    }
-
-    private bool TryFindCellHasTrap(List<Cell> cells, Cell findCell, out Cell targetCell)
-    {
-        if (!cells.Contains(findCell))
-        {
-            targetCell = null;
-            return false;
-        }
-
-        foreach (var cell in cells)
-        {
-            if (cell.HasTrap)
-            {
-                if (cells.IndexOf(findCell) < cells.IndexOf(cell))
-                {
-                    targetCell = findCell;
-                    return true;
-                }
-
-                targetCell = cell;
-                return true;
-            }
-        }
-
-        targetCell = findCell;
-        return true;
     }
 
     private bool TryAddCell(Cell tempCell, List<Cell> cells, bool ignoreWalls)

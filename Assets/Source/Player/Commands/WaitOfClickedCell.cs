@@ -32,7 +32,7 @@ public class WaitOfClickedCell : CustomYieldInstruction
         {
             Cell targetCell = _gameboard.GetCell(TouchRay);
 
-            if (_navigator.CanMoveToCell(ref targetCell))
+            if (_navigator.CanMoveToCell())
             {
                 Cell = targetCell;
                 return false;

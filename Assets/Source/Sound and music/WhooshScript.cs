@@ -15,7 +15,7 @@ public class WhooshScript : MonoBehaviour
     private bool _isPlaying;
     private bool _isSourceTwo;
 
-    public void PlayWhoosh()
+    public void StartWhooshCoroutine()
     {
         if (_whooshCoroutine == null)
         {
@@ -24,30 +24,31 @@ public class WhooshScript : MonoBehaviour
         }
     }
 
+    private void PlayWhooshSound(AudioSource whooshSource)
+    {
+        _waitDelay = new WaitForSeconds(Random.Range(_minDelay, _maxDelay));
+        whooshSource.pitch = Random.Range(_minPitch, _maxPitch);
+        whooshSource.panStereo = Random.Range(-1, 1);
+        whooshSource.Play();
+    }
+
     private IEnumerator WhooshCoroutine()
     {
         while (_isPlaying)
         {
             if (!_isSourceTwo)
             {
-                _waitDelay = new WaitForSeconds(Random.Range(_minDelay, _maxDelay));
-                _sourceOne.pitch = Random.Range(_minPitch, _maxPitch);
-                _sourceOne.panStereo = Random.Range(-1, 1);
-                _sourceOne.Play();
+                PlayWhooshSound(_sourceOne);
                 _isSourceTwo = true;
-                yield return _waitDelay;
-                _waitDelay = null;
             }
             else
             {
-                _waitDelay = new WaitForSeconds(Random.Range(_minDelay, _maxDelay));
-                _sourceTwo.pitch = Random.Range(_minPitch, _maxPitch);
-                _sourceTwo.panStereo = Random.Range(-1, 1);
-                _sourceTwo.Play();
+                PlayWhooshSound(_sourceTwo);
                 _isSourceTwo = false;
-                yield return _waitDelay;
-                _waitDelay = null;
             }
+
+            yield return _waitDelay;
+            _waitDelay = null;
         }
 
         _whooshCoroutine = null;

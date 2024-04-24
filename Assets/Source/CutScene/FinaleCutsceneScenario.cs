@@ -73,7 +73,7 @@ public class FinaleCutsceneScenario : MonoBehaviour
         yield return _genericWait;
         _effect.Play();
         _gore.Play();
-        _whoosh.PlayWhoosh();
+        _whoosh.StartWhooshCoroutine();
         _effectChanger.ChangeEffectSpeed(1, _effectFadeUpSpeed);
         StartCoroutine(ShakeCameraWithFade(_cameraFrequencyFinalIntensity, _cameraAmplitudeFinalIntensity));
         _genericWait = new WaitForSeconds(_swordStabingDuration);
