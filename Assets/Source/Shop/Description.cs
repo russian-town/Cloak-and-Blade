@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent (typeof(Canvas))]
+[RequireComponent(typeof(Canvas))]
 public class Description : MonoBehaviour
 {
     [SerializeField] private ScreenAnimationHandler _animationHandler;

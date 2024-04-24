@@ -7,9 +7,6 @@ public class WaitOfClickedCell : CustomYieldInstruction
     private Camera _camera;
     private Navigator _navigator;
 
-    private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
-    public Cell Cell { get; private set; }
-
     public WaitOfClickedCell(Gameboard gameboard, Camera camera, Navigator navigator)
     {
         _gameboard = gameboard;
@@ -17,6 +14,10 @@ public class WaitOfClickedCell : CustomYieldInstruction
         _navigator = navigator;
     }
 
+    public Cell Cell { get; private set; }
+
+    private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
+    
     public override bool keepWaiting
     {
         get

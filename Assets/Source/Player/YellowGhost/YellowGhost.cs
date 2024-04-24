@@ -31,7 +31,7 @@ public class YellowGhost : Player, ISceneParticlesInfluencer
         _soundList.AddRange(sounds);
         _splineList.AddRange(splines);
         _animationList.AddRange(animations);
-    } 
+    }
 
     public override AbilityCommand AbilityCommand()
     {

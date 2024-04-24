@@ -7,11 +7,13 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
     private Turn _turn;
     private AbilityCommand _abilityCommandToReset;
 
-    public Command CurrentCommand => _currentCommand;
-
     public event Action<Command> CommandChanged;
+
     public event Action AbilityUseFail;
+
     public event Action AbilityReseted;
+
+    public Command CurrentCommand => _currentCommand;
 
     public bool TrySwitchCommand(Command command)
     {
@@ -28,7 +30,7 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
         {
             if (_currentCommand.GetType() == command.GetType() && command is not SkipCommand)
             {
-                if(_currentCommand is AbilityCommand)
+                if (_currentCommand is AbilityCommand)
                 {
                     if (_currentCommand.Enabled == false)
                     {
@@ -39,8 +41,8 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
                 return false;
             }
         }
-            
-        if(CanSwith() == false)
+        
+        if (CanSwith() == false)
             return false;
 
         _currentCommand = command;

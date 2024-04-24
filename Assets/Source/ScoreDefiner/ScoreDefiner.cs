@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent (typeof(ScoreDefinerView))]
+[RequireComponent(typeof(ScoreDefinerView))]
 public class ScoreDefiner : MonoBehaviour
 {
     [SerializeField] private int _stepCountToSecodStart;

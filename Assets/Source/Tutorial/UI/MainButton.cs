@@ -9,9 +9,9 @@ public class MainButton : MonoBehaviour
     private CanvasGroup _canvasGroup;
     private Button _button;
 
-    public bool IsOpen {  get; private set; }
-
     public event Action<MainButton> MainButtonClicked;
+
+    public bool IsOpen { get; private set; }
 
     public LightButtonEffectHandler EffectHandler => _effectHandler;
 
@@ -38,7 +38,7 @@ public class MainButton : MonoBehaviour
         _canvasGroup.blocksRaycasts = true;
     }
 
-    public void Hide() 
+    public void Hide()
     {
         if (_effectHandler != null)
             _effectHandler.StopLightEffect();

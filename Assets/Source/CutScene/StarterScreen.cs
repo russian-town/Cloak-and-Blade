@@ -25,6 +25,9 @@ public class StarterScreen : MonoBehaviour, IInitializable
 
     private AudioSource _audioSource;
     private CanvasGroup _canvasGroup;
+    private WaitForSeconds _fadeWaitForSeconds; 
+    private WaitForSeconds _pressAnywhereWaitForSeconds;
+    private float _startTextFadeStep = .7f;
 
     public void Initialize()
     {
@@ -35,6 +38,8 @@ public class StarterScreen : MonoBehaviour, IInitializable
         var particleNoise = _particle.noise;
         particleNoise.strengthX = Random.Range(_minParticleStrengthX, _maxParticleStrengthX);
         particleNoise.strengthY = Random.Range(_minParticleStrengthY, _maxParticleStrengthY);
+        _fadeWaitForSeconds = new WaitForSeconds(_titleFadeDuration);
+        _pressAnywhereWaitForSeconds = new WaitForSeconds(_pressAnywhereFadeDuration);
         StartCoroutine(StartScreenFade());
     }
 
@@ -57,10 +62,10 @@ public class StarterScreen : MonoBehaviour, IInitializable
         _particle.Play();
         _title.DOFade(1, _titleFadeDuration).SetEase(Ease.InOutSine);
         _titleTransform.DOScale(1, _titleFadeDuration).SetEase(Ease.InOutSine);
-        yield return new WaitForSeconds(_titleFadeDuration);
+        yield return _fadeWaitForSeconds;
         _startText.DOFade(1, _pressAnywhereFadeDuration);
-        yield return new WaitForSeconds(_pressAnywhereFadeDuration);
-        _startText.DOFade(.7f, _pressAnywhereFadeDuration)
+        yield return _pressAnywhereWaitForSeconds;
+        _startText.DOFade(_startTextFadeStep, _pressAnywhereFadeDuration)
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Yoyo);
         _pressAnyWhere.onClick.AddListener(OnButtonClick);

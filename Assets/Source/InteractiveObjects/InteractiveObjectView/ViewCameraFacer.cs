@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ViewCameraFacer : MonoBehaviour
 {
+    private readonly int _lookAtMultiplier = 2;
+
     [SerializeField] private Transform _lookAt;
 
     private void Update()
     {
         if (_lookAt)
-            transform.LookAt(2 * transform.position - _lookAt.position);
+            transform.LookAt(transform.position * _lookAtMultiplier - _lookAt.position);
     }
 }

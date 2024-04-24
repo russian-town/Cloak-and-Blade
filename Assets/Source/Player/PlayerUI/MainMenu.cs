@@ -4,7 +4,6 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private LevelsViewScroll _levelsViewScroll;
-    [SerializeField] private LevelLoader _levelsLoader;
 
     private MainMenuVeiw _mainMenuVeiw;
 

@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class TutoriaBlink : Blink
+public class TutorialBlink : Blink
 {
     private Side _side;
 

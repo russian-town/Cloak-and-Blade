@@ -12,10 +12,10 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     [SerializeField] private float _effectSlowDuration;
     [SerializeField] private float _effectSpeedUpDuration;
     [SerializeField] private ParticleSystem _burstActionEffect;
-    [SerializeField] private List<EffectChangeHandler> _effectsList = new List<EffectChangeHandler>();
-    [SerializeField] private List<SoundChangeHandler> _soundList = new List<SoundChangeHandler>();
-    [SerializeField] private List<SplineChangeHandler> _splineList = new List<SplineChangeHandler>();
-    [SerializeField] private List<AnimationChangeHandler> _animationList = new List<AnimationChangeHandler>();
+    [SerializeField] private List<EffectChangeHandler> _effectsList = new ();
+    [SerializeField] private List<SoundChangeHandler> _soundList = new ();
+    [SerializeField] private List<SplineChangeHandler> _splineList = new ();
+    [SerializeField] private List<AnimationChangeHandler> _animationList = new ();
     [SerializeField] private Sprite _icon;
 
     private PlayerAttacker _attacker;
@@ -25,7 +25,6 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     private bool _canUse = true;
     private UpgradeSetter _upgradeSetter;
     private PlayerView _playerView;
-    private CloudShadows _cloudShadows;
 
     private void OnDisable()
     {
@@ -53,7 +52,7 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     }
 
     public override void Cancel()
-    {}
+    { }
 
     public override void Prepare()
         => _playerView.DisableAbilityButton();

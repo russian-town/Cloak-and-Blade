@@ -12,10 +12,15 @@ public class Level : ScriptableObject, IDataReader, IDataWriter
     private int _starsCount;
 
     public string Name => _name;
+
     public Sprite UnlockedPreview => _unlockedPreview;
+
     public Sprite LockedPreview => _lockedPreview;
+
     public bool IsOpen => _isOpen;
+
     public bool IsCompleted => _isCompleted;
+
     public int StarsCount => _starsCount;
 
     public void Open() => _isOpen = true;

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Heart : InteractiveObject
 {
-    [SerializeField] private GameObject _linza;
     [SerializeField] private InteractiveObjectView _view;
     [SerializeField] private FinaleCutsceneScenario _cutscene;
 

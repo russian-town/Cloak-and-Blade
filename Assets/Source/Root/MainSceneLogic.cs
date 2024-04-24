@@ -28,7 +28,7 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
         _shop.CharacterSelected += OnCharacterSelected;
         _audio.AudioValueChanged += OnAudioValueChanged;
 
-        foreach(var setter in _upgradeSetters)
+        foreach (var setter in _upgradeSetters)
             setter.Upgraded += OnUpgrade;
     }
 
@@ -69,14 +69,21 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
         } 
         else
         {
-            if (YandexGamesSdk.Environment.i18n.lang == "en")
-                _localization.SetCurrentLanguage(Constants.English);
-
-            if (YandexGamesSdk.Environment.i18n.lang == "ru")
-                _localization.SetCurrentLanguage(Constants.Russian);
-
-            if (YandexGamesSdk.Environment.i18n.lang == "tr")
-                _localization.SetCurrentLanguage(Constants.Turkish);
+            switch (YandexGamesSdk.Environment.i18n.lang)
+            {
+                case Constants.En:
+                    _localization.SetCurrentLanguage(Constants.English);
+                    break;
+                case Constants.Ru:
+                    _localization.SetCurrentLanguage(Constants.Russian);
+                    break;
+                case Constants.Tr:
+                    _localization.SetCurrentLanguage(Constants.Turkish);
+                    break;
+                default:
+                    _localization.SetCurrentLanguage(Constants.English);
+                    break;
+            }
         }
 #endif
 
@@ -90,6 +97,8 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
         yield return null;
     }
 
+    public void Read(PlayerData playerData) => _currentLanguage = playerData.CurrentLanguague;
+
     private void OnCharacterSold() => _saver.Save();
 
     private void OnCharacterSelected() => _saver.Save();
@@ -97,6 +106,4 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
     private void OnUpgrade() => _saver.Save();
 
     private void OnAudioValueChanged() => _saver.Save();
-
-    public void Read(PlayerData playerData) => _currentLanguage = playerData.CurrentLanguague;
 }

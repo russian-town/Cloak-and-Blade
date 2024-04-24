@@ -1,9 +1,9 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using System;
 using UnityEngine.UI;
-using System.Collections;
 
 public class CharacterView : MonoBehaviour
 {
@@ -30,6 +30,7 @@ public class CharacterView : MonoBehaviour
     private Camera _camera;
 
     public event Action<Character, CharacterView> SellButtonClicked;
+
     public event Action<Character, CharacterView> SelectButtonClicked;
 
     public CharacterViewSoundHandler SoundHandler => _soundHandler;
@@ -53,7 +54,6 @@ public class CharacterView : MonoBehaviour
         _descriptionButton.onClick.RemoveListener(OnDescriptionButtonClicked);
         _upgradeButton.onClick.RemoveListener(OnUpgradeButtonClicked);
     }
-
 
     public void Render(Character character, Description description, Wallet wallet, Camera camera)
     {
@@ -102,14 +102,25 @@ public class CharacterView : MonoBehaviour
         }
     }
 
-    public void TryHideChains()
+    public bool TryHideChains()
     {
         if (_character.IsBought)
+        {
             foreach (var chain in _chains)
+            {
                 chain.gameObject.SetActive(false);
+            }
+            return true;
+        }
         else
+        {
             foreach (var chain in _chains)
+            {
                 chain.gameObject.SetActive(true);
+            }
+
+            return false;
+        }
     }
 
     public void UnlockCharacter() => _image.sprite = _character.UnlockedIcon;

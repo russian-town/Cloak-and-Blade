@@ -27,7 +27,7 @@ public class SplineChangeHandler : MonoBehaviour
     {
         while (_splineAnimate.Speed != value)
         {
-            _splineAnimate.Speed = Mathf.MoveTowards(_splineAnimate.Speed, value, duration * InitialSpeed * Time.deltaTime);
+            _splineAnimate.ChangeSlineSpeed(value, duration, InitialSpeed);
             yield return null;
         }
 

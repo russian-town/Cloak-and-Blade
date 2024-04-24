@@ -26,9 +26,12 @@ public class ScrollIndicator : MonoBehaviour
     private Vector2 _screenPos;
     private LevelView _lastFocusedLevelView;
     private Knob _lastFocusedKnob;
+    private WaitForSeconds _startDelayWaitForSeconds;
+    private float _startDelay = .6f;
 
-    private readonly List<Knob> _knobs = new List<Knob>();
-    private readonly List<LevelView> _levelViews = new List<LevelView>();
+    private readonly List<Knob> _knobs = new ();
+
+    private readonly List<LevelView> _levelViews = new ();
 
     private void Update()
     {
@@ -81,6 +84,7 @@ public class ScrollIndicator : MonoBehaviour
             _knobs[i].Unfocus();
         }
 
+        _startDelayWaitForSeconds = new WaitForSeconds(_startDelay);
         StartCoroutine(WaitToSetScrollbar());
         _scrollbar.onValueChanged.AddListener(OnScrollbarValueChanged);
     }
@@ -103,8 +107,12 @@ public class ScrollIndicator : MonoBehaviour
         _previousScrollbarPosition = _scrollbar.value;
 
         for (int i = 0; i < _positions.Length; i++)
+        {
             if (_levelViews[i].IsPointInsideImage(_screenPos))
+            {
                 SetLastFocusedObject(i);
+            }
+        }
     }
 
     public void SetLastOpenedLevelIndex(int index) => _lastOpenedLevelIndex = index;
@@ -112,8 +120,12 @@ public class ScrollIndicator : MonoBehaviour
     private void DragViewToClosestPosition()
     {
         for (int i = 0; i < _positions.Length; i++)
+        {
             if (_scrollbar.value < _positions[i] + (_distance / 2) && _scrollbar.value > _positions[i] - (_distance / 2))
+            {
                 _scrollbar.value = Mathf.Lerp(_scrollbar.value, _positions[i], _scrollSpeed * Time.deltaTime);
+            }
+        }
     }
 
     private void SetLastFocusedObject(int index)
@@ -135,7 +147,7 @@ public class ScrollIndicator : MonoBehaviour
 
     private IEnumerator WaitToSetScrollbar()
     {
-        yield return new WaitForSeconds(.6f);
+        yield return _startDelayWaitForSeconds;
         SetLastFocusedObject(_lastOpenedLevelIndex);
         _scrollbar.value = _positions[_lastOpenedLevelIndex];
     }

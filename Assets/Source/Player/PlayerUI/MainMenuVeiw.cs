@@ -9,7 +9,9 @@ public class MainMenuVeiw : MonoBehaviour
     [SerializeField] private Button _settings;
 
     public event Action PlayButtonClicked;
+
     public event Action LeaderboardButtonClicked;
+
     public event Action SettingsButtonClicked;
 
     private void OnEnable()

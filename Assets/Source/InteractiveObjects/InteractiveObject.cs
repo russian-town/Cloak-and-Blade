@@ -33,8 +33,8 @@ public abstract class InteractiveObject : MonoBehaviour
     {
         if (_cellsInInteractibleRange.Contains(Player.CurrentCell))
             return true;
-        else
-            return false;
+
+        return false;
     }
 
     private void OnStepEnded()

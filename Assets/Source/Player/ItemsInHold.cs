@@ -14,8 +14,12 @@ public class ItemsInHold : MonoBehaviour
             return false;
 
         foreach (var item in _itemsInHold)
+        {
             if (item == neededItem)
+            {
                 return true;
+            }
+        }
 
         return false;
     }

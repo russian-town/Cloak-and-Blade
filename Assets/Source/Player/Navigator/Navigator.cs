@@ -14,13 +14,17 @@ public class Navigator : MonoBehaviour, ITurnHandler
 
     public IReadOnlyList<Cell> AvailableCells => _availableCells;
 
-    public void Initialize(Player player) => _player = player;
+    public void Initialize(Player player)
+        => _player = player;
 
-    public void RefillAvailableCells(Cell currentCell, int range) => RefillAvailableCells(currentCell, false, range);
+    public void RefillAvailableCells(Cell currentCell, int range)
+        => RefillAvailableCells(currentCell, false, range);
 
-    public void RefillAvailableCellsIgnoredWalls(Cell currentCell, int range) => RefillAvailableCells(currentCell, true, range);
+    public void RefillAvailableCellsIgnoredWalls(Cell currentCell, int range)
+        => RefillAvailableCells(currentCell, true, range);
 
-    public void SetTurn(Turn turn) => _turn = turn;
+    public void SetTurn(Turn turn)
+        => _turn = turn;
 
     public bool CanMoveToCell(ref Cell cell)
     {
@@ -51,21 +55,8 @@ public class Navigator : MonoBehaviour, ITurnHandler
         return false;
     }
 
-    public void ShowAvailableCells() => ShowAvailableCells(_availableCells);
-
-    private void ShowAvailableCells(List<Cell> availableCells)
-    {
-        HideAvailableCells();
-
-        if (availableCells.Count == 0)
-            return;
-
-        foreach (var cell in availableCells)
-            if (cell.Content.Type != CellContentType.Wall)
-                cell.View.Show();
-
-        _tempCells.AddRange(availableCells);
-    }
+    public void ShowAvailableCells()
+        => ShowAvailableCells(_availableCells);
 
     public void HideAvailableCells()
     {
@@ -73,9 +64,7 @@ public class Navigator : MonoBehaviour, ITurnHandler
             return;
 
         foreach (var cell in _tempCells)
-        {
             cell.View.Hide();
-        }
 
         _tempCells.Clear();
     }
@@ -86,8 +75,12 @@ public class Navigator : MonoBehaviour, ITurnHandler
         Cell tempCellNorth = currentCell.North;
 
         for (int i = 0; i < range; i++)
+        {
             if (TryAddCell(tempCellNorth, _availableNorthCells, false))
+            {
                 tempCellNorth = tempCellNorth.North;
+            }
+        }
     }
 
     public void RefillSouthAvailableCells(Cell currentCell, int range)
@@ -96,8 +89,12 @@ public class Navigator : MonoBehaviour, ITurnHandler
         Cell tempCellSouth = currentCell.South;
 
         for (int i = 0; i < range; i++)
+        {
             if (TryAddCell(tempCellSouth, _availableSouthCells, false))
+            {
                 tempCellSouth = tempCellSouth.South;
+            }
+        }
     }
 
     public void RefillEastAvailableCells(Cell currentCell, int range)
@@ -106,8 +103,12 @@ public class Navigator : MonoBehaviour, ITurnHandler
         Cell tempCellEast = currentCell.East;
 
         for (int i = 0; i < range; i++)
+        {
             if (TryAddCell(tempCellEast, _availableEastCells, false))
+            {
                 tempCellEast = tempCellEast.East;
+            }
+        }
     }
 
     public void RefillWestAvailableCells(Cell currentCell, int range)
@@ -116,8 +117,30 @@ public class Navigator : MonoBehaviour, ITurnHandler
         Cell tempCellWest = currentCell.West;
 
         for (int i = 0; i < range; i++)
+        {
             if (TryAddCell(tempCellWest, _availableWestCells, false))
+            {
                 tempCellWest = tempCellWest.West;
+            }
+        }
+    }
+
+    private void ShowAvailableCells(List<Cell> availableCells)
+    {
+        HideAvailableCells();
+
+        if (availableCells.Count == 0)
+            return;
+
+        foreach (var cell in availableCells)
+        {
+            if (cell.Content.Type != CellContentType.Wall)
+            {
+                cell.View.Show();
+            }
+        }
+
+        _tempCells.AddRange(availableCells);
     }
 
     private void RefillAvailableCells(Cell currentCell, bool ignoreWalls, int range)
@@ -156,63 +179,52 @@ public class Navigator : MonoBehaviour, ITurnHandler
 
     private bool TryFindCellHasTrap(List<Cell> cells, Cell findCell, out Cell targetCell)
     {
-        if (cells.Contains(findCell))
+        if (!cells.Contains(findCell))
         {
-            foreach (var cell in cells)
-            {
-                if (cell.HasTrap)
-                {
-                    if (cells.IndexOf(findCell) < cells.IndexOf(cell))
-                    {
-                        targetCell = findCell;
-                        return true;
-                    }
-
-                    targetCell = cell;
-                    return true;
-                }
-            }
-
-            targetCell = findCell;
-            return true;
+            targetCell = null;
+            return false;
         }
 
-        targetCell = null;
-        return false;
+        foreach (var cell in cells)
+        {
+            if (cell.HasTrap)
+            {
+                if (cells.IndexOf(findCell) < cells.IndexOf(cell))
+                {
+                    targetCell = findCell;
+                    return true;
+                }
+
+                targetCell = cell;
+                return true;
+            }
+        }
+
+        targetCell = findCell;
+        return true;
     }
 
     private bool TryAddCell(Cell tempCell, List<Cell> cells, bool ignoreWalls)
     {
-        if (tempCell != null)
-        {
-            if (ignoreWalls == true)
-            {
-                if (tempCell.Content.Type == CellContentType.Wall || tempCell.IsOccupied == true)
-                {
-                    return false;
-                }
-                else
-                {
-                    cells.Add(tempCell);
-                    _availableCells.Add(tempCell);
-                    return true;
-                }
-            }
-            else if (ignoreWalls == false)
-            {
-                if (tempCell.IsOccupied == true)
-                {
-                    print("poop");
-                    return false;
-                }
-                else
-                {
-                    cells.Add(tempCell);
-                    _availableCells.Add(tempCell);
-                }
-            }
+        if (tempCell == null)
+            return false;
 
+        if (ignoreWalls == true)
+        {
+            if (tempCell.Content.Type == CellContentType.Wall || tempCell.IsOccupied == true)
+                return false;
+
+            cells.Add(tempCell);
+            _availableCells.Add(tempCell);
             return true;
+        }
+        else if (ignoreWalls == false)
+        {
+            if (tempCell.IsOccupied == true)
+                return false;
+
+            cells.Add(tempCell);
+            _availableCells.Add(tempCell);
         }
 
         return false;

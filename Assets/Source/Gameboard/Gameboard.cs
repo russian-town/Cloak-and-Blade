@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Gameboard : MonoBehaviour
 {
+    private readonly float _divider = 2f;
+    private readonly float _mapOffsetSizeRatio = 1f;
+
     [SerializeField] private Transform _ground;
     [SerializeField] private Cell _cellTemplate;
     [SerializeField] private Vector2Int _size;
@@ -34,27 +37,26 @@ public class Gameboard : MonoBehaviour
     {
         foreach (Cell cell in _cells)
         {
-            if (cell == destination)
-            {
-                if (destination.Content.Type == CellContentType.Wall)
-                {
-                    if (destination.South != null && destination.South.Content.Type == CellContentType.Empty)
-                        destination = destination.South;
-                    else if (destination.West != null && destination.West.Content.Type == CellContentType.Empty)
-                        destination = destination.West;
-                    else if (destination.East != null && destination.East.Content.Type == CellContentType.Empty)
-                        destination = destination.East;
-                    else if (destination.North != null && destination.North.Content.Type == CellContentType.Empty)
-                        destination = destination.North;
-                }
-
-                destination.BecomeDestination();
-                _searchFrontier.Enqueue(destination);
-            }
-            else
+            if (cell != destination)
             {
                 cell.ClearPath();
+                break;
             }
+            
+            if (destination.Content.Type == CellContentType.Wall)
+            {
+                if (destination.South != null && destination.South.Content.Type == CellContentType.Empty)
+                    destination = destination.South;
+                else if (destination.West != null && destination.West.Content.Type == CellContentType.Empty)
+                    destination = destination.West;
+                else if (destination.East != null && destination.East.Content.Type == CellContentType.Empty)
+                    destination = destination.East;
+                else if (destination.North != null && destination.North.Content.Type == CellContentType.Empty)
+                    destination = destination.North;
+            }
+
+            destination.BecomeDestination();
+            _searchFrontier.Enqueue(destination);
         }
 
         if (_searchFrontier.Count == 0)
@@ -103,8 +105,8 @@ public class Gameboard : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            int x = (int)(hit.point.x + _size.x * 0.5f);
-            int y = (int)(hit.point.z + _size.y * 0.5f);
+            int x = (int)(hit.point.x + _size.x / _divider);
+            int y = (int)(hit.point.z + _size.y / _divider);
 
             if (x >= 0 && x < _size.x && y >= 0 && y < _size.y)
                 return _cells[x + y * _size.x];
@@ -116,9 +118,9 @@ public class Gameboard : MonoBehaviour
     [ContextMenu("Generate map")]
     private void GenerateMap()
     {
-        _ground.localScale = new Vector3(_size.x, _size.y, 1f);
+        _ground.localScale = new Vector3(_size.x, _size.y, _mapOffsetSizeRatio);
 
-        Vector2 offSet = new Vector2((_size.x - 1f) * 0.5f, (_size.y - 1f) * 0.5f);
+        Vector2 offSet = new Vector2((_size.x - _mapOffsetSizeRatio) * _divider, (_size.y - _mapOffsetSizeRatio) / _divider);
         _cells = new Cell[_size.x * _size.y].ToList();
 
         for (int i = 0, y = 0; y < _size.y; y++)

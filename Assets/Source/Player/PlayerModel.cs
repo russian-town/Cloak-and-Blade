@@ -11,23 +11,24 @@ public class PlayerModel : MonoBehaviour
     private DecoyModel _currentDecoy;
     private Vector3 _baseLocalPosition = Vector3.zero;
 
+    public bool Enabled => gameObject.activeInHierarchy;
+
     private void OnEnable()
     {
         _animator = GetComponent<Animator>();
     }
 
-    public bool Enabled => gameObject.activeInHierarchy;
+    public void Hide()
+        => gameObject.SetActive(false);
 
-    public void Hide() => gameObject.SetActive(false);
-
-    public void Show() => gameObject.SetActive(true);
+    public void Show()
+        => gameObject.SetActive(true);
 
     public void PlayEffect()
     {
         _mimicEffect.gameObject.SetActive(true);
         _mimicEffect.Play();
-/*        _transformationEffect.Play();*/
-    } 
+    }
 
     public void TransformToDecoy()
     {

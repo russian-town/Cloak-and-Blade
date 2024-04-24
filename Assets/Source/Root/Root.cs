@@ -1,12 +1,17 @@
-using Cinemachine;
-using Lean.Localization;
 using System;
 using System.Collections.Generic;
 using Agava.YandexGames;
+using Cinemachine;
+using Lean.Localization;
 using UnityEngine;
 
 public class Root : MonoBehaviour, IInitializable, IDataReader
 {
+    private readonly Saver _saver = new Saver();
+    private readonly Wallet _wallet = new Wallet();
+    private readonly List<Enemy> _enemies = new List<Enemy>();
+    private readonly YandexAds _yandexAds = new YandexAds();
+
     [SerializeField] private PlayerView _playerView;
     [SerializeField] private InputView _inputView;
     [SerializeField] private Cell _playerSpawnCell;
@@ -32,11 +37,6 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private Battery _battery;
     [SerializeField] private LeanLocalization _localization;
-
-    private readonly Saver _saver = new Saver();
-    private readonly Wallet _wallet = new Wallet();
-    private readonly List<Enemy> _enemies = new List<Enemy>();
-    private readonly YandexAds _yandexAds = new YandexAds();
 
     private AdHandler _adHandler;
     private Player _player;
@@ -161,14 +161,4 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
     }
 
     private void OnLevelPassed() => _saver.Save();
-}
-
-[Serializable]
-public class EnemySetter
-{
-    [SerializeField] private Enemy _enemyTemplate;
-    [SerializeField] private Cell[] _destinations;
-
-    public Enemy EnemyTemplate => _enemyTemplate;
-    public Cell[] Destinations => _destinations;
 }

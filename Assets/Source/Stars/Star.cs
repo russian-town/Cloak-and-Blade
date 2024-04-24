@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(StarAnimationHandler))]
@@ -18,11 +17,11 @@ public class Star : MonoBehaviour
         _waitTime = new WaitForSeconds(_waitForSoundTime);
     }
 
-    public void PlayStarAppear() 
+    public void PlayStarAppear()
     {
         AnimationHandler.PlayAppearAnimation();
         StartCoroutine(PlaySoundWithPause());
-    } 
+    }
 
     private IEnumerator PlaySoundWithPause()
     {

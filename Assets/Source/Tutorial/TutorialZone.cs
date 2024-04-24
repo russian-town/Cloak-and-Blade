@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class TutorialZone : InteractiveObject
@@ -67,8 +64,12 @@ public class TutorialZone : InteractiveObject
     public override void Prepare()
     {
         if (!_isExecuted)
+        {
             if (CheckInteractionPossibility())
+            {
                 Interact();
+            }
+        }
     }
 
     public void ShowTutorialZoneCells()
@@ -83,20 +84,21 @@ public class TutorialZone : InteractiveObject
 
     public void HideTutorialZoneCells()
     {
-        if(_effects.Count == 0)
+        if (_effects.Count == 0)
             return;
 
         foreach (var effect in _effects)
             effect.Stop();
     }
 
-    protected override void Disable() { }
+    protected override void Disable()
+    { }
 
     private void OnTutorialZoneComplete()
     {
         _tutorialElement.TutorialZoneComplete -= OnTutorialZoneComplete;
 
-        if(_nextTutorialZone != null)
+        if (_nextTutorialZone != null)
             _nextTutorialZone.ShowTutorialZoneCells();
 
         _dialogueHandler.WriteCongratDialogue();

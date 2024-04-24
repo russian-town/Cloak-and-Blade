@@ -1,11 +1,9 @@
-using System;
-using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Character", menuName = "New character", order = 51)]
 public class Character : ScriptableObject, IDataReader, IDataWriter
 {
-    [SerializeField] private Type _type;
+    [SerializeField] private CharacterType _type;
     [SerializeField] private int _price;
     [SerializeField] private Sprite _unlockedIcon;
     [SerializeField] private Sprite _lockedIcon;
@@ -17,16 +15,26 @@ public class Character : ScriptableObject, IDataReader, IDataWriter
     [SerializeField] private UpgradeSetter _upgradeSetter;
     [SerializeField] private Color _effectColor;
 
-    public Type Type => _type;
+    public CharacterType Type => _type;
+
     public int Price => _price;
+
     public Sprite UnlockedIcon => _unlockedIcon;
+
     public Sprite LockedIcon => _lockedIcon;
+
     public bool IsBought => _isBought;
+
     public bool IsSelect => _isSelect;
+
     public Player Player => _player;
+
     public MenuModel MenuModelTemplate => _menuPlayerModelTemplate;
+
     public Description Description => _description;
+
     public UpgradeSetter UpgradeSetter => _upgradeSetter;
+
     public Color EffectColor => _effectColor;
 
     public void Buy() => _isBought = true;
@@ -66,10 +74,4 @@ public class Character : ScriptableObject, IDataReader, IDataWriter
     public void Select() => _isSelect = true;
 
     public void UnSelect() => _isSelect = false;
-}
-
-public enum Type
-{
-    None,
-    Default
 }

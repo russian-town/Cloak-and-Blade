@@ -22,7 +22,9 @@ public class Blink : Ability
     private bool _canUse = true;
 
     protected Navigator Navigator => _navigator;
+
     protected Player Player => _player;
+
     protected int BlinkRange => _blinkRange;
 
     public override void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView)
@@ -80,7 +82,7 @@ public class Blink : Ability
             _actionEffect.Play();
             _trailEffectChildren.startSpeed = Vector3.Distance(cell.transform.position, _player.CurrentCell.transform.position) * 5;
             Vector3 targetEffectRotation = cell.transform.position - _trailEffectMain.transform.position;
-            _trailEffectMain.transform.rotation = Quaternion.LookRotation(targetEffectRotation);   
+            _trailEffectMain.transform.rotation = Quaternion.LookRotation(targetEffectRotation);
             _trailEffectMain.Play();
         }
     }
@@ -88,11 +90,13 @@ public class Blink : Ability
     private void ShowBlinkRange()
     {
         foreach (var cell in _navigator.AvailableCells)
+        {
             if (cell.Content.Type != CellContentType.Wall)
             {
                 cell.View.PlayAbilityRangeEffect();
                 cell.View.Show();
             }
+        }
     }
 
     private void HideBlinkRange()

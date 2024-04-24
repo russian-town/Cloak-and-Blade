@@ -6,7 +6,8 @@ public class RewardedAdHandler : MonoBehaviour
     private Player _player;
     private CommandExecuter _commandExecuter;
 
-    private void OnDisable() => _yandexAds.RewardedCallback -= OnRewardedVideoCallBack;
+    private void OnDisable()
+        => _yandexAds.RewardedCallback -= OnRewardedVideoCallBack;
 
     public void Initialize(Player player, YandexAds yandexAds)
     {
@@ -16,7 +17,9 @@ public class RewardedAdHandler : MonoBehaviour
         _yandexAds.RewardedCallback += OnRewardedVideoCallBack;
     }
 
-    public void Show() => _yandexAds.ShowRewardedVideo();
+    public void Show()
+        => _yandexAds.ShowRewardedVideo();
     
-    private void OnRewardedVideoCallBack() => _commandExecuter.ResetAbilityOnReward();
+    private void OnRewardedVideoCallBack()
+        => _commandExecuter.ResetAbilityOnReward();
 }

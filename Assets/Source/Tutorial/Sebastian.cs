@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent (typeof(CanvasGroup))]
+[RequireComponent(typeof(CanvasGroup))]
 public class Sebastian : MonoBehaviour
 {
     private CanvasGroup _canvasGroup;
@@ -16,7 +16,7 @@ public class Sebastian : MonoBehaviour
         _canvasGroup.blocksRaycasts = true;
     }
 
-    public void Hide() 
+    public void Hide()
     {
         _canvasGroup.alpha = 0;
         _canvasGroup.blocksRaycasts = false;

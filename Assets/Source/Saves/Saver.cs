@@ -1,5 +1,5 @@
-using Agava.YandexGames;
 using System.Collections.Generic;
+using Agava.YandexGames;
 using UnityEngine;
 
 public class Saver : IDataReader
@@ -63,6 +63,8 @@ public class Saver : IDataReader
             OnDataLoaded(null);
     }
 
+    public void Read(PlayerData playerData) => _playerData = playerData;
+
     private void OnDataLoaded(string data)
     {
         if (_initializables.Count == 0)
@@ -83,6 +85,4 @@ public class Saver : IDataReader
     {
         _localSave.Save(_playerData);
     }
-
-    public void Read(PlayerData playerData) => _playerData = playerData;
 }

@@ -1,4 +1,4 @@
-public class Constants 
+public class Constants
 {
     #region AnimationParameters
     public const string IsSkippingParameter = "IsSkipping";
@@ -46,6 +46,7 @@ public class Constants
     public const string South = "South";
     public const string West = "West";
     public const string East = "East";
+    public const string DefaultMeshName = "NewMesh";
     public const string PlayerProgress = "PlayerProgress";
     public const string LeaderBoardName = "Leaderboard";
     public const char Dot = '.';

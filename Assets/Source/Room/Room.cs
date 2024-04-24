@@ -101,9 +101,3 @@ public class Room : MonoBehaviour, IEnemyTurnWaiter
         _player.SetTurn(_turn);
     }
 }
-
-public enum Turn
-{
-    Enemy,
-    Player
-}

@@ -1,12 +1,13 @@
 using UnityEngine;
 
-[RequireComponent (typeof(AudioSource))]
+[RequireComponent(typeof(AudioSource))]
 public class TimecodeTracker : MonoBehaviour
 {
     private AudioSource _audioSource;
     private float _timecode;
 
-    private void Awake() => _audioSource = GetComponent<AudioSource>();
+    private void Awake()
+        => _audioSource = GetComponent<AudioSource>();
 
     public void SetPause(bool isPause)
     {

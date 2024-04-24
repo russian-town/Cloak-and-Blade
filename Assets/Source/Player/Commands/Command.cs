@@ -16,11 +16,13 @@ public abstract class Command
         _executer = executer;
     }
 
-    public bool Prepared { get; private set; } = false;
-    public bool IsExecuting { get; private set; }
-    public bool Enabled { get; private set; }
-
     public event Action<Command> CommandExecuted;
+
+    public bool Prepared { get; private set; } = false;
+
+    public bool IsExecuting { get; private set; }
+
+    public bool Enabled { get; private set; }
 
     public IEnumerator Execute()
     {
@@ -75,9 +77,9 @@ public abstract class Command
         _startCancel = null;
     }
 
-    private void StopAction(ref Coroutine action) 
+    private void StopAction(ref Coroutine action)
     {
-        if(action != null) 
+        if (action != null)
         {
             _executer.StopCoroutine(action);
             action = null;

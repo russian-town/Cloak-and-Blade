@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class LeaderBoardUnit : MonoBehaviour
 {
-    [SerializeField] List<Sprite> _avatars;
+    [SerializeField] private List<Sprite> _avatars;
     [SerializeField] private Image _avatar;
     [SerializeField] private TMP_Text _rank;
     [SerializeField] private TMP_Text _name;
@@ -47,14 +47,10 @@ public class LeaderBoardUnit : MonoBehaviour
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-        {
-            Debug.Log($"[download image error] {request.error}");
-        }
-        else
-        {
-            var texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
-            var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-            _avatar.sprite = sprite;
-        }
+            yield break;
+
+        var texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+        var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+        _avatar.sprite = sprite;
     }
 }

@@ -1,9 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Agava.YandexGames;
 using Agava.WebUtility;
-using System;
+using Agava.YandexGames;
+using UnityEngine;
 
 public class CloudSave : ISaveLoadService
 {
@@ -11,7 +11,9 @@ public class CloudSave : ISaveLoadService
     private List<IDataReader> _dataReaders = new List<IDataReader>();
 
     public event Action<string> DataLoaded;
+
     public event Action<string> ErrorLoadCallback;
+
     public event Action<string> ErrorSaveCallback;
 
     public void AddDataWriters(IDataWriter[] dataWriters) => _dataWriters.AddRange(dataWriters);
@@ -52,10 +54,7 @@ public class CloudSave : ISaveLoadService
         PlayerData playerData = JsonUtility.FromJson<PlayerData>(data);
 
         if (playerData == null)
-        {
-            Debug.Log("PlayerData is null.");
             return;
-        }
 
         foreach (var reader in _dataReaders)
             reader.Read(playerData);
@@ -63,5 +62,6 @@ public class CloudSave : ISaveLoadService
         DataLoaded?.Invoke(data);
     }
 
-    public void OnErrorLoad(string error) => ErrorLoadCallback?.Invoke(error);
+    public void OnErrorLoad(string error)
+        => ErrorLoadCallback?.Invoke(error);
 }

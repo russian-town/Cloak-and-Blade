@@ -5,9 +5,9 @@ public class Wallet : IDataReader, IDataWriter, IInitializable
 {
     [SerializeField] private int _stars;
 
-    public int Stars => _stars;
-
     public event UnityAction<int> StarsChanged;
+
+    public int Stars => _stars;
 
     public void Initialize()
     {
@@ -23,7 +23,7 @@ public class Wallet : IDataReader, IDataWriter, IInitializable
         StarsChanged?.Invoke(_stars);
     }
 
-    public void AddStars(int stars) 
+    public void AddStars(int stars)
     {
         if (stars < 0)
             return;

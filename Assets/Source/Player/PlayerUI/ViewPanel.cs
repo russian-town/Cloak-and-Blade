@@ -9,6 +9,7 @@ public abstract class ViewPanel : MonoBehaviour
     [SerializeField] private ScreenAnimationHandler _animationHandler;
 
     public event Action RestartButtonClicked;
+
     public event Action ExitButtonClicked;
 
     private void OnDisable() => Dismiss();
@@ -18,10 +19,10 @@ public abstract class ViewPanel : MonoBehaviour
         _animationHandler.FadeIn();
     }
 
-    public virtual void Hide() 
+    public virtual void Hide()
     {
         _animationHandler.FadeOut();
-    } 
+    }
 
     public virtual void Initialize()
     {

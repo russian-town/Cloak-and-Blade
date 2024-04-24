@@ -1,14 +1,19 @@
-using Cinemachine;
-using Lean.Localization;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Agava.YandexGames;
-using UnityEngine.UI;
+using Cinemachine;
+using Lean.Localization;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
 {
+    private readonly Wallet _wallet = new Wallet();
+    private readonly List<Enemy> _enemies = new List<Enemy>();
+    private readonly YandexAds _yandexAds = new YandexAds();
+    private readonly Saver _saver = new Saver();
+
     [SerializeField] private Player _player;
     [SerializeField] private PlayerView _playerView;
     [SerializeField] private InputView _inputView;
@@ -37,11 +42,6 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
     [SerializeField] private CompleteTutorialZone _completeTutorialZone;
     [SerializeField] private Button _exitButton;
 
-    private readonly Wallet _wallet = new Wallet();
-    private readonly List<Enemy> _enemies = new List<Enemy>();
-    private readonly YandexAds _yandexAds = new YandexAds();
-    private readonly Saver _saver = new Saver();
-
     private AdHandler _adHandler;
     private Pause _pause;
     private string _currentLanguage;
@@ -64,8 +64,8 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
 
     private void Start()
     {
-        _saver.AddDataReaders(new IDataReader[] {_wallet, _completeTutorialZone, this, _game});
-        _saver.AddDataWriters(new IDataWriter[] {_wallet, _completeTutorialZone, _game});
+        _saver.AddDataReaders(new IDataReader[] { _wallet, _completeTutorialZone, this, _game });
+        _saver.AddDataWriters(new IDataWriter[] { _wallet, _completeTutorialZone, _game });
         _saver.AddInitializable(this);
         _saver.Initialize();
         _saver.Load();
@@ -97,14 +97,21 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
         } 
         else
         {
-            if (YandexGamesSdk.Environment.i18n.lang == "en")
-                _localization.SetCurrentLanguage(Constants.English);
-
-            if (YandexGamesSdk.Environment.i18n.lang == "ru")
-                _localization.SetCurrentLanguage(Constants.Russian);
-
-            if (YandexGamesSdk.Environment.i18n.lang == "tr")
-                _localization.SetCurrentLanguage(Constants.Turkish);
+            switch (YandexGamesSdk.Environment.i18n.lang)
+            {
+                case Constants.En:
+                    _localization.SetCurrentLanguage(Constants.English);
+                    break;
+                case Constants.Ru:
+                    _localization.SetCurrentLanguage(Constants.Russian);
+                    break;
+                case Constants.Tr:
+                    _localization.SetCurrentLanguage(Constants.Turkish);
+                    break;
+                default:
+                    _localization.SetCurrentLanguage(Constants.English);
+                    break;
+            }
         }
 #endif
 

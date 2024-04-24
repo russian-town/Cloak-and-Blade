@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
@@ -6,16 +7,22 @@ public class EnemyZoneDrawer : MonoBehaviour
 {
     private readonly int _angleCount = 4;
     private readonly int _verticiesRatio = 6;
+    private readonly int _startTriangleIndexRatio = 1;
+    private readonly int _triangleVerticeRatio = 4;
+    private readonly int _triangleTopVertexNumber = 2;
+    private readonly int _triangleLeftVertexNumber = 1;
+    private readonly int _triangleRightVertexNumber = 3;
     private readonly float _offSet = 0.5f;
 
     private Mesh _mesh;
     private MeshFilter _meshFilter;
     private Vector3[] _vertices;
     private int[] _triangles;
+    private int _triangleIndexRatio;
 
     private void Awake()
     {
-        _mesh = new Mesh();
+        _mesh = new ();
         _meshFilter = GetComponent<MeshFilter>();
     }
 
@@ -24,7 +31,7 @@ public class EnemyZoneDrawer : MonoBehaviour
         if (cellsInSight.Count == 0)
             return;
 
-        _vertices = new Vector3[cellsInSight.Count * _angleCount + 1];
+        _vertices = new Vector3[cellsInSight.Count * _angleCount + _startTriangleIndexRatio];
 
         for (int j = 0; j < _vertices.Length; j++)
         {
@@ -45,31 +52,40 @@ public class EnemyZoneDrawer : MonoBehaviour
             }
         }
 
-        _triangles = new int[(cellsInSight.Count * _angleCount + 1) * _verticiesRatio];
+        _triangles = new int[(cellsInSight.Count * _angleCount + _startTriangleIndexRatio) * _verticiesRatio];
 
         int indexOfVertice = 0;
         int indexOfTriangle = 0;
 
         for (int j = 0; j < cellsInSight.Count; j ++)
         {
+            _triangleIndexRatio = _startTriangleIndexRatio;
             _triangles[indexOfTriangle] = indexOfVertice;
-            _triangles[indexOfTriangle + 1] = indexOfVertice + 2;
-            _triangles[indexOfTriangle + 2] = indexOfVertice + 1;
+            _triangles[indexOfTriangle + _triangleIndexRatio] = indexOfVertice + _triangleTopVertexNumber;
+            _triangleIndexRatio++;
+            _triangles[indexOfTriangle + _triangleIndexRatio] = indexOfVertice + _triangleLeftVertexNumber;
+            _triangleIndexRatio++;
+            _triangles[indexOfTriangle + _triangleIndexRatio] = indexOfVertice;
+            _triangleIndexRatio++;
+            _triangles[indexOfTriangle + _triangleIndexRatio] = indexOfVertice + _triangleLeftVertexNumber;
+            _triangleIndexRatio++;
+            _triangles[indexOfTriangle + _triangleIndexRatio] = indexOfVertice + _triangleRightVertexNumber;
+            _triangleIndexRatio++;
+            _triangles[indexOfTriangle + _triangleIndexRatio] = indexOfVertice;
+            _triangleIndexRatio++;
+            _triangles[indexOfTriangle + _triangleIndexRatio] = indexOfVertice + _triangleRightVertexNumber;
+            _triangleIndexRatio++;
+            _triangles[indexOfTriangle + _triangleIndexRatio] = indexOfVertice + _triangleTopVertexNumber;
+            _triangleIndexRatio++;
+            _triangles[indexOfTriangle + _triangleIndexRatio] = indexOfVertice + _triangleLeftVertexNumber;
+            _triangleIndexRatio++;
+            _triangles[indexOfTriangle + _triangleIndexRatio] = indexOfVertice + _triangleTopVertexNumber;
+            _triangleIndexRatio++;
+            _triangles[indexOfTriangle + _triangleIndexRatio] = indexOfVertice + _triangleRightVertexNumber;
+            _triangleIndexRatio++;
 
-            _triangles[indexOfTriangle + 3] = indexOfVertice;
-            _triangles[indexOfTriangle + 4] = indexOfVertice + 1;
-            _triangles[indexOfTriangle + 5] = indexOfVertice + 3;
-
-            _triangles[indexOfTriangle + 6] = indexOfVertice;
-            _triangles[indexOfTriangle + 7] = indexOfVertice + 3;
-            _triangles[indexOfTriangle + 8] = indexOfVertice + 2;
-
-            _triangles[indexOfTriangle + 9] = indexOfVertice + 1;
-            _triangles[indexOfTriangle + 10] = indexOfVertice + 2;
-            _triangles[indexOfTriangle + 11] = indexOfVertice + 3;
-
-            indexOfVertice += 4;
-            indexOfTriangle += 12;
+            indexOfVertice += _triangleVerticeRatio;
+            indexOfTriangle += _triangleIndexRatio;
         }
 
         AssignMesh();
@@ -81,7 +97,7 @@ public class EnemyZoneDrawer : MonoBehaviour
     private void AssignMesh()
     {
         _mesh.Clear();
-        _mesh.name = "New mesh";
+        _mesh.name = Constants.DefaultMeshName;
         _mesh.vertices = _vertices;
         _mesh.triangles = _triangles;
         _meshFilter.mesh = _mesh;

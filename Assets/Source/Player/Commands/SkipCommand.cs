@@ -7,7 +7,8 @@ public class SkipCommand : Command
     private IEnemyTurnWaiter _enemyTurnWaiter;
     private PlayerAnimationHandler _playerAnimationHandler;
 
-    public SkipCommand(Player player, IEnemyTurnWaiter enemyTurnWaiter, PlayerAnimationHandler animationHandler, CommandExecuter executer) : base(executer)
+    public SkipCommand(Player player, IEnemyTurnWaiter enemyTurnWaiter, PlayerAnimationHandler animationHandler, CommandExecuter executer)
+        : base(executer)
     {
         _player = player;
         _enemyTurnWaiter = enemyTurnWaiter;
@@ -36,5 +37,8 @@ public class SkipCommand : Command
         yield break;
     }
 
-    protected override void OnCommandChanged(Command command) { return; }
+    protected override void OnCommandChanged(Command command) 
+    { 
+        return; 
+    }
 }

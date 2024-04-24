@@ -10,6 +10,8 @@ public class MoveAlongSpline : MonoBehaviour
 
     private float _currentDistance = 0f;
 
+    public float Speed => _speed;
+
     private void Update()
     {
         if (_playOnAwake)
@@ -38,6 +40,9 @@ public class MoveAlongSpline : MonoBehaviour
             }
         }
     }
+
+    public void ChangeSlineSpeed(float value, float duration, float initialSpeed)
+        => _speed = Mathf.MoveTowards(_speed, value, duration * initialSpeed * Time.deltaTime);
 
     public void Play()
         => _playOnAwake = true;

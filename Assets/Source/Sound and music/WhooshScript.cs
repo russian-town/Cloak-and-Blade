@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class WhooshScript : MonoBehaviour
@@ -19,7 +17,7 @@ public class WhooshScript : MonoBehaviour
 
     public void PlayWhoosh()
     {
-        if( _whooshCoroutine == null)
+        if (_whooshCoroutine == null)
         {
             _isPlaying = true;
             _whooshCoroutine = StartCoroutine(WhooshCoroutine());
@@ -28,7 +26,7 @@ public class WhooshScript : MonoBehaviour
 
     private IEnumerator WhooshCoroutine()
     {
-        while(_isPlaying)
+        while (_isPlaying)
         {
             if (!_isSourceTwo)
             {
@@ -51,6 +49,7 @@ public class WhooshScript : MonoBehaviour
                 _waitDelay = null;
             }
         }
+
         _whooshCoroutine = null;
     }
 }

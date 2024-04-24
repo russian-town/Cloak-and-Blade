@@ -8,10 +8,11 @@ public class UpgradeSetter : ScriptableObject, IDataWriter, IDataReader
     [SerializeField] private List<int> _prices = new List<int>(Constants.MaxLevel);
     [SerializeField] private int _level;
 
-    public int Level => _level;
-    public IReadOnlyList<int> Prices => _prices;
-
     public event Action Upgraded;
+
+    public int Level => _level;
+
+    public IReadOnlyList<int> Prices => _prices;
 
     public void Upgrade()
     {

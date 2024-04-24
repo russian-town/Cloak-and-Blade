@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,9 +5,9 @@ public class TurnClockwiseButtonTutorial : TurnClockwiseButton, IPointerDownHand
 {
     [SerializeField] private ProgressBarFiller _barFiller;
 
-    public ProgressBarFiller ProgressBarFiller => _barFiller;
-
     private bool _isFilled;
+
+    public ProgressBarFiller ProgressBarFiller => _barFiller;
 
     private void Start()
     {

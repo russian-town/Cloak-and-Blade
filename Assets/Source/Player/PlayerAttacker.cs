@@ -55,11 +55,3 @@ public class PlayerAttacker : MonoBehaviour
             enemy.UnBlind();
     }
 }
-
-public enum AttackType
-{
-    Freeze,
-    Blind,
-    UnFreeze,
-    UnBlind
-}

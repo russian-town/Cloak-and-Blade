@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAttacker))]
+[RequireComponent(typeof(Player))]
 public class Transformation : Ability
 {
     [SerializeField] private int _useLimit = 1;
@@ -67,12 +68,12 @@ public class Transformation : Ability
 
     public override void ResetAbility() => _useLimit++;
 
+    protected override void Action(Cell cell)
+    {}
+
     private void DecreaseLimit()
     {
         _useLimit--;
         _useLimit = Mathf.Clamp(_useLimit, 0, _maxUseLimit);
     }
-
-    protected override void Action(Cell cell)
-    {}
 }

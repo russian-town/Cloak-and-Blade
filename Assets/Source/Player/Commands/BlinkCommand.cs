@@ -12,7 +12,8 @@ public class BlinkCommand : AbilityCommand
     private Coroutine _executeCoroutine;
     private Cell _cell;
 
-    public BlinkCommand(Blink blink, Gameboard gameboard, Navigator navigator, CommandExecuter executer) : base(blink, executer)
+    public BlinkCommand(Blink blink, Gameboard gameboard, Navigator navigator, CommandExecuter executer)
+        : base(blink, executer)
     {
         _blink = blink;
         _gameboard = gameboard;

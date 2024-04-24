@@ -3,10 +3,9 @@ using UnityEngine;
 
 public class EnemyTutorial : BaseTutorialElement
 {
-    [SerializeField] private List<MainButton> _mainButtons = new List<MainButton>();
+    [SerializeField] private List<MainButton> _mainButtons = new ();
     [SerializeField] private int _skipCount;
-    [SerializeField] private Gameboard _gameboard;
-    [SerializeField] private List<Cell> _enemyPath = new List<Cell>();
+    [SerializeField] private List<Cell> _enemyPath = new ();
     [SerializeField] private Bootstrap _bootstrap;
     [SerializeField] private Door _door;
     [SerializeField] private int _skipCountToOpenDoor;
@@ -29,7 +28,7 @@ public class EnemyTutorial : BaseTutorialElement
     {
         _skipCount--;
 
-        if(_skipCount == _skipCountToOpenDoor)
+        if (_skipCount == _skipCountToOpenDoor)
             _door.Open();
 
         if (_skipCount <= 0)

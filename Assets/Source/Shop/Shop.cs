@@ -1,5 +1,5 @@
-using Lean.Localization;
 using System.Collections.Generic;
+using Lean.Localization;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -26,6 +26,7 @@ public class Shop : MonoBehaviour, IInitializable
     private CharacterView _defaultCharacterView;
 
     public event UnityAction CharacterSelected;
+
     public event UnityAction CharacterSold;
 
     private void OnDisable()
@@ -48,7 +49,8 @@ public class Shop : MonoBehaviour, IInitializable
             character.CloseDescription();
     }
 
-    public void Initialize(){}
+    public void Initialize()
+    { }
 
     private void AddCharacterView()
     {
@@ -63,7 +65,7 @@ public class Shop : MonoBehaviour, IInitializable
             characterView.SelectButtonClicked += OnSelectButtonClick;
             _menuModelChanger.Create(character);
 
-            if (character.Type == Type.Default)
+            if (character.Type == CharacterType.Default)
             {
                 _defaultCharacter = character;
                 _defaultCharacterView = characterView;
@@ -106,7 +108,7 @@ public class Shop : MonoBehaviour, IInitializable
         TrySelectCaracter(character, characterView);
     }
 
-    private void TrySellCharacter(Character character, CharacterView characterView)
+    private bool TrySellCharacter(Character character, CharacterView characterView)
     {
         if (character.Price <= _wallet.Stars)
         {
@@ -118,16 +120,18 @@ public class Shop : MonoBehaviour, IInitializable
             characterView.UnlockCharacter();
             TrySelectCaracter(character, characterView);
             CharacterSold?.Invoke();
+            return true;
         }
         else
         {
             _source.clip = _shakingChainsSound;
             _source.Play();
             characterView.ShakeChaings();
+            return false;
         }
     }
 
-    private void TrySelectCaracter(Character character, CharacterView characterView)
+    private bool TrySelectCaracter(Character character, CharacterView characterView)
     {
         if (character.IsBought)
         {
@@ -143,15 +147,17 @@ public class Shop : MonoBehaviour, IInitializable
                 characterView.SoundHandler.PlayPositive();
 
             if (_characterViews.Contains(characterView))
-                _menuModelChanger.TryChange(_characterViews.IndexOf(characterView));
+                _menuModelChanger.TryChangeModel(_characterViews.IndexOf(characterView));
 
             CharacterSelected?.Invoke();
+            return true;
         }
         else
         {
             _source.clip = _shakingChainsSound;
             _source.Play();
             characterView.ShakeChaings();
+            return false;
         }
     }
 }

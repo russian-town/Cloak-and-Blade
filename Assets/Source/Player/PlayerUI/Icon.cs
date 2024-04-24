@@ -1,6 +1,6 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 [RequireComponent(typeof(Image))]
 [RequireComponent(typeof(RectTransform))]
@@ -24,7 +24,7 @@ public class Icon : MonoBehaviour
         _rectTransform = GetComponent<RectTransform>();
         _image = GetComponent<Image>();
         _startColor = _image.color;
-        _disableColor = new(_startColor.r, _startColor.g, _startColor.b, .5f);
+        _disableColor = new (_startColor.r, _startColor.g, _startColor.b, .5f);
     }
 
     public void PlayShakeEffect()

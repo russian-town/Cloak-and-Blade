@@ -1,8 +1,8 @@
 using System.Collections;
-using UnityEngine;
-using Random = UnityEngine.Random;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AudioSource))]
 public class DialogueHandler : MonoBehaviour
@@ -50,10 +50,10 @@ public class DialogueHandler : MonoBehaviour
         _baseVolume = _source.volume;
         _board.Disable();
     }
-     
+    
     public void WriteDialogue(TutorialZone tutorialZone)
     {
-        if(_dialogueCoroutine != null)
+        if (_dialogueCoroutine != null)
         {
             StopCoroutine(_dialogueCoroutine);
             _dialogueCoroutine = null;
@@ -182,13 +182,17 @@ public class DialogueHandler : MonoBehaviour
             _currentTutorialText = tutorialText;
             WriteNextDialogue();
         }
-        else if(tutorialText == null && _currentTutorialText.IsTutorialTrigger == false)
+        else if (tutorialText == null && _currentTutorialText.IsTutorialTrigger == false)
         {
             _sebastian.Hide();
 
             foreach (var mainButton in _mainButtons)
+            {
                 if (mainButton.IsOpen)
+                {
                     mainButton.Show();
+                }
+            }
 
             _board.Enable();
         }
@@ -220,8 +224,12 @@ public class DialogueHandler : MonoBehaviour
         _sebastian.Hide();
 
         foreach (var mainButton in _mainButtons)
+        {
             if (mainButton.IsOpen)
+            {
                 mainButton.Show();
+            }
+        }
 
         _board.Enable();
     }

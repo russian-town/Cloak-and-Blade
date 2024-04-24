@@ -12,6 +12,7 @@ public class LevelFinishScreen : MonoBehaviour
     private YandexAds _yandexAds;
 
     public event UnityAction ExitButtonClicked;
+
     public event UnityAction NextLevelButtonClicked;
 
     private void OnEnable()
@@ -19,14 +20,14 @@ public class LevelFinishScreen : MonoBehaviour
         _exitButton.onClick.AddListener(() => ExitButtonClicked?.Invoke());
         _doubleStarsForAdButton.onClick.AddListener(OnRewardedButtonClick);
         _nextLevelButton.onClick.AddListener(() =>  NextLevelButtonClicked?.Invoke());
-    } 
+    }
 
     private void OnDisable()
     {
         _exitButton.onClick.RemoveListener(() => ExitButtonClicked?.Invoke());
         _doubleStarsForAdButton.onClick.RemoveListener(OnRewardedButtonClick);
         _nextLevelButton.onClick.RemoveListener(() => NextLevelButtonClicked?.Invoke());
-    } 
+    }
 
     public void Initialize(YandexAds yandexAds)
     {
@@ -44,10 +45,10 @@ public class LevelFinishScreen : MonoBehaviour
         _animationHandler.FadeIn();
     }
 
-    public void Hide() 
+    public void Hide()
     {
         _animationHandler.FadeOut();
-    } 
+    }
 
     private void OnRewardedButtonClick()
     {

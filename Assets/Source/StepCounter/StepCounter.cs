@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent (typeof(StepCounterView))]
+[RequireComponent(typeof(StepCounterView))]
 public class StepCounter : MonoBehaviour
 {
     private Player _player;

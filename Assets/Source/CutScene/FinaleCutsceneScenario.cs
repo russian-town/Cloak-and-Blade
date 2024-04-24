@@ -42,6 +42,9 @@ public class FinaleCutsceneScenario : MonoBehaviour
 
     private CinemachineBasicMultiChannelPerlin _noise;
     private WaitForSeconds _genericWait;
+    private float _hudFadeRation = .5f;
+    private float _whiteNoiseFadeStep = .2f;
+    private int _staticCameraPriority = 3;
 
     public void Start()
     {
@@ -59,8 +62,8 @@ public class FinaleCutsceneScenario : MonoBehaviour
         foreach (var particle in _mists)
             particle.Stop();
 
-        _hud.DOFade(0, .5f);
-        _staticCamera.Priority = 3;
+        _hud.DOFade(0, _hudFadeRation);
+        _staticCamera.Priority = _staticCameraPriority;
         yield return _genericWait;
         _swordCamera.Priority = _staticCamera.Priority + 1;
         yield return _genericWait;
@@ -80,7 +83,7 @@ public class FinaleCutsceneScenario : MonoBehaviour
         _heartBeat.DOFade(0, _soundFadeDuration);
         _whooshSource1.DOFade(0, _soundFadeDuration);
         _whooshSource2.DOFade(0, _soundFadeDuration);
-        _whiteNoise.DOFade(.2f, _soundFadeDuration).SetEase(Ease.InSine);
+        _whiteNoise.DOFade(_whiteNoiseFadeStep, _soundFadeDuration).SetEase(Ease.InSine);
         _genericWait = new WaitForSeconds(_screamDuration);
         yield return _genericWait;
         _whiteScreen.DOFade(1, _whiteScreenFadeDuration).SetEase(Ease.InSine);

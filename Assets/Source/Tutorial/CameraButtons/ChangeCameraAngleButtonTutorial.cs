@@ -1,12 +1,10 @@
 using System;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class ChangeCameraAngleButtonTutorial : CameraAngleChanger
 {
-    private int _clickCount;
-
     private readonly int _targetClickCount = 2;
+
+    private int _clickCount;
 
     public event Action DoubleClickComplete;
 

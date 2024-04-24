@@ -16,17 +16,18 @@ public class MenuModelChanger : MonoBehaviour
         menuModel.transform.rotation = _modelPlace.Rotation;
     }
 
-    public void TryChange(int index)
+    public bool TryChangeModel(int index)
     {
         if (_selectedMenuModel == null)
-            return;
+            return false;
 
         if (_selectedMenuModel == _menuModels[index])
-            return;
+            return false;
 
         _selectedMenuModel.Hide();
         _selectedMenuModel = null;
         SetSelectedModel(index);
+        return true;
     }
 
     public void SetSelectedModel(int index)

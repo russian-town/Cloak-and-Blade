@@ -14,7 +14,8 @@ public class MoveCommand : Command, ITurnHandler
     private readonly CommandExecuter _executer;
     private Cell _cell;
 
-    public MoveCommand(Player player, PlayerMover playerMover, Navigator navigator, float moveSpeed, float rotationSpeed, Gameboard gameboard, CommandExecuter executer, int range) : base(executer)
+    public MoveCommand(Player player, PlayerMover playerMover, Navigator navigator, float moveSpeed, float rotationSpeed, Gameboard gameboard, CommandExecuter executer, int range)
+        : base(executer)
     {
         _player = player;
         _playerMover = playerMover;
@@ -27,22 +28,26 @@ public class MoveCommand : Command, ITurnHandler
         _range = range;
     }
 
-    protected override void Cancel()
-    {
-        base.Cancel();
-        _navigator.HideAvailableCells();
-    }
-
     public void SetTurn(Turn turn)
     {
         if (_executer.CurrentCommand != this)
             return;
 
-        if (turn == Turn.Enemy)
-            _navigator.HideAvailableCells();
+        switch (turn)
+        {
+            case Turn.Enemy:
+                _navigator.HideAvailableCells();
+                break;
+            case Turn.Player:
+                _executer.PrepareCommand();
+                break;
+        }
+    }
 
-        if (turn == Turn.Player)
-            _executer.PrepareCommand();
+    protected override void Cancel()
+    {
+        base.Cancel();
+        _navigator.HideAvailableCells();
     }
 
     protected override IEnumerator WaitOfExecute()
@@ -52,7 +57,7 @@ public class MoveCommand : Command, ITurnHandler
         _cell = waitOfClickedCell.Cell;
     }
 
-    protected override IEnumerator PrepareAction() 
+    protected override IEnumerator PrepareAction()
     {
         _navigator.RefillAvailableCellsIgnoredWalls(_playerMover.CurrentCell, _range);
         _navigator.ShowAvailableCells();

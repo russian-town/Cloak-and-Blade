@@ -14,9 +14,3 @@ public class AbilityZone : TutorialZone
         }
     }
 }
-
-public enum Side
-{
-    West,
-    East
-}

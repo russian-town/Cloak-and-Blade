@@ -58,11 +58,14 @@ public class LevelLoader : MonoBehaviour, IDataReader
         _scrollIndicator.Initialize(_levelViews, _knobs);
     }
 
-    public void OnOpenLevelButtonClicked(Level level) => TryOpenLevel(level);
+    public void OnOpenLevelButtonClicked(Level level)
+        => OpenUnlockedLevel(level);
 
-    private void TryOpenLevel(Level level)
+    private void OpenUnlockedLevel(Level level)
     {
-        if (level.IsOpen)
-            SceneManager.LoadScene(level.Name);
+        if (!level.IsOpen)
+            return;
+
+        SceneManager.LoadScene(level.Name);
     }
 }

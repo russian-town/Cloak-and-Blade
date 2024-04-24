@@ -1,6 +1,6 @@
-using DG.Tweening;
 using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,11 +20,12 @@ public class ProgressBarFiller : MonoBehaviour
     private Coroutine _coroutine;
     private bool _canFill = true;
 
-    public bool WasFilling { get; private set; }
-
     public event Action ProgressBarFilled;
 
-    public void Initialize() => _image = GetComponent<Image>();
+    public bool WasFilling { get; private set; }
+
+    public void Initialize()
+        => _image = GetComponent<Image>();
 
     private void OnEnable()
     {
@@ -76,7 +77,7 @@ public class ProgressBarFiller : MonoBehaviour
     {
         _source.Play();
 
-        if(value == _fullProgress)
+        if (value == _fullProgress)
             _image.DOColor(_filledColor, _colorChangeDuration).SetEase(Ease.InSine);
         else
             _image.DOColor(_originalColor, _colorChangeDuration).SetEase(Ease.Unset);
@@ -86,7 +87,7 @@ public class ProgressBarFiller : MonoBehaviour
             _image.fillAmount = Mathf.MoveTowards(_image.fillAmount, value, _fillSpeed * Time.deltaTime);
 
             if (value == _fullProgress && _source.pitch < .8f)
-                _source.pitch += _fillSpeed  * Time.deltaTime;
+                _source.pitch += _fillSpeed * Time.deltaTime;
             else if (value != _fullProgress && _source.pitch > _minPitch)
                 _source.pitch -= _fillSpeed * Time.deltaTime;
 

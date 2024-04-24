@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent (typeof(CanvasGroup))]
+[RequireComponent(typeof(CanvasGroup))]
 public class PlayerView : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private Button _move;
@@ -13,7 +13,7 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     [SerializeField] private Button _leftRotationCameraButton;
     [SerializeField] private Button _rightRotationCameraButton;
     [SerializeField] private Button _perspectiveCameraButton;
-    [SerializeField] private List<Icon> _icons = new List<Icon>();
+    [SerializeField] private List<Icon> _icons = new ();
     [SerializeField] private Icon _abilityIcon;
     [SerializeField] private Icon _moveIcon;
     [SerializeField] private Sprite _rewardedImage;
@@ -25,7 +25,6 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     private bool _canSwitchAbilityInteractable = true;
     private bool _canSwitchMoveInteractable = true;
     private bool _isAbilityInteractable;
-    private bool _isMoveInteractable;
 
     public event Action PauseButtonClicked;
 
@@ -90,7 +89,6 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     public void ShowInteractiveButton()
     {
         _isAbilityInteractable = true;
-        _isMoveInteractable = true;
         _skip.interactable = true;
 
         if (_canSwitchMoveInteractable == true)
@@ -171,17 +169,20 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     {
         _abilityIcon.ChangeSprite(_rewardedImage);
         _abilityIcon.PlayShakeEffect();
-    } 
+    }
 
-    private void OnAbilityReseted() => ResetAbilityIcon();
+    private void OnAbilityReseted()
+        => ResetAbilityIcon();
 
-    private void OnMoveClick() => _player.PrepareMove();
+    private void OnMoveClick()
+        => _player.PrepareMove();
 
-    private void OnAbilityClick() => _player.TryPrepareAbility();
+    private void OnAbilityClick()
+        => _player.TryPrepareAbility();
 
     private void OnSkipClick()
     {
         _player.PrepareSkip();
         _tickTockSound.Play();
-    } 
+    }
 }

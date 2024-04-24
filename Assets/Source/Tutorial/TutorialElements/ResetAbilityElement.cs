@@ -26,7 +26,7 @@ public class ResetAbilityElement : BaseTutorialElement
         }
     }
 
-    private void OnMoveEnded() 
+    private void OnMoveEnded()
     {
         _player.Mover.MoveEnded -= OnMoveEnded;
         InvokeTutorialZoneCompleteAction();

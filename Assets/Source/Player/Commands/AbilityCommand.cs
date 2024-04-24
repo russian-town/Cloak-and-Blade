@@ -4,12 +4,19 @@ public class AbilityCommand : Command
 {
     private readonly Ability _ability;
 
-    public Ability Ability { get { return _ability; } }
+    public Ability Ability
+    {
+        get
+        { 
+            return _ability; 
+        } 
+    }
     
-    public bool IsUsed => _ability.CanUse() == false;
-
-    public AbilityCommand(Ability ability, CommandExecuter executer) : base(executer)
+    public AbilityCommand(Ability ability, CommandExecuter executer)
+        : base(executer)
         => _ability = ability;
+
+    public bool IsUsed => _ability.CanUse() == false;
 
     protected override IEnumerator WaitOfExecute()
     {

@@ -1,7 +1,6 @@
-using Agava.WebUtility;
-using Agava.YandexGames;
 using System.Collections.Generic;
-using Unity.Burst;
+using Agava.YandexGames;
+using UnityEditor.Localization.Editor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,7 +48,6 @@ public class LeaderBoard : MonoBehaviour
             PlayerAccount.RequestPersonalProfileDataPermission();
     }
 
-
     private void OpenLeaderBoard()
     {
         if (_autorizationRequirmentScreen.CanvasGroup.alpha > .9)
@@ -93,8 +91,12 @@ public class LeaderBoard : MonoBehaviour
     private void ClearLeaderBoard()
     {
         if (_leaderBoardView.transform.childCount > 0)
+        {
             for (var i = _leaderBoardView.transform.childCount - 1; i >= 0; i--)
+            {
                 _leaderBoardView.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
     }
 
     private void SetPlayer(LeaderBoardUnit tempUnit, LeaderboardEntryResponse entry)
@@ -108,14 +110,21 @@ public class LeaderBoard : MonoBehaviour
         {
             tempUnit.SetDefaultProfilePicture();
 
-            if (YandexGamesSdk.Environment.i18n.lang == "en")
-                tempUnit.SetValues(tempUnit.Avatar, entry.rank, Constants.AnonymousEnglish, entry.score);
-
-            if (YandexGamesSdk.Environment.i18n.lang == "ru")
-                tempUnit.SetValues(tempUnit.Avatar, entry.rank, Constants.AnonymousRussian, entry.score);
-
-            if (YandexGamesSdk.Environment.i18n.lang == "tr")
-                tempUnit.SetValues(tempUnit.Avatar, entry.rank, Constants.AnonymousTurkish, entry.score);
+            switch (YandexGamesSdk.Environment.i18n.lang)
+            {
+                case Constants.En:
+                    tempUnit.SetValues(tempUnit.Avatar, entry.rank, Constants.AnonymousEnglish, entry.score);
+                    break;
+                case Constants.Ru:
+                    tempUnit.SetValues(tempUnit.Avatar, entry.rank, Constants.AnonymousRussian, entry.score);
+                    break;
+                case Constants.Tr:
+                    tempUnit.SetValues(tempUnit.Avatar, entry.rank, Constants.AnonymousTurkish, entry.score);
+                    break;
+                default:
+                    tempUnit.SetValues(tempUnit.Avatar, entry.rank, Constants.AnonymousEnglish, entry.score);
+                    break;
+            }
         }
     }
 }

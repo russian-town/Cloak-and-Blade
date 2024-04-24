@@ -1,6 +1,6 @@
-using UnityEngine;
-using DG.Tweening;
 using System;
+using DG.Tweening;
+using UnityEngine;
 
 public class ButtonAnimationHandler : MonoBehaviour
 {
@@ -33,13 +33,13 @@ public class ButtonAnimationHandler : MonoBehaviour
     }
 
     public void PopBack()
-    {
-        _transform.DOAnchorPos(_initialPosition, _duration, false).SetEase(Ease.Flash);
-    }
+        => _transform.DOAnchorPos(_initialPosition, _duration, false).SetEase(Ease.Flash);
 
-    public void Shrink() => _transform.DOScale(_shrinkScale, _bounceDuration).SetEase(Ease.Flash);
-  
-    public void ShrinkBack() => _transform.DOScale(_initialScale, _bounceDuration).SetEase(Ease.Flash);
+    public void Shrink()
+        => _transform.DOScale(_shrinkScale, _bounceDuration).SetEase(Ease.Flash);
+
+    public void ShrinkBack()
+        => _transform.DOScale(_initialScale, _bounceDuration).SetEase(Ease.Flash);
 
     public void BounceOnClick()
     {

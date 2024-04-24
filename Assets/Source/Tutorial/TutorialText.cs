@@ -8,6 +8,7 @@ public class TutorialText : MonoBehaviour
     private TMPro.TMP_Text _text;
 
     public bool IsTutorialTrigger => _isTutorialTrigger;
+
     public string Line => _text.text;
 
     private void Awake()

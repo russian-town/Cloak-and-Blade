@@ -33,25 +33,42 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     private CommandExecuter _commandExecuter;
     private Turn _turn;
     private Battery _battery;
-
-    public CommandExecuter CommandExecuter => _commandExecuter;
-    public bool IsDead { get; private set; }
-    public Sprite AbilityIcon => _abilityIcon;
-    public Coroutine MoveCoroutine { get; private set; }
-    public Cell CurrentCell => _mover.CurrentCell;
-    public MoveCommand MoveCommand => _moveCommand;
-    public ItemsInHold ItemsInHold => _itemsInHold;
-    public PlayerMover Mover => _mover;
-    protected Navigator Navigator => _navigator;
-    protected Gameboard Gameboard => _gameboard;
-    protected UpgradeSetter UpgradeSetter => _upgradeSetter;
-    protected float RotationSpeed => _rotationSpeed;
-    protected float MoveSpeed => _moveSpeed;
-    protected int Range => _moveRange;
+    private WaitForSeconds _delayWaitForSeconds;
+    private WaitUntil _waitUntilParticleDie;
 
     public event UnityAction StepEnded;
+
     public event UnityAction AbilityUsed;
+
     public event UnityAction Died;
+
+    public CommandExecuter CommandExecuter => _commandExecuter;
+
+    public bool IsDead { get; private set; }
+
+    public Sprite AbilityIcon => _abilityIcon;
+
+    public Coroutine MoveCoroutine { get; private set; }
+
+    public Cell CurrentCell => _mover.CurrentCell;
+
+    public MoveCommand MoveCommand => _moveCommand;
+
+    public ItemsInHold ItemsInHold => _itemsInHold;
+
+    public PlayerMover Mover => _mover;
+
+    protected Navigator Navigator => _navigator;
+
+    protected Gameboard Gameboard => _gameboard;
+
+    protected UpgradeSetter UpgradeSetter => _upgradeSetter;
+
+    protected float RotationSpeed => _rotationSpeed;
+
+    protected float MoveSpeed => _moveSpeed;
+
+    protected int Range => _moveRange;
 
     public void Unsubscribe()
     {
@@ -79,6 +96,8 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _battery = battery;
         _moveCommand = new MoveCommand(this, _mover, _navigator, _moveSpeed, _rotationSpeed, _gameboard, _commandExecuter, _moveRange);
         _skipCommand = new SkipCommand(this, _enemyTurnWaiter, _animationHandler, _commandExecuter);
+        _delayWaitForSeconds = new WaitForSeconds(_delay);
+        _waitUntilParticleDie = new WaitUntil(() => !_diedParticle.isPlaying);
     }
 
     public void SetTargets(List<Enemy> enemies)
@@ -87,18 +106,19 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         _attacker.Initialize(_enemies);
     }
 
-    public void TryPrepareAbility()
+    public bool TryPrepareAbility()
     {
         if (!_commandExecuter.TrySwitchCommand(AbilityCommand()))
-            return;
+            return false;
 
         if (AbilityCommand().IsExecuting)
-            return;
+            return false;
 
         if (AbilityCommand().IsUsed)
-            return;
+            return false;
 
         PrepareAbility();
+        return true;
     }
 
     public void PrepareAbility()
@@ -168,7 +188,8 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 
     public abstract AbilityCommand AbilityCommand();
 
-    protected virtual void TurnChanged(Turn turn) { }
+    protected virtual void TurnChanged(Turn turn)
+    { }
 
     private IEnumerator MakeDeath()
     {
@@ -183,14 +204,16 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
         }
 
         _diedParticle.Play();
-        yield return new WaitUntil(() => !_diedParticle.isPlaying);
-        yield return new WaitForSeconds(_delay);
+        yield return _waitUntilParticleDie;
+        yield return _delayWaitForSeconds;
         Died?.Invoke();
     }
 
-    private void OnAbilityUseFail() => _adHandler.Show();
+    private void OnAbilityUseFail()
+        => _adHandler.Show();
 
-    private void OnAbilityReseted() => _battery.Enable();
+    private void OnAbilityReseted()
+        => _battery.Enable();
 
     private void OnMoveEnded()
     {

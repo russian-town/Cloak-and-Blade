@@ -1,6 +1,6 @@
+using System.Collections;
 using Agava.YandexGames;
 using Lean.Localization;
-using System.Collections;
 using UnityEngine;
 
 public class YandexInit : MonoBehaviour, IDataWriter
@@ -11,13 +11,11 @@ public class YandexInit : MonoBehaviour, IDataWriter
     [SerializeField] private LevelsHandler _levelsHandler;
     [SerializeField] private SimpleTextTyper _simpleTextTyper;
     
-    private Saver _saver = new Saver();
+    private Saver _saver = new ();
     private string _currentLanguague;
 
     private void OnEnable()
-    {
-        _saver.Enable();
-    }
+        => _saver.Enable();
 
     private void Awake()
     {
@@ -27,9 +25,7 @@ public class YandexInit : MonoBehaviour, IDataWriter
     }
 
     private void OnDisable()
-    {
-        _saver.Disable();
-    }
+        => _saver.Disable();
 
     private IEnumerator Start()
     {
@@ -37,14 +33,21 @@ public class YandexInit : MonoBehaviour, IDataWriter
         yield return YandexGamesSdk.Initialize();
         YandexGamesSdk.CallbackLogging = true;
 
-        if (YandexGamesSdk.Environment.i18n.lang == "en")
-            _currentLanguague = Constants.English;
-
-        if (YandexGamesSdk.Environment.i18n.lang == "ru")
-            _currentLanguague = Constants.Russian;
-
-        if (YandexGamesSdk.Environment.i18n.lang == "tr")
-            _currentLanguague = Constants.Turkish;
+        switch (YandexGamesSdk.Environment.i18n.lang)
+        {
+            case Constants.En:
+                _localization.SetCurrentLanguage(Constants.English);
+                break;
+            case Constants.Ru:
+                _localization.SetCurrentLanguage(Constants.Russian);
+                break;
+            case Constants.Tr:
+                _localization.SetCurrentLanguage(Constants.Turkish);
+                break;
+            default:
+                _localization.SetCurrentLanguage(Constants.English);
+                break;
+        }
 
         _localization.SetCurrentLanguage(_currentLanguague);
 #endif

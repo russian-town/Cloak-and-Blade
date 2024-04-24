@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(MeshRenderer))]
 public class CellView : MonoBehaviour
 {
     private ParticleSystem _abilityRangeEffectTemplate;

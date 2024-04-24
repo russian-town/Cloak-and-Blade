@@ -1,7 +1,7 @@
-using UnityEngine;
-using DG.Tweening;
 using System;
 using System.Runtime.CompilerServices;
+using DG.Tweening;
+using UnityEngine;
 
 public class ScreenAnimationHandler : MonoBehaviour
 {

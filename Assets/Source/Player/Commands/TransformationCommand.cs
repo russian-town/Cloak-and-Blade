@@ -16,7 +16,8 @@ public class TransformationCommand : AbilityCommand, ITurnHandler
 
     private Cell _cell;
 
-    public TransformationCommand(Transformation transformation, Gameboard gameboard, Navigator navigator, CommandExecuter executer, Player player, PlayerMover playerMover, float moveSpeed, float rotationSpeed, int range) : base(transformation, executer)
+    public TransformationCommand(Transformation transformation, Gameboard gameboard, Navigator navigator, CommandExecuter executer, Player player, PlayerMover playerMover, float moveSpeed, float rotationSpeed, int range)
+        : base(transformation, executer)
     {
         _transformation = transformation;
         _gameboard = gameboard;
@@ -35,7 +36,7 @@ public class TransformationCommand : AbilityCommand, ITurnHandler
         if (Prepared == false)
             return;
 
-        if(turn == Turn.Enemy)
+        if (turn == Turn.Enemy)
         {
             _navigator.HideAvailableCells();
         }
