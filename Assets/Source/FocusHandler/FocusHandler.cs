@@ -1,90 +1,93 @@
 using System;
 using System.Collections.Generic;
 using Agava.WebUtility;
-using Agava.YandexGames;
+using Source.Game;
+using Source.Sound_and_music;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class FocusHandler : MonoBehaviour
+namespace Source.FocusHandler
 {
-    [SerializeField] private Audio _audio;
-    [SerializeField] private List<TimecodeTracker> _trackers;
-
-    private IActiveScene _scene;
-
-    public event Action<bool> FocusChaned;
-
-    private void OnEnable()
+    public class FocusHandler : MonoBehaviour
     {
-        WebApplication.InBackgroundChangeEvent += OnBackgroundChangeEvent;
-        Application.focusChanged += OnFocus;
-    }
+        [SerializeField] private Audio _audio;
+        [SerializeField] private List<TimecodeTracker> _trackers;
 
-    private void OnDisable()
-    {
-        WebApplication.InBackgroundChangeEvent -= OnBackgroundChangeEvent;
-        Application.focusChanged -= OnFocus;
-    }
+        private IActiveScene _scene;
 
-    public void SetActiveScene(IActiveScene scene)
-        => _scene = scene;
+        public event Action<bool> FocusChaned;
 
-    private void OnBackgroundChangeEvent(bool poop)
-    {
-        FocusChaned?.Invoke(poop == false);
+        private void OnEnable()
+        {
+            WebApplication.InBackgroundChangeEvent += OnBackgroundChangeEvent;
+            Application.focusChanged += OnFocus;
+        }
 
-        if (poop)
-            SetUnFocused();
-        else
-            SetFocused();
-    }
+        private void OnDisable()
+        {
+            WebApplication.InBackgroundChangeEvent -= OnBackgroundChangeEvent;
+            Application.focusChanged -= OnFocus;
+        }
 
-    private void OnFocus(bool focus)
-    {
-        FocusChaned?.Invoke(focus);
+        public void SetActiveScene(IActiveScene scene)
+            => _scene = scene;
 
-        if (focus == false)
-            SetUnFocused();
-        else
-            SetFocused();
-    }
+        private void OnBackgroundChangeEvent(bool poop)
+        {
+            FocusChaned?.Invoke(poop == false);
 
-    private void SetUnFocused()
-    {
-        if (enabled == false)
-            return;
+            if (poop)
+                SetUnFocused();
+            else
+                SetFocused();
+        }
 
-        if (_audio == null)
-            return;
+        private void OnFocus(bool focus)
+        {
+            FocusChaned?.Invoke(focus);
 
-        foreach (var tracker in _trackers)
-            tracker.CashTimecode();
+            if (focus == false)
+                SetUnFocused();
+            else
+                SetFocused();
+        }
 
-        _audio.Mute();
+        private void SetUnFocused()
+        {
+            if (enabled == false)
+                return;
 
-        if (_scene == null)
-            return;
+            if (_audio == null)
+                return;
 
-        _scene.SetPause();
-    }
+            foreach (var tracker in _trackers)
+                tracker.CashTimecode();
 
-    private void SetFocused()
-    {
-        if (enabled == false)
-            return;
+            _audio.Mute();
 
-        if (_audio == null)
-            return;
+            if (_scene == null)
+                return;
 
-        foreach (var tracker in _trackers)
-            tracker.SetTimecode();
+            _scene.SetPause();
+        }
 
-        _audio.UnMute();
+        private void SetFocused()
+        {
+            if (enabled == false)
+                return;
 
-        if (_scene == null)
-            return;
+            if (_audio == null)
+                return;
 
-        if (_scene is IAutoContinuer continuer)
-            continuer.Continue();
+            foreach (var tracker in _trackers)
+                tracker.SetTimecode();
+
+            _audio.UnMute();
+
+            if (_scene == null)
+                return;
+
+            if (_scene is IAutoContinuer continuer)
+                continuer.Continue();
+        }
     }
 }

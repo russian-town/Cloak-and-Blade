@@ -1,16 +1,20 @@
+using Source.Tutorial.TutorialPlayer;
 using UnityEngine;
 
-public class AbilityZone : TutorialZone
+namespace Source.Tutorial.TutorialZones
 {
-    [SerializeField] private Side _side;
-
-    public override void Interact()
+    public class AbilityZone : TutorialZone
     {
-        if (Player.TryGetComponent(out TutorialCharacter character))
+        [SerializeField] private Side _side;
+
+        public override void Interact()
         {
-            Player.CommandExecuter.ResetCommand();
-            character.SetSide(_side);
-            base.Interact();
+            if (Player.TryGetComponent(out TutorialCharacter character))
+            {
+                Player.CommandExecuter.ResetCommand();
+                character.SetSide(_side);
+                base.Interact();
+            }
         }
     }
 }

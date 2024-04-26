@@ -1,20 +1,25 @@
+using Source.InteractiveObjects.Objects.Treasure;
+using Source.Tutorial.TutorialPlayer;
 using UnityEngine;
 
-public class ResetAbilityZone : TutorialZone
+namespace Source.Tutorial.TutorialZones
 {
-    [SerializeField] private Treasure _treasure;
-    [SerializeField] private Side _side;
-
-    public override void Interact()
+    public class ResetAbilityZone : TutorialZone
     {
-        if (Player.ItemsInHold.FindItemInList(_treasure))
+        [SerializeField] private Treasure _treasure;
+        [SerializeField] private Side _side;
+
+        public override void Interact()
         {
-            Player.CommandExecuter.ResetCommand();
+            if (Player.ItemsInHold.FindItemInList(_treasure))
+            {
+                Player.CommandExecuter.ResetCommand();
 
-            if (Player.TryGetComponent(out TutorialCharacter character))
-                character.SetSide(_side);
+                if (Player.TryGetComponent(out TutorialCharacter character))
+                    character.SetSide(_side);
 
-            base.Interact();
+                base.Interact();
+            }
         }
     }
 }

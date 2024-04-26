@@ -1,29 +1,33 @@
 using System.Collections.Generic;
+using Source.Tutorial.UI;
 using UnityEngine;
 
-public class AbilityTutorial : BaseTutorialElement
+namespace Source.Tutorial.TutorialElements
 {
-    [SerializeField] private List<MainButton> _abilityButtons;
-    [SerializeField] private Gameboard _gameboard;
-
-    private Player _player;
-
-    public override void Show(Player player)
+    public class AbilityTutorial : BaseTutorialElement
     {
-        _player = player;
-        _player.Mover.MoveEnded += OnMoveEnded;
-        _gameboard.Enable();
+        [SerializeField] private List<MainButton> _abilityButtons;
+        [SerializeField] private Gameboard.Gameboard _gameboard;
 
-        foreach (var button in _abilityButtons)
+        private Player.Player _player;
+
+        public override void Show(Player.Player player)
         {
-            button.Open();
-            button.Show();
-        }
-    }
+            _player = player;
+            _player.Mover.MoveEnded += OnMoveEnded;
+            _gameboard.Enable();
 
-    private void OnMoveEnded()
-    {
-        _player.Mover.MoveEnded -= OnMoveEnded;
-        InvokeTutorialZoneCompleteAction();
+            foreach (var button in _abilityButtons)
+            {
+                button.Open();
+                button.Show();
+            }
+        }
+
+        private void OnMoveEnded()
+        {
+            _player.Mover.MoveEnded -= OnMoveEnded;
+            InvokeTutorialZoneCompleteAction();
+        }
     }
 }

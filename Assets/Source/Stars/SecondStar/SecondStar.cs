@@ -1,3 +1,6 @@
-public class SecondStar : Star
+namespace Source.Stars.SecondStar
 {
+    public class SecondStar : Star
+    {
+    }
 }

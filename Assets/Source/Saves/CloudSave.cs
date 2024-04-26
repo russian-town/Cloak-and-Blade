@@ -1,45 +1,44 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Agava.WebUtility;
-using Agava.YandexGames;
 using UnityEngine;
 
-public class CloudSave : ISaveLoadService
+namespace Source.Saves
 {
-    private List<IDataWriter> _dataWriters = new List<IDataWriter>();
-    private List<IDataReader> _dataReaders = new List<IDataReader>();
-
-    public event Action<string> DataLoaded;
-
-    public event Action<string> ErrorLoadCallback;
-
-    public event Action<string> ErrorSaveCallback;
-
-    public void AddDataWriters(IDataWriter[] dataWriters) => _dataWriters.AddRange(dataWriters);
-
-    public void AddDataReaders(IDataReader[] dataReaders) => _dataReaders.AddRange(dataReaders);
-
-    public void Save(PlayerData data)
+    public class CloudSave : ISaveLoadService
     {
-        if (data == null)
-            return;
+        private List<IDataWriter> _dataWriters = new List<IDataWriter>();
+        private List<IDataReader> _dataReaders = new List<IDataReader>();
 
-        foreach (var writer in _dataWriters)
-            writer.Write(data);
+        public event Action<string> DataLoaded;
 
-        string saveData = JsonUtility.ToJson(data);
+        public event Action<string> ErrorLoadCallback;
 
-        Debug.Log(saveData);
+        public event Action<string> ErrorSaveCallback;
+
+        public void AddDataWriters(IDataWriter[] dataWriters) => _dataWriters.AddRange(dataWriters);
+
+        public void AddDataReaders(IDataReader[] dataReaders) => _dataReaders.AddRange(dataReaders);
+
+        public void Save(PlayerData data)
+        {
+            if (data == null)
+                return;
+
+            foreach (var writer in _dataWriters)
+                writer.Write(data);
+
+            string saveData = JsonUtility.ToJson(data);
+
+            Debug.Log(saveData);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (PlayerAccount.IsAuthorized)
             PlayerAccount.SetCloudSaveData(saveData, null, ErrorSaveCallback);
 #endif
-    }
+        }
 
-    public void Load()
-    {
+        public void Load()
+        {
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (YandexGamesSdk.IsInitialized == false)
             return;
@@ -47,21 +46,22 @@ public class CloudSave : ISaveLoadService
         if (PlayerAccount.IsAuthorized)
             PlayerAccount.GetCloudSaveData(OnDataLoaded, OnErrorLoad);
 #endif
+        }
+
+        public void OnDataLoaded(string data)
+        {
+            PlayerData playerData = JsonUtility.FromJson<PlayerData>(data);
+
+            if (playerData == null)
+                return;
+
+            foreach (var reader in _dataReaders)
+                reader.Read(playerData);
+
+            DataLoaded?.Invoke(data);
+        }
+
+        public void OnErrorLoad(string error)
+            => ErrorLoadCallback?.Invoke(error);
     }
-
-    public void OnDataLoaded(string data)
-    {
-        PlayerData playerData = JsonUtility.FromJson<PlayerData>(data);
-
-        if (playerData == null)
-            return;
-
-        foreach (var reader in _dataReaders)
-            reader.Read(playerData);
-
-        DataLoaded?.Invoke(data);
-    }
-
-    public void OnErrorLoad(string error)
-        => ErrorLoadCallback?.Invoke(error);
 }

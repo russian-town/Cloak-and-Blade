@@ -1,24 +1,29 @@
 using System.Collections.Generic;
+using Source.Game;
+using Source.Pause;
 using UnityEngine;
 
-public class Cutscene : MonoBehaviour, IActiveScene, IAutoContinuer
+namespace Source.CutScene
 {
-    [SerializeField] private CutsceneScenario _scenario;
-    [SerializeField] private FocusHandler _focusHandler;
-
-    private Pause _pause;
-
-    private void Start()
+    public class Cutscene : MonoBehaviour, IActiveScene, IAutoContinuer
     {
-        _focusHandler.SetActiveScene(this);
-        List<IPauseHandler> pauseHandlers = new ();
-        pauseHandlers.Add(_scenario);
-        _pause = new Pause(pauseHandlers);
+        [SerializeField] private CutsceneScenario _scenario;
+        [SerializeField] private FocusHandler.FocusHandler _focusHandler;
+
+        private Pause.Pause _pause;
+
+        private void Start()
+        {
+            _focusHandler.SetActiveScene(this);
+            List<IPauseHandler> pauseHandlers = new ();
+            pauseHandlers.Add(_scenario);
+            _pause = new Pause.Pause(pauseHandlers);
+        }
+
+        public void SetPause()
+            => _pause.Enable();
+
+        public void Continue()
+            => _pause.Disable();
     }
-
-    public void SetPause()
-        => _pause.Enable();
-
-    public void Continue()
-        => _pause.Disable();
 }

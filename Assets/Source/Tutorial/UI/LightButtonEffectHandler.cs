@@ -2,42 +2,45 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(CanvasGroup))]
-public class LightButtonEffectHandler : MonoBehaviour
+namespace Source.Tutorial.UI
 {
-    [SerializeField] private Image _effectImage;
-    [SerializeField] private float _appearingSpeed;
-    [SerializeField] private Color _startColor;
-    [SerializeField] private Color _secondColor;
-    [SerializeField] private float _fadeDuration;
-
-    private CanvasGroup _canvasGroup;
-    private Sequence _pulsatingSequence;
-
-    private void Start()
+    [RequireComponent(typeof(CanvasGroup))]
+    public class LightButtonEffectHandler : MonoBehaviour
     {
-        _canvasGroup = GetComponent<CanvasGroup>();
-    }
+        [SerializeField] private Image _effectImage;
+        [SerializeField] private float _appearingSpeed;
+        [SerializeField] private Color _startColor;
+        [SerializeField] private Color _secondColor;
+        [SerializeField] private float _fadeDuration;
 
-    public void PlayLightEffect()
-    {
-        if (_pulsatingSequence != null)
-            return;
+        private CanvasGroup _canvasGroup;
+        private Sequence _pulsatingSequence;
 
-        _canvasGroup.alpha = 1;
-        _pulsatingSequence = DOTween.Sequence();
-        _pulsatingSequence
-            .Append(_effectImage.DOColor(_secondColor, _fadeDuration))
-            .SetLoops(-1, LoopType.Yoyo);
-    }
+        private void Start()
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
 
-    public void StopLightEffect()
-    {
-        if (_pulsatingSequence == null)
-            return;
+        public void PlayLightEffect()
+        {
+            if (_pulsatingSequence != null)
+                return;
 
-        _canvasGroup.alpha = 0;
-        _pulsatingSequence.Kill();
-        _pulsatingSequence = null;
+            _canvasGroup.alpha = 1;
+            _pulsatingSequence = DOTween.Sequence();
+            _pulsatingSequence
+                .Append(_effectImage.DOColor(_secondColor, _fadeDuration))
+                .SetLoops(-1, LoopType.Yoyo);
+        }
+
+        public void StopLightEffect()
+        {
+            if (_pulsatingSequence == null)
+                return;
+
+            _canvasGroup.alpha = 0;
+            _pulsatingSequence.Kill();
+            _pulsatingSequence = null;
+        }
     }
 }

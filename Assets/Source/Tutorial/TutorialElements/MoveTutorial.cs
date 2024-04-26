@@ -1,19 +1,23 @@
 using System.Collections.Generic;
+using Source.Tutorial.UI;
 using UnityEngine;
 
-public class MoveTutorial : BaseTutorialElement
+namespace Source.Tutorial.TutorialElements
 {
-    [SerializeField] private List<MainButton> _mainButtons = new List<MainButton>();
-    [SerializeField] private Gameboard _gameboard;
-
-    public override void Show(Player player)
+    public class MoveTutorial : BaseTutorialElement
     {
-        _gameboard.Enable();
+        [SerializeField] private List<MainButton> _mainButtons = new List<MainButton>();
+        [SerializeField] private Gameboard.Gameboard _gameboard;
 
-        foreach (var button in _mainButtons)
+        public override void Show(Player.Player player)
         {
-            button.Open();
-            button.Show();
+            _gameboard.Enable();
+
+            foreach (var button in _mainButtons)
+            {
+                button.Open();
+                button.Show();
+            }
         }
     }
 }

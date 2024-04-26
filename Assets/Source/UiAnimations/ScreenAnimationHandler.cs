@@ -1,56 +1,58 @@
 using System;
-using System.Runtime.CompilerServices;
 using DG.Tweening;
 using UnityEngine;
 
-public class ScreenAnimationHandler : MonoBehaviour
+namespace Source.UiAnimations
 {
-    [SerializeField] private float _fadeDuration;
-    [SerializeField] private CanvasGroup _canvasGroup;
-    [SerializeField] private RectTransform _rectTransform;
-    [SerializeField] private bool _isDescriptionScreen;
-
-    private float _outOfScreenPosition = -1200;
-    private float _descriptionOutOfScreen = 1200;
-    private Vector3 _initialPosition;
-
-    public event Action ScreenEnabled;
-
-    public bool IsEnabled { get; private set; }
-
-    private void Awake()
+    public class ScreenAnimationHandler : MonoBehaviour
     {
-        _initialPosition = _rectTransform.localPosition;
-    }
+        [SerializeField] private float _fadeDuration;
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private RectTransform _rectTransform;
+        [SerializeField] private bool _isDescriptionScreen;
 
-    public void FadeIn()
-    {
-        IsEnabled = true;
-        _canvasGroup.alpha = 0;
-        _canvasGroup.interactable = true;
-        _canvasGroup.blocksRaycasts = true;
+        private float _outOfScreenPosition = -1200;
+        private float _descriptionOutOfScreen = 1200;
+        private Vector3 _initialPosition;
 
-        if (!_isDescriptionScreen)
-            _rectTransform.transform.localPosition = new Vector2(_initialPosition.x, _outOfScreenPosition);
-        else
-            _rectTransform.transform.localPosition = new Vector2(_descriptionOutOfScreen, _initialPosition.y);
+        public event Action ScreenEnabled;
 
-        _rectTransform.DOAnchorPos(_initialPosition, _fadeDuration, false).SetEase(Ease.OutQuint);
-        _canvasGroup.DOFade(1, _fadeDuration);
-        ScreenEnabled?.Invoke();
-    }
+        public bool IsEnabled { get; private set; }
 
-    public void FadeOut()
-    {
-        IsEnabled = false;
-        _canvasGroup.interactable = false;
-        _canvasGroup.blocksRaycasts = false;
+        private void Awake()
+        {
+            _initialPosition = _rectTransform.localPosition;
+        }
 
-        if (!_isDescriptionScreen)
-            _rectTransform.DOAnchorPos(new Vector2(_initialPosition.x, _outOfScreenPosition), _fadeDuration, false).SetEase(Ease.InSine);
-        else
-            _rectTransform.DOAnchorPos(new Vector2(_descriptionOutOfScreen, _initialPosition.y), _fadeDuration, false).SetEase(Ease.InSine);
+        public void FadeIn()
+        {
+            IsEnabled = true;
+            _canvasGroup.alpha = 0;
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
 
-        _canvasGroup.DOFade(0, _fadeDuration);
+            if (!_isDescriptionScreen)
+                _rectTransform.transform.localPosition = new Vector2(_initialPosition.x, _outOfScreenPosition);
+            else
+                _rectTransform.transform.localPosition = new Vector2(_descriptionOutOfScreen, _initialPosition.y);
+
+            _rectTransform.DOAnchorPos(_initialPosition, _fadeDuration, false).SetEase(Ease.OutQuint);
+            _canvasGroup.DOFade(1, _fadeDuration);
+            ScreenEnabled?.Invoke();
+        }
+
+        public void FadeOut()
+        {
+            IsEnabled = false;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+
+            if (!_isDescriptionScreen)
+                _rectTransform.DOAnchorPos(new Vector2(_initialPosition.x, _outOfScreenPosition), _fadeDuration, false).SetEase(Ease.InSine);
+            else
+                _rectTransform.DOAnchorPos(new Vector2(_descriptionOutOfScreen, _initialPosition.y), _fadeDuration, false).SetEase(Ease.InSine);
+
+            _canvasGroup.DOFade(0, _fadeDuration);
+        }
     }
 }

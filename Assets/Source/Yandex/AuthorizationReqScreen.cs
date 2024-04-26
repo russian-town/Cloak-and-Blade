@@ -1,26 +1,30 @@
+using Source.UiAnimations;
 using UnityEngine;
 
-[RequireComponent(typeof(ScreenAnimationHandler))]
-[RequireComponent(typeof(CanvasGroup))]
-public class AuthorizationReqScreen : MonoBehaviour
+namespace Source.Yandex
 {
-    private ScreenAnimationHandler _animationHandler;
-
-    public CanvasGroup CanvasGroup { get; private set; }
-
-    private void Start()
+    [RequireComponent(typeof(ScreenAnimationHandler))]
+    [RequireComponent(typeof(CanvasGroup))]
+    public class AuthorizationReqScreen : MonoBehaviour
     {
-        _animationHandler = GetComponent<ScreenAnimationHandler>();
-        CanvasGroup = GetComponent<CanvasGroup>();
-    }
+        private ScreenAnimationHandler _animationHandler;
 
-    public void Enable()
-    {
-        _animationHandler.FadeIn();
-    }
+        public CanvasGroup CanvasGroup { get; private set; }
 
-    public void Disable()
-    {
-        _animationHandler.FadeOut();
+        private void Start()
+        {
+            _animationHandler = GetComponent<ScreenAnimationHandler>();
+            CanvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        public void Enable()
+        {
+            _animationHandler.FadeIn();
+        }
+
+        public void Disable()
+        {
+            _animationHandler.FadeOut();
+        }
     }
 }

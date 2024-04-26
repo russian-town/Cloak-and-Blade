@@ -1,13 +1,17 @@
 using System;
+using Source.Gameboard.Cell;
 using UnityEngine;
 
-[Serializable]
-public class EnemySetter
+namespace Source.Root
 {
-    [SerializeField] private Enemy _enemyTemplate;
-    [SerializeField] private Cell[] _destinations;
+    [Serializable]
+    public class EnemySetter
+    {
+        [SerializeField] private Enemy.Enemy _enemyTemplate;
+        [SerializeField] private Cell[] _destinations;
 
-    public Enemy EnemyTemplate => _enemyTemplate;
+        public Enemy.Enemy EnemyTemplate => _enemyTemplate;
 
-    public Cell[] Destinations => _destinations;
+        public Cell[] Destinations => _destinations;
+    }
 }

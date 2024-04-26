@@ -1,11 +1,15 @@
+using Source.Gameboard.Cell;
 using UnityEngine;
 
-public class GhostSpawner : MonoBehaviour
+namespace Source.Ghost.GhostSpawner
 {
-    public Ghost Get(Cell spawnCell, Ghost template)
+    public class GhostSpawner : MonoBehaviour
     {
-        Ghost ghost = Instantiate(template);
-        ghost.transform.localPosition = spawnCell.transform.localPosition;
-        return ghost;
+        public Ghost Get(Cell spawnCell, Ghost template)
+        {
+            Ghost ghost = Instantiate(template);
+            ghost.transform.localPosition = spawnCell.transform.localPosition;
+            return ghost;
+        }
     }
 }

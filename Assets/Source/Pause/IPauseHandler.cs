@@ -1,6 +1,9 @@
-public interface IPauseHandler
+namespace Source.Pause
 {
-    public void Unpause();
+    public interface IPauseHandler
+    {
+        public void Unpause();
 
-    public void Pause();
+        public void Pause();
+    }
 }

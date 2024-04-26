@@ -1,28 +1,31 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class AnimalPropMovementHandler : MonoBehaviour
+namespace Source.Models
 {
-    [SerializeField] private Transform _firstPoint;
-    [SerializeField] private Transform _secondPoint;
-    [SerializeField] private float _moveDuration;
-    [SerializeField] private float _rotationDuration;
-
-    private Sequence _movingSequence;
-
-    private void Start()
+    public class AnimalPropMovementHandler : MonoBehaviour
     {
-        Move();
-    }
+        [SerializeField] private Transform _firstPoint;
+        [SerializeField] private Transform _secondPoint;
+        [SerializeField] private float _moveDuration;
+        [SerializeField] private float _rotationDuration;
 
-    private void Move()
-    {
-        _movingSequence = DOTween.Sequence();
-        _movingSequence
-            .Append(transform.DOLookAt(_secondPoint.position, _rotationDuration).SetEase(Ease.InOutSine))
-            .Append(transform.DOMove(_secondPoint.position, _moveDuration).SetEase(Ease.Linear))
-            .Append(transform.DOLookAt(_firstPoint.position, _rotationDuration).SetEase(Ease.InOutSine))
-            .Append(transform.DOMove(_firstPoint.position, _moveDuration).SetEase(Ease.Linear))
-            .SetLoops(-1);
+        private Sequence _movingSequence;
+
+        private void Start()
+        {
+            Move();
+        }
+
+        private void Move()
+        {
+            _movingSequence = DOTween.Sequence();
+            _movingSequence
+                .Append(transform.DOLookAt(_secondPoint.position, _rotationDuration).SetEase(Ease.InOutSine))
+                .Append(transform.DOMove(_secondPoint.position, _moveDuration).SetEase(Ease.Linear))
+                .Append(transform.DOLookAt(_firstPoint.position, _rotationDuration).SetEase(Ease.InOutSine))
+                .Append(transform.DOMove(_firstPoint.position, _moveDuration).SetEase(Ease.Linear))
+                .SetLoops(-1);
+        }
     }
 }

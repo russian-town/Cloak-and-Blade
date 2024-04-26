@@ -380,8 +380,8 @@ MonoBehaviour:
   - {fileID: 6013556111913730022}
   - {fileID: 967048445446792514}
   _chains:
-  - {fileID: 8973754190754003275}
-  - {fileID: 485842655447637941}
+  - {fileID: 0}
+  - {fileID: 0}
   _source: {fileID: 8995384548727690273}
   _fallingChainsSound: {fileID: 8300000, guid: c660dc7ace6c7bd4d8313d6b28baad5e, type: 3}
   _soundHandler: {fileID: 8047644992906564279}
@@ -1065,7 +1065,6 @@ GameObject:
   - component: {fileID: 847303366398579241}
   - component: {fileID: 6649661433244216136}
   - component: {fileID: 1095972685668768204}
-  - component: {fileID: 485842655447637941}
   - component: {fileID: 4408214557251964789}
   m_Layer: 5
   m_Name: Chain (1)
@@ -1132,21 +1131,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &485842655447637941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3142247321753293970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f393cb0af815e4cb29184c3fc7ec95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rectTransform: {fileID: 847303366398579241}
-  _canvasGroup: {fileID: 4408214557251964789}
-  _animationLength: 1
 --- !u!225 &4408214557251964789
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1723,7 +1707,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy
+  m_text: "\u041A\u0443\u043F\u0438\u0442\u044C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41ee7723a43895444a8bf4d80a6d76a1, type: 2}
   m_sharedMaterial: {fileID: -3595107127703264355, guid: 41ee7723a43895444a8bf4d80a6d76a1, type: 2}
@@ -2219,7 +2203,6 @@ GameObject:
   - component: {fileID: 6405947010374221415}
   - component: {fileID: 7739660664416470137}
   - component: {fileID: 4854888239938485932}
-  - component: {fileID: 8973754190754003275}
   - component: {fileID: 7904264944423790680}
   m_Layer: 5
   m_Name: Chain
@@ -2286,21 +2269,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8973754190754003275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6639038957300288959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f393cb0af815e4cb29184c3fc7ec95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rectTransform: {fileID: 6405947010374221415}
-  _canvasGroup: {fileID: 7904264944423790680}
-  _animationLength: 1
 --- !u!225 &7904264944423790680
 CanvasGroup:
   m_ObjectHideFlags: 0

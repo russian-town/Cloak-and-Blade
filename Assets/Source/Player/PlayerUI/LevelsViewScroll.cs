@@ -1,10 +1,14 @@
+using Source.UiAnimations;
 using UnityEngine;
 
-public class LevelsViewScroll : MonoBehaviour
+namespace Source.Player.PlayerUI
 {
-    [SerializeField] private ScreenAnimationHandler _screen;
+    public class LevelsViewScroll : MonoBehaviour
+    {
+        [SerializeField] private ScreenAnimationHandler _screen;
 
-    public void Show() => _screen.FadeIn();
+        public void Show() => _screen.FadeIn();
 
-    public void Hide() => _screen.FadeOut();
+        public void Hide() => _screen.FadeOut();
+    }
 }

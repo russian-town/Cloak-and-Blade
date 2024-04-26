@@ -1,3 +1,6 @@
-public class SecondStarContainer : StarContainer
+namespace Source.Stars.SecondStar
 {
+    public class SecondStarContainer : StarContainer
+    {
+    }
 }

@@ -1,41 +1,44 @@
 using UnityEngine;
 
-[RequireComponent(typeof(MeshRenderer))]
-public class CellView : MonoBehaviour
+namespace Source.Gameboard.Cell
 {
-    private ParticleSystem _abilityRangeEffectTemplate;
-    private ParticleSystem _abilityRangeEffect;
-    private MeshRenderer _meshRenderer;
-
-    public void Initialize(ParticleSystem abilityRangeEffectTemplate)
+    [RequireComponent(typeof(MeshRenderer))]
+    public class CellView : MonoBehaviour
     {
-        _abilityRangeEffectTemplate = abilityRangeEffectTemplate;
-        _meshRenderer = GetComponent<MeshRenderer>();
-    }
+        private ParticleSystem _abilityRangeEffectTemplate;
+        private ParticleSystem _abilityRangeEffect;
+        private MeshRenderer _meshRenderer;
 
-    public void Hide()
-        => _meshRenderer.enabled = false;
-
-    public void Show()
-        => _meshRenderer.enabled = true;
-
-    public void PlayAbilityRangeEffect()
-    {
-        if (_abilityRangeEffect == null)
+        public void Initialize(ParticleSystem abilityRangeEffectTemplate)
         {
-            _abilityRangeEffect = Instantiate(_abilityRangeEffectTemplate);
-            _abilityRangeEffect.transform.position = transform.position;
-            _abilityRangeEffect.Play();
+            _abilityRangeEffectTemplate = abilityRangeEffectTemplate;
+            _meshRenderer = GetComponent<MeshRenderer>();
         }
-        else
-        {
-            _abilityRangeEffect.Play();
-        }
-    }
 
-    public void StopAbilityRangeEffect()
-    {
-        if (_abilityRangeEffect != null)
-            _abilityRangeEffect.Stop();
+        public void Hide()
+            => _meshRenderer.enabled = false;
+
+        public void Show()
+            => _meshRenderer.enabled = true;
+
+        public void PlayAbilityRangeEffect()
+        {
+            if (_abilityRangeEffect == null)
+            {
+                _abilityRangeEffect = Instantiate(_abilityRangeEffectTemplate);
+                _abilityRangeEffect.transform.position = transform.position;
+                _abilityRangeEffect.Play();
+            }
+            else
+            {
+                _abilityRangeEffect.Play();
+            }
+        }
+
+        public void StopAbilityRangeEffect()
+        {
+            if (_abilityRangeEffect != null)
+                _abilityRangeEffect.Stop();
+        }
     }
 }

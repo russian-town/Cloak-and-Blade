@@ -1,32 +1,36 @@
 using System;
+using Source.Tutorial.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TurnCounterclockwiseButton : MainButton, IPointerDownHandler, IPointerUpHandler
+namespace Source.Camera
 {
-    [SerializeField] private CameraControls _controls;
-
-    private bool _isRotating;
-
-    public event Action HoldSecondComplete;
-
-    private void Update()
+    public class TurnCounterclockwiseButton : MainButton, IPointerDownHandler, IPointerUpHandler
     {
-        if (_isRotating)
-            _controls.TurnCounterClockwise();
-    }
+        [SerializeField] private CameraControls _controls;
 
-    public void OnPointerDown(PointerEventData eventData)
-        => ToggleRotating();
+        private bool _isRotating;
 
-    public void OnPointerUp(PointerEventData eventData)
-        => ToggleRotating();
+        public event Action HoldSecondComplete;
 
-    public void ToggleRotating()
-    {
-        if (_isRotating)
-            _isRotating = false;
-        else
-            _isRotating = true;
+        private void Update()
+        {
+            if (_isRotating)
+                _controls.TurnCounterClockwise();
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+            => ToggleRotating();
+
+        public void OnPointerUp(PointerEventData eventData)
+            => ToggleRotating();
+
+        public void ToggleRotating()
+        {
+            if (_isRotating)
+                _isRotating = false;
+            else
+                _isRotating = true;
+        }
     }
 }

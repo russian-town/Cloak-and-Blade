@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Linq;
 using Agava.WebUtility;
+using Source.LevelLoader;
 
 public enum RetroFXColoringMode {
     BitDepth, Palette, LuminosityBased, Steps

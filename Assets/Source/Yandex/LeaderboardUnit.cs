@@ -5,52 +5,55 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class LeaderBoardUnit : MonoBehaviour
+namespace Source.Yandex
 {
-    [SerializeField] private List<Sprite> _avatars;
-    [SerializeField] private Image _avatar;
-    [SerializeField] private TMP_Text _rank;
-    [SerializeField] private TMP_Text _name;
-    [SerializeField] private TMP_Text _score;
-
-    public Image Avatar => _avatar;
-
-    public void SetValues(Image avatar, float rank, string name, float score)
+    public class LeaderBoardUnit : MonoBehaviour
     {
-        _rank.text = rank.ToString();
-        _avatar = avatar;
-        _name.text = name;
-        _score.text = score.ToString();
-    }
+        [SerializeField] private List<Sprite> _avatars;
+        [SerializeField] private Image _avatar;
+        [SerializeField] private TMP_Text _rank;
+        [SerializeField] private TMP_Text _name;
+        [SerializeField] private TMP_Text _score;
 
-    public void SetProfileImage(string imageUrl) => StartCoroutine(SetProfileImageCoroutine(imageUrl));
+        public Image Avatar => _avatar;
 
-    public void SetDefaultProfilePicture() => _avatar.sprite = SetRandomProfileImage();
-
-    private Sprite SetRandomProfileImage()
-    {
-        int randomAvatarIndex = 0;
-        randomAvatarIndex = Random.Range(0, _avatars.Count);
-
-        for (int i = 0; i < _avatars.Count; i++)
+        public void SetValues(Image avatar, float rank, string name, float score)
         {
-            if (i == randomAvatarIndex)
-                return _avatars[i];
+            _rank.text = rank.ToString();
+            _avatar = avatar;
+            _name.text = name;
+            _score.text = score.ToString();
         }
 
-        return null;
-    }
+        public void SetProfileImage(string imageUrl) => StartCoroutine(SetProfileImageCoroutine(imageUrl));
 
-    private IEnumerator SetProfileImageCoroutine(string url)
-    {
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
-        yield return request.SendWebRequest();
+        public void SetDefaultProfilePicture() => _avatar.sprite = SetRandomProfileImage();
 
-        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-            yield break;
+        private Sprite SetRandomProfileImage()
+        {
+            int randomAvatarIndex = 0;
+            randomAvatarIndex = Random.Range(0, _avatars.Count);
 
-        var texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
-        var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-        _avatar.sprite = sprite;
+            for (int i = 0; i < _avatars.Count; i++)
+            {
+                if (i == randomAvatarIndex)
+                    return _avatars[i];
+            }
+
+            return null;
+        }
+
+        private IEnumerator SetProfileImageCoroutine(string url)
+        {
+            UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+                yield break;
+
+            var texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+            var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            _avatar.sprite = sprite;
+        }
     }
 }

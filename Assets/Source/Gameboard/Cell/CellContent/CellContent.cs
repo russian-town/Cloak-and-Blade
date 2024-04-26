@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class CellContent : MonoBehaviour
+namespace Source.Gameboard.Cell.CellContent
 {
-    [SerializeField] private CellContentType _type;
+    public class CellContent : MonoBehaviour
+    {
+        [SerializeField] private CellContentType _type;
 
-    public CellContentType Type => _type;
+        public CellContentType Type => _type;
 
-    public CellContentSpawner Spawner { get; set; }
+        public CellContentSpawner.CellContentSpawner Spawner { get; set; }
 
-    public void Recycle()
-        => Spawner.Reclaim(this);
+        public void Recycle()
+            => Spawner.Reclaim(this);
 
-    public void BecomeWall()
-        => _type = CellContentType.Wall;
+        public void BecomeWall()
+            => _type = CellContentType.Wall;
 
-    public void BecomeEmpty()
-        => _type = CellContentType.Empty;
+        public void BecomeEmpty()
+            => _type = CellContentType.Empty;
+    }
 }

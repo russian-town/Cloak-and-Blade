@@ -1,4 +1,7 @@
-public interface IDataWriter
+namespace Source.Saves
 {
-    public void Write(PlayerData playerData);
+    public interface IDataWriter
+    {
+        public void Write(PlayerData playerData);
+    }
 }

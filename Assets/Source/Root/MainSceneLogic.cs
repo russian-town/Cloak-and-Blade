@@ -1,68 +1,78 @@
 using System.Collections;
-using Agava.YandexGames;
 using Lean.Localization;
+using Source.LevelLoader;
+using Source.LevelLoader.LoadingScreen;
+using Source.Player.PlayerUI;
+using Source.Saves;
+using Source.Shop;
+using Source.Shop.Character;
+using Source.Shop.PlayersHandler;
+using Source.Sound_and_music;
+using Source.Upgrader;
 using UnityEngine;
 
-public class MainSceneLogic : MonoBehaviour, IDataReader
+namespace Source.Root
 {
-    private readonly Saver _saver = new ();
-    private readonly Wallet _wallet = new ();
-
-    [SerializeField] private Shop _shop;
-    [SerializeField] private PlayersHandler _playersHandler;
-    [SerializeField] private Character[] _characters;
-    [SerializeField] private UpgradeSetter[] _upgradeSetters;
-    [SerializeField] private LevelLoader _levelLoader;
-    [SerializeField] private Audio _audio;
-    [SerializeField] private AudioView _audioView;
-    [SerializeField] private WalletView _walletView;
-    [SerializeField] private LoadingScreen _loadingScreen;
-    [SerializeField] private MainMenu _mainMenu;
-    [SerializeField] private LeanLocalization _localization;
-    [SerializeField] private LevelsHandler _levelsHandler;
-
-    private string _currentLanguage;
-
-    private void OnEnable()
+    public class MainSceneLogic : MonoBehaviour, IDataReader
     {
-        _saver.Enable();
-        _shop.CharacterSold += OnCharacterSold;
-        _shop.CharacterSelected += OnCharacterSelected;
-        _audio.AudioValueChanged += OnAudioValueChanged;
+        private readonly Saver _saver = new ();
+        private readonly Wallet _wallet = new ();
 
-        foreach (var setter in _upgradeSetters)
-            setter.Upgraded += OnUpgrade;
-    }
+        [SerializeField] private Shop.Shop _shop;
+        [SerializeField] private PlayersHandler _playersHandler;
+        [SerializeField] private Character[] _characters;
+        [SerializeField] private UpgradeSetter[] _upgradeSetters;
+        [SerializeField] private LevelLoader.LevelLoader _levelLoader;
+        [SerializeField] private Audio _audio;
+        [SerializeField] private AudioView _audioView;
+        [SerializeField] private WalletView _walletView;
+        [SerializeField] private LoadingScreen _loadingScreen;
+        [SerializeField] private MainMenu _mainMenu;
+        [SerializeField] private LeanLocalization _localization;
+        [SerializeField] private LevelsHandler _levelsHandler;
 
-    private void Start()
-    {
-        StartCoroutine(Initialize());
-    }
+        private string _currentLanguage;
 
-    private void OnDisable()
-    {
-        _saver.Disable();
-        _shop.CharacterSold -= OnCharacterSold;
-        _shop.CharacterSelected -= OnCharacterSelected;
-        _audio.AudioValueChanged -= OnAudioValueChanged;
+        private void OnEnable()
+        {
+            _saver.Enable();
+            _shop.CharacterSold += OnCharacterSold;
+            _shop.CharacterSelected += OnCharacterSelected;
+            _audio.AudioValueChanged += OnAudioValueChanged;
 
-        foreach (var setter in _upgradeSetters)
-            setter.Upgraded -= OnUpgrade;
-    }
+            foreach (var setter in _upgradeSetters)
+                setter.Upgraded += OnUpgrade;
+        }
 
-    public IEnumerator Initialize()
-    {
-        _saver.AddInitializable(_shop);
-        _saver.AddInitializable(_wallet);
-        _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet, _levelLoader, _audioView, _audio });
-        _saver.AddDataReaders(_characters);
-        _saver.AddDataReaders(_upgradeSetters);
-        _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet, _audioView });
-        _saver.AddDataWriters(_characters);
-        _saver.AddDataWriters(_upgradeSetters);
-        _saver.Initialize();
-        _saver.Load();
-        yield return new WaitUntil(() => _saver.DataLoaded);
+        private void Start()
+        {
+            StartCoroutine(Initialize());
+        }
+
+        private void OnDisable()
+        {
+            _saver.Disable();
+            _shop.CharacterSold -= OnCharacterSold;
+            _shop.CharacterSelected -= OnCharacterSelected;
+            _audio.AudioValueChanged -= OnAudioValueChanged;
+
+            foreach (var setter in _upgradeSetters)
+                setter.Upgraded -= OnUpgrade;
+        }
+
+        public IEnumerator Initialize()
+        {
+            _saver.AddInitializable(_shop);
+            _saver.AddInitializable(_wallet);
+            _saver.AddDataReaders(new IDataReader[] { _playersHandler, _wallet, _levelLoader, _audioView, _audio });
+            _saver.AddDataReaders(_characters);
+            _saver.AddDataReaders(_upgradeSetters);
+            _saver.AddDataWriters(new IDataWriter[] { _playersHandler, _wallet, _audioView });
+            _saver.AddDataWriters(_characters);
+            _saver.AddDataWriters(_upgradeSetters);
+            _saver.Initialize();
+            _saver.Load();
+            yield return new WaitUntil(() => _saver.DataLoaded);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (string.IsNullOrEmpty(_currentLanguage) == false)
@@ -89,23 +99,24 @@ public class MainSceneLogic : MonoBehaviour, IDataReader
         }
 #endif
 
-        _loadingScreen.Initialize();
-        _walletView.Initialize(_wallet);
-        _wallet.Initialize();
-        _shop.SetWallet(_wallet);
-        _levelLoader.Initialize(_levelsHandler);
-        _loadingScreen.StartFade(0);
-        _mainMenu.Initialize();
-        yield return null;
+            _loadingScreen.Initialize();
+            _walletView.Initialize(_wallet);
+            _wallet.Initialize();
+            _shop.SetWallet(_wallet);
+            _levelLoader.Initialize(_levelsHandler);
+            _loadingScreen.StartFade(0);
+            _mainMenu.Initialize();
+            yield return null;
+        }
+
+        public void Read(PlayerData playerData) => _currentLanguage = playerData.CurrentLanguague;
+
+        private void OnCharacterSold() => _saver.Save();
+
+        private void OnCharacterSelected() => _saver.Save();
+
+        private void OnUpgrade() => _saver.Save();
+
+        private void OnAudioValueChanged() => _saver.Save();
     }
-
-    public void Read(PlayerData playerData) => _currentLanguage = playerData.CurrentLanguague;
-
-    private void OnCharacterSold() => _saver.Save();
-
-    private void OnCharacterSelected() => _saver.Save();
-
-    private void OnUpgrade() => _saver.Save();
-
-    private void OnAudioValueChanged() => _saver.Save();
 }

@@ -1,38 +1,41 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(ParticleSystem))]
-public class EffectChangeHandler : MonoBehaviour
+namespace Source.Player.Abiilities.SceneEffectChangers
 {
-    private ParticleSystem _system;
-    private ParticleSystem.MainModule _main;
-    private Coroutine _changeSpeedOverTime;
-
-    public float InitialValue { get; private set; }
-
-    private void Start()
+    [RequireComponent(typeof(ParticleSystem))]
+    public class EffectChangeHandler : MonoBehaviour
     {
-        _system = GetComponent<ParticleSystem>();
-        _main = _system.main;
-        InitialValue = _main.simulationSpeed;
-    }
+        private ParticleSystem _system;
+        private ParticleSystem.MainModule _main;
+        private Coroutine _changeSpeedOverTime;
 
-    public void ChangeEffectSpeed(float value, float duration)
-    {
-        if (_changeSpeedOverTime != null)
-            return;
+        public float InitialValue { get; private set; }
 
-        _changeSpeedOverTime = StartCoroutine(ChangeEffectSpeedOverTime(value, duration));
-    }
-
-    private IEnumerator ChangeEffectSpeedOverTime(float value, float duration)
-    {
-        while (_main.simulationSpeed != value)
+        private void Start()
         {
-            _main.simulationSpeed = Mathf.MoveTowards(_main.simulationSpeed, value, duration * Time.deltaTime);
-            yield return null;
+            _system = GetComponent<ParticleSystem>();
+            _main = _system.main;
+            InitialValue = _main.simulationSpeed;
         }
 
-        _changeSpeedOverTime = null;
+        public void ChangeEffectSpeed(float value, float duration)
+        {
+            if (_changeSpeedOverTime != null)
+                return;
+
+            _changeSpeedOverTime = StartCoroutine(ChangeEffectSpeedOverTime(value, duration));
+        }
+
+        private IEnumerator ChangeEffectSpeedOverTime(float value, float duration)
+        {
+            while (_main.simulationSpeed != value)
+            {
+                _main.simulationSpeed = Mathf.MoveTowards(_main.simulationSpeed, value, duration * Time.deltaTime);
+                yield return null;
+            }
+
+            _changeSpeedOverTime = null;
+        }
     }
 }

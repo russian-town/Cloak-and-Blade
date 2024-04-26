@@ -1,15 +1,19 @@
+using Source.InteractiveObjects.Objects.Key;
 using UnityEngine;
 
-public class ChestZone : TutorialZone
+namespace Source.Tutorial.TutorialZones
 {
-    [SerializeField] private Key _key;
-
-    public override void Interact()
+    public class ChestZone : TutorialZone
     {
-        if (Player.ItemsInHold.FindItemInList(_key))
+        [SerializeField] private Key _key;
+
+        public override void Interact()
         {
-            base.Interact();
-            Element.Show(Player);
+            if (Player.ItemsInHold.FindItemInList(_key))
+            {
+                base.Interact();
+                Element.Show(Player);
+            }
         }
     }
 }

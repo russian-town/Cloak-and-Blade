@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class DecoyModel : MonoBehaviour
+namespace Source.Player.BlackGhost
 {
-    public void Hide()
-        => gameObject.SetActive(false);
+    public class DecoyModel : MonoBehaviour
+    {
+        public void Hide()
+            => gameObject.SetActive(false);
 
-    public void Show()
-        => gameObject.SetActive(true);
+        public void Show()
+            => gameObject.SetActive(true);
+    }
 }

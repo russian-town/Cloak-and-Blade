@@ -1,46 +1,51 @@
+using Source.InteractiveObjects;
+using Source.Root;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(MoveAlongSpline))]
-public class FlyOnTrigger : InteractiveObject
+namespace Source.Models
 {
-    [SerializeField] private AudioClip _flappingWingsSound;
-    [SerializeField] private AudioSource _takeOfSound;
-
-    private Animator _animator;
-    private MoveAlongSpline _splineAnimate;
-    private AudioSource _source;
-    private bool _isExecuted;
-
-    private void Start()
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(MoveAlongSpline))]
+    public class FlyOnTrigger : InteractiveObject
     {
-        _animator = GetComponent<Animator>();
-        _splineAnimate = GetComponent<MoveAlongSpline>();
-        _source = GetComponent<AudioSource>();
-    }
+        [SerializeField] private AudioClip _flappingWingsSound;
+        [SerializeField] private AudioSource _takeOfSound;
 
-    public override void Interact()
-    {
-        _isExecuted = true;
-        _source.clip = _flappingWingsSound;
-        _takeOfSound.Play();
-        _source.Play();
-        _splineAnimate.Play();
-    }
+        private Animator _animator;
+        private MoveAlongSpline _splineAnimate;
+        private AudioSource _source;
+        private bool _isExecuted;
 
-    public override void Prepare()
-    {
-        if (!_isExecuted)
+        private void Start()
         {
-            if (CheckInteractionPossibility())
+            _animator = GetComponent<Animator>();
+            _splineAnimate = GetComponent<MoveAlongSpline>();
+            _source = GetComponent<AudioSource>();
+        }
+
+        public override void Interact()
+        {
+            _isExecuted = true;
+            _source.clip = _flappingWingsSound;
+            _takeOfSound.Play();
+            _source.Play();
+            _splineAnimate.Play();
+        }
+
+        public override void Prepare()
+        {
+            if (!_isExecuted)
             {
-                _animator.SetBool(Constants.FlyTrigger, true);
-                Interact();
+                if (CheckInteractionPossibility())
+                {
+                    _animator.SetBool(Constants.FlyTrigger, true);
+                    Interact();
+                }
             }
         }
-    }
 
-    protected override void Disable()
-    {
+        protected override void Disable()
+        {
+        }
     }
 }

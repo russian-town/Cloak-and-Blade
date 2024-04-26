@@ -1,71 +1,77 @@
 using System;
+using Source.Game;
+using Source.UiAnimations;
+using Source.Yandex.Ads;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelFinishScreen : MonoBehaviour
+namespace Source.Player.PlayerUI.LevelFinishScreen
 {
-    [SerializeField] private Button _exitButton;
-    [SerializeField] private Button _doubleStarsForAdButton;
-    [SerializeField] private Button _nextLevelButton;
-    [SerializeField] private ScreenAnimationHandler _animationHandler;
-
-    private YandexAds _yandexAds;
-    private ILevelFinisher _levelFinisher;
-
-    public event Action ExitButtonClicked;
-
-    public event Action NextLevelButtonClicked;
-
-    private void OnEnable()
+    public class LevelFinishScreen : MonoBehaviour
     {
-        _exitButton.onClick.AddListener(() => ExitButtonClicked?.Invoke());
-        _doubleStarsForAdButton.onClick.AddListener(OnRewardedButtonClick);
-        _nextLevelButton.onClick.AddListener(() => NextLevelButtonClicked?.Invoke());
-        _yandexAds.RewardedCallback += Unsubscribe;
-    }
+        [SerializeField] private Button _exitButton;
+        [SerializeField] private Button _doubleStarsForAdButton;
+        [SerializeField] private Button _nextLevelButton;
+        [SerializeField] private ScreenAnimationHandler _animationHandler;
 
-    private void OnDisable()
-    {
-        _exitButton.onClick.RemoveListener(() => ExitButtonClicked?.Invoke());
-        _doubleStarsForAdButton.onClick.RemoveListener(OnRewardedButtonClick);
-        _nextLevelButton.onClick.RemoveListener(() => NextLevelButtonClicked?.Invoke());
-        _yandexAds.RewardedCallback -= Unsubscribe;
-    }
+        private YandexAds _yandexAds;
+        private ILevelFinisher _levelFinisher;
 
-    private void OnDestroy()
-        => _levelFinisher.LevelPassed -= OnLevelPassed;
+        public event Action ExitButtonClicked;
 
-    public void Initialize(YandexAds yandexAds, ILevelFinisher levelFinisher)
-    {
-        _yandexAds = yandexAds;
-        gameObject.SetActive(true);
-        _levelFinisher = levelFinisher;
-        _levelFinisher.LevelPassed += OnLevelPassed;
-        Hide();
-    }
+        public event Action NextLevelButtonClicked;
 
-    public void Unsubscribe()
-    {
-        _doubleStarsForAdButton.onClick.RemoveListener(OnRewardedButtonClick);
-    }
+        private void OnEnable()
+        {
+            _exitButton.onClick.AddListener(() => ExitButtonClicked?.Invoke());
+            _doubleStarsForAdButton.onClick.AddListener(OnRewardedButtonClick);
+            _nextLevelButton.onClick.AddListener(() => NextLevelButtonClicked?.Invoke());
+            _yandexAds.RewardedCallback += Unsubscribe;
+        }
 
-    public void Show()
-    {
-        _animationHandler.FadeIn();
-    }
+        private void OnDisable()
+        {
+            _exitButton.onClick.RemoveListener(() => ExitButtonClicked?.Invoke());
+            _doubleStarsForAdButton.onClick.RemoveListener(OnRewardedButtonClick);
+            _nextLevelButton.onClick.RemoveListener(() => NextLevelButtonClicked?.Invoke());
+            _yandexAds.RewardedCallback -= Unsubscribe;
+        }
 
-    public void Hide()
-    {
-        _animationHandler.FadeOut();
-    }
+        private void OnDestroy()
+            => _levelFinisher.LevelPassed -= OnLevelPassed;
 
-    private void OnRewardedButtonClick()
-    {
-        _yandexAds.ShowRewardedVideo();
-    }
+        public void Initialize(YandexAds yandexAds, ILevelFinisher levelFinisher)
+        {
+            _yandexAds = yandexAds;
+            gameObject.SetActive(true);
+            _levelFinisher = levelFinisher;
+            _levelFinisher.LevelPassed += OnLevelPassed;
+            Hide();
+        }
 
-    private void OnLevelPassed()
-    {
-        Show();
+        public void Unsubscribe()
+        {
+            _doubleStarsForAdButton.onClick.RemoveListener(OnRewardedButtonClick);
+        }
+
+        public void Show()
+        {
+            _animationHandler.FadeIn();
+        }
+
+        public void Hide()
+        {
+            _animationHandler.FadeOut();
+        }
+
+        private void OnRewardedButtonClick()
+        {
+            _yandexAds.ShowRewardedVideo();
+        }
+
+        private void OnLevelPassed()
+        {
+            Show();
+        }
     }
 }

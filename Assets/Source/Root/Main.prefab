@@ -17448,6 +17448,8 @@ MonoBehaviour:
   _loadingScreen: {fileID: 1805916735437422751}
   _battery: {fileID: 6154838405200349480}
   _localization: {fileID: 2284771368804295580}
+  _levelLoader: {fileID: 0}
+  _levelFinisher: {fileID: 0}
 --- !u!1 &4933249905461279240
 GameObject:
   m_ObjectHideFlags: 0
@@ -18406,6 +18408,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6837782280c209d4db5d74f2cbd80a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doubleStarsButton: {fileID: 0}
+  _scoreDefiner: {fileID: 0}
 --- !u!1 &5716808500513862671
 GameObject:
   m_ObjectHideFlags: 0
@@ -18895,11 +18899,9 @@ MonoBehaviour:
   _playerView: {fileID: 1223322006838681611}
   _gameOverView: {fileID: 6249279876966891373}
   _stepCounter: {fileID: 6767774014067091756}
-  _scoreDefiner: {fileID: 5715900506087772183}
   _levelFinishScreen: {fileID: 7138661318906112904}
   _levelsHandler: {fileID: 351233329210072784}
   _gameboard: {fileID: 0}
-  _doubleStarsButton: {fileID: 7401797625404008772}
 --- !u!1 &6231249609109286749
 GameObject:
   m_ObjectHideFlags: 0
@@ -22297,7 +22299,7 @@ MonoBehaviour:
   _move: {fileID: 1510606270303230698}
   _ability: {fileID: 2641946306006642719}
   _skip: {fileID: 8439923750201607269}
-  _pause: {fileID: 2595805334454793313}
+  _pauseButton: {fileID: 0}
   _leftRotationCameraButton: {fileID: 1877297395638124002}
   _rightRotationCameraButton: {fileID: 5488330811552447347}
   _perspectiveCameraButton: {fileID: 4796733779491943152}

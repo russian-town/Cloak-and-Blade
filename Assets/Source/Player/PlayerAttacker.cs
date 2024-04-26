@@ -1,57 +1,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttacker : MonoBehaviour
+namespace Source.Player
 {
-    private List<Enemy> _enemies = new List<Enemy>();
-
-    public void Initialize(List<Enemy> enemies)
+    public class PlayerAttacker : MonoBehaviour
     {
-        _enemies.AddRange(enemies);
-    }
+        private List<Enemy.Enemy> _enemies = new List<Enemy.Enemy>();
 
-    public void Attack(AttackType type)
-    {
-        switch (type)
+        public void Initialize(List<Enemy.Enemy> enemies)
         {
-            case AttackType.Freeze:
-                FreezeEnemies();
-                break;
-            case AttackType.Blind:
-                BlindEnemies();
-                break;
-            case AttackType.UnFreeze:
-                UnFreezeEnemies();
-                break;
-            case AttackType.UnBlind:
-                UnBlindEnemies();
-                break;
-            default:
-                break;
+            _enemies.AddRange(enemies);
         }
-    }
 
-    private void FreezeEnemies()
-    {
-        foreach (var enemy in _enemies)
-            enemy.Freeze();
-    }
+        public void Attack(AttackType type)
+        {
+            switch (type)
+            {
+                case AttackType.Freeze:
+                    FreezeEnemies();
+                    break;
+                case AttackType.Blind:
+                    BlindEnemies();
+                    break;
+                case AttackType.UnFreeze:
+                    UnFreezeEnemies();
+                    break;
+                case AttackType.UnBlind:
+                    UnBlindEnemies();
+                    break;
+                default:
+                    break;
+            }
+        }
 
-    private void UnFreezeEnemies()
-    {
-        foreach (var enemy in _enemies)
-            enemy.UnFreeze();
-    }
+        private void FreezeEnemies()
+        {
+            foreach (var enemy in _enemies)
+                enemy.Freeze();
+        }
 
-    private void BlindEnemies()
-    {
-        foreach (var enemy in _enemies)
-            enemy.Blind();
-    }
+        private void UnFreezeEnemies()
+        {
+            foreach (var enemy in _enemies)
+                enemy.UnFreeze();
+        }
 
-    private void UnBlindEnemies()
-    {
-        foreach (var enemy in _enemies)
-            enemy.UnBlind();
+        private void BlindEnemies()
+        {
+            foreach (var enemy in _enemies)
+                enemy.Blind();
+        }
+
+        private void UnBlindEnemies()
+        {
+            foreach (var enemy in _enemies)
+                enemy.UnBlind();
+        }
     }
 }

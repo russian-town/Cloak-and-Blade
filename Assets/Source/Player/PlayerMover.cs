@@ -1,13 +1,18 @@
 using System.Collections;
+using Source.Gameboard.Cell;
+using Source.Ghost.Mover;
 using UnityEngine.Events;
 
-public class PlayerMover : Mover
+namespace Source.Player
 {
-    public event UnityAction MoveEnded;
-
-    protected override IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
+    public class PlayerMover : Mover
     {
-        yield return base.MoveTo(targetCell, moveSpeed, rotationSpeed);
-        MoveEnded?.Invoke();
+        public event UnityAction MoveEnded;
+
+        protected override IEnumerator MoveTo(Cell targetCell, float moveSpeed, float rotationSpeed)
+        {
+            yield return base.MoveTo(targetCell, moveSpeed, rotationSpeed);
+            MoveEnded?.Invoke();
+        }
     }
 }

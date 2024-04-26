@@ -2,56 +2,59 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(CanvasGroup), typeof(Button))]
-public class MainButton : MonoBehaviour
+namespace Source.Tutorial.UI
 {
-    private LightButtonEffectHandler _effectHandler;
-    private CanvasGroup _canvasGroup;
-    private Button _button;
-
-    public event Action<MainButton> MainButtonClicked;
-
-    public bool IsOpen { get; private set; }
-
-    public LightButtonEffectHandler EffectHandler => _effectHandler;
-
-    private void OnEnable()
+    [RequireComponent(typeof(CanvasGroup), typeof(Button))]
+    public class MainButton : MonoBehaviour
     {
-        _button.onClick.AddListener(() => MainButtonClicked?.Invoke(this));
-    }
+        private LightButtonEffectHandler _effectHandler;
+        private CanvasGroup _canvasGroup;
+        private Button _button;
 
-    private void Awake()
-    {
-        _effectHandler = GetComponentInChildren<LightButtonEffectHandler>();
-        _canvasGroup = GetComponent<CanvasGroup>();
-        _button = GetComponent<Button>();
-    }
+        public event Action<MainButton> MainButtonClicked;
 
-    private void OnDisable()
-    {
-        _button.onClick.RemoveListener(() => MainButtonClicked?.Invoke(this));
-    }
+        public bool IsOpen { get; private set; }
 
-    public void Show()
-    {
-        _canvasGroup.alpha = 1;
-        _canvasGroup.blocksRaycasts = true;
-    }
+        public LightButtonEffectHandler EffectHandler => _effectHandler;
 
-    public void Hide()
-    {
-        if (_effectHandler != null)
-            _effectHandler.StopLightEffect();
+        private void OnEnable()
+        {
+            _button.onClick.AddListener(() => MainButtonClicked?.Invoke(this));
+        }
 
-        _canvasGroup.alpha = 0;
-        _canvasGroup.blocksRaycasts = false;
-    }
+        private void Awake()
+        {
+            _effectHandler = GetComponentInChildren<LightButtonEffectHandler>();
+            _canvasGroup = GetComponent<CanvasGroup>();
+            _button = GetComponent<Button>();
+        }
 
-    public void Open()
-    {
-        if (_effectHandler != null)
-            _effectHandler.PlayLightEffect();
+        private void OnDisable()
+        {
+            _button.onClick.RemoveListener(() => MainButtonClicked?.Invoke(this));
+        }
 
-        IsOpen = true;
+        public void Show()
+        {
+            _canvasGroup.alpha = 1;
+            _canvasGroup.blocksRaycasts = true;
+        }
+
+        public void Hide()
+        {
+            if (_effectHandler != null)
+                _effectHandler.StopLightEffect();
+
+            _canvasGroup.alpha = 0;
+            _canvasGroup.blocksRaycasts = false;
+        }
+
+        public void Open()
+        {
+            if (_effectHandler != null)
+                _effectHandler.PlayLightEffect();
+
+            IsOpen = true;
+        }
     }
 }

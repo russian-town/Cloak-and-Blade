@@ -1,22 +1,28 @@
+using Source.Gameboard.Cell;
+using Source.Player.PlayerUI;
+using Source.Upgrader;
 using UnityEngine;
 
-public abstract class Ability : MonoBehaviour
+namespace Source.Player.Abiilities
 {
-    public abstract bool CanUse();
-
-    public abstract void ResetAbility();
-
-    public virtual bool Cast(Cell cell)
+    public abstract class Ability : MonoBehaviour
     {
-        Action(cell);
-        return true;
+        public abstract bool CanUse();
+
+        public abstract void ResetAbility();
+
+        public virtual bool Cast(Cell cell)
+        {
+            Action(cell);
+            return true;
+        }
+
+        public abstract void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView);
+
+        public abstract void Prepare();
+
+        public abstract void Cancel();
+
+        protected abstract void Action(Cell cell);
     }
-
-    public abstract void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView);
-
-    public abstract void Prepare();
-
-    public abstract void Cancel();
-
-    protected abstract void Action(Cell cell);
 }

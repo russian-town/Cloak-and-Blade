@@ -1,30 +1,34 @@
+using Source.Root;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(AudioSource))]
-public class Door : MonoBehaviour
+namespace Source.InteractiveObjects.Objects.Door
 {
-    [SerializeField] private AudioClip _open;
-    [SerializeField] private AudioClip _close;
-
-    private Animator _animator;
-    private AudioSource _source;
-
-    private void Awake()
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(AudioSource))]
+    public class Door : MonoBehaviour
     {
-        _animator = GetComponent<Animator>();
-        _source = GetComponent<AudioSource>();
-    }
+        [SerializeField] private AudioClip _open;
+        [SerializeField] private AudioClip _close;
 
-    public void Open()
-    {
-        _animator.SetTrigger(Constants.OpenParameter);
-        _source.PlayOneShot(_open);
-    }
+        private Animator _animator;
+        private AudioSource _source;
 
-    public void Close()
-    {
-        _animator.SetTrigger(Constants.CloseParameter);
-        _source.PlayOneShot(_close);
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+            _source = GetComponent<AudioSource>();
+        }
+
+        public void Open()
+        {
+            _animator.SetTrigger(Constants.OpenParameter);
+            _source.PlayOneShot(_open);
+        }
+
+        public void Close()
+        {
+            _animator.SetTrigger(Constants.CloseParameter);
+            _source.PlayOneShot(_close);
+        }
     }
 }

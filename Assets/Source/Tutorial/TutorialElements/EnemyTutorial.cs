@@ -1,45 +1,51 @@
 using System.Collections.Generic;
+using Source.Gameboard.Cell;
+using Source.InteractiveObjects.Objects.Door;
+using Source.Tutorial.UI;
 using UnityEngine;
 
-public class EnemyTutorial : BaseTutorialElement
+namespace Source.Tutorial.TutorialElements
 {
-    [SerializeField] private List<MainButton> _mainButtons = new ();
-    [SerializeField] private int _skipCount;
-    [SerializeField] private List<Cell> _enemyPath = new ();
-    [SerializeField] private Bootstrap _bootstrap;
-    [SerializeField] private Door _door;
-    [SerializeField] private int _skipCountToOpenDoor;
-
-    private Player _player;
-
-    public override void Show(Player player)
+    public class EnemyTutorial : BaseTutorialElement
     {
-        _player = player;
-        _player.StepEnded += OnStepEnded;
+        [SerializeField] private List<MainButton> _mainButtons = new ();
+        [SerializeField] private int _skipCount;
+        [SerializeField] private List<Cell> _enemyPath = new ();
+        [SerializeField] private Bootstrap _bootstrap;
+        [SerializeField] private Door _door;
+        [SerializeField] private int _skipCountToOpenDoor;
 
-        foreach (var button in _mainButtons)
+        private Player.Player _player;
+
+        public override void Show(Player.Player player)
         {
-            button.Open();
-            button.Show();
+            _player = player;
+            _player.StepEnded += OnStepEnded;
+
+            foreach (var button in _mainButtons)
+            {
+                button.Open();
+                button.Show();
+            }
         }
-    }
 
-    private void OnStepEnded()
-    {
-        _skipCount--;
-
-        if (_skipCount == _skipCountToOpenDoor)
-            _door.Open();
-
-        if (_skipCount <= 0)
+        private void OnStepEnded()
         {
-            _player.StepEnded -= OnStepEnded;
-            InvokeTutorialZoneCompleteAction();
-            _door.Close();
-            _bootstrap.RemoveEnemy();
+            _skipCount--;
 
-            foreach (var cell in _enemyPath)
-                cell.Content.BecomeWall();
+            if (_skipCount == _skipCountToOpenDoor)
+                _door.Open();
+
+            if (_skipCount <= 0)
+            {
+                _player.StepEnded -= OnStepEnded;
+                InvokeTutorialZoneCompleteAction();
+                _door.Close();
+                _bootstrap.RemoveEnemy();
+
+                foreach (var cell in _enemyPath)
+                    cell.Content.BecomeWall();
+            }
         }
     }
 }

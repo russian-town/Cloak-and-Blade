@@ -1,4 +1,7 @@
-public interface ITurnHandler
+namespace Source.Room
 {
-   public void SetTurn(Turn turn);
+   public interface ITurnHandler
+   {
+      public void SetTurn(Turn turn);
+   }
 }

@@ -1,31 +1,35 @@
+using Source.Gameboard.Cell.CellContent;
 using UnityEngine;
 
-public class CellContentSpawner : MonoBehaviour
+namespace Source.Gameboard.Cell.CellContentSpawner
 {
-    [SerializeField] private CellContent _destinationTemplate;
-    [SerializeField] private CellContent _emptyTemplate;
-
-    public void Reclaim(CellContent content)
-        => Destroy(content.gameObject);
-
-    public CellContent Get(CellContentType type, Transform parent)
+    public class CellContentSpawner : MonoBehaviour
     {
-        switch (type)
+        [SerializeField] private CellContent.CellContent _destinationTemplate;
+        [SerializeField] private CellContent.CellContent _emptyTemplate;
+
+        public void Reclaim(CellContent.CellContent content)
+            => Destroy(content.gameObject);
+
+        public CellContent.CellContent Get(CellContentType type, Transform parent)
         {
-            case CellContentType.Empty:
-                return Get(_emptyTemplate, parent);
-            case CellContentType.Destination:
-                return Get(_destinationTemplate, parent);
+            switch (type)
+            {
+                case CellContentType.Empty:
+                    return Get(_emptyTemplate, parent);
+                case CellContentType.Destination:
+                    return Get(_destinationTemplate, parent);
+            }
+
+            return null;
         }
 
-        return null;
-    }
-
-    private CellContent Get(CellContent template, Transform parent)
-    {
-        CellContent content = Instantiate(template);
-        content.Spawner = this;
-        content.transform.SetParent(parent, false);
-        return content;
+        private CellContent.CellContent Get(CellContent.CellContent template, Transform parent)
+        {
+            CellContent.CellContent content = Instantiate(template);
+            content.Spawner = this;
+            content.transform.SetParent(parent, false);
+            return content;
+        }
     }
 }

@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InteractiveObjectView : MonoBehaviour
+namespace Source.InteractiveObjects.InteractiveObjectView
 {
-    [SerializeField] private Button _interactButton;
+    public class InteractiveObjectView : MonoBehaviour
+    {
+        [SerializeField] private Button _interactButton;
 
-    public Button InteractButton => _interactButton;
+        public Button InteractButton => _interactButton;
 
-    private void Start()
-        => Hide();
+        private void Start()
+            => Hide();
 
-    public void Show()
-        => gameObject.SetActive(true);
+        public void Show()
+            => gameObject.SetActive(true);
 
-    public void Hide()
-        => gameObject.SetActive(false);
+        public void Hide()
+            => gameObject.SetActive(false);
+    }
 }

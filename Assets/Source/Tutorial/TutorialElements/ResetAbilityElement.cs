@@ -1,34 +1,39 @@
 using System.Collections.Generic;
+using Source.Player.PlayerUI;
+using Source.Tutorial.UI;
 using UnityEngine;
 
-public class ResetAbilityElement : BaseTutorialElement
+namespace Source.Tutorial.TutorialElements
 {
-    [SerializeField] private Gameboard _gameboard;
-    [SerializeField] private PlayerView _playerView;
-    [SerializeField] private List<MainButton> _abilityButtons;
-    [SerializeField] private Battery _battery;
-
-    private Player _player;
-
-    public override void Show(Player player)
+    public class ResetAbilityElement : BaseTutorialElement
     {
-        _player = player;
-        _player.Mover.MoveEnded += OnMoveEnded;
-        _gameboard.Enable();
-        player.GetAbilityCommand().Ability.ResetAbility();
-        _playerView.ResetAbilityIcon();
-        _battery.Enable();
+        [SerializeField] private Gameboard.Gameboard _gameboard;
+        [SerializeField] private PlayerView _playerView;
+        [SerializeField] private List<MainButton> _abilityButtons;
+        [SerializeField] private Battery _battery;
 
-        foreach (var button in _abilityButtons)
+        private Player.Player _player;
+
+        public override void Show(Player.Player player)
         {
-            button.Open();
-            button.Show();
-        }
-    }
+            _player = player;
+            _player.Mover.MoveEnded += OnMoveEnded;
+            _gameboard.Enable();
+            player.GetAbilityCommand().Ability.ResetAbility();
+            _playerView.ResetAbilityIcon();
+            _battery.Enable();
 
-    private void OnMoveEnded()
-    {
-        _player.Mover.MoveEnded -= OnMoveEnded;
-        InvokeTutorialZoneCompleteAction();
+            foreach (var button in _abilityButtons)
+            {
+                button.Open();
+                button.Show();
+            }
+        }
+
+        private void OnMoveEnded()
+        {
+            _player.Mover.MoveEnded -= OnMoveEnded;
+            InvokeTutorialZoneCompleteAction();
+        }
     }
 }

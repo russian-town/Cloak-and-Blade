@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SliderValueChanger : MonoBehaviour
+namespace Source.Sound_and_music
 {
-    [SerializeField] private float _value;
-    [SerializeField] private Slider _slider;
-
-    public void IncreaseSliderValue()
+    public class SliderValueChanger : MonoBehaviour
     {
-        _slider.value += _value;
-    }
+        [SerializeField] private float _value;
+        [SerializeField] private Slider _slider;
 
-    public void DecreaseSliderValue()
-    {
-        _slider.value -= _value;
+        public void IncreaseSliderValue()
+        {
+            _slider.value += _value;
+        }
+
+        public void DecreaseSliderValue()
+        {
+            _slider.value -= _value;
+        }
     }
 }

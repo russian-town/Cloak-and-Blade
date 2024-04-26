@@ -1,44 +1,47 @@
 using System.Collections;
-using UnityEngine;
+using Source.Room;
 
-public class SkipCommand : Command
+namespace Source.Player.Commands
 {
-    private Player _player;
-    private IEnemyTurnWaiter _enemyTurnWaiter;
-    private PlayerAnimationHandler _playerAnimationHandler;
-
-    public SkipCommand(Player player, IEnemyTurnWaiter enemyTurnWaiter, PlayerAnimationHandler animationHandler, CommandExecuter executer)
-        : base(executer)
+    public class SkipCommand : Command
     {
-        _player = player;
-        _enemyTurnWaiter = enemyTurnWaiter;
-        _playerAnimationHandler = animationHandler;
-    }
+        private Player _player;
+        private IEnemyTurnWaiter _enemyTurnWaiter;
+        private PlayerAnimationHandler _playerAnimationHandler;
 
-    protected override IEnumerator PrepareAction()
-    {
-        yield break;
-    }
+        public SkipCommand(Player player, IEnemyTurnWaiter enemyTurnWaiter, PlayerAnimationHandler animationHandler, CommandExecuter.CommandExecuter executer)
+            : base(executer)
+        {
+            _player = player;
+            _enemyTurnWaiter = enemyTurnWaiter;
+            _playerAnimationHandler = animationHandler;
+        }
 
-    protected override IEnumerator WaitOfExecute()
-    {
-        yield break;
-    }
+        protected override IEnumerator PrepareAction()
+        {
+            yield break;
+        }
 
-    protected override IEnumerator ExecuteAction()
-    {
-        _playerAnimationHandler.PlaySkipAnimation();
-        _player.SkipTurn();
+        protected override IEnumerator WaitOfExecute()
+        {
+            yield break;
+        }
 
-        if (_enemyTurnWaiter != null)
-            yield return _enemyTurnWaiter.WaitForEnemies();
+        protected override IEnumerator ExecuteAction()
+        {
+            _playerAnimationHandler.PlaySkipAnimation();
+            _player.SkipTurn();
 
-        _playerAnimationHandler.StopSkipAnimation();
-        yield break;
-    }
+            if (_enemyTurnWaiter != null)
+                yield return _enemyTurnWaiter.WaitForEnemies();
 
-    protected override void OnCommandChanged(Command command)
-    {
-        return;
+            _playerAnimationHandler.StopSkipAnimation();
+            yield break;
+        }
+
+        protected override void OnCommandChanged(Command command)
+        {
+            return;
+        }
     }
 }

@@ -1,6 +1,9 @@
 using System;
 
-public interface ICompassTarget
+namespace Source.Player.PlayerUI.ArrowPointer
 {
-    public event Action Disabled;
+    public interface ICompassTarget
+    {
+        public event Action Disabled;
+    }
 }

@@ -1,27 +1,30 @@
 using UnityEngine;
 
-public class GameSpeedChanger : MonoBehaviour
+namespace Source.Game
 {
-    [SerializeField] private float _speedMultiplier;
-
-    private bool _isSpeedUp;
-
-    private void OnDisable()
+    public class GameSpeedChanger : MonoBehaviour
     {
-        Time.timeScale = 1;
-    }
+        [SerializeField] private float _speedMultiplier;
 
-    public void ChangeGameSpeed()
-    {
-        if (_isSpeedUp)
+        private bool _isSpeedUp;
+
+        private void OnDisable()
         {
             Time.timeScale = 1;
-            _isSpeedUp = false;
         }
-        else
+
+        public void ChangeGameSpeed()
         {
-            Time.timeScale = _speedMultiplier;
-            _isSpeedUp = true;
+            if (_isSpeedUp)
+            {
+                Time.timeScale = 1;
+                _isSpeedUp = false;
+            }
+            else
+            {
+                Time.timeScale = _speedMultiplier;
+                _isSpeedUp = true;
+            }
         }
     }
 }

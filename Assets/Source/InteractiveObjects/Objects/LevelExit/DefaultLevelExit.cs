@@ -1,28 +1,32 @@
 using System;
+using Source.Player.PlayerUI.ArrowPointer;
 using UnityEngine;
 
-public class DefaultLevelExit : LevelExit, ICompassTarget
+namespace Source.InteractiveObjects.Objects.LevelExit
 {
-    [SerializeField] private Treasure _treasure;
-
-    public event Action Disabled;
-
-    public override bool RequiredItemFound()
+    public class DefaultLevelExit : LevelExit, ICompassTarget
     {
-        if (Player.ItemsInHold.FindItemInList(_treasure))
-            return true;
+        [SerializeField] private Treasure.Treasure _treasure;
 
-        return false;
-    }
+        public event Action Disabled;
 
-    public override bool TryOpen()
-    {
-        if (Player.ItemsInHold.FindItemInList(_treasure))
+        public override bool RequiredItemFound()
         {
-            InvokeExitOpened();
-            return true;
+            if (Player.ItemsInHold.FindItemInList(_treasure))
+                return true;
+
+            return false;
         }
 
-        return false;
+        public override bool TryOpen()
+        {
+            if (Player.ItemsInHold.FindItemInList(_treasure))
+            {
+                InvokeExitOpened();
+                return true;
+            }
+
+            return false;
+        }
     }
 }

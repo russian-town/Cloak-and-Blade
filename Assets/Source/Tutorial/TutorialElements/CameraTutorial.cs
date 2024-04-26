@@ -1,42 +1,46 @@
+using Source.Tutorial.CameraButtons;
 using UnityEngine;
 
-public class CameraTutorial : BaseTutorialElement
+namespace Source.Tutorial.TutorialElements
 {
-    [SerializeField] private TurnClockwiseButtonTutorial _turnClockwiseButton;
-    [SerializeField] private TurnCounterClockwiseButtonTutorial _turnCounterclockwiseButton;
-    [SerializeField] private ChangeCameraAngleButtonTutorial _cameraAngleChanger;
-
-    public override void Show(Player player)
+    public class CameraTutorial : BaseTutorialElement
     {
-        _turnClockwiseButton.Show();
-        _turnClockwiseButton.Open();
-        _turnClockwiseButton.ProgressBarFiller.ProgressBarFilled += OnHoldComplete;
-    }
+        [SerializeField] private TurnClockwiseButtonTutorial _turnClockwiseButton;
+        [SerializeField] private TurnCounterClockwiseButtonTutorial _turnCounterclockwiseButton;
+        [SerializeField] private ChangeCameraAngleButtonTutorial _cameraAngleChanger;
 
-    private void OnHoldComplete()
-    {
-        _turnClockwiseButton.Hide();
-        _turnClockwiseButton.EffectHandler.StopLightEffect();
-        _turnCounterclockwiseButton.Show();
-        _turnCounterclockwiseButton.Open();
-        _turnCounterclockwiseButton.ProgressBarFiller.ProgressBarFilled += OnHoldSecondComplete;
-        _turnClockwiseButton.ProgressBarFiller.ProgressBarFilled -= OnHoldComplete;
-    }
+        public override void Show(Player.Player player)
+        {
+            _turnClockwiseButton.Show();
+            _turnClockwiseButton.Open();
+            _turnClockwiseButton.ProgressBarFiller.ProgressBarFilled += OnHoldComplete;
+        }
 
-    private void OnHoldSecondComplete()
-    {
-        _turnCounterclockwiseButton.Hide();
-        _turnCounterclockwiseButton.EffectHandler.StopLightEffect();
-        _cameraAngleChanger.Show();
-        _cameraAngleChanger.Open();
-        _cameraAngleChanger.DoubleClickComplete += OnDoubleClickComplete;
-        _turnCounterclockwiseButton.ProgressBarFiller.ProgressBarFilled -= OnHoldSecondComplete;
-    }
+        private void OnHoldComplete()
+        {
+            _turnClockwiseButton.Hide();
+            _turnClockwiseButton.EffectHandler.StopLightEffect();
+            _turnCounterclockwiseButton.Show();
+            _turnCounterclockwiseButton.Open();
+            _turnCounterclockwiseButton.ProgressBarFiller.ProgressBarFilled += OnHoldSecondComplete;
+            _turnClockwiseButton.ProgressBarFiller.ProgressBarFilled -= OnHoldComplete;
+        }
 
-    private void OnDoubleClickComplete()
-    {
-        _cameraAngleChanger.EffectHandler.StopLightEffect();
-        InvokeTutorialZoneCompleteAction();
-        _cameraAngleChanger.DoubleClickComplete -= OnDoubleClickComplete;
+        private void OnHoldSecondComplete()
+        {
+            _turnCounterclockwiseButton.Hide();
+            _turnCounterclockwiseButton.EffectHandler.StopLightEffect();
+            _cameraAngleChanger.Show();
+            _cameraAngleChanger.Open();
+            _cameraAngleChanger.DoubleClickComplete += OnDoubleClickComplete;
+            _turnCounterclockwiseButton.ProgressBarFiller.ProgressBarFilled -= OnHoldSecondComplete;
+        }
+
+        private void OnDoubleClickComplete()
+        {
+            _cameraAngleChanger.EffectHandler.StopLightEffect();
+            InvokeTutorialZoneCompleteAction();
+            _cameraAngleChanger.DoubleClickComplete -= OnDoubleClickComplete;
+        }
     }
 }

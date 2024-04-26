@@ -1,5 +1,8 @@
 using UnityEngine;
 
-public class StarContainer : MonoBehaviour
+namespace Source.Stars
 {
+    public class StarContainer : MonoBehaviour
+    {
+    }
 }

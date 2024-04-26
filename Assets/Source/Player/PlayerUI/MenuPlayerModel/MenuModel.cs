@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public class MenuModel : MonoBehaviour
+namespace Source.Player.PlayerUI.MenuPlayerModel
 {
-    public void Show() => gameObject.SetActive(true);
+    public class MenuModel : MonoBehaviour
+    {
+        public void Show() => gameObject.SetActive(true);
 
-    public void Hide() => gameObject.SetActive(false);
+        public void Hide() => gameObject.SetActive(false);
+    }
 }

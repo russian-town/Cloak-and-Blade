@@ -1,164 +1,170 @@
 using System;
 using System.Collections.Generic;
 using Lean.Localization;
+using Source.Root;
+using Source.Saves;
+using Source.Shop.Character;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Shop : MonoBehaviour, IInitializable
+namespace Source.Shop
 {
-    [SerializeField] private HorizontalLayoutGroup _parent;
-    [SerializeField] private List<Character> _characters = new List<Character>();
-    [SerializeField] private CharacterView _characterView;
-    [SerializeField] private PlayersHandler _playersHandler;
-    [SerializeField] private MenuModelChanger _menuModelChanger;
-    [SerializeField] private Upgrader _upgrader;
-    [SerializeField] private LeanLocalization _lean;
-    [SerializeField] private AudioSource _source;
-    [SerializeField] private AudioClip _shakingChainsSound;
-    [SerializeField] private Camera _camera;
-
-    private List<CharacterView> _characterViews = new List<CharacterView>();
-    private Character _currentSelectedCharacter;
-    private CharacterView _currentCharacterView;
-    private Wallet _wallet;
-    private bool _isInitialized;
-    private Character _defaultCharacter;
-    private CharacterView _defaultCharacterView;
-
-    public event Action CharacterSelected;
-
-    public event Action CharacterSold;
-
-    private void OnDisable()
+    public class Shop : MonoBehaviour, IInitializable
     {
-        foreach (var characterView in _characterViews)
-            characterView.SelectButtonClicked -= OnSelectButtonClick;
-    }
+        [SerializeField] private HorizontalLayoutGroup _parent;
+        [SerializeField] private List<Character.Character> _characters = new List<Character.Character>();
+        [SerializeField] private CharacterView.CharacterView _characterView;
+        [SerializeField] private PlayersHandler.PlayersHandler _playersHandler;
+        [SerializeField] private MenuModelChanger _menuModelChanger;
+        [SerializeField] private Upgrader.Upgrader _upgrader;
+        [SerializeField] private LeanLocalization _lean;
+        [SerializeField] private AudioSource _source;
+        [SerializeField] private AudioClip _shakingChainsSound;
+        [SerializeField] private UnityEngine.Camera _camera;
 
-    public void SetWallet(Wallet wallet)
-    {
-        _wallet = wallet;
-        _upgrader.SetWallet(_wallet);
-        AddCharacterView();
-        _isInitialized = true;
-    }
+        private List<CharacterView.CharacterView> _characterViews = new List<CharacterView.CharacterView>();
+        private Character.Character _currentSelectedCharacter;
+        private CharacterView.CharacterView _currentCharacterView;
+        private Wallet _wallet;
+        private bool _isInitialized;
+        private Character.Character _defaultCharacter;
+        private CharacterView.CharacterView _defaultCharacterView;
 
-    public void CloseDescriptions()
-    {
-        foreach (var character in _characters)
-            character.CloseDescription();
-    }
+        public event Action CharacterSelected;
 
-    public void Initialize()
-    {
-    }
+        public event Action CharacterSold;
 
-    private void AddCharacterView()
-    {
-        foreach (var character in _characters)
+        private void OnDisable()
         {
-            CharacterView characterView = Instantiate(_characterView, _parent.transform);
-            Description description = Instantiate(character.Description);
-            _upgrader.Initialize(description);
-            characterView.Render(character, description, _wallet, _camera);
-            _characterViews.Add(characterView);
-            characterView.SellButtonClicked += OnSellButtonClick;
-            characterView.SelectButtonClicked += OnSelectButtonClick;
-            _menuModelChanger.Create(character);
-
-            if (character.Type == CharacterType.Default)
-            {
-                _defaultCharacter = character;
-                _defaultCharacterView = characterView;
-                character.Buy();
-            }
-
-            if (character.IsSelect)
-            {
-                _currentSelectedCharacter = character;
-                SetCurrentCharacter(character, characterView);
-                _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(characterView));
-            }
-
-            characterView.UpdateView();
-            characterView.TryHideChains();
-            characterView.DisableButtons(Constants.MaxLevel);
+            foreach (var characterView in _characterViews)
+                characterView.SelectButtonClicked -= OnSelectButtonClick;
         }
 
-        if (_currentSelectedCharacter == null)
+        public void SetWallet(Wallet wallet)
         {
-            SetCurrentCharacter(_defaultCharacter, _defaultCharacterView);
-            _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(_defaultCharacterView));
+            _wallet = wallet;
+            _upgrader.SetWallet(_wallet);
+            AddCharacterView();
+            _isInitialized = true;
         }
-    }
 
-    private void SetCurrentCharacter(Character character, CharacterView characterView)
-    {
-        _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(characterView));
-        TrySelectCaracter(character, characterView);
-        _characterView = characterView;
-    }
-
-    private void OnSellButtonClick(Character character, CharacterView characterView)
-    {
-        TrySellCharacter(character, characterView);
-    }
-
-    private void OnSelectButtonClick(Character character, CharacterView characterView)
-    {
-        TrySelectCaracter(character, characterView);
-    }
-
-    private bool TrySellCharacter(Character character, CharacterView characterView)
-    {
-        if (character.Price <= _wallet.Stars)
+        public void CloseDescriptions()
         {
-            _wallet.DicreaseStars(character.Price);
-            character.Buy();
-            characterView.SellButtonClicked -= OnSellButtonClick;
-            characterView.RemoveChains();
-            characterView.SoundHandler.PlayUnlock();
-            characterView.UnlockCharacter();
+            foreach (var character in _characters)
+                character.CloseDescription();
+        }
+
+        public void Initialize()
+        {
+        }
+
+        private void AddCharacterView()
+        {
+            foreach (var character in _characters)
+            {
+                CharacterView.CharacterView characterView = Instantiate(_characterView, _parent.transform);
+                Description description = Instantiate(character.Description);
+                _upgrader.Initialize(description);
+                characterView.Render(character, description, _wallet, _camera);
+                _characterViews.Add(characterView);
+                characterView.SellButtonClicked += OnSellButtonClick;
+                characterView.SelectButtonClicked += OnSelectButtonClick;
+                _menuModelChanger.Create(character);
+
+                if (character.Type == CharacterType.Default)
+                {
+                    _defaultCharacter = character;
+                    _defaultCharacterView = characterView;
+                    character.Buy();
+                }
+
+                if (character.IsSelect)
+                {
+                    _currentSelectedCharacter = character;
+                    SetCurrentCharacter(character, characterView);
+                    _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(characterView));
+                }
+
+                characterView.UpdateView();
+                characterView.TryHideChains();
+                characterView.DisableButtons(Constants.MaxLevel);
+            }
+
+            if (_currentSelectedCharacter == null)
+            {
+                SetCurrentCharacter(_defaultCharacter, _defaultCharacterView);
+                _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(_defaultCharacterView));
+            }
+        }
+
+        private void SetCurrentCharacter(Character.Character character, CharacterView.CharacterView characterView)
+        {
+            _menuModelChanger.SetSelectedModel(_characterViews.IndexOf(characterView));
             TrySelectCaracter(character, characterView);
-            CharacterSold?.Invoke();
-            return true;
+            _characterView = characterView;
         }
-        else
+
+        private void OnSellButtonClick(Character.Character character, CharacterView.CharacterView characterView)
         {
-            _source.clip = _shakingChainsSound;
-            _source.Play();
-            characterView.ShakeChaings();
-            return false;
+            TrySellCharacter(character, characterView);
         }
-    }
 
-    private bool TrySelectCaracter(Character character, CharacterView characterView)
-    {
-        if (character.IsBought)
+        private void OnSelectButtonClick(Character.Character character, CharacterView.CharacterView characterView)
         {
-            _currentSelectedCharacter?.UnSelect();
-            _currentCharacterView?.UpdateView();
-            character.Select();
-            _playersHandler.SetCurrentPlayer(character.Player);
-            _currentSelectedCharacter = character;
-            _currentCharacterView = characterView;
-            _currentCharacterView.UpdateView();
-
-            if (_isInitialized)
-                characterView.SoundHandler.PlayPositive();
-
-            if (_characterViews.Contains(characterView))
-                _menuModelChanger.TryChangeModel(_characterViews.IndexOf(characterView));
-
-            CharacterSelected?.Invoke();
-            return true;
+            TrySelectCaracter(character, characterView);
         }
-        else
+
+        private bool TrySellCharacter(Character.Character character, CharacterView.CharacterView characterView)
         {
-            _source.clip = _shakingChainsSound;
-            _source.Play();
-            characterView.ShakeChaings();
-            return false;
+            if (character.Price <= _wallet.Stars)
+            {
+                _wallet.DicreaseStars(character.Price);
+                character.Buy();
+                characterView.SellButtonClicked -= OnSellButtonClick;
+                characterView.RemoveChains();
+                characterView.SoundHandler.PlayUnlock();
+                characterView.UnlockCharacter();
+                TrySelectCaracter(character, characterView);
+                CharacterSold?.Invoke();
+                return true;
+            }
+            else
+            {
+                _source.clip = _shakingChainsSound;
+                _source.Play();
+                characterView.ShakeChaings();
+                return false;
+            }
+        }
+
+        private bool TrySelectCaracter(Character.Character character, CharacterView.CharacterView characterView)
+        {
+            if (character.IsBought)
+            {
+                _currentSelectedCharacter?.UnSelect();
+                _currentCharacterView?.UpdateView();
+                character.Select();
+                _playersHandler.SetCurrentPlayer(character.Player);
+                _currentSelectedCharacter = character;
+                _currentCharacterView = characterView;
+                _currentCharacterView.UpdateView();
+
+                if (_isInitialized)
+                    characterView.SoundHandler.PlayPositive();
+
+                if (_characterViews.Contains(characterView))
+                    _menuModelChanger.TryChangeModel(_characterViews.IndexOf(characterView));
+
+                CharacterSelected?.Invoke();
+                return true;
+            }
+            else
+            {
+                _source.clip = _shakingChainsSound;
+                _source.Play();
+                characterView.ShakeChaings();
+                return false;
+            }
         }
     }
 }

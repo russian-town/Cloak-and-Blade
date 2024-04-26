@@ -1,23 +1,27 @@
 using Agava.YandexGames;
+using Source.Root;
 using UnityEngine;
 
-public class LeaderBoardScoreSetter : MonoBehaviour
+namespace Source.Yandex
 {
-    public void SetPlayerScore(int starsCount)
+    public class LeaderBoardScoreSetter : MonoBehaviour
     {
-        int previousScore = 0;
-
-        Leaderboard.GetPlayerEntry(Constants.LeaderBoardName, (result) =>
+        public void SetPlayerScore(int starsCount)
         {
-            if (result != null)
+            int previousScore = 0;
+
+            Leaderboard.GetPlayerEntry(Constants.LeaderBoardName, (result) =>
             {
-                previousScore = result.score;
-                Leaderboard.SetScore(Constants.LeaderBoardName, previousScore += starsCount);
-            }
-            else
-            {
-                Leaderboard.SetScore(Constants.LeaderBoardName, starsCount);
-            }
-        });
+                if (result != null)
+                {
+                    previousScore = result.score;
+                    Leaderboard.SetScore(Constants.LeaderBoardName, previousScore += starsCount);
+                }
+                else
+                {
+                    Leaderboard.SetScore(Constants.LeaderBoardName, starsCount);
+                }
+            });
+        }
     }
 }

@@ -1,4 +1,7 @@
-public interface IDataReader
+namespace Source.Saves
 {
-    public void Read(PlayerData playerData);
+    public interface IDataReader
+    {
+        public void Read(PlayerData playerData);
+    }
 }

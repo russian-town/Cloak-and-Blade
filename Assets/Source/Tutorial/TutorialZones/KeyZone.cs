@@ -1,13 +1,16 @@
 using UnityEngine;
 
-public class KeyZone : TutorialZone
+namespace Source.Tutorial.TutorialZones
 {
-    [SerializeField] private Gameboard _gameboard;
-
-    public override void Interact()
+    public class KeyZone : TutorialZone
     {
-        _gameboard.Disable();
-        base.Interact();
-        Element.Show(Player);
+        [SerializeField] private Gameboard.Gameboard _gameboard;
+
+        public override void Interact()
+        {
+            _gameboard.Disable();
+            base.Interact();
+            Element.Show(Player);
+        }
     }
 }

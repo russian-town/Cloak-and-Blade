@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class EnemyZones : TutorialZone
+namespace Source.Tutorial.TutorialZones
 {
-    [SerializeField] private Bootstrap _bootstrap;
-
-    public override void Interact()
+    public class EnemyZones : TutorialZone
     {
-        base.Interact();
-        _bootstrap.SpawnEnemy();
+        [SerializeField] private Bootstrap _bootstrap;
+
+        public override void Interact()
+        {
+            base.Interact();
+            _bootstrap.SpawnEnemy();
+        }
     }
 }

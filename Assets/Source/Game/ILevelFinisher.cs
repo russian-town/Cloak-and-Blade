@@ -1,8 +1,11 @@
 using System;
 
-public interface ILevelFinisher
+namespace Source.Game
 {
-    public event Action LevelPassed;
+    public interface ILevelFinisher
+    {
+        public event Action LevelPassed;
 
-    public event Action LevelFailed;
+        public event Action LevelFailed;
+    }
 }

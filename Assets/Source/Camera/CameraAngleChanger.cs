@@ -1,22 +1,26 @@
+using Source.Tutorial.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CameraAngleChanger : MainButton
+namespace Source.Camera
 {
-    [SerializeField] private CameraControls _controls;
-    [SerializeField] private Button _changeAngleButton;
-
-    protected Button ChangeAngleButton => _changeAngleButton;
-
-    protected CameraControls Controls => _controls;
-
-    private void OnEnable()
+    public class CameraAngleChanger : MainButton
     {
-        _changeAngleButton.onClick?.AddListener(_controls.ChangeCameraAngle);
-    }
+        [SerializeField] private CameraControls _controls;
+        [SerializeField] private Button _changeAngleButton;
 
-    private void OnDisable()
-    {
-        _changeAngleButton.onClick?.RemoveListener(_controls.ChangeCameraAngle);
+        protected Button ChangeAngleButton => _changeAngleButton;
+
+        protected CameraControls Controls => _controls;
+
+        private void OnEnable()
+        {
+            _changeAngleButton.onClick?.AddListener(_controls.ChangeCameraAngle);
+        }
+
+        private void OnDisable()
+        {
+            _changeAngleButton.onClick?.RemoveListener(_controls.ChangeCameraAngle);
+        }
     }
 }

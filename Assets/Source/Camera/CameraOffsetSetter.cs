@@ -1,17 +1,20 @@
 using Cinemachine;
 using UnityEngine;
 
-public class CameraOffsetSetter : MonoBehaviour
+namespace Source.Camera
 {
-    [SerializeField] private CinemachineVirtualCamera _camera;
-
-    private CinemachineOrbitalTransposer _cameraOrbitalTransposer;
-    private float _cameraFollowOffset = 7.5f;
-
-    private void Awake()
+    public class CameraOffsetSetter : MonoBehaviour
     {
-        _cameraOrbitalTransposer =
-            _camera.GetCinemachineComponent<CinemachineOrbitalTransposer>();
-        _cameraOrbitalTransposer.m_FollowOffset.z = _cameraFollowOffset;
+        [SerializeField] private CinemachineVirtualCamera _camera;
+
+        private CinemachineOrbitalTransposer _cameraOrbitalTransposer;
+        private float _cameraFollowOffset = 7.5f;
+
+        private void Awake()
+        {
+            _cameraOrbitalTransposer =
+                _camera.GetCinemachineComponent<CinemachineOrbitalTransposer>();
+            _cameraOrbitalTransposer.m_FollowOffset.z = _cameraFollowOffset;
+        }
     }
 }

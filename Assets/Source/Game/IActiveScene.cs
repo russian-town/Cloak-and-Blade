@@ -1,4 +1,7 @@
-public interface IActiveScene
+namespace Source.Game
 {
-    public void SetPause();
+    public interface IActiveScene
+    {
+        public void SetPause();
+    }
 }

@@ -1,5 +1,8 @@
-public enum CharacterType
+namespace Source.Shop.Character
 {
-    None,
-    Default,
+    public enum CharacterType
+    {
+        None,
+        Default,
+    }
 }

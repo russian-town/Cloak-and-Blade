@@ -1,3 +1,8 @@
-public class EnemyAnimationHandler : GhostAnimationHandler
+using Source.Ghost.GhostAnimationHandler;
+
+namespace Source.Enemy
 {
+    public class EnemyAnimationHandler : GhostAnimationHandler
+    {
+    }
 }

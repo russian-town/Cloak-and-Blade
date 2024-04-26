@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IEnemyTurnWaiter
+namespace Source.Room
 {
-    public Coroutine WaitForEnemies();
+    public interface IEnemyTurnWaiter
+    {
+        public Coroutine WaitForEnemies();
+    }
 }

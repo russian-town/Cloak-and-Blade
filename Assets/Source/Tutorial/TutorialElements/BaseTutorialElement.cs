@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
 
-public abstract class BaseTutorialElement : MonoBehaviour
+namespace Source.Tutorial.TutorialElements
 {
-    public event Action TutorialZoneComplete;
+    public abstract class BaseTutorialElement : MonoBehaviour
+    {
+        public event Action TutorialZoneComplete;
 
-    public abstract void Show(Player player);
+        public abstract void Show(Player.Player player);
 
-    public void InvokeTutorialZoneCompleteAction() => TutorialZoneComplete?.Invoke();
+        public void InvokeTutorialZoneCompleteAction() => TutorialZoneComplete?.Invoke();
+    }
 }

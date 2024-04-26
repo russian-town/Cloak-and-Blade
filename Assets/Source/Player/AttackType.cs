@@ -1,7 +1,10 @@
-public enum AttackType
+namespace Source.Player
 {
-    Freeze,
-    Blind,
-    UnFreeze,
-    UnBlind,
+    public enum AttackType
+    {
+        Freeze,
+        Blind,
+        UnFreeze,
+        UnBlind,
+    }
 }

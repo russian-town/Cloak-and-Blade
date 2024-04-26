@@ -1,5 +1,8 @@
 using UnityEngine;
 
-public class ArrowTargets : MonoBehaviour
+namespace Source.Player.PlayerUI.ArrowPointer
 {
+    public class ArrowTargets : MonoBehaviour
+    {
+    }
 }

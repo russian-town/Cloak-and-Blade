@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class StarSpawner : MonoBehaviour
+namespace Source.Stars
 {
-    public Star Get(Star template, StarContainer container)
+    public class StarSpawner : MonoBehaviour
     {
-        Star star = Instantiate(template, container.transform);
-        star.PlayStarAppear();
-        return star;
+        public Star Get(Star template, StarContainer container)
+        {
+            Star star = Instantiate(template, container.transform);
+            star.PlayStarAppear();
+            return star;
+        }
     }
 }

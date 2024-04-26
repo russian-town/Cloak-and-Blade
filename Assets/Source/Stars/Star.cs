@@ -1,31 +1,35 @@
 using System.Collections;
+using Source.UiAnimations;
 using UnityEngine;
 
-[RequireComponent(typeof(StarAnimationHandler))]
-public class Star : MonoBehaviour
+namespace Source.Stars
 {
-    [SerializeField] private AudioSource _source;
-    [SerializeField] private float _waitForSoundTime;
-
-    private WaitForSeconds _waitTime;
-
-    public StarAnimationHandler AnimationHandler { get; private set; }
-
-    private void Awake()
+    [RequireComponent(typeof(StarAnimationHandler))]
+    public class Star : MonoBehaviour
     {
-        AnimationHandler = GetComponent<StarAnimationHandler>();
-        _waitTime = new WaitForSeconds(_waitForSoundTime);
-    }
+        [SerializeField] private AudioSource _source;
+        [SerializeField] private float _waitForSoundTime;
 
-    public void PlayStarAppear()
-    {
-        AnimationHandler.PlayAppearAnimation();
-        StartCoroutine(PlaySoundWithPause());
-    }
+        private WaitForSeconds _waitTime;
 
-    private IEnumerator PlaySoundWithPause()
-    {
-        yield return _waitTime;
-        _source.Play();
+        public StarAnimationHandler AnimationHandler { get; private set; }
+
+        private void Awake()
+        {
+            AnimationHandler = GetComponent<StarAnimationHandler>();
+            _waitTime = new WaitForSeconds(_waitForSoundTime);
+        }
+
+        public void PlayStarAppear()
+        {
+            AnimationHandler.PlayAppearAnimation();
+            StartCoroutine(PlaySoundWithPause());
+        }
+
+        private IEnumerator PlaySoundWithPause()
+        {
+            yield return _waitTime;
+            _source.Play();
+        }
     }
 }

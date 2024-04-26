@@ -1,36 +1,40 @@
 using System.Collections;
+using Source.Models;
 using UnityEngine;
 
-[RequireComponent(typeof(MoveAlongSpline))]
-public class SplineChangeHandler : MonoBehaviour
+namespace Source.Player.Abiilities.SceneEffectChangers
 {
-    private MoveAlongSpline _splineAnimate;
-    private Coroutine _changeSpeedOverTime;
-
-    public float InitialSpeed { get; private set; }
-
-    private void Start()
+    [RequireComponent(typeof(MoveAlongSpline))]
+    public class SplineChangeHandler : MonoBehaviour
     {
-        _splineAnimate = GetComponent<MoveAlongSpline>();
-        InitialSpeed = _splineAnimate.Speed;
-    }
+        private MoveAlongSpline _splineAnimate;
+        private Coroutine _changeSpeedOverTime;
 
-    public void ChangeSpeed(float value, float duration)
-    {
-        if (_changeSpeedOverTime != null)
-            return;
+        public float InitialSpeed { get; private set; }
 
-        _changeSpeedOverTime = StartCoroutine(ChangeSpeedOverTime(value, duration));
-    }
-
-    private IEnumerator ChangeSpeedOverTime(float value, float duration)
-    {
-        while (_splineAnimate.Speed != value)
+        private void Start()
         {
-            _splineAnimate.ChangeSlineSpeed(value, duration, InitialSpeed);
-            yield return null;
+            _splineAnimate = GetComponent<MoveAlongSpline>();
+            InitialSpeed = _splineAnimate.Speed;
         }
 
-        _changeSpeedOverTime = null;
+        public void ChangeSpeed(float value, float duration)
+        {
+            if (_changeSpeedOverTime != null)
+                return;
+
+            _changeSpeedOverTime = StartCoroutine(ChangeSpeedOverTime(value, duration));
+        }
+
+        private IEnumerator ChangeSpeedOverTime(float value, float duration)
+        {
+            while (_splineAnimate.Speed != value)
+            {
+                _splineAnimate.ChangeSlineSpeed(value, duration, InitialSpeed);
+                yield return null;
+            }
+
+            _changeSpeedOverTime = null;
+        }
     }
 }

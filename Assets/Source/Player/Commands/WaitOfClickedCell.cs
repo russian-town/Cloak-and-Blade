@@ -1,47 +1,52 @@
+using Source.Gameboard.Cell;
+using Source.Gameboard.Cell.CellContent;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class WaitOfClickedCell : CustomYieldInstruction
+namespace Source.Player.Commands
 {
-    private readonly Gameboard _gameboard;
-    private readonly Camera _camera;
-    private readonly Navigator _navigator;
-
-    public WaitOfClickedCell(Gameboard gameboard, Camera camera, Navigator navigator)
+    public class WaitOfClickedCell : CustomYieldInstruction
     {
-        _gameboard = gameboard;
-        _camera = camera;
-        _navigator = navigator;
-    }
+        private readonly Gameboard.Gameboard _gameboard;
+        private readonly UnityEngine.Camera _camera;
+        private readonly Navigator.Navigator _navigator;
 
-    public Cell Cell { get; private set; }
-
-    private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
-
-    public override bool keepWaiting
-    {
-        get
+        public WaitOfClickedCell(Gameboard.Gameboard gameboard, UnityEngine.Camera camera, Navigator.Navigator navigator)
         {
-            return TryGetTargetCell();
+            _gameboard = gameboard;
+            _camera = camera;
+            _navigator = navigator;
         }
-    }
 
-    private bool TryGetTargetCell()
-    {
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        public Cell Cell { get; private set; }
+
+        private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
+
+        public override bool keepWaiting
         {
-            Cell targetCell = _gameboard.GetCell(TouchRay);
-
-            if (targetCell == null || targetCell.Content.Type == CellContentType.Wall)
-                return true;
-
-            if (_navigator.CanMoveToCell(ref targetCell))
+            get
             {
-                Cell = targetCell;
-                return false;
+                return TryGetTargetCell();
             }
         }
 
-        return true;
+        private bool TryGetTargetCell()
+        {
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                Cell targetCell = _gameboard.GetCell(TouchRay);
+
+                if (targetCell == null || targetCell.Content.Type == CellContentType.Wall)
+                    return true;
+
+                if (_navigator.CanMoveToCell(ref targetCell))
+                {
+                    Cell = targetCell;
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

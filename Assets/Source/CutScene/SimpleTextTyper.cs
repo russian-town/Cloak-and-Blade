@@ -3,94 +3,99 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Source.Fonts;
+using Source.Root;
 using TMPro;
 using UnityEngine;
 
-public class SimpleTextTyper : MonoBehaviour
+namespace Source.CutScene
 {
-    [SerializeField] private TMP_Text _textContainer;
-    [SerializeField] private RectTransform _letter;
-    [SerializeField] private float _delay;
-    [SerializeField] private float _dotDelay;
-    [SerializeField] private float _commaDelay;
-    [SerializeField] private CanvasGroup _canvasGroup;
-    [SerializeField] private List<PhraseWithPause> _phrasesWithPause;
-    [SerializeField] private FocusHandler _focusHandler;
-    [SerializeField] private string _colorOpenTag;
-    [SerializeField] private string _colorCloseTag;
-    [SerializeField] private LeanFixer _fixer;
-
-    private WaitForSeconds _waitDelay;
-    private WaitForSeconds _dotWaitDelay;
-    private WaitForSeconds _commaWaitDelay;
-    private WaitForSeconds _phraseWait;
-    private List<char> _tempCharPhraseList;
-    private List<char> _tempCharTextList;
-    private List<char> _initialText;
-
-    public void Initialize()
+    public class SimpleTextTyper : MonoBehaviour
     {
-        _waitDelay = new WaitForSeconds(_delay);
-        _dotWaitDelay = new WaitForSeconds(_dotDelay);
-        _commaWaitDelay = new WaitForSeconds(_commaDelay);
-        _tempCharPhraseList = new List<char>();
-        _textContainer.text = _fixer.GetLocalisedText();
-        _initialText = _textContainer.text.ToList();
-        _tempCharTextList = _initialText.ToList();
-        _tempCharTextList.InsertRange(0, _colorOpenTag);
-        _tempCharTextList.AddRange(_colorCloseTag);
-        _textContainer.text = string.Join(String.Empty, _tempCharTextList);
-    }
+        [SerializeField] private TMP_Text _textContainer;
+        [SerializeField] private RectTransform _letter;
+        [SerializeField] private float _delay;
+        [SerializeField] private float _dotDelay;
+        [SerializeField] private float _commaDelay;
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private List<PhraseWithPause> _phrasesWithPause;
+        [SerializeField] private FocusHandler.FocusHandler _focusHandler;
+        [SerializeField] private string _colorOpenTag;
+        [SerializeField] private string _colorCloseTag;
+        [SerializeField] private LeanFixer _fixer;
 
-    public void TypeText()
-        => StartCoroutine(WriteLine());
+        private WaitForSeconds _waitDelay;
+        private WaitForSeconds _dotWaitDelay;
+        private WaitForSeconds _commaWaitDelay;
+        private WaitForSeconds _phraseWait;
+        private List<char> _tempCharPhraseList;
+        private List<char> _tempCharTextList;
+        private List<char> _initialText;
 
-    private IEnumerator WriteLine()
-    {
-        _canvasGroup.DOFade(1, 1).SetEase(Ease.InOutSine);
-        _letter.DOScale(1, 1).SetEase(Ease.InOutSine);
-
-        yield return _commaWaitDelay;
-
-        for (int i = 0; i < _initialText.Count; i++)
+        public void Initialize()
         {
-            var text = _initialText.ToList();
-            text.InsertRange(i, _colorOpenTag.ToCharArray());
-            text.AddRange(_colorCloseTag.ToCharArray());
+            _waitDelay = new WaitForSeconds(_delay);
+            _dotWaitDelay = new WaitForSeconds(_dotDelay);
+            _commaWaitDelay = new WaitForSeconds(_commaDelay);
+            _tempCharPhraseList = new List<char>();
+            _textContainer.text = _fixer.GetLocalisedText();
+            _initialText = _textContainer.text.ToList();
+            _tempCharTextList = _initialText.ToList();
+            _tempCharTextList.InsertRange(0, _colorOpenTag);
+            _tempCharTextList.AddRange(_colorCloseTag);
+            _textContainer.text = string.Join(String.Empty, _tempCharTextList);
+        }
 
-            _textContainer.text = string.Join(String.Empty, text);
+        public void TypeText()
+            => StartCoroutine(WriteLine());
 
-            if (i > 0)
+        private IEnumerator WriteLine()
+        {
+            _canvasGroup.DOFade(1, 1).SetEase(Ease.InOutSine);
+            _letter.DOScale(1, 1).SetEase(Ease.InOutSine);
+
+            yield return _commaWaitDelay;
+
+            for (int i = 0; i < _initialText.Count; i++)
             {
-                if (!char.IsWhiteSpace(_initialText[i - 1]))
-                    _tempCharPhraseList.Add(_initialText[i - 1]);
+                var text = _initialText.ToList();
+                text.InsertRange(i, _colorOpenTag.ToCharArray());
+                text.AddRange(_colorCloseTag.ToCharArray());
 
-                foreach (var phrase in _phrasesWithPause)
+                _textContainer.text = string.Join(String.Empty, text);
+
+                if (i > 0)
                 {
-                    if (phrase.Phrase == string.Concat(_tempCharPhraseList))
+                    if (!char.IsWhiteSpace(_initialText[i - 1]))
+                        _tempCharPhraseList.Add(_initialText[i - 1]);
+
+                    foreach (var phrase in _phrasesWithPause)
                     {
-                        _phraseWait = new WaitForSeconds(phrase.Pause);
-                        yield return _phraseWait;
-                        _phraseWait = null;
+                        if (phrase.Phrase == string.Concat(_tempCharPhraseList))
+                        {
+                            _phraseWait = new WaitForSeconds(phrase.Pause);
+                            yield return _phraseWait;
+                            _phraseWait = null;
+                        }
                     }
+
+                    if (char.IsWhiteSpace(_initialText[i - 1]))
+                        _tempCharPhraseList.Clear();
+
+                    if (i < _initialText.Count)
+                    {
+                        if (_initialText[i - 1] == Constants.Dot && _initialText[i] != Constants.Dot)
+                        {
+                            yield return _dotWaitDelay;
+                        }
+                    }
+
+                    if (_initialText[i - 1] == Constants.Comma || _initialText[i - 1] == Constants.Dash)
+                        yield return _commaWaitDelay;
                 }
 
-                if (char.IsWhiteSpace(_initialText[i - 1]))
-                    _tempCharPhraseList.Clear();
-
-                if (i < _initialText.Count)
-                {
-                    if (_initialText[i - 1] == Constants.Dot && _initialText[i] != Constants.Dot)
-                    {
-                        yield return _dotWaitDelay;
-                    }
-                }
-
-                if (_initialText[i - 1] == Constants.Comma || _initialText[i - 1] == Constants.Dash)
-                    yield return _commaWaitDelay;
+                yield return _waitDelay;
             }
-
-            yield return _waitDelay;
         }
     }
 }

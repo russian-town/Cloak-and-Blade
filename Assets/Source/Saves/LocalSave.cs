@@ -1,45 +1,48 @@
-using System.Collections;
 using System.Collections.Generic;
+using Source.Root;
 using UnityEngine;
 
-public class LocalSave : ISaveLoadService
+namespace Source.Saves
 {
-    private List<IDataReader> _dataReaders = new List<IDataReader>();
-    private List<IDataWriter> _dataWriters = new List<IDataWriter>();
-
-    public void AddDataWriters(IDataWriter[] dataWriters) => _dataWriters.AddRange(dataWriters);
-
-    public void AddDataReaders(IDataReader[] dataReaders) => _dataReaders.AddRange(dataReaders);
-
-    public void Save(PlayerData playerData)
+    public class LocalSave : ISaveLoadService
     {
-        if (playerData == null)
-            return;
+        private List<IDataReader> _dataReaders = new List<IDataReader>();
+        private List<IDataWriter> _dataWriters = new List<IDataWriter>();
 
-        foreach (var writer in _dataWriters)
-            writer.Write(playerData);
+        public void AddDataWriters(IDataWriter[] dataWriters) => _dataWriters.AddRange(dataWriters);
 
-        string saveData = JsonUtility.ToJson(playerData);
-        PlayerPrefs.SetString(Constants.PlayerProgress, saveData);
-        PlayerPrefs.Save();
-    }
+        public void AddDataReaders(IDataReader[] dataReaders) => _dataReaders.AddRange(dataReaders);
 
-    public void Load()
-    {
-        if (PlayerPrefs.HasKey(Constants.PlayerProgress) == false)
-            return;
+        public void Save(PlayerData playerData)
+        {
+            if (playerData == null)
+                return;
 
-        string data = PlayerPrefs.GetString(Constants.PlayerProgress);
+            foreach (var writer in _dataWriters)
+                writer.Write(playerData);
 
-        if (string.IsNullOrEmpty(data))
-            return;
+            string saveData = JsonUtility.ToJson(playerData);
+            PlayerPrefs.SetString(Constants.PlayerProgress, saveData);
+            PlayerPrefs.Save();
+        }
 
-        PlayerData playerData = JsonUtility.FromJson<PlayerData>(data);
+        public void Load()
+        {
+            if (PlayerPrefs.HasKey(Constants.PlayerProgress) == false)
+                return;
 
-        if (playerData == null)
-            return;
+            string data = PlayerPrefs.GetString(Constants.PlayerProgress);
 
-        foreach (var dataReader in _dataReaders)
-            dataReader.Read(playerData);
+            if (string.IsNullOrEmpty(data))
+                return;
+
+            PlayerData playerData = JsonUtility.FromJson<PlayerData>(data);
+
+            if (playerData == null)
+                return;
+
+            foreach (var dataReader in _dataReaders)
+                dataReader.Read(playerData);
+        }
     }
 }

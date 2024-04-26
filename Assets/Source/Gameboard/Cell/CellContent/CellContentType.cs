@@ -1,6 +1,9 @@
-public enum CellContentType
+namespace Source.Gameboard.Cell.CellContent
 {
-    Empty,
-    Destination,
-    Wall,
+    public enum CellContentType
+    {
+        Empty,
+        Destination,
+        Wall,
+    }
 }

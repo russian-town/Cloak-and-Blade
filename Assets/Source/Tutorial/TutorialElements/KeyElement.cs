@@ -1,19 +1,23 @@
+using Source.InteractiveObjects.Objects.Key;
 using UnityEngine;
 
-public class KeyElement : BaseTutorialElement
+namespace Source.Tutorial.TutorialElements
 {
-    [SerializeField] private Gameboard _gameboard;
-    [SerializeField] private Key _key;
-
-    public override void Show(Player player)
+    public class KeyElement : BaseTutorialElement
     {
-        _key.PickedUp += OnPickedUp;
-    }
+        [SerializeField] private Gameboard.Gameboard _gameboard;
+        [SerializeField] private Key _key;
 
-    private void OnPickedUp()
-    {
-        _gameboard.Disable();
-        _key.PickedUp -= OnPickedUp;
-        InvokeTutorialZoneCompleteAction();
+        public override void Show(Player.Player player)
+        {
+            _key.PickedUp += OnPickedUp;
+        }
+
+        private void OnPickedUp()
+        {
+            _gameboard.Disable();
+            _key.PickedUp -= OnPickedUp;
+            InvokeTutorialZoneCompleteAction();
+        }
     }
 }

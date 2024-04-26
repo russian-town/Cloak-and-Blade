@@ -1,5 +1,8 @@
 using UnityEngine;
 
-public class Ghost : MonoBehaviour
+namespace Source.Ghost
 {
+    public class Ghost : MonoBehaviour
+    {
+    }
 }

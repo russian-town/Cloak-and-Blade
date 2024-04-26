@@ -1,3 +1,8 @@
-public class EnemyMover : Mover
+using Source.Ghost.Mover;
+
+namespace Source.Enemy
 {
+    public class EnemyMover : Mover
+    {
+    }
 }

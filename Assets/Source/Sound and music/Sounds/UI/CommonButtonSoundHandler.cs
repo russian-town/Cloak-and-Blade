@@ -1,42 +1,46 @@
+using Source.UiAnimations;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
-public class CommonButtonSoundHandler : MonoBehaviour
+namespace Source.Sound_and_music.Sounds.UI
 {
-    [SerializeField] private AudioClip _poppingOutSound;
-    [SerializeField] private AudioClip _clickSound;
-
-    private ButtonAnimationHandler _animationHandler;
-    private AudioSource _source;
-
-    private void Awake()
+    [RequireComponent(typeof(AudioSource))]
+    public class CommonButtonSoundHandler : MonoBehaviour
     {
-        _animationHandler = GetComponent<ButtonAnimationHandler>();
-        _source = GetComponent<AudioSource>();
-        _source.playOnAwake = false;
-    }
+        [SerializeField] private AudioClip _poppingOutSound;
+        [SerializeField] private AudioClip _clickSound;
 
-    private void OnEnable()
-    {
-        _animationHandler.Bounce += OnButtonBounce;
-        _animationHandler.PoppingOut += OnPoppingOut;
-    }
+        private ButtonAnimationHandler _animationHandler;
+        private AudioSource _source;
 
-    private void OnDisable()
-    {
-        _animationHandler.Bounce -= OnButtonBounce;
-        _animationHandler.PoppingOut -= OnPoppingOut;
-    }
+        private void Awake()
+        {
+            _animationHandler = GetComponent<ButtonAnimationHandler>();
+            _source = GetComponent<AudioSource>();
+            _source.playOnAwake = false;
+        }
 
-    private void OnButtonBounce()
-    {
-        _source.clip = _clickSound;
-        _source.Play();
-    }
+        private void OnEnable()
+        {
+            _animationHandler.Bounce += OnButtonBounce;
+            _animationHandler.PoppingOut += OnPoppingOut;
+        }
 
-    private void OnPoppingOut()
-    {
-        _source.clip = _poppingOutSound;
-        _source.Play();
+        private void OnDisable()
+        {
+            _animationHandler.Bounce -= OnButtonBounce;
+            _animationHandler.PoppingOut -= OnPoppingOut;
+        }
+
+        private void OnButtonBounce()
+        {
+            _source.clip = _clickSound;
+            _source.Play();
+        }
+
+        private void OnPoppingOut()
+        {
+            _source.clip = _poppingOutSound;
+            _source.Play();
+        }
     }
 }

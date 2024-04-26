@@ -1,33 +1,37 @@
+using Source.UiAnimations;
 using UnityEngine;
 
-[RequireComponent(typeof(Canvas))]
-public class Description : MonoBehaviour
+namespace Source.Shop
 {
-    [SerializeField] private ScreenAnimationHandler _animationHandler;
-
-    private Canvas _canvas;
-
-    public ScreenAnimationHandler ScreenAnimationHandler => _animationHandler;
-
-    public void Show(Camera camera)
+    [RequireComponent(typeof(Canvas))]
+    public class Description : MonoBehaviour
     {
-        if (_canvas == null)
-            _canvas = GetComponent<Canvas>();
+        [SerializeField] private ScreenAnimationHandler _animationHandler;
 
-        _canvas.worldCamera = camera;
-        _canvas.planeDistance = 1f;
+        private Canvas _canvas;
 
-        if (_animationHandler.IsEnabled)
-            return;
+        public ScreenAnimationHandler ScreenAnimationHandler => _animationHandler;
 
-        _animationHandler.FadeIn();
-    }
+        public void Show(UnityEngine.Camera camera)
+        {
+            if (_canvas == null)
+                _canvas = GetComponent<Canvas>();
 
-    public void Hide()
-    {
-        if (!_animationHandler.IsEnabled)
-            return;
+            _canvas.worldCamera = camera;
+            _canvas.planeDistance = 1f;
 
-        _animationHandler.FadeOut();
+            if (_animationHandler.IsEnabled)
+                return;
+
+            _animationHandler.FadeIn();
+        }
+
+        public void Hide()
+        {
+            if (!_animationHandler.IsEnabled)
+                return;
+
+            _animationHandler.FadeOut();
+        }
     }
 }

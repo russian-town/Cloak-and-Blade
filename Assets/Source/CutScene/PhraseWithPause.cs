@@ -1,13 +1,16 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class PhraseWithPause : MonoBehaviour
+namespace Source.CutScene
 {
-    [SerializeField] private string _phrase;
-    [SerializeField] private float _pause;
+    [Serializable]
+    public class PhraseWithPause : MonoBehaviour
+    {
+        [SerializeField] private string _phrase;
+        [SerializeField] private float _pause;
 
-    public string Phrase => _phrase;
+        public string Phrase => _phrase;
 
-    public float Pause => _pause;
+        public float Pause => _pause;
+    }
 }

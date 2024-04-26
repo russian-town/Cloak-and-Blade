@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class ViewCameraFacer : MonoBehaviour
+namespace Source.InteractiveObjects.InteractiveObjectView
 {
-    private readonly int _lookAtMultiplier = 2;
-
-    [SerializeField] private Transform _lookAt;
-
-    private void Update()
+    public class ViewCameraFacer : MonoBehaviour
     {
-        if (_lookAt)
-            transform.LookAt(transform.position * _lookAtMultiplier - _lookAt.position);
+        private readonly int _lookAtMultiplier = 2;
+
+        [SerializeField] private Transform _lookAt;
+
+        private void Update()
+        {
+            if (_lookAt)
+                transform.LookAt(transform.position * _lookAtMultiplier - _lookAt.position);
+        }
     }
 }

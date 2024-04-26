@@ -1,18 +1,21 @@
-using System;
+using Source.Player.PlayerUI;
 
-public class GameOverView : ViewPanel
+namespace Source.Game
 {
-    private ILevelFinisher _levelFinisher;
-
-    public void Initialize(ILevelFinisher levelFinisher)
+    public class GameOverView : ViewPanel
     {
-        _levelFinisher = levelFinisher;
-        _levelFinisher.LevelFailed += OnLevelFailed;
+        private ILevelFinisher _levelFinisher;
+
+        public void Initialize(ILevelFinisher levelFinisher)
+        {
+            _levelFinisher = levelFinisher;
+            _levelFinisher.LevelFailed += OnLevelFailed;
+        }
+
+        protected override void Unsubscribe()
+            => _levelFinisher.LevelFailed -= OnLevelFailed;
+
+        private void OnLevelFailed()
+            => Show();
     }
-
-    protected override void Unsubscribe()
-        => _levelFinisher.LevelFailed -= OnLevelFailed;
-
-    private void OnLevelFailed()
-        => Show();
 }

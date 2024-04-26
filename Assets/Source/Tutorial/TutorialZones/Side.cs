@@ -1,5 +1,8 @@
-public enum Side
+namespace Source.Tutorial.TutorialZones
 {
-    West,
-    East,
+    public enum Side
+    {
+        West,
+        East,
+    }
 }

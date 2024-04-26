@@ -1,4 +1,7 @@
-public interface IAutoContinuer
+namespace Source.Game
 {
-    public void Continue();
+    public interface IAutoContinuer
+    {
+        public void Continue();
+    }
 }

@@ -1,38 +1,42 @@
 using System.Collections;
 using System.Linq;
+using Source.Player.Abiilities;
 using UnityEngine;
 
-public class TheWorldCommand : AbilityCommand
+namespace Source.Player.Commands
 {
-    private TheWorld _theWorld;
-    private YellowGhost _yellowGhost;
-
-    public TheWorldCommand(TheWorld theWorld, CommandExecuter executer, YellowGhost yellowGhost)
-        : base(theWorld, executer)
+    public class TheWorldCommand : AbilityCommand
     {
-        _theWorld = theWorld;
-        _yellowGhost = yellowGhost;
-        _theWorld.AddSceneEffectsToChange(
-            _yellowGhost.SceneEffects.ToList(),
-            _yellowGhost.SceneSounds.ToList(),
-            _yellowGhost.SceneSplines.ToList(),
-            _yellowGhost.SceneAnimations.ToList());
-    }
+        private TheWorld _theWorld;
+        private YellowGhost.YellowGhost _yellowGhost;
 
-    protected override IEnumerator WaitOfExecute()
-    {
-        yield break;
-    }
+        public TheWorldCommand(TheWorld theWorld, CommandExecuter.CommandExecuter executer, YellowGhost.YellowGhost yellowGhost)
+            : base(theWorld, executer)
+        {
+            _theWorld = theWorld;
+            _yellowGhost = yellowGhost;
+            _theWorld.AddSceneEffectsToChange(
+                _yellowGhost.SceneEffects.ToList(),
+                _yellowGhost.SceneSounds.ToList(),
+                _yellowGhost.SceneSplines.ToList(),
+                _yellowGhost.SceneAnimations.ToList());
+        }
 
-    protected override IEnumerator ExecuteAction()
-    {
-        yield return new WaitUntil(() => _theWorld.Cast(null));
-        yield break;
-    }
+        protected override IEnumerator WaitOfExecute()
+        {
+            yield break;
+        }
 
-    protected override IEnumerator PrepareAction()
-    {
-        _theWorld.Prepare();
-        yield break;
+        protected override IEnumerator ExecuteAction()
+        {
+            yield return new WaitUntil(() => _theWorld.Cast(null));
+            yield break;
+        }
+
+        protected override IEnumerator PrepareAction()
+        {
+            _theWorld.Prepare();
+            yield break;
+        }
     }
 }

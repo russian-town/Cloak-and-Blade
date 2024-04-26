@@ -1,22 +1,26 @@
+using Source.UiAnimations;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class AutoSelector : MonoBehaviour
+namespace Source.Shop.Character
 {
-    [SerializeField] private ScreenAnimationHandler _screenAnimationHandler;
-
-    private void OnEnable()
+    public class AutoSelector : MonoBehaviour
     {
-        _screenAnimationHandler.ScreenEnabled += OnScreenEnabled;
-    }
+        [SerializeField] private ScreenAnimationHandler _screenAnimationHandler;
 
-    private void OnDisable()
-    {
-        _screenAnimationHandler.ScreenEnabled -= OnScreenEnabled;
-    }
+        private void OnEnable()
+        {
+            _screenAnimationHandler.ScreenEnabled += OnScreenEnabled;
+        }
 
-    private void OnScreenEnabled()
-    {
-        EventSystem.current.SetSelectedGameObject(gameObject);
+        private void OnDisable()
+        {
+            _screenAnimationHandler.ScreenEnabled -= OnScreenEnabled;
+        }
+
+        private void OnScreenEnabled()
+        {
+            EventSystem.current.SetSelectedGameObject(gameObject);
+        }
     }
 }

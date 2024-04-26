@@ -1,24 +1,27 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CanvasGroup))]
-public class Sebastian : MonoBehaviour
+namespace Source.Tutorial
 {
-    private CanvasGroup _canvasGroup;
-
-    private void Awake()
+    [RequireComponent(typeof(CanvasGroup))]
+    public class Sebastian : MonoBehaviour
     {
-        _canvasGroup = GetComponent<CanvasGroup>();
-    }
+        private CanvasGroup _canvasGroup;
 
-    public void Show()
-    {
-        _canvasGroup.alpha = 1;
-        _canvasGroup.blocksRaycasts = true;
-    }
+        private void Awake()
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
 
-    public void Hide()
-    {
-        _canvasGroup.alpha = 0;
-        _canvasGroup.blocksRaycasts = false;
+        public void Show()
+        {
+            _canvasGroup.alpha = 1;
+            _canvasGroup.blocksRaycasts = true;
+        }
+
+        public void Hide()
+        {
+            _canvasGroup.alpha = 0;
+            _canvasGroup.blocksRaycasts = false;
+        }
     }
 }

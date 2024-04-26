@@ -1,5 +1,8 @@
-public enum Turn
+namespace Source.Room
 {
-    Enemy,
-    Player,
+    public enum Turn
+    {
+        Enemy,
+        Player,
+    }
 }

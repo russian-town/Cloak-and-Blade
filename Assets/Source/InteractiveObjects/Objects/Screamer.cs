@@ -1,24 +1,27 @@
 using UnityEngine;
 
-public class Screamer : InteractiveObject
+namespace Source.InteractiveObjects.Objects
 {
-    [SerializeField] private AudioSource _source;
-
-    private bool _interactable = true;
-
-    public override void Interact()
+    public class Screamer : InteractiveObject
     {
-        _source.Play();
-        _interactable = false;
-    }
+        [SerializeField] private AudioSource _source;
 
-    public override void Prepare()
-    {
-        if (CheckInteractionPossibility() && _interactable)
-            Interact();
-    }
+        private bool _interactable = true;
 
-    protected override void Disable()
-    {
+        public override void Interact()
+        {
+            _source.Play();
+            _interactable = false;
+        }
+
+        public override void Prepare()
+        {
+            if (CheckInteractionPossibility() && _interactable)
+                Interact();
+        }
+
+        protected override void Disable()
+        {
+        }
     }
 }

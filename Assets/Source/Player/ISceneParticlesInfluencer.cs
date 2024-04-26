@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using Source.Player.Abiilities.SceneEffectChangers;
 
-public interface ISceneParticlesInfluencer
+namespace Source.Player
 {
-    public void AddSceneEffectsToChange(
-        List<EffectChangeHandler> effects,
-        List<SoundChangeHandler> sounds,
-        List<SplineChangeHandler> splines,
-        List<AnimationChangeHandler> animations);
+    public interface ISceneParticlesInfluencer
+    {
+        public void AddSceneEffectsToChange(
+            List<EffectChangeHandler> effects,
+            List<SoundChangeHandler> sounds,
+            List<SplineChangeHandler> splines,
+            List<AnimationChangeHandler> animations);
+    }
 }

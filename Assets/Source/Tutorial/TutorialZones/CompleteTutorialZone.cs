@@ -1,33 +1,38 @@
+using Source.InteractiveObjects.Objects.LevelExit;
+using Source.Saves;
 using UnityEngine;
 
-public class CompleteTutorialZone : MonoBehaviour, IDataWriter, IDataReader
+namespace Source.Tutorial.TutorialZones
 {
-    [SerializeField] private LevelExit _levelExit;
-
-    private bool _isTutorialCompleted;
-
-    private void OnEnable()
+    public class CompleteTutorialZone : MonoBehaviour, IDataWriter, IDataReader
     {
-        _levelExit.ExitOpened += OnLevelPassed;
-    }
+        [SerializeField] private LevelExit _levelExit;
 
-    private void OnDisable()
-    {
-        _levelExit.ExitOpened -= OnLevelPassed;
-    }
+        private bool _isTutorialCompleted;
 
-    public void Write(PlayerData playerData)
-    {
-        playerData.IsTutorialCompleted = _isTutorialCompleted;
-    }
+        private void OnEnable()
+        {
+            _levelExit.ExitOpened += OnLevelPassed;
+        }
 
-    public void Read(PlayerData playerData)
-    {
-        _isTutorialCompleted = playerData.IsTutorialCompleted;
-    }
+        private void OnDisable()
+        {
+            _levelExit.ExitOpened -= OnLevelPassed;
+        }
 
-    private void OnLevelPassed()
-    {
-        _isTutorialCompleted = true;
+        public void Write(PlayerData playerData)
+        {
+            playerData.IsTutorialCompleted = _isTutorialCompleted;
+        }
+
+        public void Read(PlayerData playerData)
+        {
+            _isTutorialCompleted = playerData.IsTutorialCompleted;
+        }
+
+        private void OnLevelPassed()
+        {
+            _isTutorialCompleted = true;
+        }
     }
 }

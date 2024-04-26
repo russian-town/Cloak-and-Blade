@@ -1,56 +1,59 @@
 using System.Collections;
 using UnityEngine;
 
-public class WhooshScript : MonoBehaviour
+namespace Source.Sound_and_music
 {
-    [SerializeField] private AudioSource _sourceOne;
-    [SerializeField] private AudioSource _sourceTwo;
-    [SerializeField] private float _minDelay;
-    [SerializeField] private float _maxDelay;
-    [SerializeField] private float _minPitch;
-    [SerializeField] private float _maxPitch;
-
-    private WaitForSeconds _waitDelay;
-    private Coroutine _whooshCoroutine;
-    private bool _isPlaying;
-    private bool _isSourceTwo;
-
-    public void StartWhooshCoroutine()
+    public class WhooshScript : MonoBehaviour
     {
-        if (_whooshCoroutine == null)
+        [SerializeField] private AudioSource _sourceOne;
+        [SerializeField] private AudioSource _sourceTwo;
+        [SerializeField] private float _minDelay;
+        [SerializeField] private float _maxDelay;
+        [SerializeField] private float _minPitch;
+        [SerializeField] private float _maxPitch;
+
+        private WaitForSeconds _waitDelay;
+        private Coroutine _whooshCoroutine;
+        private bool _isPlaying;
+        private bool _isSourceTwo;
+
+        public void StartWhooshCoroutine()
         {
-            _isPlaying = true;
-            _whooshCoroutine = StartCoroutine(WhooshCoroutine());
-        }
-    }
-
-    private void PlayWhooshSound(AudioSource whooshSource)
-    {
-        _waitDelay = new WaitForSeconds(Random.Range(_minDelay, _maxDelay));
-        whooshSource.pitch = Random.Range(_minPitch, _maxPitch);
-        whooshSource.panStereo = Random.Range(-1, 1);
-        whooshSource.Play();
-    }
-
-    private IEnumerator WhooshCoroutine()
-    {
-        while (_isPlaying)
-        {
-            if (!_isSourceTwo)
+            if (_whooshCoroutine == null)
             {
-                PlayWhooshSound(_sourceOne);
-                _isSourceTwo = true;
+                _isPlaying = true;
+                _whooshCoroutine = StartCoroutine(WhooshCoroutine());
             }
-            else
-            {
-                PlayWhooshSound(_sourceTwo);
-                _isSourceTwo = false;
-            }
-
-            yield return _waitDelay;
-            _waitDelay = null;
         }
 
-        _whooshCoroutine = null;
+        private void PlayWhooshSound(AudioSource whooshSource)
+        {
+            _waitDelay = new WaitForSeconds(Random.Range(_minDelay, _maxDelay));
+            whooshSource.pitch = Random.Range(_minPitch, _maxPitch);
+            whooshSource.panStereo = Random.Range(-1, 1);
+            whooshSource.Play();
+        }
+
+        private IEnumerator WhooshCoroutine()
+        {
+            while (_isPlaying)
+            {
+                if (!_isSourceTwo)
+                {
+                    PlayWhooshSound(_sourceOne);
+                    _isSourceTwo = true;
+                }
+                else
+                {
+                    PlayWhooshSound(_sourceTwo);
+                    _isSourceTwo = false;
+                }
+
+                yield return _waitDelay;
+                _waitDelay = null;
+            }
+
+            _whooshCoroutine = null;
+        }
     }
 }

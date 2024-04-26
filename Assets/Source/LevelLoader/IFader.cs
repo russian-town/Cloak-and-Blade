@@ -1,6 +1,9 @@
-public interface IFader
+namespace Source.LevelLoader
 {
-    public float Fade { get; }
+    public interface IFader
+    {
+        public float Fade { get; }
 
-    public void SetFade(float fade);
+        public void SetFade(float fade);
+    }
 }
