@@ -41,19 +41,7 @@ namespace Source.Gameboard.Cell
 
         public bool HasTrap { get; private set; }
 
-        public CellContent.CellContent Content
-        {
-            get => _content;
-
-            set
-            {
-                if (_content != null)
-                    _content.Recycle();
-
-                _content = value;
-                _content.transform.localPosition = Vector3.zero;
-            }
-        }
+        public CellContent.CellContent Content => _content;
 
         public static void MakeEastWestNeighbors(Cell east, Cell west)
         {
