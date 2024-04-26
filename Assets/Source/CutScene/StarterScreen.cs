@@ -25,7 +25,7 @@ public class StarterScreen : MonoBehaviour, IInitializable
 
     private AudioSource _audioSource;
     private CanvasGroup _canvasGroup;
-    private WaitForSeconds _fadeWaitForSeconds; 
+    private WaitForSeconds _fadeWaitForSeconds;
     private WaitForSeconds _pressAnywhereWaitForSeconds;
     private float _startTextFadeStep = .7f;
 

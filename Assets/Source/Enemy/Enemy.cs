@@ -4,6 +4,12 @@ using UnityEngine;
 [RequireComponent(typeof(EnemySightHandler), typeof(EnemyMover), typeof(EnemyAnimationHandler))]
 public class Enemy : Ghost, IPauseHandler
 {
+    private readonly int _north = 0;
+    private readonly int _fakeNorth = 360;
+    private readonly int _east = 90;
+    private readonly int _south = 180;
+    private readonly int _west = 270;
+
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private Transform _transform;
@@ -13,12 +19,6 @@ public class Enemy : Ghost, IPauseHandler
     [SerializeField] private ParticleSystem _announcerSouth;
     [SerializeField] private ParticleSystem _announcerEast;
     [SerializeField] private ParticleSystem _announcerWest;
-
-    private readonly int _north = 0;
-    private readonly int _fakeNorth = 360;
-    private readonly int _east = 90;
-    private readonly int _south = 180;
-    private readonly int _west = 270;
 
     private EnemySightHandler _sightHandler;
     private EnemyZoneDrawer _zoneDrawer;

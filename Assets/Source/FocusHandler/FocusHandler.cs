@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Agava.YandexGames;
 using Agava.WebUtility;
+using Agava.YandexGames;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -25,6 +25,9 @@ public class FocusHandler : MonoBehaviour
         WebApplication.InBackgroundChangeEvent -= OnBackgroundChangeEvent;
         Application.focusChanged -= OnFocus;
     }
+
+    public void SetActiveScene(IActiveScene scene)
+        => _scene = scene;
 
     private void OnBackgroundChangeEvent(bool poop)
     {
@@ -84,7 +87,4 @@ public class FocusHandler : MonoBehaviour
         if (_scene is IAutoContinuer continuer)
             continuer.Continue();
     }
-    
-    public void SetActiveScene(IActiveScene scene)
-        => _scene = scene;
 }

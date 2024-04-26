@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-    
+
 public class ScoreDefinerView : MonoBehaviour
 {
     [SerializeField] private FirstStar _firstStarTemplate;
@@ -47,7 +47,7 @@ public class ScoreDefinerView : MonoBehaviour
     {
         for (int i = 0; i < starCount; i++)
         {
-            yield return _starSpawnDelay;
+            yield return _starSpawnDelayWaitForSeconds;
             _starSpawner.Get(_starTemplates.Dequeue(), _starContainers.Dequeue());
         }
     }

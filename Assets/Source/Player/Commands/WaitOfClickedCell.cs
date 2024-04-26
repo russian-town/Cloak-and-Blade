@@ -17,7 +17,7 @@ public class WaitOfClickedCell : CustomYieldInstruction
     public Cell Cell { get; private set; }
 
     private Ray TouchRay => _camera.ScreenPointToRay(Input.mousePosition);
-    
+
     public override bool keepWaiting
     {
         get

@@ -15,7 +15,7 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private Button _upgradeButton;
     [SerializeField] private Button _descriptionButton;
     [SerializeField] private List<StarAnimationHandler> _stars;
-    [SerializeField] private List<ChainDOTanimation> _chains;
+    [SerializeField] private List<ChainAnimationPlayer> _chains;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _fallingChainsSound;
     [SerializeField] private CharacterViewSoundHandler _soundHandler;
@@ -110,6 +110,7 @@ public class CharacterView : MonoBehaviour
             {
                 chain.gameObject.SetActive(false);
             }
+
             return true;
         }
         else
@@ -123,7 +124,8 @@ public class CharacterView : MonoBehaviour
         }
     }
 
-    public void UnlockCharacter() => _image.sprite = _character.UnlockedIcon;
+    public void UnlockCharacter()
+        => _image.sprite = _character.UnlockedIcon;
 
     private void ResetStarsView()
     {
@@ -158,7 +160,7 @@ public class CharacterView : MonoBehaviour
         }
     }
 
-    private void TryLockBuyCharacter()
+    private bool TryLockBuyCharacter()
     {
         if (_character.IsBought)
         {
@@ -169,7 +171,10 @@ public class CharacterView : MonoBehaviour
                 _sellButton.gameObject.SetActive(false);
                 _upgradeButton.gameObject.SetActive(true);
                 _priceText.text = _upgradeSetter.Prices[_upgradeSetter.Level].ToString();
+                return true;
             }
+
+            return true;
         }
         else
         {
@@ -180,16 +185,25 @@ public class CharacterView : MonoBehaviour
                 _sellButton.gameObject.SetActive(true);
                 _upgradeButton.gameObject.SetActive(false);
                 _priceText.text = _character.Price.ToString();
+                return false;
             }
+
+            return false;
         }
     }
 
-    private void TryLockSelectCharacter()
+    private bool TryLockSelectCharacter()
     {
         if (_character.IsSelect)
+        {
             _selectedImage.ChangeAlpha(1);
+            return true;
+        }
         else
+        {
             _selectedImage.ChangeAlpha(0);
+            return false;
+        }
     }
 
     private void OnUpgradeButtonClicked()
@@ -209,7 +223,9 @@ public class CharacterView : MonoBehaviour
         }
     }
 
-    private void OnDescriptionButtonClicked() => ShowDescription();
+    private void OnDescriptionButtonClicked()
+        => ShowDescription();
 
-    private void ShowDescription() => _description.Show(_camera);
+    private void ShowDescription()
+        => _description.Show(_camera);
 }

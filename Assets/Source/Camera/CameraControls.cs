@@ -5,15 +5,15 @@ using UnityEngine.Events;
 
 public class CameraControls : MonoBehaviour
 {
+    private readonly int _maxRotation = 180;
+    private readonly int _minRotation = -180;
+
     [SerializeField] private CinemachineVirtualCamera _angledCamera;
     [SerializeField] private CinemachineVirtualCamera _straightCamera;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _angledCameraValue;
     [SerializeField] private int _mobileFOV = 40;
     [SerializeField] private int _desktopFOV = 60;
-
-    private readonly int _maxRotation = 180;
-    private readonly int _minRotation = -180;
 
     private CinemachineOrbitalTransposer _angledCameraOrbitalTransposer;
     private bool _cameraIsStraight;

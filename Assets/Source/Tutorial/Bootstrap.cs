@@ -78,7 +78,7 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
         _playerView.Initialize(_player, _player.CommandExecuter, _levelFinisher, _pause);
         _room.Initialize(_player, _playerView, _hourglass);
         _inputView.Initialize();
-        _rewardAdHandler.Initialize(_player, _yandexAds);
+        _rewardAdHandler.Initialize(_player, _yandexAds, _wallet, _adHandler);
         _angledCamera.Follow = _player.transform;
         _angledCamera.LookAt = _player.transform;
         _straightCamera.Follow = _player.transform;
@@ -117,7 +117,7 @@ public class Bootstrap : MonoBehaviour, IInitializable, IDataReader
 
         _pause = new Pause(new List<IPauseHandler> { _inputView, _playerView, _player, _hourglass });
         _adHandler = new AdHandler(_game, _focusHandler, _audio);
-        _game.Initialize(_pause, _levelFinisher, _wallet, _adHandler, _levelLoader);
+        _game.Initialize(_pause, _levelFinisher, _levelLoader, _yandexAds);
         _focusHandler.SetActiveScene(_game);
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);

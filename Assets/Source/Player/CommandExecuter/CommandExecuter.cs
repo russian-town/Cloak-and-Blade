@@ -41,7 +41,7 @@ public class CommandExecuter : MonoBehaviour, ITurnHandler
                 return false;
             }
         }
-        
+
         if (CanSwith() == false)
             return false;
 

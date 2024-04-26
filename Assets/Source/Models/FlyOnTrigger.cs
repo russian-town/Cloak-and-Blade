@@ -41,5 +41,6 @@ public class FlyOnTrigger : InteractiveObject
     }
 
     protected override void Disable()
-    {}
+    {
+    }
 }

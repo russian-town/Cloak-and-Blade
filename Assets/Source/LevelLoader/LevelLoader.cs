@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour, IDataReader
 {
-    private readonly List<LevelView> _levelViews = new();
-    private readonly List<Knob> _knobs = new();
+    private readonly List<LevelView> _levelViews = new ();
+    private readonly List<Knob> _knobs = new ();
 
     [SerializeField] private List<Level> _levels = new ();
     [SerializeField] private LevelView _levelViewTemplate;

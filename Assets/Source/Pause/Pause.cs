@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Pause
 {
-    private readonly List<IPauseHandler> _handlers = new();
+    private readonly List<IPauseHandler> _handlers = new ();
 
     public Pause(List<IPauseHandler> pauseHandlers)
         => _handlers.AddRange(pauseHandlers);

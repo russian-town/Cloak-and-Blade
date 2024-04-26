@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class ItemsInHold : MonoBehaviour
 {
-    private readonly List<InteractiveObject> _itemsInHold =  new List<InteractiveObject>();
+    private readonly List<InteractiveObject> _itemsInHold = new ();
 
     public void AddObjectToItemList(InteractiveObject interactiveObject)
         => _itemsInHold.Add(interactiveObject);
-    
+
     public bool FindItemInList(InteractiveObject neededItem)
     {
         if (_itemsInHold.Count == 0)

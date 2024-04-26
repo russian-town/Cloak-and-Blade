@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using EntroPi;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMover))]
@@ -16,7 +15,6 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     [SerializeField] private List<SoundChangeHandler> _soundList = new ();
     [SerializeField] private List<SplineChangeHandler> _splineList = new ();
     [SerializeField] private List<AnimationChangeHandler> _animationList = new ();
-    [SerializeField] private Sprite _icon;
 
     private PlayerAttacker _attacker;
     private Player _player;
@@ -56,7 +54,8 @@ public class TheWorld : Ability, ISceneParticlesInfluencer
     }
 
     public override void Cancel()
-    { }
+    {
+    }
 
     public override void Prepare()
         => _playerView.DisableAbilityButton();

@@ -140,7 +140,7 @@ public class Root : MonoBehaviour, IInitializable, IDataReader
         _player.SetTargets(_enemies);
         _adHandler = new AdHandler(_game, _focusHandler, _audio);
         _levelFinisher.Initialize(_levelExit, _player);
-        _game.Initialize(_pause, _levelFinisher, _levelLoader);
+        _game.Initialize(_pause, _levelFinisher, _levelLoader, _yandexAds);
         _focusHandler.SetActiveScene(_game);
         _gameboard.HideGrid();
         _stepCounter.Initialize(_player);

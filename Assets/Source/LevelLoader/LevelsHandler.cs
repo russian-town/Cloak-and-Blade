@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelsHandler : MonoBehaviour, IDataReader
 {
-    [SerializeField] private List<Level> _levels = new();
+    [SerializeField] private List<Level> _levels = new ();
 
     private bool _tutorialCompleted;
 
@@ -20,7 +20,7 @@ public class LevelsHandler : MonoBehaviour, IDataReader
                     return _levels[0];
             }
         }
-        
+
         return null;
     }
 

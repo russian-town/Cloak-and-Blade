@@ -92,7 +92,8 @@ public class TutorialZone : InteractiveObject
     }
 
     protected override void Disable()
-    { }
+    {
+    }
 
     private void OnTutorialZoneComplete()
     {

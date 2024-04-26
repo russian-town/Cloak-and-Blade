@@ -72,7 +72,7 @@ public class ThunderMaker : MonoBehaviour
             {
                 while (_thunderLight.intensity != _baseLightIntensity)
                 {
-                    if(_soundPlayed == false)
+                    if (_soundPlayed == false)
                     {
                         yield return _soundDelay;
                         _source.PlayOneShot(_thunderSounds[Random.Range(0, _thunderSounds.Count)]);

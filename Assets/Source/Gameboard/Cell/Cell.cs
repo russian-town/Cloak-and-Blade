@@ -43,7 +43,7 @@ public class Cell : MonoBehaviour
 
         set
         {
-            if (_content != null) 
+            if (_content != null)
                 _content.Recycle();
 
             _content = value;
@@ -77,7 +77,7 @@ public class Cell : MonoBehaviour
         _distance = int.MaxValue;
         _nextOnPath = null;
     }
-    
+
     public void BecomeDestination()
     {
         _distance = 0;
@@ -113,7 +113,7 @@ public class Cell : MonoBehaviour
     {
         if (_distance == 0)
             return;
-        
+
         _view.transform.localRotation = _nextOnPath == _north
             ? _northRotation
             : _nextOnPath == _east

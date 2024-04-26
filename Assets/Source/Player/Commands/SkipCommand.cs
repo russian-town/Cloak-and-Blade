@@ -37,8 +37,8 @@ public class SkipCommand : Command
         yield break;
     }
 
-    protected override void OnCommandChanged(Command command) 
-    { 
-        return; 
+    protected override void OnCommandChanged(Command command)
+    {
+        return;
     }
 }

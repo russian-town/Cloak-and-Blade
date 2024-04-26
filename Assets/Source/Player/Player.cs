@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMover), typeof(PlayerAttacker), typeof(CommandExecuter))]
-[RequireComponent (typeof(Navigator))]
+[RequireComponent(typeof(Navigator))]
 public abstract class Player : Ghost, IPauseHandler, ITurnHandler
 {
     [SerializeField][Range(1, 5)] private int _moveRange = 2;
@@ -207,7 +207,8 @@ public abstract class Player : Ghost, IPauseHandler, ITurnHandler
     public abstract AbilityCommand GetAbilityCommand();
 
     protected virtual void TurnChanged(Turn turn)
-    { }
+    {
+    }
 
     private IEnumerator MakeDeath()
     {

@@ -10,7 +10,7 @@ public class YandexInit : MonoBehaviour, IDataWriter
     [SerializeField] private Audio _audio;
     [SerializeField] private LevelsHandler _levelsHandler;
     [SerializeField] private SimpleTextTyper _simpleTextTyper;
-    
+
     private Saver _saver = new ();
     private string _currentLanguague;
 

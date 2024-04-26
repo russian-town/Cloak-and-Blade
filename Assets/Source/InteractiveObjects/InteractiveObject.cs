@@ -24,18 +24,13 @@ public abstract class InteractiveObject : MonoBehaviour
     }
 
     public abstract void Prepare();
-    
+
     public abstract void Interact();
 
     protected abstract void Disable();
 
     protected bool CheckInteractionPossibility()
-    {
-        if (_cellsInInteractibleRange.Contains(Player.CurrentCell))
-            return true;
-
-        return false;
-    }
+        => _cellsInInteractibleRange.Contains(Player.CurrentCell);
 
     private void OnStepEnded()
         => Prepare();

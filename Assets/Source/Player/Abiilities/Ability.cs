@@ -11,7 +11,7 @@ public abstract class Ability : MonoBehaviour
         Action(cell);
         return true;
     }
-    
+
     public abstract void Initialize(UpgradeSetter upgradeSetter, PlayerView playerView);
 
     public abstract void Prepare();

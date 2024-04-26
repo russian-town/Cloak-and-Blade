@@ -11,7 +11,7 @@ public class Gameboard : MonoBehaviour
     [SerializeField] private Cell _cellTemplate;
     [SerializeField] private Vector2Int _size;
     [SerializeField] private List<Cell> _cells;
-    [SerializeField] private Queue<Cell> _searchFrontier = new();
+    [SerializeField] private Queue<Cell> _searchFrontier = new ();
 
     public IReadOnlyList<Cell> Cells => _cells;
 
@@ -39,7 +39,7 @@ public class Gameboard : MonoBehaviour
         {
             if (cell != destination)
                 cell.ClearPath();
-            
+
             if (destination.Content.Type == CellContentType.Wall)
             {
                 if (destination.South != null && destination.South.Content.Type == CellContentType.Empty)

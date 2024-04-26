@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class Compass : MonoBehaviour
@@ -69,7 +69,8 @@ public class Compass : MonoBehaviour
         Vector3 directionToTarget = worldPosition - _cameraObjectiveTransform.position;
         float angle = Vector2.SignedAngle(
             new Vector2(directionToTarget.x, directionToTarget.z),
-            new Vector2(_cameraObjectiveTransform.transform.forward.x,
+            new Vector2(
+                _cameraObjectiveTransform.transform.forward.x,
             _cameraObjectiveTransform.transform.forward.z));
         float compassPositionX = Mathf.Clamp(_defaultDivider * angle / Camera.main.fieldOfView, -1, 1);
         float compassPositionMultiplier = (_compassTransform.rect.width / _defaultDivider) - _threshHold;

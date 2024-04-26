@@ -20,7 +20,7 @@ public class PlantAnimationHandler : MonoBehaviour
 
     private Vector3 _initialRotation;
     private bool _isInitialized;
-    private Sequence sequence;
+    private Sequence _sequence;
     private System.Random _random;
     private WaitForSeconds _startDelayWaitForSeconds;
 
@@ -45,34 +45,34 @@ public class PlantAnimationHandler : MonoBehaviour
         if (_isInitialized == false)
             return;
 
-        sequence?.Kill();
+        _sequence?.Kill();
     }
 
     private IEnumerator StartLocalTween()
     {
         yield return _startDelayWaitForSeconds;
-        sequence = DOTween.Sequence();
-        sequence.Pause();
+        _sequence = DOTween.Sequence();
+        _sequence.Pause();
 
-        sequence.Append(_targetTransform
+        _sequence.Append(_targetTransform
             .DOLocalRotate(_axis * -_maxAngle, _period / _moveRatio)
             .SetEase(_ease));
-        sequence.AppendInterval(_delay);
+        _sequence.AppendInterval(_delay);
 
-        sequence.Append(_targetTransform
+        _sequence.Append(_targetTransform
             .DOLocalRotate(_initialRotation, _period / _moveRatio)
             .SetEase(_easeBack));
 
-        sequence.Append(_targetTransform
+        _sequence.Append(_targetTransform
             .DOLocalRotate(_axis * _maxAngle, _period / _moveRatio)
             .SetEase(_ease));
-        sequence.AppendInterval(_delay);
+        _sequence.AppendInterval(_delay);
 
-        sequence.Append(_targetTransform
+        _sequence.Append(_targetTransform
             .DOLocalRotate(_initialRotation, _period / _moveRatio)
             .SetEase(_easeBack));
 
-        sequence.SetLoops(_numberOfLoops, LoopType.Restart);
-        sequence.Play();
+        _sequence.SetLoops(_numberOfLoops, LoopType.Restart);
+        _sequence.Play();
     }
 }

@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class ChainDOTanimation : MonoBehaviour
+public class ChainAnimationPlayer : MonoBehaviour
 {
     private readonly float _outOfScreenPosition = -300;
     private readonly float _shakeLength = 2f;

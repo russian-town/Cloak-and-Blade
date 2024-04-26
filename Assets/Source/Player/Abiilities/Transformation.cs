@@ -69,7 +69,8 @@ public class Transformation : Ability
     public override void ResetAbility() => _useLimit++;
 
     protected override void Action(Cell cell)
-    {}
+    {
+    }
 
     private void DecreaseLimit()
     {

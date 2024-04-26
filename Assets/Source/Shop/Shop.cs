@@ -50,7 +50,8 @@ public class Shop : MonoBehaviour, IInitializable
     }
 
     public void Initialize()
-    { }
+    {
+    }
 
     private void AddCharacterView()
     {

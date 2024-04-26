@@ -9,8 +9,8 @@ public class ScrollIndicator : MonoBehaviour
 {
     private readonly float _startDelay = .6f;
     private readonly int _defaultDivider = 2;
-    private readonly List<Knob> _knobs = new();
-    private readonly List<LevelView> _levelViews = new();
+    private readonly List<Knob> _knobs = new ();
+    private readonly List<LevelView> _levelViews = new ();
 
     [SerializeField] private Scrollbar _scrollbar;
     [SerializeField] private RectTransform _viewPort;

@@ -6,8 +6,6 @@ public class CameraTutorial : BaseTutorialElement
     [SerializeField] private TurnCounterClockwiseButtonTutorial _turnCounterclockwiseButton;
     [SerializeField] private ChangeCameraAngleButtonTutorial _cameraAngleChanger;
 
-    [SerializeField] private Gameboard _gameboard;
-
     public override void Show(Player player)
     {
         _turnClockwiseButton.Show();

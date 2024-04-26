@@ -31,9 +31,9 @@ public class Navigator : MonoBehaviour, ITurnHandler
         if (_turn == Turn.Enemy || _player.IsDead)
             return false;
 
-        foreach(var cell in _availableCells)
+        foreach (var cell in _availableCells)
         {
-            if(cell == targetCell)
+            if (cell == targetCell)
             {
                 targetCell = cell;
                 return true;

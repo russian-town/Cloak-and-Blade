@@ -8,7 +8,6 @@ public class Game : MonoBehaviour, IActiveScene
     [SerializeField] private StepCounter _stepCounter;
     [SerializeField] private LevelFinishScreen _levelFinishScreen;
     [SerializeField] private LevelsHandler _levelsHandler;
-    [SerializeField] private Gameboard _gameboard;
 
     private Pause _pause;
     private ILevelFinisher _levelFinisher;

@@ -18,7 +18,7 @@ public class LightButtonEffectHandler : MonoBehaviour
     {
         _canvasGroup = GetComponent<CanvasGroup>();
     }
-    
+
     public void PlayLightEffect()
     {
         if (_pulsatingSequence != null)

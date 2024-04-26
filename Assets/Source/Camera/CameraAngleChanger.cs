@@ -7,6 +7,7 @@ public class CameraAngleChanger : MainButton
     [SerializeField] private Button _changeAngleButton;
 
     protected Button ChangeAngleButton => _changeAngleButton;
+
     protected CameraControls Controls => _controls;
 
     private void OnEnable()

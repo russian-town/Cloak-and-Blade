@@ -50,7 +50,7 @@ public class DialogueHandler : MonoBehaviour
         _baseVolume = _source.volume;
         _board.Disable();
     }
-    
+
     public void WriteDialogue(TutorialZone tutorialZone)
     {
         if (_dialogueCoroutine != null)

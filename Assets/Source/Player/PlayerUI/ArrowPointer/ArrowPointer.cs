@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class ArrowPointer : MonoBehaviour
 {
+    private readonly float _standardDivider = 2f;
+
     [SerializeField] private Transform _target;
     [SerializeField] private RectTransform _canvas;
 
@@ -31,8 +33,8 @@ public class ArrowPointer : MonoBehaviour
 
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvas, screenPoint, null, out Vector2 localPoint))
         {
-            localPoint.x = Mathf.Clamp(localPoint.x, -Screen.width / 2f, Screen.width / 2f);
-            localPoint.y = Mathf.Clamp(localPoint.y, -Screen.height / 2f, Screen.height / 2f);
+            localPoint.x = Mathf.Clamp(localPoint.x, -Screen.width / _standardDivider, Screen.width / _standardDivider);
+            localPoint.y = Mathf.Clamp(localPoint.y, -Screen.height / _standardDivider, Screen.height / _standardDivider);
             _rectTransform.anchoredPosition = localPoint;
         }
     }

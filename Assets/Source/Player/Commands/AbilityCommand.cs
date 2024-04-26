@@ -7,11 +7,11 @@ public class AbilityCommand : Command
     public Ability Ability
     {
         get
-        { 
-            return _ability; 
-        } 
+        {
+            return _ability;
+        }
     }
-    
+
     public AbilityCommand(Ability ability, CommandExecuter executer)
         : base(executer)
         => _ability = ability;

@@ -19,5 +19,6 @@ public class Screamer : InteractiveObject
     }
 
     protected override void Disable()
-    {}
+    {
+    }
 }

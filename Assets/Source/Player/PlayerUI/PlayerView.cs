@@ -10,9 +10,6 @@ public class PlayerView : MonoBehaviour, IPauseHandler
     [SerializeField] private Button _ability;
     [SerializeField] private Button _skip;
     [SerializeField] private Button _pauseButton;
-    [SerializeField] private Button _leftRotationCameraButton;
-    [SerializeField] private Button _rightRotationCameraButton;
-    [SerializeField] private Button _perspectiveCameraButton;
     [SerializeField] private List<Icon> _icons = new ();
     [SerializeField] private Icon _abilityIcon;
     [SerializeField] private Icon _moveIcon;

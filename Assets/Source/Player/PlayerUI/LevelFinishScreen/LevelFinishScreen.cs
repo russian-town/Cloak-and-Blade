@@ -20,7 +20,7 @@ public class LevelFinishScreen : MonoBehaviour
     {
         _exitButton.onClick.AddListener(() => ExitButtonClicked?.Invoke());
         _doubleStarsForAdButton.onClick.AddListener(OnRewardedButtonClick);
-        _nextLevelButton.onClick.AddListener(() =>  NextLevelButtonClicked?.Invoke());
+        _nextLevelButton.onClick.AddListener(() => NextLevelButtonClicked?.Invoke());
         _yandexAds.RewardedCallback += Unsubscribe;
     }
 

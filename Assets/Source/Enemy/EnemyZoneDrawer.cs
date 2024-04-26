@@ -37,17 +37,25 @@ public class EnemyZoneDrawer : MonoBehaviour
         {
             for (int i = 0; i < cellsInSight.Count; i++)
             {
-                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x + _offSet,
-                    0f, cellsInSight[i].transform.localPosition.z - _offSet);
+                _vertices[j] = new Vector3(
+                    cellsInSight[i].transform.localPosition.x + _offSet,
+                    0f,
+                    cellsInSight[i].transform.localPosition.z - _offSet);
                 j++;
-                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x - _offSet,
-                    0f, cellsInSight[i].transform.localPosition.z + _offSet);
+                _vertices[j] = new Vector3
+                    (cellsInSight[i].transform.localPosition.x - _offSet,
+                    0f,
+                    cellsInSight[i].transform.localPosition.z + _offSet);
                 j++;
-                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x - _offSet,
-                    0f, cellsInSight[i].transform.localPosition.z - _offSet);
+                _vertices[j] = new Vector3(
+                    cellsInSight[i].transform.localPosition.x - _offSet,
+                    0f,
+                    cellsInSight[i].transform.localPosition.z - _offSet);
                 j++;
-                _vertices[j] = new Vector3(cellsInSight[i].transform.localPosition.x + _offSet,
-                    0f, cellsInSight[i].transform.localPosition.z + _offSet);
+                _vertices[j] = new Vector3(
+                    cellsInSight[i].transform.localPosition.x + _offSet,
+                    0f,
+                    cellsInSight[i].transform.localPosition.z + _offSet);
                 j++;
             }
         }
@@ -57,7 +65,7 @@ public class EnemyZoneDrawer : MonoBehaviour
         int indexOfVertice = 0;
         int indexOfTriangle = 0;
 
-        for (int j = 0; j < cellsInSight.Count; j ++)
+        for (int j = 0; j < cellsInSight.Count; j++)
         {
             _triangleIndexRatio = _startTriangleIndexRatio;
             _triangles[indexOfTriangle] = indexOfVertice;

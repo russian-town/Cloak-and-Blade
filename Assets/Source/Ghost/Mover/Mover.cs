@@ -31,7 +31,7 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
         if (_movingCoroutine != null)
             StopCoroutine(_movingCoroutine);
 
-        return _movingCoroutine =StartCoroutine(MoveTo(targetCell, moveSpeed, rotationSpeed));
+        return _movingCoroutine = StartCoroutine(MoveTo(targetCell, moveSpeed, rotationSpeed));
     }
 
     public void Unpause()
@@ -47,12 +47,10 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
         while (transform.localPosition != targetCell.transform.localPosition)
         {
-            transform.localPosition = Vector3.MoveTowards
-                (
+            transform.localPosition = Vector3.MoveTowards(
                 transform.localPosition,
                 targetCell.transform.localPosition,
-                Time.deltaTime * _pauseSpeed * moveSpeed
-                );
+                Time.deltaTime * _pauseSpeed * moveSpeed);
             yield return null;
         }
 
@@ -70,12 +68,10 @@ public abstract class Mover : MonoBehaviour, IPauseHandler
 
         while (transform.rotation != targetRotation)
         {
-            transform.rotation = Quaternion.RotateTowards
-                (
+            transform.rotation = Quaternion.RotateTowards(
                 transform.rotation,
                 targetRotation,
-                rotationSpeed * _pauseSpeed * Time.deltaTime
-                );
+                rotationSpeed * _pauseSpeed * Time.deltaTime);
             yield return null;
         }
 

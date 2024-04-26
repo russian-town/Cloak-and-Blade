@@ -1,6 +1,6 @@
+using System.Collections;
 using Agava.YandexGames;
 using Lean.Localization;
-using System.Collections;
 using UnityEngine;
 
 public class MainSceneLogic : MonoBehaviour, IDataReader
