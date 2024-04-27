@@ -1,4 +1,3 @@
-using Source.LevelLoader;
 using Source.Pause;
 using Source.Player.PlayerUI;
 using Source.Player.PlayerUI.LevelFinishScreen;
@@ -12,9 +11,7 @@ namespace Source.Game
         [SerializeField] private PauseView _pauseScreen;
         [SerializeField] private PlayerView _playerView;
         [SerializeField] private GameOverView _gameOverView;
-        [SerializeField] private StepCounter.StepCounter _stepCounter;
         [SerializeField] private LevelFinishScreen _levelFinishScreen;
-        [SerializeField] private LevelsHandler _levelsHandler;
 
         private Pause.Pause _pause;
         private ILevelFinisher _levelFinisher;
